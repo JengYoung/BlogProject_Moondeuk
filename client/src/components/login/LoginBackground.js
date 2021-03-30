@@ -4,7 +4,6 @@ import LoginBg from '../../images/LoginBg.jpg'
 /*
 */
 
-
 const StyledLoginBackground = styled.div`
     &::before {
         content:'';
@@ -25,7 +24,7 @@ const StyledLoginBackground = styled.div`
     top: 0;
     bottom: 0;
 `;
-    
+
 const LoginBackground = ({children}) => {
     return (
         <StyledLoginBackground>

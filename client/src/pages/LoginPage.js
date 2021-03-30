@@ -1,13 +1,11 @@
 import React from 'react'
+import LoginBackground from '../components/login/LoginBackground'
 import LoginWrapper from '../components/login/LoginWrapper'
-import LoginBackground from '../components/login/LoginBackground';
 function LoginPage() {
     return (
-        <div>
-            <LoginBackground>
-                <LoginWrapper/>
-            </LoginBackground>
-        </div>
+        <LoginBackground>
+            <LoginWrapper />
+        </LoginBackground>  
     )
 }
 
