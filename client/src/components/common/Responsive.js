@@ -5,7 +5,7 @@ import styled from 'styled-components';
     전체적인 반응형을 위한 컴포넌트
 */
 
-const StyledResponsive = styled.div`
+export const StyledResponsive = styled.div`
     width: 1024px;
     margin: 0 auto;
     text-align: center;
