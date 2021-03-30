@@ -25,7 +25,7 @@ const StyledLoginBackground = styled.div`
     top: 0;
     bottom: 0;
 `;
-
+    
 const LoginBackground = ({children}) => {
     return (
         <StyledLoginBackground>

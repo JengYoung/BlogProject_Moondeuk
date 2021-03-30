@@ -1,13 +1,12 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
     버튼 공통 컴포넌트
 */
 
-const ButtonBlock = styled.div`
-    width: 100%;
-    height: 3rem;
+const ButtonCSS = css`
+    padding: 0.5rem 0.75rem;
     background-color: rgba(168, 6, 168, 0.5);
     color: white;
     font-weight: 800;
@@ -19,19 +18,30 @@ const ButtonBlock = styled.div`
     align-items: center;
     box-sizing: border-box;
     transition: all 0.7s;
+    outline: none;
+    border: none;
     &:hover {
         cursor: pointer;
         background-color: rgba(168, 6, 168, 1);
         transform: scale(1.05);
         color: yellow;
     }
+    ${props => 
+        props.fullWidth && css`
+        width: 100%;
+        height: 3rem;
+    `}
+`;
+const StyledButton = styled.button`
+    ${ButtonCSS}
 `;
 
-const Button = ({type}) => {
+const Button = (props) => {
+    const { type } = props;
     return (
-        <ButtonBlock>
+        <StyledButton {...props}>
             {type}
-        </ButtonBlock>
+        </StyledButton>
     );
 };
 

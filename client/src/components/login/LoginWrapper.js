@@ -38,7 +38,7 @@ const LoginWrapper = () => {
         <StyledLoginForm>
             <Input type="아이디" />
             <Input type="비밀번호" />
-            <Button type="로그인" />
+            <Button fullWidth type="로그인" />
             <Links>
                 <StyledLink to='/register'>회원가입</StyledLink>
             </Links>
