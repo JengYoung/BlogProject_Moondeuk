@@ -1,9 +1,15 @@
 import './App.css';
-import Responsive from './components/common/Responsive';
+import Input from './components/common/Input';
+import ResponsiveWrapper from './components/common/Responsive';
 
 function App() {
   return (
-    <Responsive />
+    <ResponsiveWrapper>
+      Hi
+      <div>
+        <Input type="아직은 테스트 중입니다."/>
+      </div>
+    </ResponsiveWrapper>
   );
 }
 
