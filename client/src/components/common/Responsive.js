@@ -2,9 +2,10 @@ import React from 'react'
 import styled from 'styled-components';
 
 /*
+    전체적인 반응형을 위한 컴포넌트
 */
 
-const ResponsiveBlock = styled.div`
+const StyledResponsive = styled.div`
     width: 1024px;
     margin: 0 auto;
     text-align: center;
@@ -16,12 +17,12 @@ const ResponsiveBlock = styled.div`
     }
 `;
 
-const Responsive = () => {
+const ResponsiveWrapper = () => {
     return (
-        <ResponsiveBlock>
+        <StyledResponsive>
             test
-        </ResponsiveBlock>
+        </StyledResponsive>
     );
 };
 
-export default Responsive;
+export default ResponsiveWrapper;
