@@ -1,15 +1,16 @@
+import { Route } from 'react-router';
 import './App.css';
-import Input from './components/common/Input';
-import ResponsiveWrapper from './components/common/Responsive';
+import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
-    <ResponsiveWrapper>
-      Hi
-      <div>
-        <Input type="아직은 테스트 중입니다."/>
-      </div>
-    </ResponsiveWrapper>
+    <>
+      <Route component={MainPage} path={['/@:username', '/']} exact/>
+      <Route component={RegisterPage} path='/register' />
+      <Route component={LoginPage} path='/login' />
+    </>
   );
 }
 
