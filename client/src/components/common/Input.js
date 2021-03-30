@@ -17,7 +17,7 @@ export const StyledInput = styled.input`
     width: 100%;
     box-sizing: border-box;
     &:focus {
-        border-bottom: 1px solid #ffbfff;
+        border-bottom: 1px solid #ffbfff; 
     }
     &::placeholder {
         color: gray;
