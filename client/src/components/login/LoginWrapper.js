@@ -36,8 +36,8 @@ const StyledLink = styled(Link)`
 const LoginWrapper = () => {
     return (
         <StyledLoginForm>
-            <Input type="아이디" />
-            <Input type="비밀번호" />
+            <Input colorWhite type="아이디" />
+            <Input colorWhite type="비밀번호" />
             <Button fullWidth type="로그인" />
             <Links>
                 <StyledLink to='/register'>회원가입</StyledLink>

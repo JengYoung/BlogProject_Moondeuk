@@ -1,10 +1,12 @@
 import React from 'react'
+import LoginBackground from '../components/login/LoginBackground'
+import RegisterForm from '../components/register/RegisterForm'
 
 function RegisterPage() {
     return (
-        <div>
-            Register
-        </div>
+        <LoginBackground>
+            <RegisterForm />
+        </LoginBackground>
     )
 }
 

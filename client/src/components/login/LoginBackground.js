@@ -14,7 +14,6 @@ const StyledLoginBackground = styled.div`
         width: 100%;
         height: 100%;
     }
-    color: white;
     position: absolute;
     display: flex;
     justify-content: center;

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
     일반적으로 본 프로젝트에서 사용할 Input bar 기본 컴포넌트
@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 export const StyledInput = styled.input`
     background-color: transparent;
-    color: white;
     font-size: 0.9rem;
     border: none;
     border-bottom: 1px solid lightgray;
@@ -27,11 +26,19 @@ export const StyledInput = styled.input`
     & + & {
         margin-top: 1rem;
     }
+    ${props =>
+    props.colorWhite && css`
+        color: white;
+    `}
+    ${props =>
+    props.BottomMargin && css`
+        margin-bottom:1rem;
+    `}
 `;
 
-const Input = ({type}) => {
+const Input = (props) => {
     return (
-        <StyledInput placeholder={`${type}를 입력하세요.`}/>
+        <StyledInput {...props} placeholder={`${props.type}를 입력하세요.`}/>
     );
 };
 
