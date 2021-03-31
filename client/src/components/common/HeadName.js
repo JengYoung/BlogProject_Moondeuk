@@ -12,10 +12,10 @@ const StyledHeadName = styled.h1`
     border-bottom: 1px solid purple;
 `;
 
-const HeadName = ({ theme }) => {
+const HeadName = ({ name }) => {
     return (
         <StyledHeadName>
-            { theme }
+            { name }
         </StyledHeadName>
     );
 };

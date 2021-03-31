@@ -26,16 +26,20 @@ const RegisterForm = () => {
     const QuestionNames = ['아이디', '비밀번호', '비밀번호 확인', '닉네임', '이름', '생년월일']
     return (
         <StyledRegisterFormWrapper>
-            <HeadName theme="회원가입"></HeadName>
+            <HeadName name="회원가입"></HeadName>
         {QuestionNames.map(QuestionName => {
             return (
                 <>
                     <StyledQuestion>{QuestionName}</StyledQuestion>
-                    <Input BottomMargin type={QuestionName === '비밀번호 확인' ? '비밀번호' : QuestionName} />
+                    <Input 
+                        BottomMargin 
+                        type={QuestionName.indexOf('비밀번호') != -1 ? "password" : null}
+                        name={QuestionName === '비밀번호 확인' ? '비밀번호' : QuestionName} 
+                    />
                 </>
             )
         })}
-        <Button fullWidth type="회원가입" />
+        <Button fullWidth name="회원가입" />
     </StyledRegisterFormWrapper>
     );
 };

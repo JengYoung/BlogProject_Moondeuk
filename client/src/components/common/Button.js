@@ -37,10 +37,10 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props) => {
-    const { type } = props;
+    const { name } = props;
     return (
         <StyledButton {...props}>
-            {type}
+            {name}
         </StyledButton>
     );
 };
