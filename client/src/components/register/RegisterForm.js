@@ -33,7 +33,7 @@ const RegisterForm = () => {
                     <StyledQuestion>{QuestionName}</StyledQuestion>
                     <Input 
                         BottomMargin 
-                        type={QuestionName.indexOf('비밀번호') != -1 ? "password" : null}
+                        type={QuestionName.indexOf('비밀번호') !== -1 ? "password" : null}
                         name={QuestionName === '비밀번호 확인' ? '비밀번호' : QuestionName} 
                     />
                 </>
