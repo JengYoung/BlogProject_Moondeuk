@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
 */
@@ -10,12 +10,18 @@ const StyledHeadName = styled.h1`
     color: purple;
     padding-bottom: 1rem;
     border-bottom: 1px solid purple;
+    text-align:center;
+    ${props =>
+    props.colorWhite && css`
+        color: white;
+        border-bottom: transparent;
+    `}
 `;
 
-const HeadName = ({ name }) => {
+const HeadName = (props) => {
     return (
-        <StyledHeadName>
-            { name }
+        <StyledHeadName {...props}>
+            { props.name }
         </StyledHeadName>
     );
 };

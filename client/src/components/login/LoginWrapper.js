@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import {Link} from 'react-router-dom';
+import HeadName from '../common/HeadName';
 /*
 */
 
@@ -36,8 +37,9 @@ const StyledLink = styled(Link)`
 const LoginWrapper = () => {
     return (
         <StyledLoginForm>
+            <HeadName colorWhite name="로그인"></HeadName>
             <Input colorWhite name="아이디" />
-            <Input colorWhite name="비밀번호" />
+            <Input colorWhite type="password" name="비밀번호" />
             <Button fullWidth name="로그인" />
             <Links>
                 <StyledLink to='/register'>회원가입</StyledLink>
