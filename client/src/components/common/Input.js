@@ -38,7 +38,7 @@ export const StyledInput = styled.input`
 
 const Input = (props) => {
     return (
-        <StyledInput {...props} placeholder={`${props.type}를 입력하세요.`}/>
+        <StyledInput {...props} placeholder={`${props.type} 입력`}/>
     );
 };
 
