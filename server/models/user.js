@@ -28,5 +28,9 @@ const userSchema = new Schema({
     }
 })
 
+userSchema.statics.checkUserId = function(userId) {
+    return this.findOne({ userId });
+};
+
 const User = mongoose.model('User', userSchema);
 export default User;
