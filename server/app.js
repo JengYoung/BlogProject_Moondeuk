@@ -1,16 +1,28 @@
 import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import routes from './routes/index.js'
-dotenv.config();
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 
 const app = express();
 
-const { PORT } = process.env;
+const { PORT, MONGO_URI } = process.env;
 
-app.use('/routes', routes)
-    .use('/', (req, res) => res.send('Hello, Node!'))
+mongoose
+    .connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(e => {
+        console.error(e);
+    })
+
+app.use(morgan('dev'))
+    .use(express.json())
+    .use(express.urlencoded({ extended: false }))
+    .use('/routes', routes)
+    // .use('/', (req, res) => res.send('Hello, Node!'))
     .listen(PORT || 4000, () => {
     console.log(`Listening To ${PORT || 4000}...`);
 })
-
-
