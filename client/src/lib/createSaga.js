@@ -1,4 +1,4 @@
-import { call, put } from 'react-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { loadingFinish, loadingStart } from '../modules/loading';
 import createActionTypes from './createActionTypes';
 

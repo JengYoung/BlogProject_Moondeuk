@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import createActionTypes from '../lib/createActionTypes';
-import * as authAPI from '../lib/routes/auth';
-import { takeLatest } from '../'
+import registerAPI from '../lib/routes/auth/register';
+import { takeLatest } from 'redux-saga/effects'
 import createSaga from '../lib/createSaga';
 
 /* 
@@ -33,7 +33,7 @@ export const register = createAction(REGISTER, ({ userId, password, passwordConf
 /* 
     redux-saga part 
 */ 
-const registerUserSaga = createSaga(REGISTER, authAPI.register);
+const registerUserSaga = createSaga(REGISTER, registerAPI);
 export function* registerSaga() {
     yield takeLatest(REGISTER, registerUserSaga);
 }
@@ -44,13 +44,15 @@ const initialState = {
     passwordConform: '',
     nickname: '',
     birthday: '',
+    register: null,
+    registerError: null
 }
 
 export const registerReducer = handleActions(
     {
-        [INITIALIZE_FORM]: (state, { payload: form }) => ({
+        [INITIALIZE_FORM]: (state, { payload }) => ({
             ...state,
-            [form]: initialState
+            initialState
         }),
         [ONCHANGE_INPUT]: (state, { payload: { name, value }}) => ({
             ...state,

@@ -1,4 +1,4 @@
-function createActionTypes (rootType, customType = ['','_SUCCESS','_FAILURE']) {
+function createActionTypes (rootType, customType = ['_SUCCESS','_FAILURE']) {
     return customType.map(type => rootType + type);
 }
 
