@@ -10,12 +10,11 @@ const registerController = async (req, res) => {
             res.status(409).send('Conflict');
             return;
         }
+        await data.convertHashPassword(data, password);
         await data.save();
         res.send(data);
     } catch(e) {
-        res.status(400).send('Server Error');
+        res.status(400).send(e);
     }
-    
-
 }
 export default registerController;

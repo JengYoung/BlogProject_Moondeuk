@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -31,6 +33,11 @@ const userSchema = new Schema({
 userSchema.statics.checkUserId = function(userId) {
     return this.findOne({ userId });
 };
+
+userSchema.methods.convertHashPassword = async function(password) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+}
 
 const User = mongoose.model('User', userSchema);
 export default User;
