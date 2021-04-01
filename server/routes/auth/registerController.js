@@ -20,13 +20,12 @@ export const validationCheck = async (req, res, next) => {
 const registerController = async (req, res) => {
     const { userId, password } = req.body;
     const data = new User(req.body);
-    console.log(data)
     try {
         const IdExists = await User.checkUserId(userId)
         if (IdExists) return res.status(409).send('Conflict');
         await data.convertHashPassword(data, password);
         await data.save();
-        res.send(data);
+        res.send(data.hidePassword());
     } catch(e) {
         res.status(400).send(e);
     }

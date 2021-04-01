@@ -39,5 +39,11 @@ userSchema.methods.convertHashPassword = async function(password) {
     this.password = await bcrypt.hash(this.password, salt);
 };
 
+userSchema.methods.filterPassword = function() {
+    const data = this.toJSON();
+    delete data.password;
+    return data;
+}
+
 const User = mongoose.model('User', userSchema);
 export default User;
