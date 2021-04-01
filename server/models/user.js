@@ -39,7 +39,7 @@ userSchema.methods.convertHashPassword = async function(password) {
     this.password = await bcrypt.hash(this.password, salt);
 };
 
-userSchema.methods.filterPassword = function() {
+userSchema.methods.hidePassword = function() {
     const data = this.toJSON();
     delete data.password;
     return data;
