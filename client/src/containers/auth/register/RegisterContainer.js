@@ -22,7 +22,6 @@ const RegisterContainer = ({ history }) => {
         e.preventDefault();
         if ([userId, password, passwordConform, nickname, birthday].includes('')) {
             setError("정보를 모두 입력해주세요.")
-            console.log([userId, password, passwordConform, nickname, birthday])
             return;
         }
         if (password !== passwordConform) {
@@ -38,8 +37,6 @@ const RegisterContainer = ({ history }) => {
 
     useEffect(() => {
         if (registerError) {
-            console.log('오류 발생')
-            console.log(registerError.response.status);
             setError('ID가 이미 존재합니다');
             return;
         } 

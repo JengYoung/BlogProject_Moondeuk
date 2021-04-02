@@ -30,10 +30,17 @@ const userSchema = new Schema({
     }
 })
 
+/* ID, PASSWORD CHECK */ 
 userSchema.statics.checkUserId = function(userId) {
     return this.findOne({ userId });
 };
 
+userSchema.methods.checkUserPassword = async function(password) {
+    const check = await bcrypt.compare(password, this.password);
+    return check;
+}
+
+/* REGISTER - create hashedPassword, hide password data */ 
 userSchema.methods.convertHashPassword = async function(password) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
