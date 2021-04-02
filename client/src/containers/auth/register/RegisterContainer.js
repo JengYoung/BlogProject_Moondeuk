@@ -33,18 +33,26 @@ const RegisterContainer = () => {
     useEffect(() => {
         dispatch(initializeForm())
     }, [dispatch])
+
     useEffect(() => {
         if (registerError) {
             console.log('오류 발생')
             console.log(registerError.response.status);
-            setError('회원가입 실패');
+            setError('ID가 이미 존재합니다');
             return;
         } 
         if (registerSuccess) {
+            if (registerSuccess.errors) {
+                console.log(registerSuccess.errors);
+                setError(registerSuccess['errors']['0']['msg']);
+                console.log(error);
+                return;
+            }
             console.log('성공');
             console.log(registerSuccess);
         };
-    }, [ registerSuccess, registerError, dispatch ])
+    }, [ registerSuccess, registerError, dispatch, error ])
+
     return (
         <RegisterForm 
             onChange={onChange}

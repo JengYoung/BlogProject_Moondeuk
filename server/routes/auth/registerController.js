@@ -4,13 +4,13 @@ import {check, validationResult} from 'express-validator';
 export const validationCheck = async (req, res, next) => {
     await check('userId')
         .isLength({ min: 4, max: 16 })
-        .withMessage('must be 4 ~ 16 chars long')
+        .withMessage('ID는 4~16자리여야 합니다.')
         .isAlphanumeric()
-        .withMessage('must be consist of alphanum strings')
+        .withMessage('ID는 영어, 한글, 숫자 조합이여야 합니다.')
         .run(req);
-    await check('password', 'must be 6 ~ 24 chars long').isLength({ min: 6, max: 24 }).run(req);
-    await check('nickname', 'must be 2 ~ 8 chars long').isLength({ min: 2, max: 8 }).run(req);
-    await check('birthday', 'must be number type with 6 digits').isLength(6).isNumeric().run(req);
+    await check('password', '비밀번호는 6~24자여야 합니다').isLength({ min: 6, max: 24 }).run(req);
+    await check('nickname', '닉네임은 2~8자여야 합니다.').isLength({ min: 2, max: 8 }).run(req);
+    await check('birthday', '생년월일은 6자리로 입력해주세요.(ex:940915)').isLength({ min: 6, max: 6 }).isNumeric().run(req);
 
     const result = validationResult(req)
     if (!result.isEmpty()) return res.json({ errors: result.array()});
