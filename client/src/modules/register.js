@@ -39,24 +39,26 @@ export function* registerSaga() {
 }
 
 const initialState = {
-    username: '',
-    password: '',
-    passwordConform: '',
-    nickname: '',
-    birthday: '',
+    inputs: {
+        userId: '',
+        password: '',
+        passwordConform: '',
+        nickname: '',
+        birthday: '',
+    },
     register: null,
     registerError: null
 }
 
 export const registerReducer = handleActions(
     {
-        [INITIALIZE_FORM]: (state, { payload }) => ({
-            ...state,
-            initialState
-        }),
+        [INITIALIZE_FORM]: state => initialState,
         [ONCHANGE_INPUT]: (state, { payload: { name, value }}) => ({
             ...state,
-            [name]: value,
+            inputs: {
+                ...state.inputs,
+                [name]: value,
+            }
         }),
         [REGISTER_SUCCESS]: (state, { payload: register }) => ({
             ...state,

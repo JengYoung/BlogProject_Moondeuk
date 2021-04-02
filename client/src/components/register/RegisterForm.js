@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import registerReducer from '../../modules/register';
 import Button from '../common/Button';
 import HeadName from '../common/HeadName';
 import Input from '../common/Input';
@@ -22,10 +23,16 @@ const StyledRegisterFormWrapper = styled.form`
     background-color: white;
 `;
 
-const RegisterForm = () => {
-    const QuestionNames = ['아이디', '비밀번호', '비밀번호 확인', '닉네임', '이름', '생년월일']
+const StyledErrorMessage = styled.div`
+    text-align: center;
+    color: red;
+    font-weight: 700;
+`;
+
+const RegisterForm = ({ onChange, onSubmit, error }) => {
+    const QuestionNames = ['userId', 'password', 'passwordConform', 'nickname', 'birthday']
     return (
-        <StyledRegisterFormWrapper>
+        <StyledRegisterFormWrapper onSubmit={onSubmit}>
             <HeadName name="회원가입"></HeadName>
         {QuestionNames.map(QuestionName => {
             return (
@@ -34,11 +41,14 @@ const RegisterForm = () => {
                     <Input 
                         BottomMargin 
                         type={QuestionName.indexOf('비밀번호') !== -1 ? "password" : null}
-                        name={QuestionName === '비밀번호 확인' ? '비밀번호' : QuestionName} 
+                        name={QuestionName}
+                        value={registerReducer[QuestionName]} 
+                        onChange={onChange}
                     />
                 </>
             )
         })}
+        {error && <StyledErrorMessage error={error}>{error}</StyledErrorMessage>}
         <Button fullWidth name="회원가입" />
     </StyledRegisterFormWrapper>
     );
