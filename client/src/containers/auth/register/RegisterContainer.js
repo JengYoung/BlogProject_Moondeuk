@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import RegisterForm from '../../../components/register/RegisterForm';
-import { initializeForm, onChangeInput } from '../../../modules/register';
-import registerAPI from '../../../lib/routes/auth/register';
+import { initializeForm, onChangeInput, register } from '../../../modules/register';
 
 const RegisterContainer = () => {
     const [ error, setError ] = useState(null);
     const dispatch = useDispatch();
-    const { inputs, register, registerError } = useSelector(({registerReducer}) => ({
+    const { inputs, registerSuccess, registerError } = useSelector(({registerReducer}) => ({
         inputs: registerReducer.inputs,
         registerError: registerReducer.registerError,
-        register: registerReducer.register,
+        registerSuccess: registerReducer.registerSuccess,
     }))
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -28,7 +27,7 @@ const RegisterContainer = () => {
             setError("입력하신 두 비밀번호가 같지 않습니다.")
             return;
         }
-        dispatch(registerAPI({ userId, password, nickname, birthday }))
+        dispatch(register({ userId, password, passwordConform, nickname, birthday }))
     }
 
     useEffect(() => {
@@ -41,11 +40,11 @@ const RegisterContainer = () => {
             setError('회원가입 실패');
             return;
         } 
-        if (register) {
+        if (registerSuccess) {
             console.log('성공');
-            console.log(register);
+            console.log(registerSuccess);
         };
-    }, [ register, registerError, dispatch ])
+    }, [ registerSuccess, registerError, dispatch ])
     return (
         <RegisterForm 
             onChange={onChange}

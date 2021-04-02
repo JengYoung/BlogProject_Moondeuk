@@ -46,7 +46,7 @@ const initialState = {
         nickname: '',
         birthday: '',
     },
-    register: null,
+    registerSuccess: null,
     registerError: null
 }
 
@@ -60,9 +60,9 @@ export const registerReducer = handleActions(
                 [name]: value,
             }
         }),
-        [REGISTER_SUCCESS]: (state, { payload: register }) => ({
+        [REGISTER_SUCCESS]: (state, { payload: registerSuccess }) => ({
             ...state,
-            register,
+            registerSuccess,
             registerError: null,
         }),
         [REGISTER_FAILURE]: (state, { payload: error }) => ({
