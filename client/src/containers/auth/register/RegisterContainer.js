@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
 import RegisterForm from '../../../components/register/RegisterForm';
 import { initializeForm, onChangeInput, register } from '../../../modules/register';
 
-const RegisterContainer = () => {
+const RegisterContainer = ({ history }) => {
+    console.log(history);
     const [ error, setError ] = useState(null);
     const dispatch = useDispatch();
     const { inputs, registerSuccess, registerError } = useSelector(({registerReducer}) => ({
@@ -43,15 +45,13 @@ const RegisterContainer = () => {
         } 
         if (registerSuccess) {
             if (registerSuccess.errors) {
-                console.log(registerSuccess.errors);
                 setError(registerSuccess['errors']['0']['msg']);
-                console.log(error);
                 return;
             }
-            console.log('성공');
-            console.log(registerSuccess);
+            alert('회원가입이 성공적으로 완료되었습니다.');
+            history.push('/login');
         };
-    }, [ registerSuccess, registerError, dispatch, error ])
+    }, [ registerSuccess, registerError, dispatch, history ])
 
     return (
         <RegisterForm 
@@ -62,4 +62,4 @@ const RegisterContainer = () => {
     )
 }
 
-export default RegisterContainer
+export default withRouter(RegisterContainer);
