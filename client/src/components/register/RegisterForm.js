@@ -40,7 +40,7 @@ const RegisterForm = ({ onChange, onSubmit, error }) => {
                     <StyledQuestion>{QuestionName}</StyledQuestion>
                     <Input 
                         BottomMargin 
-                        type={QuestionName.indexOf('비밀번호') !== -1 ? "password" : null}
+                        type={QuestionName.indexOf('password') !== -1 ? "password" : null}
                         name={QuestionName}
                         value={registerReducer[QuestionName]} 
                         onChange={onChange}
