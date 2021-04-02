@@ -12,10 +12,12 @@ const loginController = async (req, res) => {
         if (!checkValidPassword) {
             return res.status(401).send('비밀번호가 틀립니다.')
         }
-        user = user.hidePassword();
-        res.send(user);
+        console.log(user);
+        const accessToken = user.grantAccessToken();
+        res.cookie('access_token', accessToken);
+        res.send(user.hidePassword());
     } catch(e) {
-        res.status(400).send(e);
+        res.status(500).send(e);
     }
 }
 export default loginController;

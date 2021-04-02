@@ -4,7 +4,7 @@ import express from 'express';
 import routes from './routes/index.js'
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-
+import cookieParser from 'cookie-parser';
 const app = express();
 
 const { PORT, MONGO_URI } = process.env;
@@ -21,6 +21,7 @@ mongoose
 app.use(morgan('dev'))
     .use(express.json())
     .use(express.urlencoded({ extended: false }))
+    .use(cookieParser())
     .use('/routes', routes)
     // .use('/', (req, res) => res.send('Hello, Node!'))
     .listen(PORT || 4000, () => {

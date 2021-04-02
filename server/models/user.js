@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-
+import jwt from 'jsonwebtoken';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -51,6 +51,12 @@ userSchema.methods.hidePassword = function() {
     delete data.password;
     return data;
 }
+
+userSchema.methods.grantAccessToken = function() {
+    const { secretOrPublicKey } = process.env;
+    const expiredTime = 1000 * 60 * 60 * 12;
+    return jwt.sign({ _id: this._id, userId: this.userId }, secretOrPublicKey, { expiresIn: expiredTime });
+};
 
 const User = mongoose.model('User', userSchema);
 export default User;
