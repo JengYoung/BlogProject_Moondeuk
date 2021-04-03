@@ -8,6 +8,7 @@ const StyledErrorMessage = styled.div`
     text-align: center;
     color: red;
     font-weight: 700;
+    padding-top: 1.5rem;
 `;
 
 const ErrorMessage = (props) => {
