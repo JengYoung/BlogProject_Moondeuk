@@ -12,7 +12,6 @@ const loginController = async (req, res) => {
         if (!checkValidPassword) {
             return res.status(401).send('비밀번호가 틀립니다.')
         }
-        console.log(user);
         const accessToken = user.grantAccessToken();
         res.cookie('access_token', accessToken);
         res.send(user.hidePassword());
