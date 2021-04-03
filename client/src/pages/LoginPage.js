@@ -1,10 +1,10 @@
 import React from 'react'
 import LoginBackground from '../components/login/LoginBackground'
-import LoginWrapper from '../components/login/LoginWrapper'
+import LoginContainer from '../containers/auth/register/LoginContainer'
 function LoginPage() {
     return (
         <LoginBackground>
-            <LoginWrapper />
+            <LoginContainer />
         </LoginBackground>  
     )
 }

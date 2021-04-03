@@ -19,8 +19,8 @@ const [ LOGIN_SUCCESS, LOGIN_FAILURE ] = createActionTypes(LOGIN);
 */ 
 
 export const onChangeInput = createAction(ONCHANGE_INPUT, ({ name, value }) => ({
-    name, // 로그인 시 입력한 userId
-    value // 로그인 시 입력한 password
+    name, // 로그인 시 입력한 userId, password
+    value // 로그인 시 입력한 값
 }));
 
 export const initializeForm = createAction(INITIALIZE_FORM, form => form );
@@ -44,7 +44,7 @@ export function* loginSaga() {
     reducer part
 */ 
 const initialState = {
-    infos: {
+    inputs: {
         userId: '',
         password: '',
     },
@@ -56,8 +56,8 @@ const loginReducer = handleActions(
     {
         [ONCHANGE_INPUT]: (state, { payload: { name, value }}) => ({
             ...state,
-            infos: {
-                ...state.infos,
+            inputs: {
+                ...state.inputs,
                 [name]: value,
             }
         }),

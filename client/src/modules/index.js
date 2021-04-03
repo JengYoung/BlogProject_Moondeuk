@@ -3,6 +3,7 @@ import { all } from 'redux-saga/effects';
 import loadingReducer from './loading';
 import registerReducer, { registerSaga } from './register'
 import loginReducer, { loginSaga } from './login';
+
 const rootReducer = combineReducers({
     loadingReducer,
     registerReducer,
