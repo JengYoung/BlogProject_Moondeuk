@@ -8,10 +8,28 @@ import App from './App';
 import rootReducer, { rootSaga } from './modules/index';
 import reportWebVitals from './reportWebVitals';
 import createSagaMiddleware from 'redux-saga';
+import getItemFromLocalStorage from './lib/getItemFromLocalStorage';
+import { check, tempSetUser } from './modules/user';
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+
 sagaMiddleware.run(rootSaga);
+
+/* user check for maintaining Login status */
+const userCheck = () => {
+  const user = getItemFromLocalStorage('user');
+  if (!user) return;
+  try {
+    store.dispatch(tempSetUser());
+    store.dispatch(check());
+  } catch(e) {
+    console.error('LocalStorage ERROR occured');
+  }
+}
+
+userCheck();
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

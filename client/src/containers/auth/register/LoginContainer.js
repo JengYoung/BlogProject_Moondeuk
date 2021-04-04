@@ -44,10 +44,10 @@ function Logincontainer({ history }) {
         try {
             localStorage.setItem('user', JSON.stringify(user));
         } catch(e) {
-            console.log('LocalStorage ERROR occured')
+            console.error('LocalStorage ERROR occured')
         }
     },[history, user]);
-    
+
     return (
         <LoginWrapper 
             onChange={onChange}
