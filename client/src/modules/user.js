@@ -22,7 +22,7 @@ const initialState = {
 
 const checkSaga = createSaga(check, checkAPI);
 export function* userSaga() {
-    yield takeLatest(check, checkSaga());
+    yield takeLatest(check, checkSaga);
 };
 
 const userReducer = handleActions(

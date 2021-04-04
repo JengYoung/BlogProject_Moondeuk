@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import LoginWrapper from '../../../components/login/LoginWrapper'
 import { initializeForm, login, onChangeInput } from '../../../modules/login';
-import userReducer, { check } from '../../../modules/user';
+import { check } from '../../../modules/user';
 
 function Logincontainer({ history }) {
     const [ error, setError ] = useState(null);
     const dispatch = useDispatch();
-    const { inputs, loginSuccess, loginError, user } = useSelector(({ loginReducer }) => ({
+    const { inputs, loginSuccess, loginError, user } = useSelector(({ loginReducer, userReducer }) => ({
         inputs: loginReducer.inputs,
         loginSuccess: loginReducer.loginSuccess,
         loginError: loginReducer.loginError,
