@@ -1,5 +1,5 @@
 import User from '../../models/user.js';
-import {check, validationResult} from 'express-validator';
+import { check, validationResult } from 'express-validator';
 
 export const validationCheck = async (req, res, next) => {
     await check('userId')
