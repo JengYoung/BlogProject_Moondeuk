@@ -54,7 +54,7 @@ userSchema.methods.hidePassword = function() {
 
 userSchema.methods.grantAccessToken = function() {
     const { secretOrPublicKey } = process.env;
-    const expiredTime = 1000 * 60 * 60 * 12;
+    const expiredTime = 1000 * 60 * 60 * 24 * 3;
     return jwt.sign({ _id: this._id, userId: this.userId }, secretOrPublicKey, { expiresIn: expiredTime });
 };
 
