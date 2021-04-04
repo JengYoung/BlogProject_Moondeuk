@@ -31,6 +31,19 @@ export const postValidationCheck = async (req, res, next) => {
     return next();
 }
 const writeController = async (req, res) => {
-    return;
+    const { title, body, tags } = req.body;
+    // const { author } = req.user;
+    const post = new Post({
+        title,
+        body,
+        tags,
+        // author,
+    });
+    try {
+        await post.save();
+        res.send(post);
+    } catch(e) {
+        res.status(500).send(e);
+    }
 }
 export default writeController;
