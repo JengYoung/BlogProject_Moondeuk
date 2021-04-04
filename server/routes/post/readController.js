@@ -6,7 +6,9 @@ const readController = async (req, res) => {
     const { id } = req.params;
     try {
         await Post.findById(id).exec((err, result) => {
-            if (!ObjectId.isValid(id)) return res.status(400).send('INVALID REQUEST (ID)') ;
+            // invalid ObjectId type.
+            if (!ObjectId.isValid(id)) return res.status(400).send('INVALID REQUEST (ID)');
+            // not exists post.
             if (err) return res.status(404).send('NOT FOUND POST DATA');
             return res.send(result);
         });
