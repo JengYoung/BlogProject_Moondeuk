@@ -1,8 +1,8 @@
 import Post from '../../models/post.js';
 
 const listController = async (req, res) => {
-    const posts = await Post.find().exec();
     try {
+        const posts = await Post.find().exec();
         res.send(posts);
     } catch(e) {
         res.status(500).send(e);
