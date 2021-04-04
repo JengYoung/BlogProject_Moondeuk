@@ -5,7 +5,7 @@ import routes from './routes/index.js'
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import jwtCheck from './routes/middleware/jwtCheck.js';
+import jwtCheck from './middleware/jwtCheck.js';
 const app = express();
 
 const { PORT, MONGO_URI } = process.env;
