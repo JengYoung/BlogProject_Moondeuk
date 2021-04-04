@@ -24,10 +24,13 @@ function Logincontainer({ history }) {
         dispatch(login({ userId, password }));
     };
 
+    /* Initialize form - if exists user data => return alert message */ 
     useEffect(() => {
+        if (user) return alert('이미 로그인 하셨습니다.');
         dispatch(initializeForm());
-    }, [dispatch])
+    }, [dispatch, user])
 
+    /* login - valid user data check */ 
     useEffect(() => {
         if (loginError) {
             setError('아이디나 비밀번호가 틀립니다.');
@@ -38,9 +41,10 @@ function Logincontainer({ history }) {
         } 
     },[loginError, loginSuccess, dispatch])
 
+    /* if exists user data, put this on localStorage, go to main page */
     useEffect(() => {
         if (!user) return;
-        history.push('/')
+        history.push('/');
         try {
             localStorage.setItem('user', JSON.stringify(user));
         } catch(e) {
