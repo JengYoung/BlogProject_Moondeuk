@@ -11,7 +11,7 @@ const ButtonCSS = css`
     color: white;
     font-weight: 800;
     font-size: 1rem;
-    margin-top: 1.5rem;
+    /* margin-top: 1.5rem; */
     border-radius: 5px;
     display: flex;
     justify-content: center;
@@ -31,6 +31,11 @@ const ButtonCSS = css`
         width: 100%;
         height: 3rem;
     `}
+    ${props => 
+        props.topMargin && css`
+            margin-top: 1.5rem;
+        `
+    }
 `;
 const StyledButton = styled.button`
     ${ButtonCSS}

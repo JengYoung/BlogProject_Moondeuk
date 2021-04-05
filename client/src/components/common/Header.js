@@ -25,14 +25,21 @@ const Spacer = styled.div`
 `;
 
 
-const Header = () => {
+const Header = ({user, onLogout}) => {
     return (
         <>
             <StyledHeader>
                 <Wrapper>
-                    <div className="logo">MOONDEUK</div>
-                    <Link>로그인</Link>
-                    <Link>로그아웃</Link>
+                    <Link to="/" className="logo">MOONDEUK</Link>
+                    {user ? (
+                        <div>
+                            <Link to="/" onClick={onLogout}>로그아웃</Link>
+                        </div>
+                    ) : (
+                        <div>
+                            <Link to="/login">로그인</Link>
+                        </div>
+                    )}
                 </Wrapper>
             </StyledHeader>
             <Spacer/>

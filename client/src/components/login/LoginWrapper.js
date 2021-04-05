@@ -43,7 +43,7 @@ const LoginWrapper = ({onChange, onSubmit, error}) => {
             <Input colorWhite onChange={onChange} name="userId" value={registerReducer.userId}/>
             <Input colorWhite onChange={onChange} type="password" name="password" value={registerReducer.password} />
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <Button fullWidth name="로그인" />
+            <Button fullWidth topMargin name="로그인" />
             <Links>
                 <StyledLink to='/register'>회원가입</StyledLink>
             </Links>

@@ -26,9 +26,9 @@ function Logincontainer({ history }) {
 
     /* Initialize form - if exists user data => return alert message */ 
     useEffect(() => {
-        if (user) return alert('이미 로그인 하셨습니다.');
+        if (user) return;
         dispatch(initializeForm());
-    }, [dispatch, user])
+    }, [dispatch, user, history])
 
     /* login - valid user data check */ 
     useEffect(() => {
@@ -43,12 +43,13 @@ function Logincontainer({ history }) {
 
     /* if exists user data, put this on localStorage, go to main page */
     useEffect(() => {
-        if (!user) return;
-        history.push('/');
-        try {
-            localStorage.setItem('user', JSON.stringify(user));
-        } catch(e) {
-            console.error('LocalStorage ERROR occured')
+        if (user) {
+            history.push('/');
+            try {
+                localStorage.setItem('user', JSON.stringify(user));
+            } catch(e) {
+                console.error('LocalStorage ERROR occured');
+            }
         }
     },[history, user]);
 
