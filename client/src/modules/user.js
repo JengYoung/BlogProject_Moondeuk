@@ -16,9 +16,9 @@ const LOGOUT = 'user/LOGOUT';
 export const tempSetUser = createAction(TEMP_SET_USER, user => user);
 
 /* check: check if this user data is valid or not */
-export const check = createAction(CHECK, user => user);
+export const check = createAction(CHECK);
 
-export const logout = createAction(LOGOUT, user => user);
+export const logout = createAction(LOGOUT);
 
 const initialState = {
     user: '',
@@ -26,6 +26,14 @@ const initialState = {
 };
 
 const checkSaga = createSaga(check, checkAPI);
+const checkFailureSaga = () => {
+    try {   
+        localStorage.removeItem('user');
+    } catch(e) {
+        console.error('LocalStorage ERROR occured');
+    }
+}
+
 /* 
     logout not exist SUCCESS - FAILURE action types. 
     Just remove user data ; Create Saga manually
@@ -40,8 +48,9 @@ function* logoutSaga() {
 }
 
 export function* userSaga() {
-    yield takeLatest(check, checkSaga);
-    yield takeLatest(logout, logoutSaga);
+    yield takeLatest(CHECK, checkSaga);
+    yield takeLatest(LOGOUT, logoutSaga);
+    yield takeLatest(CHECK_FAILURE, checkFailureSaga);
 };
 
 const userReducer = handleActions(
@@ -57,6 +66,7 @@ const userReducer = handleActions(
         }),
         [CHECK_FAILURE]: (state, { payload: error }) => ({
             ...state,
+            user: null,
             checkError: error,
         }),
         [LOGOUT]: state => ({

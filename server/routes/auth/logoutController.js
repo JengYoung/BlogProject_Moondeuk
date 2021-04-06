@@ -1,5 +1,5 @@
 const logoutController = (req, res) => {
-    req.cookies = null,
+    res.clearCookie('access_token');
     res.status(204).send('logout Success');
 }
 

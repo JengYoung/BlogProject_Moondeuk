@@ -25,8 +25,8 @@ const Spacer = styled.div`
 `;
 
 
-const Header = ({user, onLogout}) => {
-    return (
+const Header = ({write, user, onLogout}) => {
+    return (!write) ? (
         <>
             <StyledHeader>
                 <Wrapper>
@@ -44,7 +44,18 @@ const Header = ({user, onLogout}) => {
             </StyledHeader>
             <Spacer/>
         </>
-    );
+    ) : (
+        <>
+            <StyledHeader>
+                <Wrapper>
+                    <Link to="/" className="logo">MOONDEUK</Link>
+                    <Link to="/">작성</Link>
+                    <Link to="/login">취소</Link>
+                </Wrapper>
+            </StyledHeader>
+            <Spacer/>
+        </>
+    )
 };
 
 export default Header;

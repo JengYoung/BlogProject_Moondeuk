@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export const StyledResponsive = styled.div`
     width: 1024px;
     margin: 0 auto;
-    text-align: center;
+    /* text-align: center; */
     @media (max-width: 1024px) {
         width: 768px;
     }
