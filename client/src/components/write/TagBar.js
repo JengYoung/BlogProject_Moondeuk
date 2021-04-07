@@ -49,13 +49,13 @@ const StyledTag = styled.div`
     color: white;
 `;
 
-const Tag = React.memo(({tag}) => <StyledTag># {tag}</StyledTag>)
+const Tag = React.memo(({tag, onRemove}) => <StyledTag onClick={() => onRemove(tag)}># {tag}</StyledTag>)
 
-const TagsWrapper = React.memo(({ tags }) => (
+const TagsWrapper = React.memo(({ tags, onRemove }) => (
     <StyledTagsWrapper>
         {tags.map(
             tag => (
-                <Tag tag={tag}/>
+                <Tag tag={tag} onRemove={onRemove} />
             )
         )}
     </StyledTagsWrapper>
@@ -87,13 +87,21 @@ const TagBar = ({ onChangeTags, tags }) => {
         setInput('');
     },[input, insertTag]);
 
+    const onRemove = useCallback(
+        tag => {
+            const filteredTags = nowTags.filter(now => now !== tag);
+            setNowTags(filteredTags);
+            onChangeTags(filteredTags);
+        }, [onChangeTags, nowTags]
+    )
+
     return (
         <StyledTagBar>
             <StyledTagsForm onSubmit={onSubmit}>
                 <StyledTagsInput onChange={onChange} value={input} />
                 <StyledTagsBtn type="submit">등록</StyledTagsBtn>
             </StyledTagsForm>
-            <TagsWrapper tags={nowTags}></TagsWrapper>
+            <TagsWrapper tags={nowTags} onRemove={onRemove}></TagsWrapper>
         </StyledTagBar>
     );
 };

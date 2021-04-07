@@ -42,10 +42,11 @@ const StyledButton = styled.button`
 `;
 
 const Button = (props) => {
-    const { name } = props;
+    const { name, children } = props;
+    console.log(children)
     return (
         <StyledButton {...props}>
-            {name}
+            {name || children}
         </StyledButton>
     );
 };

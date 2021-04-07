@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PostDiaryBtnsWrapper from '../write/PostDiaryBtnsWrapper';
 import ResponsiveWrapper from './Responsive';
 
 /*
@@ -50,8 +51,7 @@ const Header = ({write, user, onLogout}) => {
             <StyledHeader>
                 <Wrapper>
                     <Link to="/" className="logo">MOONDEUK</Link>
-                    <Link to="/">작성</Link>
-                    <Link to="/login">취소</Link>
+                    <PostDiaryBtnsWrapper></PostDiaryBtnsWrapper>
                 </Wrapper>
             </StyledHeader>
             <Spacer/>
