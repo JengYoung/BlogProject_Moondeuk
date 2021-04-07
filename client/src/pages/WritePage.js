@@ -1,14 +1,14 @@
 import React from 'react'
 import Header from '../components/common/Header'
 import WriteBackground from '../components/write/WriteBackground'
-import WriteForm from '../components/write/WriteForm'
+import WriteContainer from '../containers/post/WriteContainer'
 
 function WritePage() {
     return (
         <>
             <Header write/>
             <WriteBackground>
-                <WriteForm></WriteForm>
+                <WriteContainer/>
             </WriteBackground>
         </>
     )

@@ -1,11 +1,10 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import ResponsiveWrapper from '../common/Responsive';
 
 /*
 */
 
-const StyledTitleInput = styled.textarea`
+const StyledTitleText = styled.textarea`
     display: block;
     padding: 0px;
     padding-left: 1rem;
@@ -22,7 +21,7 @@ const StyledTitleInput = styled.textarea`
     color: rgb(33, 37, 41);
 `;
 
-const StyledTitleText = styled.textarea`
+const StyledBodyText = styled.textarea`
     display: block;
     padding: 10rem;
     font-size: 2.75rem;
@@ -40,11 +39,15 @@ const StyledTitleText = styled.textarea`
     `}
 `;
 
-const WriteForm = () => {
+const WriteForm = ({ onChangeText, title, body }) => {
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        onChangeText({name, value});
+    };
     return (
         <>
-            <StyledTitleInput/>
-            <StyledTitleText text/>
+            <StyledTitleText onChange={onChange} name="title" value={title} />
+            <StyledBodyText onChange={onChange} name="body" value={body} text/>
         </>
     );
 };
