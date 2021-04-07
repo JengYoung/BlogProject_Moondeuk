@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import TagBar from '../../components/write/TagBar';
 import WriteBackground from '../../components/write/WriteBackground'
 import WriteForm from '../../components/write/WriteForm'
 import { changeText, initializeDiary } from '../../modules/write';
@@ -18,6 +19,7 @@ function WriteContainer() {
     }, [dispatch])
     return (
         <>
+            <TagBar></TagBar>
             <WriteBackground>
                 <WriteForm onChangeText={onChangeText} title={title} body={body}></WriteForm>
             </WriteBackground>

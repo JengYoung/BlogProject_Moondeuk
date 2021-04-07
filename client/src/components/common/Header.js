@@ -8,6 +8,7 @@ import ResponsiveWrapper from './Responsive';
 
 const StyledHeader = styled.div`
     position: fixed;
+    z-index: 99;
     width: 100%;
     background: white;
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
