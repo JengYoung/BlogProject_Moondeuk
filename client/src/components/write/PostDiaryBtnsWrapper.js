@@ -16,11 +16,11 @@ const StyledPostDiaryBtn = styled(Button)`
     height: 2rem;
 `;
 
-const PostDiaryBtnsWrapper = () => {
+const PostDiaryBtnsWrapper = ({ onPostDairy, onCancel }) => {
     return (
         <StyledPostDiaryBtnsWrapper>
-            <StyledPostDiaryBtn>일기 올리기</StyledPostDiaryBtn>
-            <StyledPostDiaryBtn>작성 취소</StyledPostDiaryBtn>
+            <StyledPostDiaryBtn onClick={onPostDairy}>일기 올리기</StyledPostDiaryBtn>
+            <StyledPostDiaryBtn onClick={onCancel}>작성 취소</StyledPostDiaryBtn>
         </StyledPostDiaryBtnsWrapper>
     );
 };

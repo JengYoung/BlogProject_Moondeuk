@@ -43,7 +43,6 @@ const StyledButton = styled.button`
 
 const Button = (props) => {
     const { name, children } = props;
-    console.log(children)
     return (
         <StyledButton {...props}>
             {name || children}

@@ -64,7 +64,6 @@ const TagsWrapper = React.memo(({ tags, onRemove }) => (
 const TagBar = ({ onChangeTags, tags }) => {
     const [ input, setInput ] = useState('');
     const [ nowTags, setNowTags ] = useState([]);
-    console.log("tags값", tags);
     
     const insertTag = useCallback(
         tag => {

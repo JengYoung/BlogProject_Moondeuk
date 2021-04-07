@@ -32,13 +32,16 @@ export const postValidationCheck = async (req, res, next) => {
 }
 const writeController = async (req, res) => {
     const { title, body, tags } = req.body;
-    // const { author } = req.user;
+    const author = req.user;
+    // console.log(req)
+    console.log(author);
     const post = new Post({
         title,
         body,
         tags,
-        // author,
+        author,
     });
+    console.log(post);
     try {
         await post.save();
         res.send(post);

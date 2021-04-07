@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import PostDiaryBtnsWrapper from '../write/PostDiaryBtnsWrapper';
+import PostDiaryBtnsWrapperContainer from '../../containers/post/PostDiaryBtnsWrapperContainer';
 import ResponsiveWrapper from './Responsive';
 
 /*
@@ -51,7 +51,7 @@ const Header = ({write, user, onLogout}) => {
             <StyledHeader>
                 <Wrapper>
                     <Link to="/" className="logo">MOONDEUK</Link>
-                    <PostDiaryBtnsWrapper></PostDiaryBtnsWrapper>
+                    <PostDiaryBtnsWrapperContainer/>
                 </Wrapper>
             </StyledHeader>
             <Spacer/>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import WriteBackground from '../../components/write/WriteBackground'
@@ -11,7 +11,6 @@ function WriteFormContainer() {
         body: writeReducer.body
     }));
     const dispatch = useDispatch();
-    const [ error, setError ] = useState(null); 
     const onChangeText = useCallback(payload => dispatch(changeText(payload)),[dispatch]);
     useEffect(() => {
         dispatch(initializeDiary());
