@@ -69,9 +69,11 @@ const TagBar = ({ onChangeTags, tags }) => {
     const insertTag = useCallback(
         tag => {
             if ((!tag) || (nowTags.includes(tag))) return;
+
             const addedTag = [...nowTags, tag];
             setNowTags(addedTag);
             onChangeTags(addedTag);
+
         },
         [onChangeTags, nowTags]);
 

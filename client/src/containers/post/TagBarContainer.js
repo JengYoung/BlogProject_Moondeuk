@@ -5,8 +5,8 @@ import { changeText } from '../../modules/write';
 
 function TagBarContainer() {
     const dispatch = useDispatch();
-    const tags = useSelector(state => state.writeReducer.tags);
-    console.log("여기???", tags);
+    const tags = useSelector(({writeReducer}) => ({tags: writeReducer.tags}));
+
     const onChangeTags = tags => {
         dispatch(changeText({ name: "tags", value: tags }));
     }
