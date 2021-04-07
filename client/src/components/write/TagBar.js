@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import Button from '../common/Button';
 
 /*
 */
@@ -16,7 +15,7 @@ const StyledTagBar = styled.div`
     z-index: 10;
 `;
 const StyledTagsForm = styled.form`
-    width: auto%;
+    width: auto;
     height: 100%;
     background-color: green;
     display: flex;
@@ -46,18 +45,53 @@ const StyledTag = styled.div`
     background-color: purple;
     box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
     border-radius: 50px;
-    font-weight: 800;
+    font-weight: 700;
     color: white;
 `;
 
-const TagBar = () => {
+const Tag = React.memo(({tag}) => <StyledTag># {tag}</StyledTag>)
+
+const TagsWrapper = React.memo(({ tags }) => (
+    <StyledTagsWrapper>
+        {tags.map(
+            tag => (
+                <Tag tag={tag}/>
+            )
+        )}
+    </StyledTagsWrapper>
+))
+
+const TagBar = ({ onChangeTags, tags }) => {
+    const [ input, setInput ] = useState('');
+    const [ nowTags, setNowTags ] = useState([]);
+    console.log("tags값", tags);
+    
+    const insertTag = useCallback(
+        tag => {
+            if ((!tag) || (nowTags.includes(tag))) return;
+            const nextTags = [...nowTags, tag];
+            setNowTags(nextTags);
+            onChangeTags(nextTags);
+        },
+        [onChangeTags, nowTags]);
+
+    const onChange = useCallback(e => {
+        setInput(e.target.value);
+    },[]);
+
+    const onSubmit = useCallback(e => {
+        e.preventDefault();
+        insertTag(input.trim());
+        setInput('');
+    },[input, insertTag]);
+
     return (
         <StyledTagBar>
-            <StyledTagsForm>
-                <StyledTagsInput/>
-                <StyledTagsBtn>등록</StyledTagsBtn>
+            <StyledTagsForm onSubmit={onSubmit}>
+                <StyledTagsInput onChange={onChange} value={input} />
+                <StyledTagsBtn type="submit">등록</StyledTagsBtn>
             </StyledTagsForm>
-            <StyledTagsWrapper><StyledTag>문득</StyledTag></StyledTagsWrapper>
+            <TagsWrapper tags={nowTags}></TagsWrapper>
         </StyledTagBar>
     );
 };
