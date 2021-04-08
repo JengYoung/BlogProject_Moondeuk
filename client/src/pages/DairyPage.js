@@ -1,10 +1,13 @@
 import React from 'react'
+import Diary from '../components/read/Diary'
+import HeaderContainer from '../containers/HeaderContainer'
 
 function DairyPage() {
     return (
-        <div>
-            
-        </div>
+        <>
+            <HeaderContainer />
+            <Diary />
+        </>
     )
 }
 

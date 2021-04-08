@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import TagBar from '../../components/write/TagBar';
-import { changeText } from '../../modules/write';
+import TagBar from '../../../components/write/TagBar';
+import { changeText } from '../../../modules/write';
 
 function TagBarContainer() {
     const dispatch = useDispatch();

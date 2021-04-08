@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import PostDiaryBtnsWrapperContainer from '../../containers/post/PostDiaryBtnsWrapperContainer';
+import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import ResponsiveWrapper from './Responsive';
 
 /*

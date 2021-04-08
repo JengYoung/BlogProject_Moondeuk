@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
-import PostDiaryBtnsWrapper from '../../components/write/PostDiaryBtnsWrapper';
-import { writeDiary } from '../../modules/write';
+import PostDiaryBtnsWrapper from '../../../components/write/PostDiaryBtnsWrapper';
+import { writeDiary } from '../../../modules/write';
 
 function PostDiaryBtnsWrapperContainer({ history }) {
     const dispatch = useDispatch();

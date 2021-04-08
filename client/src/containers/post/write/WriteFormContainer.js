@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import WriteBackground from '../../components/write/WriteBackground'
-import WriteForm from '../../components/write/WriteForm'
-import { changeText, initializeDiary } from '../../modules/write';
+import WriteBackground from '../../../components/write/WriteBackground';
+import WriteForm from '../../../components/write/WriteForm';
+import { changeText, initializeDiary } from '../../../modules/write';
 
 function WriteFormContainer() {
     const { title, body } = useSelector(({ writeReducer }) => ({
