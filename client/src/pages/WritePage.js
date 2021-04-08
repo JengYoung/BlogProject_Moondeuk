@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../components/common/Header';
 import WriteBackground from '../components/write/WriteBackground';
+import HeaderContainer from '../containers/HeaderContainer';
 import TagBarContainer from '../containers/post/TagBarContainer';
 import WirteFormContainer from '../containers/post/WriteFormContainer';
 function WritePage() {
     return (
         <>
-            <Header write/>
+            <HeaderContainer write/>
             <TagBarContainer />
             <WriteBackground>
                 <WirteFormContainer />

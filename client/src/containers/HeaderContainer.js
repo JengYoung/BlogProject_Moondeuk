@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from '../components/common/Header'
 import { logout } from '../modules/user';
 
-const HeaderContainer = () => {
+const HeaderContainer = (props) => {
     const { user } = useSelector(({ userReducer }) => ({ user: userReducer.user }));
         const dispatch = useDispatch();
         const onLogout = () => {
@@ -14,7 +14,7 @@ const HeaderContainer = () => {
     return (
         <>
             {console.log(user)}
-            <Header user={user} onLogout={onLogout}/>
+            <Header user={user} onLogout={onLogout} write={props.write}/>
         </>
     )
 }
