@@ -4,7 +4,7 @@ import DiaryList from '../../../components/list/DiaryList'
 function DiaryListContainer() {
     return (
         <div>
-            <DiaryList/>
+            <DiaryList />
         </div>
     )
 }
