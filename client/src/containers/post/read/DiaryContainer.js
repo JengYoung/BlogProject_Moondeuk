@@ -12,8 +12,7 @@ const DairyContainer = ({ match, history }) => {
         diaryError: diaryReducer.diaryError,
     }));
 
-    const {diaryId} = match.params;
-    console.log("id: ", diaryId)
+    const { diaryId } = match.params;
 
     useEffect(() => {
         dispatch(readDiary(diaryId));

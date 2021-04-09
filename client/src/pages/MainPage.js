@@ -7,7 +7,6 @@ function MainPage() {;
         <>
             <HeaderContainer>
             </HeaderContainer>
-            Hello, MOONDEUK!
         </>
     )
 }

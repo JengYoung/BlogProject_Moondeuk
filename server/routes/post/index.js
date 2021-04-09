@@ -16,7 +16,7 @@ const post = express.Router();
 post.post('/write', postValidationCheck, writeController);
 
 /* read (all) - list */ 
-post.get('/list', listController);
+post.get('/', listController);
 
 /* read (id) - read */
 post.get('/:id',checkValidId, readController);
