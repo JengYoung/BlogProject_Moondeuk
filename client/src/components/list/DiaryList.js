@@ -37,7 +37,9 @@ const DiaryData = () => {
         <StyledDiaryData>hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!!</StyledDiaryData>
     )
 }
-const DiaryList = () => {
+const DiaryList = ({ diaries, diariesError }) => {
+    if (diariesError) return <StyledDiaryList>Error is occurred...</StyledDiaryList>
+    console.log("dairies: ", diaries)
     return (
         <StyledDiaryList>
             <StyledDiaryWrapper>

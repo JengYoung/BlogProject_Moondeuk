@@ -39,9 +39,9 @@ const initialState = {
 
 const diaryListReducer = handleActions(
     {
-        [DIARY_LIST_SUCCESS]: (state, { payload: diaryList }) => ({
+        [DIARY_LIST_SUCCESS]: (state, { payload: diaries }) => ({
             ...state,
-            diaryList,
+            diaries,
         }),
         [DIARY_LIST_FAILURE] : (state, { payload: diaryListError }) => ({
             ...state,
