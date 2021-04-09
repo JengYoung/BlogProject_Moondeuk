@@ -5,7 +5,8 @@ const diaryListAPI = ({ userId, tag }) => {
         userId,
         tag
     });
-    return client.get(`/api/post?${query}`);
+    console.log("API: ", query)
+    return client.get(`/routes/post?${query}`);
 }
 
 export default diaryListAPI;

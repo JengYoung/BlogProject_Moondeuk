@@ -32,8 +32,8 @@ export function* diaryListSaga() {
 */ 
 
 const initialState = {
-    diaryList: null,
-    diaryListError: null,
+    diaries: null,
+    diariesError: null,
 }
 
 

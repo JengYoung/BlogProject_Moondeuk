@@ -1,12 +1,31 @@
-import React from 'react'
-import DiaryList from '../../../components/list/DiaryList'
+import React, { useEffect } from 'react';
+import qs from 'qs';
+import { useDispatch, useSelector } from 'react-redux';
+import DiaryList from '../../../components/list/DiaryList';
+import { diaryList } from '../../../modules/diaryList';
+import { withRouter } from 'react-router';
 
-function DiaryListContainer() {
+function DiaryListContainer({ match, location }) {
+    const dispatch = useDispatch();
+    const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
+        diaries: diaryListReducer.diaries,
+        diariesError: diaryListReducer.diariesError,
+    }));
+    
+    useEffect(() => {
+        console.log("match", match)
+        const { userId } = match.params;
+        const { tag } = qs.parse(location.search, {
+            ignoreQueryPrefix: true,
+        });
+        dispatch(diaryList({userId, tag}))
+    }, [dispatch, location, match])
+
     return (
         <div>
-            <DiaryList />
+            <DiaryList diaries={diaries} diariesError={diariesError}/>
         </div>
     )
 }
 
-export default DiaryListContainer
+export default withRouter(DiaryListContainer)
