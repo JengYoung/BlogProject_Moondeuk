@@ -8,6 +8,7 @@ import LoginBg from '../../images/LoginBg.jpg'
 
 const StyledDiaryList = styled(ResponsiveWrapper)`
     display: flex;
+    /* flex-direction: row; */
     background-color: purple;
     margin-top: 3rem;
 `;
@@ -32,28 +33,30 @@ const StyledDiaryWrapper = styled.div`
 const StyledDiaryData = styled.div`
     word-break:break-all;
 `;
-const DiaryData = () => {
+const DiaryWrapper = ({ diary }) => {
+    const { title, tags, author } = diary;
+    const { userId } = author;
     return (
-        <StyledDiaryData>hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!hello!!</StyledDiaryData>
+        <StyledDiaryWrapper>
+            <StyledDiaryThumbnail />
+            <StyledDiaryData>
+                <h1>{title}</h1>
+                <div>
+                    {userId}
+                </div>
+                {tags.map(tag => <div>{tag}</div>)}
+                <hr/>
+            </StyledDiaryData>
+        </StyledDiaryWrapper>
     )
 }
 const DiaryList = ({ diaries, diariesError }) => {
     if (diariesError) return <StyledDiaryList>Error is occurred...</StyledDiaryList>
-    console.log("dairies: ", diaries)
     return (
         <StyledDiaryList>
-            <StyledDiaryWrapper>
-                <StyledDiaryThumbnail/>
-                <DiaryData/>
-            </StyledDiaryWrapper>
-            <StyledDiaryWrapper>
-                <StyledDiaryThumbnail/>
-                <DiaryData/>
-            </StyledDiaryWrapper>
-            <StyledDiaryWrapper>
-                <StyledDiaryThumbnail/>
-                <DiaryData/>
-            </StyledDiaryWrapper>
+            {diaries && diaries.map(diary => {
+                return <DiaryWrapper diary={diary}/>
+            })}
         </StyledDiaryList>
     );
 };

@@ -13,14 +13,13 @@ function DiaryListContainer({ match, location }) {
     }));
     
     useEffect(() => {
-        console.log("match", match)
         const { userId } = match.params;
         const { tag } = qs.parse(location.search, {
             ignoreQueryPrefix: true,
         });
         dispatch(diaryList({userId, tag}))
     }, [dispatch, location, match])
-
+    console.log(diaries)
     return (
         <div>
             <DiaryList diaries={diaries} diariesError={diariesError}/>
