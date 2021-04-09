@@ -19,7 +19,7 @@ post.post('/write', postValidationCheck, writeController);
 post.get('/list', listController);
 
 /* read (id) - read */
-post.get('/read/:id',checkValidId, readController);
+post.get('/:id',checkValidId, readController);
 
 /* update (PATCH /:id) - update */ 
 post.patch('/update/:id', checkValidId, updateController);

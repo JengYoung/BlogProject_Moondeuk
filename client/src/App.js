@@ -1,6 +1,6 @@
 import { Route } from 'react-router';
 import './App.css';
-import DairyPage from './pages/DairyPage';
+import DiaryPage from './pages/DiaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import RegisterPage from './pages/RegisterPage';
@@ -13,7 +13,7 @@ function App() {
       <Route component={RegisterPage} path='/register' />
       <Route component={LoginPage} path='/login' />
       <Route component={WritePage} path='/write' />
-      <Route component={DairyPage} path='/@:userId/:diaryId' />
+      <Route component={DiaryPage} path='/@:userId/:diaryId' />
     </>
   );
 }

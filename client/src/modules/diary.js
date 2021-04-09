@@ -1,4 +1,4 @@
-import { createAction, handleAction } from 'redux-actions';
+import { createAction, handleActions } from 'redux-actions';
 import createActionTypes from '../lib/createActionTypes';
 import createSaga from '../lib/createSaga';
 import readAPI from '../lib/routes/post/read';
@@ -9,7 +9,7 @@ const READ_DIARY = `diary/READ_DIARY`;
 const [ READ_DIARY_SUCCESS, READ_DIARY_FAILURE ] = createActionTypes(READ_DIARY);
 
 /* create Action creator */
-export const readDiary = createAction(READ_DIARY, diary => diary);
+export const readDiary = createAction(READ_DIARY, id => id);
 
 /* create Action saga */
 const readDiarySaga = createSaga(READ_DIARY, readAPI);
@@ -24,7 +24,7 @@ const initialState = {
     diaryError: null,
 }
 
-const diaryReducer = handleAction(
+const diaryReducer = handleActions(
     {
         [READ_DIARY_SUCCESS]: (state, { payload: diary }) => ({
             ...state,

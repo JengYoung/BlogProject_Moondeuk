@@ -9,15 +9,18 @@ const StyledDiaryTitle = styled.div``;
 const StyledDairyTag = styled.div``;
 const StyledDiaryBody = styled.div``;
 
-const Diary = () => {
+const Diary = ({ diary, diaryError }) => {
+    console.log("여기", diary);
+    const { title, body, tags, author } = diary;
     return (
         <StyledDairy>
             <StyledDiaryTitle>
-                제목입니다.
-                <StyledDairyTag>태그입니다.</StyledDairyTag>
+                {title}
+                <div>{author.userId}</div>
+                <StyledDairyTag>{tags}</StyledDairyTag>
                 <hr></hr>
             </StyledDiaryTitle>
-            <StyledDiaryBody>글입니다.</StyledDiaryBody>
+            <StyledDiaryBody>{body}</StyledDiaryBody>
         </StyledDairy>
     );
 };
