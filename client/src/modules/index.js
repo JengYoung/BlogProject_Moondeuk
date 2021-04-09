@@ -6,6 +6,7 @@ import loginReducer, { loginSaga } from './login';
 import userReducer, { userSaga } from './user';
 import writeReducer, { writeSaga } from './write';
 import diaryReducer, { diarySaga } from './diary';
+import diaryListReducer, { diaryListSaga } from './diaryList'
 
 const rootReducer = combineReducers({
     loadingReducer,
@@ -14,10 +15,11 @@ const rootReducer = combineReducers({
     userReducer,
     writeReducer,
     diaryReducer,
+    diaryListReducer,
 });
 
 export function* rootSaga() {
-    yield all([registerSaga(), loginSaga(), userSaga(), writeSaga(), diarySaga()]);
+    yield all([registerSaga(), loginSaga(), userSaga(), writeSaga(), diarySaga(), diaryListSaga()]);
 };
 
 export default rootReducer;
