@@ -7,6 +7,7 @@ import { readDiary } from '../../../modules/diary';
 import { settingPatch } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history }) => {
+    console.log("match", match.params)
     const dispatch = useDispatch();
     const { diary, diaryError, userId } = useSelector(({diaryReducer, userReducer}) => ({
         diary: diaryReducer.diary,
@@ -23,6 +24,7 @@ const DiaryContainer = ({ match, history }) => {
     const onPatch = () => {
         console.log(diary.title, diary.tags, diary.body);
         dispatch(settingPatch(diary));
+        console.log()
         history.push(`/write/@${userId}/${diaryId}`);
     }
 

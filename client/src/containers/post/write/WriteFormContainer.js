@@ -6,16 +6,18 @@ import WriteBackground from '../../../components/write/WriteBackground';
 import WriteForm from '../../../components/write/WriteForm';
 import { changeText, initializeDiary } from '../../../modules/write';
 
-function WriteFormContainer({ match, history, location }) {
+function WriteFormContainer() {
     const { title, body } = useSelector(({ writeReducer }) => ({
         title: writeReducer.title,
-        body: writeReducer.body
+        body: writeReducer.body,
     }));
     const dispatch = useDispatch();
     const onChangeText = useCallback(payload => dispatch(changeText(payload)),[dispatch]);
+
     useEffect(() => {
         return () => dispatch(initializeDiary());
     }, [dispatch])
+
     return (
         <>
             <WriteBackground>

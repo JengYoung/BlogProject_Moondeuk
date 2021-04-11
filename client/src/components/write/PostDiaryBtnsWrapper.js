@@ -16,10 +16,13 @@ const StyledPostDiaryBtn = styled(Button)`
     height: 2rem;
 `;
 
-const PostDiaryBtnsWrapper = ({ onPostDiary, onCancel }) => {
+const PostDiaryBtnsWrapper = ({ isPatch, onPostDiary, onCancel }) => {
     return (
         <StyledPostDiaryBtnsWrapper>
-            <StyledPostDiaryBtn onClick={onPostDiary}>일기 올리기</StyledPostDiaryBtn>
+            {isPatch ? 
+                <StyledPostDiaryBtn onClick={onPostDiary}>일기 수정</StyledPostDiaryBtn> : 
+                <StyledPostDiaryBtn onClick={onPostDiary}>일기 올리기</StyledPostDiaryBtn>
+            }
             <StyledPostDiaryBtn onClick={onCancel}>작성 취소</StyledPostDiaryBtn>
         </StyledPostDiaryBtnsWrapper>
     );

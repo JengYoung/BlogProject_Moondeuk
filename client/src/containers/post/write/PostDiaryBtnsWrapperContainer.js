@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PostDiaryBtnsWrapper from '../../../components/write/PostDiaryBtnsWrapper';
 import { writeDiary } from '../../../modules/write';
 
-function PostDiaryBtnsWrapperContainer({ history }) {
+function PostDiaryBtnsWrapperContainer({ history, match }) {
     const dispatch = useDispatch();
     const { title, body, tags, diary, writeError } = useSelector(({ writeReducer }) => ({
         title: writeReducer.title,
@@ -29,8 +29,9 @@ function PostDiaryBtnsWrapperContainer({ history }) {
             history.push(`/@${author.userId}/${_id}`);
         };
     }, [writeError, diary, history])
+    const isPatch = (!match.params.diaryId) ? false : true
     return (
-        <PostDiaryBtnsWrapper onPostDiary={onPostDiary} onCancel={onCancel}/>
+        <PostDiaryBtnsWrapper isPatch={isPatch} onPostDiary={onPostDiary} onCancel={onCancel}/>
     )
 }
 
