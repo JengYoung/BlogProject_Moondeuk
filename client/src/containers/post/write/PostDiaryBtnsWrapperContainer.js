@@ -14,7 +14,7 @@ function PostDiaryBtnsWrapperContainer({ history }) {
         writeError: writeReducer.writeError
     }))
 
-    const onPostDairy = () => {
+    const onPostDiary = () => {
         dispatch(writeDiary({title, body, tags}))
     };
 
@@ -25,14 +25,12 @@ function PostDiaryBtnsWrapperContainer({ history }) {
     useEffect(() => {
         if (writeError) console.error(writeError)
         if (diary) {
-            console.log(diary)
             const { _id, author } = diary;
-            console.log(author);
             history.push(`/@${author.userId}/${_id}`);
         };
     }, [writeError, diary, history])
     return (
-        <PostDiaryBtnsWrapper onPostDairy={onPostDairy} onCancel={onCancel}/>
+        <PostDiaryBtnsWrapper onPostDiary={onPostDiary} onCancel={onCancel}/>
     )
 }
 

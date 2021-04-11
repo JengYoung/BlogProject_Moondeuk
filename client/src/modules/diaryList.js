@@ -7,7 +7,7 @@ import createSaga from '../lib/createSaga';
 /*
     DiaryList action Types
 */ 
-const [ DIARY_LIST ] = `diaryList/DIARY_LIST`;
+const DIARY_LIST = `diaryList/DIARY_LIST`;
 const [ DIARY_LIST_SUCCESS, DIARY_LIST_FAILURE ] = createActionTypes(DIARY_LIST);
 
 /*

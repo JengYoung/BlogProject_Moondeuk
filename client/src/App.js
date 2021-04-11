@@ -12,7 +12,7 @@ function App() {
       <Route component={MainPage} path={['/@:userId', '/']} exact/>
       <Route component={RegisterPage} path='/register' />
       <Route component={LoginPage} path='/login' />
-      <Route component={WritePage} path='/write' />
+      <Route component={WritePage} path={['/write', `/write/@:userId/:diaryId`]} />
       <Route component={DiaryPage} path='/@:userId/:diaryId' />
     </>
   );

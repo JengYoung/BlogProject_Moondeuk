@@ -8,7 +8,10 @@ const CHANGE_TEXT = 'write/CHANGE_TEXT';
 const INITIALIZE_DIARY = 'write/INITIALIZE_DIARY';
 const WRITE_DIARY = 'write/WRITE_DIARY';
 const [ WRITE_DIARY_SUCCESS, WRITE_DIARY_FAILURE ] = createActionTypes(WRITE_DIARY);
+const SETTING_PATCH = 'write/SETTING_PATCH';
 
+
+/* create Action Creator*/ 
 export const changeText = createAction(CHANGE_TEXT, ({ name, value }) => ({
     name,
     value,
@@ -20,6 +23,8 @@ export const writeDiary = createAction(WRITE_DIARY, ({ title, body, tags }) => (
     body, // diary content
     tags, // diary tags
 }));
+
+export const settingPatch = createAction(SETTING_PATCH, diary => diary);
 
 const writeDiarySaga =  createSaga(WRITE_DIARY, writeAPI);
 
@@ -53,7 +58,13 @@ const writeReducer = handleActions({
     [WRITE_DIARY_FAILURE]: (state, { payload: writeError }) => ({
         ...state,
         writeError,
-    })
+    }),
+    [SETTING_PATCH]: (state, { payload: diary }) => ({
+        ...state,
+        title: diary.title,
+        tags: diary.tags,
+        body: diary.body,
+    }),
 }, initialState)
 
 

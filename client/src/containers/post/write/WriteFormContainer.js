@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 import WriteBackground from '../../../components/write/WriteBackground';
 import WriteForm from '../../../components/write/WriteForm';
 import { changeText, initializeDiary } from '../../../modules/write';
 
-function WriteFormContainer() {
+function WriteFormContainer({ match, history, location }) {
     const { title, body } = useSelector(({ writeReducer }) => ({
         title: writeReducer.title,
         body: writeReducer.body
@@ -13,7 +14,7 @@ function WriteFormContainer() {
     const dispatch = useDispatch();
     const onChangeText = useCallback(payload => dispatch(changeText(payload)),[dispatch]);
     useEffect(() => {
-        dispatch(initializeDiary());
+        return () => dispatch(initializeDiary());
     }, [dispatch])
     return (
         <>
@@ -24,4 +25,4 @@ function WriteFormContainer() {
     )
 }
 
-export default WriteFormContainer
+export default withRouter(WriteFormContainer)

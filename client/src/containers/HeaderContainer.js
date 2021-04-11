@@ -13,7 +13,6 @@ const HeaderContainer = (props) => {
     
     return (
         <>
-            {console.log(user)}
             <Header user={user} onLogout={onLogout} write={props.write}/>
         </>
     )

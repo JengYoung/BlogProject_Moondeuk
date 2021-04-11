@@ -1,34 +1,35 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
+import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 
 /*
 */
 
-const StyledDairy = styled.div``;
+const StyledDiary = styled.div``;
 const StyledDiaryTitle = styled.div``;
-const StyledDairyTag = styled.div``;
+const StyledDiaryTag = styled.div``;
 const StyledDiaryBody = styled.div``;
 
-const Diary = ({ diary, diaryError }) => {
+const Diary = ({ diary, diaryError, userId, onPatch }) => {
     if (diaryError) {
         if (diaryError.response && diaryError.response.status === 404) {
-            return <StyledDairy>존재하지 않는 글입니다.</StyledDairy>
-        } else return <StyledDairy>글을 불러올 수 없습니다.</StyledDairy>
+            return <StyledDiary>존재하지 않는 글입니다.</StyledDiary>
+        } else return <StyledDiary>글을 불러올 수 없습니다.</StyledDiary>
     }
-
     if (!diary) return null;
     const { title, body, tags, author, postedDate } = diary;
     return (
-        <StyledDairy>
+        <StyledDiary>
+            {userId === author.userId ? <DiaryModifyAndDeleteBtns onPatch={onPatch}></DiaryModifyAndDeleteBtns> : null}
             <StyledDiaryTitle>
                 {title}
                 <div>{author.userId}</div>
                 <div>{postedDate}</div>
-                <StyledDairyTag>{tags}</StyledDairyTag>
+                <StyledDiaryTag>{tags}</StyledDiaryTag>
                 <hr></hr>
             </StyledDiaryTitle>
             <StyledDiaryBody>{body}</StyledDiaryBody>
-        </StyledDairy>
+        </StyledDiary>
     );
 };
 
