@@ -10,7 +10,7 @@ const StyledDiaryTitle = styled.div``;
 const StyledDiaryTag = styled.div``;
 const StyledDiaryBody = styled.div``;
 
-const Diary = ({ diary, diaryError, userId, onPatch }) => {
+const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     if (diaryError) {
         if (diaryError.response && diaryError.response.status === 404) {
             return <StyledDiary>존재하지 않는 글입니다.</StyledDiary>
@@ -21,7 +21,7 @@ const Diary = ({ diary, diaryError, userId, onPatch }) => {
 
     return (
         <StyledDiary>
-            {userId === author.userId ? <DiaryModifyAndDeleteBtns onPatch={onPatch}></DiaryModifyAndDeleteBtns> : null}
+            {userId === author.userId ? <DiaryModifyAndDeleteBtns onPatch={onPatch} onDelete={onDelete}></DiaryModifyAndDeleteBtns> : null}
             <StyledDiaryTitle>
                 {title}
                 <div>{author.userId}</div>

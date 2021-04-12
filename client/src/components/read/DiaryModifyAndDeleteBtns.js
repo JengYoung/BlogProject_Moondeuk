@@ -14,11 +14,11 @@ const StyledDiaryModifyAndDeleteBtns = styled.div`
 const SytledDiaryModifyBtn = styled(Button)``;
 const StyeldDiaryDeleteBtn = styled(Button)``;
 
-const DiaryModifyAndDeleteBtns = ({onPatch}) => {
+const DiaryModifyAndDeleteBtns = ({onPatch, onDelete}) => {
     return (
         <StyledDiaryModifyAndDeleteBtns>
             <SytledDiaryModifyBtn onClick={onPatch}>일기 수정</SytledDiaryModifyBtn>
-            <StyeldDiaryDeleteBtn>일기 삭제</StyeldDiaryDeleteBtn>
+            <StyeldDiaryDeleteBtn onClick={onDelete}>일기 삭제</StyeldDiaryDeleteBtn>
         </StyledDiaryModifyAndDeleteBtns>
     );
 };
