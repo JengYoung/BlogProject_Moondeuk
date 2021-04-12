@@ -12,6 +12,7 @@ const StyledDiaryList = styled(ResponsiveWrapper)`
     /* flex-direction: row; */
     background-color: purple;
     margin-top: 3rem;
+    flex-flow: wrap;
 `;
 
 const StyledDiaryThumbnail = styled.div`
@@ -25,8 +26,8 @@ const StyledDiaryWrapper = styled(Link)`
     justify-content: center;
     align-items: center;
     width: 30%;
-    padding: 1rem;
-    margin: 3%;
+    padding: 1%;
+    margin: 1%;
     background-color: white;
     border-radius: 10px;
 `;

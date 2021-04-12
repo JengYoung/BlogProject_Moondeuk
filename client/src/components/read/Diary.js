@@ -18,6 +18,7 @@ const Diary = ({ diary, diaryError, userId, onPatch }) => {
     }
     if (!diary) return null;
     const { title, body, tags, author, postedDate } = diary;
+
     return (
         <StyledDiary>
             {userId === author.userId ? <DiaryModifyAndDeleteBtns onPatch={onPatch}></DiaryModifyAndDeleteBtns> : null}

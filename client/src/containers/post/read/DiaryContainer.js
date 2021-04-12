@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import Diary from '../../../components/read/Diary'
 import { readDiary } from '../../../modules/diary';
-import { settingPatch } from '../../../modules/write';
+import { settingUpdate } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history }) => {
-    console.log("match", match.params)
     const dispatch = useDispatch();
     const { diary, diaryError, userId } = useSelector(({diaryReducer, userReducer}) => ({
         diary: diaryReducer.diary,
@@ -19,14 +18,12 @@ const DiaryContainer = ({ match, history }) => {
 
     useEffect(() => {
         dispatch(readDiary(diaryId));
-    }, [dispatch, diaryId])
+    }, [dispatch, diaryId]);
 
     const onPatch = () => {
-        console.log(diary.title, diary.tags, diary.body);
-        dispatch(settingPatch(diary));
-        console.log()
+        dispatch(settingUpdate(diary));
         history.push(`/write/@${userId}/${diaryId}`);
-    }
+    };
 
     return (
         <Diary diary={diary} dairyError={diaryError} userId={userId} onPatch={onPatch}/>
