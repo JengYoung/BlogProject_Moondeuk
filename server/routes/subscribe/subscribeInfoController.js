@@ -4,7 +4,7 @@ import Subscribe from '../../models/subscribe.js';
 const subscribeInfoController = async (req, res) => {
     const { subscribeTo } = req.body;
     try {
-        const result = await Subscribe.find({'subscribeTo': subscribeTo}).exec();
+        const result = await Subscribe.find({subscribeTo}).exec();
         return res.send({subscribeToList: result, count: result.length});
     } catch(e) {
         return res.status(400).send(e);
