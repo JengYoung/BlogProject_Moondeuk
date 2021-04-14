@@ -1,4 +1,5 @@
 import express from 'express';
+import neighborNumController from './neighborNumController';
 
 const neighbor = express.router();
 
