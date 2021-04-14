@@ -1,12 +1,13 @@
 import express from 'express';
 import subscribeController from './subscribeController.js';
-import subscribeNumController from './subscribeNumController.js';
+import subscribedInfoController from './subscribedInfoController.js';
+import subscribeInfoController from './subscribeInfoController.js';
 
 const subscribe = express.Router();
 
-subscribe.post('/subscribeNum', subscribeNumController);
+subscribe.post('/subscribeInfo', subscribeInfoController);
 subscribe.post('/subscribe', subscribeController);
-// subscribe.post('/subscribingList', subscribingListController);
+subscribe.post('/subscribedInfo', subscribedInfoController);
 // subscribe.post('/subscribedList', subscribedListController);
 // subscribe.post('/unsubscribe', unsubscribeController);
 
