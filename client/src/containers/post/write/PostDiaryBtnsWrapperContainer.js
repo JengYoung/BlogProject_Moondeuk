@@ -6,20 +6,21 @@ import { updateDiary, writeDiary } from '../../../modules/write';
 
 function PostDiaryBtnsWrapperContainer({ history, match }) {
     const { diaryId } = match.params;
-    console.log("나다", diaryId);
     const dispatch = useDispatch();
-    const { title, body, tags, diary, writeError, userId } = useSelector(({ writeReducer, userReducer }) => ({
+    const { title, body, tags, diary, writeError, user } = useSelector(({ writeReducer }) => ({
         title: writeReducer.title,
         body: writeReducer.body,
         tags: writeReducer.tags,
         diary: writeReducer.diary,
-        writeError: writeReducer.writeError,
-        userId: userReducer.user.userId,
+        writeError: writeReducer.writeError
     }))
-    const isPatch = (!match.params.diaryId && !match.params.userId) ? false : true;
+
+    console.log(user)
+    //현재 페이지가 수정페이지인지 확인
+    const isPatch = (!match.params.diaryId && !match.params.userId) ? false : true; 
 
     const onPostDiary = () => {
-        if (isPatch && match.params.userId === userId) {
+        if (isPatch) {
             dispatch(updateDiary({ diaryId, title, body, tags }));
             return;
         };

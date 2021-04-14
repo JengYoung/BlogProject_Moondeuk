@@ -21,7 +21,10 @@ export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
 const initialState = {
-    user: '',
+    user: {
+        _id: null,
+        userId: null,
+    },
     checkError: null,
 };
 

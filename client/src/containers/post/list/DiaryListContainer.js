@@ -4,8 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import DiaryList from '../../../components/list/DiaryList';
 import { diaryList } from '../../../modules/diaryList';
 import { withRouter } from 'react-router';
+import UserInfo from '../../../components/common/UserInfo';
+import SubscribeInfo from '../../../components/list/SubscribeInfo';
 
 function DiaryListContainer({ match, location }) {
+    const { userId } = match.params;
+    const { tag } = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+    });
+
     const dispatch = useDispatch();
     const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
         diaries: diaryListReducer.diaries,
@@ -13,15 +20,13 @@ function DiaryListContainer({ match, location }) {
     }));
     
     useEffect(() => {
-        const { userId } = match.params;
-        const { tag } = qs.parse(location.search, {
-            ignoreQueryPrefix: true,
-        });
         dispatch(diaryList({userId, tag}))
-    }, [dispatch, location, match])
+    }, [dispatch, userId, tag])
     console.log(diaries)
     return (
         <div>
+            {userId && <UserInfo userId={userId}></UserInfo>}
+            {userId && <SubscribeInfo userId={userId}></SubscribeInfo>}
             <DiaryList diaries={diaries} diariesError={diariesError}/>
         </div>
     )
