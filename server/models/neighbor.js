@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const neighborSchema = new Schema({
+const subscribeSchema = new Schema({
     following: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
@@ -13,5 +13,5 @@ const neighborSchema = new Schema({
     }
 });
 
-const Neighbor = mongoose.model('Neighbor', neighborSchema);
-export default Neighbor;
+const Subscribe = mongoose.model('Subscribe', subscribeSchema);
+export default Subscribe;
