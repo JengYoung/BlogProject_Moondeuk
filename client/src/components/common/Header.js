@@ -28,6 +28,7 @@ const Spacer = styled.div`
 
 
 const Header = ({write, user, onLogout}) => {
+    console.log('Header Component에서의 user: ', user)
     return (!write) ? (
         <>
             <StyledHeader>

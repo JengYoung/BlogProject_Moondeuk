@@ -5,7 +5,6 @@ import DiaryList from '../../../components/list/DiaryList';
 import { diaryList } from '../../../modules/diaryList';
 import { withRouter } from 'react-router';
 import UserInfo from '../../../components/common/UserInfo';
-import SubscribeInfo from '../../../components/list/SubscribeInfo';
 
 function DiaryListContainer({ match, location }) {
     const { userId } = match.params;
@@ -16,17 +15,17 @@ function DiaryListContainer({ match, location }) {
     const dispatch = useDispatch();
     const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
         diaries: diaryListReducer.diaries,
-        diariesError: diaryListReducer.diariesError,
+        diariesError: diaryListReducer.diariesError
     }));
     
     useEffect(() => {
         dispatch(diaryList({userId, tag}))
     }, [dispatch, userId, tag])
     console.log(diaries)
+
     return (
         <div>
             {userId && <UserInfo userId={userId}></UserInfo>}
-            {userId && <SubscribeInfo userId={userId}></SubscribeInfo>}
             <DiaryList diaries={diaries} diariesError={diariesError}/>
         </div>
     )

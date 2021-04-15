@@ -7,7 +7,7 @@ import unSubscribeController from './unSubscribeController.js';
 const subscribe = express.Router();
 
 subscribe.post('/subscribeInfo', subscribeInfoController);
-subscribe.post('/subscribe', subscribeController);
+subscribe.post('/', subscribeController);
 subscribe.post('/subscribedInfo', subscribedInfoController);
 subscribe.post('/unsubscribe', unSubscribeController);
 

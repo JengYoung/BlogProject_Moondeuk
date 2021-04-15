@@ -12,7 +12,7 @@ const jwtCheck = async (req, res, next) => {
             userId: decoded.userId,
         };
         const now = Math.floor(Date.now() / 1000);
-        if (decoded.exp - now < 60 * 60 * 24) {
+        if (decoded.exp - now < 60 * 60 * 24 * 1.5) {
             const user = await User.findById(decoded._id);
             const newToken = user.grantAccessToken();
             res.cookie('access_token', newToken);

@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import createActionTypes from '../lib/createActionTypes';
-import subscribeAPI from '../lib/routes/subscribe/subsribe';
+import subscribeAPI from '../lib/routes/subscribe/subscribe';
 import { takeLatest } from 'redux-saga/effects';
 import createSaga from '../lib/createSaga';
 /* create Action types */ 
@@ -8,7 +8,10 @@ const SUBSCRIBE = 'subscribe/SUBSCRIBE';
 const [ SUBSCRIBE_SUCCESS, SUBSCRIBE_FAILURE ] = createActionTypes(SUBSCRIBE);
 
 /* create Action Creator */ 
-export const subscribe = createAction(SUBSCRIBE, subscribe => subscribe)
+export const subscribeUser = createAction(SUBSCRIBE, ({subscribeTo, subscribedFrom}) => ({
+    subscribeTo,
+    subscribedFrom,
+}))
 
 /* create Action Saga */ 
 const subscribeUserSaga = createSaga(SUBSCRIBE, subscribeAPI);
@@ -33,7 +36,7 @@ const subscribeReducer = handleActions({
     [SUBSCRIBE_FAILURE]: (state, { payload: subscribeError }) => ({
         ...state,
         subscribeError,
-    })
+    }),
 }, initialState);
 
 export default subscribeReducer;

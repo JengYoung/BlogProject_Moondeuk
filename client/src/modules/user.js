@@ -21,14 +21,11 @@ export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
 const initialState = {
-    user: {
-        _id: null,
-        userId: null,
-    },
+    user: null,
     checkError: null,
 };
 
-const checkSaga = createSaga(check, checkAPI);
+const checkSaga = createSaga(CHECK, checkAPI);
 const checkFailureSaga = () => {
     try {   
         localStorage.removeItem('user');

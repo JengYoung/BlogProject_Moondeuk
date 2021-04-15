@@ -15,12 +15,13 @@ import { check, tempSetUser } from './modules/user';
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 
-sagaMiddleware.run(rootSaga);
 
 /* user check for maintaining Login status */
 const userCheck = () => {
+  console.log('유저 체크 중입니다.')
   const user = getItemFromLocalStorage('user');
   if (!user) return;
+  console.log('리턴되지 않았습니다.');
   try {
     store.dispatch(tempSetUser());
     store.dispatch(check());
@@ -29,6 +30,7 @@ const userCheck = () => {
   }
 }
 
+sagaMiddleware.run(rootSaga);
 userCheck();
 
 ReactDOM.render(
