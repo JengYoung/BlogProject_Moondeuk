@@ -3,13 +3,12 @@ import User from '../../models/user.js';
 
 const checkSubscribeController = async (req, res) => {
     const { subscribeTo, subscribedFrom } = req.body;
-    const subscribeTo_id = await User.checkUserId(subscribeTo);
-    const subscribedFrom_id = await User.checkUserId(subscribedFrom);
-    
+    const subscribeTo_id = await User.checkUserId(subscribeTo)._id;
+    const subscribedFrom_id = await User.checkUserId(subscribedFrom)._id;
     try {
         const checkSubscribed = await Subscribe.find({ subscribeTo_id, subscribedFrom_id });
-        if (checkSubscribed) return res.send(true);
-    }catch(e) {
+        return res.send(checkSubscribed);
+    } catch(e) {
         res.status(404).send(e)
     }
 }

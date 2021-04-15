@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
-import { subscribeUser } from '../../../modules/subscribe';
+import { checkSubscribe, subscribeUser } from '../../../modules/subscribe';
 
 function SubscribeInfoContainer({ match }) {
     const authorId = match.params.userId;
@@ -17,11 +17,14 @@ function SubscribeInfoContainer({ match }) {
 
     // return true if unSubscribe yet
     useEffect(() => {
+        if (!user) return;
+        const { userId } = user;
+        const subscribeTo = authorId;
+        const subscribedFrom = userId;
+        dispatch(checkSubscribe({ subscribeTo, subscribedFrom }));
         // if not exist subscribe value in store -> return
-        console.log("subscribe: ", subscribe)
-        if (!subscribe) return;
         return setIsSubscribe(true);
-    }, [subscribe]);
+    }, [dispatch, authorId, user]);
 
     // if subscribe -> return, unSubscribe -> dispatch
     const onSubscribe = () => {
