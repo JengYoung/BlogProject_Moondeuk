@@ -5,10 +5,10 @@ import styled from 'styled-components';
 */
 
 const StyledUserInfo = styled.div``;
-const UserInfo = ({userId}) => {
+const UserInfo = ({authorId}) => {
     return (
         <StyledUserInfo>
-            <h3>{userId ? userId : '아이디'}</h3>
+            <h3>{authorId ? authorId : ''}</h3>
         </StyledUserInfo>
     );
 };

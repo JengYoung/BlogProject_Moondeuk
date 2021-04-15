@@ -3,13 +3,17 @@ import User from '../../models/user.js';
 
 const checkSubscribeController = async (req, res) => {
     const { subscribeTo, subscribedFrom } = req.body;
-    const subscribeTo_id = await User.checkUserId(subscribeTo)._id;
-    const subscribedFrom_id = await User.checkUserId(subscribedFrom)._id;
+    console.log(req.body);
     try {
-        const checkSubscribed = await Subscribe.find({ subscribeTo_id, subscribedFrom_id });
+        const toInfo = await User.checkUserId(subscribeTo);
+        const fromInfo = await User.checkUserId(subscribedFrom);
+        console.log("여기 문제", toInfo._id, fromInfo._id);
+        if (!toInfo._id || !fromInfo._id) return res.status(404).send();
+        const info = { subscribeTo: toInfo._id, subscribedFrom: fromInfo._id }
+        const checkSubscribed = await Subscribe.checkSubscribeExist(info)
         return res.send(checkSubscribed);
     } catch(e) {
-        res.status(404).send(e)
+        res.status(400).send(e)
     }
 }
 

@@ -12,6 +12,9 @@ const [ SUBSCRIBE_SUCCESS, SUBSCRIBE_FAILURE ] = createActionTypes(SUBSCRIBE);
 const CHECK_SUBSCRIBE = 'subscribe/CHECK_SUBSCRIBE';
 const [ CHECK_SUBSCRIBE_SUCCESS, CHECK_SUBSCRIBE_FAILURE ] = createActionTypes(CHECK_SUBSCRIBE);
 
+/* INITIALIZE_SUBSCRIBE =  유저 페이지 벗어날 시 초기화 기능 */  
+const INITIALIZE_SUBSCRIBE = 'subscribe/INITIALIZE_SUBSCRIBE';
+
 /* create Action Creator */ 
 export const subscribeUser = createAction(SUBSCRIBE, ({subscribeTo, subscribedFrom}) => ({
     subscribeTo,
@@ -22,6 +25,8 @@ export const checkSubscribe = createAction(CHECK_SUBSCRIBE, ({ subscribeTo, subs
     subscribeTo,
     subscribedFrom,
 }));
+
+export const initializeSubscribe = createAction(INITIALIZE_SUBSCRIBE, subscribe => subscribe);
 
 /* create Action Saga */ 
 const subscribeUserSaga = createSaga(SUBSCRIBE, subscribeAPI);
@@ -39,6 +44,7 @@ const initialState = {
 }
 
 const subscribeReducer = handleActions({
+    [INITIALIZE_SUBSCRIBE]: state => initialState,
     [SUBSCRIBE_SUCCESS]: (state, { payload: subscribe }) => ({
         ...state,
         subscribe,
@@ -48,7 +54,7 @@ const subscribeReducer = handleActions({
         ...state,
         subscribeError,
     }),
-    [CHECK_SUBSCRIBE_SUCCESS]: (state, { payload: subscribe}) => ({
+    [CHECK_SUBSCRIBE_SUCCESS]: (state, { payload: subscribe }) => ({
         ...state,
         subscribe,
         subscribeError: null,

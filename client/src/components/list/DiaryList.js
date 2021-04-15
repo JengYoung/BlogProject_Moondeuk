@@ -46,7 +46,7 @@ const DiaryWrapper = ({ diary }) => {
                 <div>
                     {userId}
                 </div>
-                {tags.map(tag => <div>{tag}</div>)}
+                {tags.map(tag => <div key={tag}><b>{tag}</b></div>)}
                 <hr/>
             </StyledDiaryData>
         </StyledDiaryWrapper>
@@ -57,7 +57,7 @@ const DiaryList = ({ diaries, diariesError }) => {
     return (
         <StyledDiaryList>
             {diaries && diaries.map(diary => {
-                return <DiaryWrapper diary={diary}/>
+                return <DiaryWrapper key={diaries._id} diary={diary}/>
             })}
         </StyledDiaryList>
     );

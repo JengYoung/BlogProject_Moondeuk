@@ -8,25 +8,22 @@ const subscribeController = async (req, res) => {
     try {
         const subscribeTo_id = await User.checkUserId(subscribeTo);
         const subscribedFrom_id = await User.checkUserId(subscribedFrom);
+        const checkExist = await Subscribe.checkSubscribeExist({
+            subscribeTo: subscribeTo_id._id,
+            subscribedFrom: subscribedFrom_id._id,
+        });
+        console.log("checkExist: ", checkExist)
+        if (checkExist) return res.status(409).send();
+
         const subscribe = new Subscribe({
             subscribeTo: subscribeTo_id._id,
             subscribedFrom: subscribedFrom_id._id,
         });
-        const checkExist = Subscribe.checkSubscribeExist(subscribe);
-        if (checkExist) return res.status(409).send();
+
         await subscribe.save();
         res.send(subscribe);
     } catch(e) {
-        res.status(404).send(e);
+        res.status(400).send(e);
     }
-    // const subscribe = new Subscribe(req.body);
-    // const checkExist = Subscribe.checkSubscribeExist(req.body);
-    // if (checkExist) return res.status(409).send(); // Conflict;
-    // try{
-    //     await subscribe.save();
-    //     res.send(subscribe);
-    // } catch(e) {
-    //     res.status(500).send(e);
-    // };
 }
 export default subscribeController;

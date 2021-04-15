@@ -28,7 +28,6 @@ const Spacer = styled.div`
 
 
 const Header = ({write, user, onLogout}) => {
-    console.log('Header Component에서의 user: ', user)
     return (!write) ? (
         <>
             <StyledHeader>
@@ -36,6 +35,7 @@ const Header = ({write, user, onLogout}) => {
                     <Link to="/" className="logo">MOONDEUK</Link>
                     {user ? (
                         <div>
+                            <div>{user.userId}님 안녕하세요!</div>
                             <Link to="/" onClick={onLogout}>로그아웃</Link>
                         </div>
                     ) : (

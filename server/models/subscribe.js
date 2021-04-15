@@ -14,7 +14,10 @@ const subscribeSchema = new Schema({
 });
 
 subscribeSchema.statics.checkSubscribeExist = function(info) {
-    return this.findOne(info);
+    const { subscribeTo, subscribedFrom } = info;
+    console.log("여기는 exist", subscribeTo, subscribedFrom )
+    if (!subscribeTo || !subscribedFrom) return Error;
+    return this.findOne({ subscribeTo, subscribedFrom });
 };
 
 const Subscribe = mongoose.model('Subscribe', subscribeSchema);
