@@ -9,13 +9,16 @@ const StyledGetSubscribeToBtn = styled.button``;
 const StyledGetSubscribedFromBtn = styled.button``;
 const StyledSubscribeBtn = styled.button``;
 
-const SubscribeInfo = ({userId, onSubscribe, subscribe}) => {
+const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe}) => {
     console.log("너에게 닿기를, ", subscribe, subscribe)
     return (
         <StyledSubscribeInfo>
-            <StyledGetSubscribeToBtn>{`${userId}'s`}Following</StyledGetSubscribeToBtn>
-            <StyledGetSubscribedFromBtn>{`${userId}'s`}Followed</StyledGetSubscribedFromBtn>
-            <StyledSubscribeBtn onClick={onSubscribe}>{(subscribe && subscribe) ? "구독 중" : "구독"}</StyledSubscribeBtn>
+            <StyledGetSubscribeToBtn>{`${authorId}'s `}Following</StyledGetSubscribeToBtn>
+            <StyledGetSubscribedFromBtn>{`${authorId}'s `}Followed</StyledGetSubscribedFromBtn>
+            {
+                (subscribe) ? <StyledSubscribeBtn onClick={onUnSubscribe}>구독 중</StyledSubscribeBtn>
+                            : <StyledSubscribeBtn onClick={onSubscribe}>구독하기</StyledSubscribeBtn>
+            }
         </StyledSubscribeInfo>
     );
 };

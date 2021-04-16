@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
-import { checkSubscribe, initializeSubscribe, subscribeUser } from '../../../modules/subscribe';
+import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
 
 function SubscribeInfoContainer({ authorId }) {
-    const [ isSubscribe, setIsSubscribe ] = useState(false);
+    // const [ isSubscribe, setIsSubscribe ] = useState(false);
     const dispatch = useDispatch();
     const { user, subscribe, subscribeError } = useSelector(({ userReducer, subscribeReducer }) => ({
         user: userReducer.user,
@@ -35,15 +35,27 @@ function SubscribeInfoContainer({ authorId }) {
             if (!user) return alert('로그인 후 구독 가능합니다.')
             if (authorId === user.userId) return alert('자신은 구독할 수 없습니다.')
             dispatch(subscribeUser({ subscribeTo: authorId, subscribedFrom: user.userId }));
-            if (subscribe) setIsSubscribe(true);
+            // if (subscribe) setIsSubscribe(true);
             return;
         } catch(e) {
             alert(e);
         }
     };
 
+    const onUnSubscribe = () => {
+        const { subscribeTo, subscribedFrom } = subscribe;
+        console.log(subscribe, subscribedFrom, "여기")
+        return dispatch(unSubscribeUser({ subscribeTo, subscribedFrom }));
+    }
+
     return (
-        <SubscribeInfo subscribe={subscribe} onSubscribe={onSubscribe} subscribeError={subscribeError}/>
+        <SubscribeInfo 
+            authorId={authorId}
+            subscribe={subscribe} 
+            onSubscribe={onSubscribe} 
+            onUnSubscribe={onUnSubscribe} 
+            subscribeError={subscribeError}
+        />
     )
 }
 export default withRouter(SubscribeInfoContainer)

@@ -10,6 +10,6 @@ subscribe.post('/', subscribeController);
 subscribe.post('/check', checkSubscribeController);
 subscribe.post('/subscribeInfo', subscribeInfoController);
 subscribe.post('/subscribedInfo', subscribedInfoController);
-subscribe.post('/unsubscribe', unSubscribeController);
+subscribe.post('/unSubscribe', unSubscribeController);
 
 export default subscribe;
