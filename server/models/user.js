@@ -35,6 +35,17 @@ userSchema.statics.checkUserId = function(userId) {
     return this.findOne({ userId });
 };
 
+/* get User Lists's id and nickname */
+userSchema.statics.getUserIdAndNickname = async function(userList) {
+    const result = await Promise.all(userList.map(async user => {
+        const userInfo = await this.findById(user.subscribedFrom).exec();
+        const { userId, nickname } = userInfo;
+        return { userId, nickname };
+    }));
+    return result;
+}
+
+
 userSchema.methods.checkUserPassword = async function(password) {
     const check = await bcrypt.compare(password, this.password);
     return check;
