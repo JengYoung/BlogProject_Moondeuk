@@ -8,8 +8,8 @@ import unSubscribeController from './unSubscribeController.js';
 const subscribe = express.Router();
 subscribe.post('/', subscribeController);
 subscribe.post('/check', checkSubscribeController);
-subscribe.post('/subscribeInfo', subscribeInfoController);
-subscribe.post('/subscribedInfo', subscribedInfoController);
+subscribe.get('/subscribeInfo/:authorId', subscribeInfoController);
+subscribe.get('/subscribedInfo/:authorId', subscribedInfoController);
 subscribe.post('/unSubscribe', unSubscribeController);
 
 export default subscribe;
