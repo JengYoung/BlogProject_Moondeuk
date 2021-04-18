@@ -16,7 +16,7 @@ const SUBSCRIBE_LIST = 'subscribeList/SUBSCRIBE_LIST';
 const [ SUBSCRIBE_LIST_SUCCESS, SUBSCRIBE_LIST_FAILURE ] = createActionTypes(SUBSCRIBE_LIST);
 
 export const initializeSubscribe = createAction(INITIALIZE_SUBSCRIBE);
-export const getSubscribeList = createAction(SUBSCRIBE_LIST);
+export const getSubscribeList = createAction(SUBSCRIBE_LIST, subscribeList => subscribeList);
 
 const getSubscribeListSaga = createSaga(SUBSCRIBE_LIST, subscribeListAPI);
 
@@ -26,7 +26,7 @@ export function* subscribeListSaga() {
 
 const initialState = { 
     subscribeList: {
-        subscribeTo: null,
+        subscribeToList: null,
         count: null,
     },
     subscribedList: {
@@ -40,7 +40,7 @@ const subscribeListReducer = handleActions({
     [INITIALIZE_SUBSCRIBE]: state => initialState,
     [SUBSCRIBE_LIST_SUCCESS]: (state, { payload: subscribeList }) => ({
         ...state,
-        subscribeList,
+        subscribeList
     }),
     [SUBSCRIBE_LIST_FAILURE]: (state, { payload: error }) => ({
         ...state,

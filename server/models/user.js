@@ -38,7 +38,7 @@ userSchema.statics.checkUserId = function(userId) {
 /* get User Lists's id and nickname */
 userSchema.statics.getUserIdAndNickname = async function(userList) {
     const result = await Promise.all(userList.map(async user => {
-        const userInfo = await this.findById(user.subscribedFrom).exec();
+        const userInfo = await this.findById(user.subscribeTo).exec();
         const { userId, nickname } = userInfo;
         return { userId, nickname };
     }));

@@ -10,12 +10,14 @@ const StyledGetSubscribeToBtn = styled.button``;
 const StyledGetSubscribedFromBtn = styled.button``;
 const StyledSubscribeBtn = styled.button``;
 
-const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe}) => {
+const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe, modal, onGetSubscribeList, onConfirm, subscribeList}) => {
+    const { subscribeToList, count } = subscribeList;
+
     console.log("너에게 닿기를, ", subscribe, subscribe)
     return (
         <StyledSubscribeInfo>
-            <Modal body="하이하이"></Modal>
-            <StyledGetSubscribeToBtn>{`${authorId}'s `}Following</StyledGetSubscribeToBtn>
+            <Modal modal={modal} body={subscribeToList} onConfirm={onConfirm}></Modal>
+            <StyledGetSubscribeToBtn onClick={onGetSubscribeList}>{count} Following</StyledGetSubscribeToBtn>
             <StyledGetSubscribedFromBtn>{`${authorId}'s `}Followed</StyledGetSubscribedFromBtn>
             {
                 (subscribe) ? <StyledSubscribeBtn onClick={onUnSubscribe}>구독 중</StyledSubscribeBtn>

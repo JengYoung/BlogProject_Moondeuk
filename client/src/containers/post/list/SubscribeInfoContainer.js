@@ -1,22 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
 import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
+import { getSubscribeList } from '../../../modules/subscribeList';
 
 function SubscribeInfoContainer({ authorId }) {
-    // const [ isSubscribe, setIsSubscribe ] = useState(false);
+    const [ modal, setModal ] = useState(false);
     const dispatch = useDispatch();
-    const { user, subscribe, subscribeError } = useSelector(({ userReducer, subscribeReducer }) => ({
-        user: userReducer.user,
-        subscribe: subscribeReducer.subscribe,
-        subscribeError: subscribeReducer.subscribeError,
+    const { user, 
+            subscribe, subscribeError, 
+            subscribeList, subscribeListError } = useSelector(({ userReducer, subscribeReducer, subscribeListReducer }) => ({
+            user: userReducer.user,
+            subscribe: subscribeReducer.subscribe,
+            subscribeError: subscribeReducer.subscribeError,
+            subscribeList: subscribeListReducer.subscribeList,
+            subscribeListError: subscribeListReducer.subscribeListError
     }));
 
     /*
         return true if unSubscribe yet
     */
     useEffect(() => {
+        dispatch(getSubscribeList({ authorId }));
         if (!user) return;
         const check = { subscribeTo: authorId, subscribedFrom: user.userId }
         const userId = user.userId;
@@ -24,9 +30,13 @@ function SubscribeInfoContainer({ authorId }) {
         dispatch(checkSubscribe({ subscribeTo: authorId, subscribedFrom: userId}));
     }, [dispatch, authorId, user]);
 
+    /*
+        before unMount => initialize Subscribe state
+    */ 
     useEffect(() => {
         return () => dispatch(initializeSubscribe());
     }, [dispatch])
+
     /* 
         if subscribe -> return, unSubscribe -> dispatch
     */
@@ -35,12 +45,20 @@ function SubscribeInfoContainer({ authorId }) {
             if (!user) return alert('로그인 후 구독 가능합니다.')
             if (authorId === user.userId) return alert('자신은 구독할 수 없습니다.')
             dispatch(subscribeUser({ subscribeTo: authorId, subscribedFrom: user.userId }));
-            // if (subscribe) setIsSubscribe(true);
             return;
         } catch(e) {
             alert(e);
         }
     };
+
+    const onGetSubscribeList = () => {
+        if (subscribeList.length === 0) return;
+        setModal(true);
+    }
+
+    const onConfirm = () => {
+        return setModal(false);
+    }
 
     const onUnSubscribe = () => {
         const { subscribeTo, subscribedFrom } = subscribe;
@@ -55,6 +73,10 @@ function SubscribeInfoContainer({ authorId }) {
             onSubscribe={onSubscribe} 
             onUnSubscribe={onUnSubscribe} 
             subscribeError={subscribeError}
+            onGetSubscribeList={onGetSubscribeList}
+            subscribeList={subscribeList}
+            modal={modal}
+            onConfirm={onConfirm}
         />
     )
 }

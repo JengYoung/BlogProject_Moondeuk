@@ -18,9 +18,12 @@ const StyledModalBackground = styled.div`
 `;
 const StyledModal = styled.div`
     width: 400px;
+    height: auto;
     background: white;
     padding: 2rem;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.125);
+    display: flex;
+    flex-direction: column;
     .buttonWrapper {
         display: flex;
         justify-content: flex-end;
@@ -30,14 +33,21 @@ const StyledModal = styled.div`
     }
 `;
 
-const Modal = ({body}) => {
+const StyledSubscribeListItem = styled.div`
+    padding: 1rem;
+    border-bottom: 1px solid gray;
+`;
+
+const Modal = ({ modal, body, onConfirm, onCancel }) => {
+    console.log("body: ", body)
+    if (!modal) return null;
     return (
         <StyledModalBackground>
             <StyledModal>
-                {body}
+                {body.map(user => <StyledSubscribeListItem>{user.nickname}{`(${user.userId})`}</StyledSubscribeListItem>)}
                 <div className="buttonWrapper">
-                    <Button>확인</Button>
-                    <Button>취소</Button>
+                    <Button onClick={onConfirm}>확인</Button>
+                    {onCancel ? <Button>취소</Button> : null}
                 </div>
             </StyledModal>
         </StyledModalBackground>
