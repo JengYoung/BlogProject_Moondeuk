@@ -14,11 +14,7 @@ const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe}) => {
     console.log("너에게 닿기를, ", subscribe, subscribe)
     return (
         <StyledSubscribeInfo>
-<<<<<<< HEAD
             <Modal body="하이하이"></Modal>
-=======
-            <Modal></Modal>
->>>>>>> a2a08516cccd24dec93ac271868506b01d592ba4
             <StyledGetSubscribeToBtn>{`${authorId}'s `}Following</StyledGetSubscribeToBtn>
             <StyledGetSubscribedFromBtn>{`${authorId}'s `}Followed</StyledGetSubscribedFromBtn>
             {
