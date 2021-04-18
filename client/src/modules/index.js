@@ -8,6 +8,7 @@ import writeReducer, { writeSaga } from './write';
 import diaryReducer, { diarySaga } from './diary';
 import diaryListReducer, { diaryListSaga } from './diaryList'
 import subscribeReducer, { subscribeSaga } from './subscribe';
+import subscribeListReducer, { subscribeListSaga } from '/subscribeList';
 
 const rootReducer = combineReducers({
     loadingReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     diaryReducer,
     diaryListReducer,
     subscribeReducer,
+    subscribeListReducer
 });
 
 export function* rootSaga() {
@@ -29,6 +31,7 @@ export function* rootSaga() {
         diarySaga(), 
         diaryListSaga(),
         subscribeSaga(),
+        subscribeListSaga(),
     ]);
 };
 

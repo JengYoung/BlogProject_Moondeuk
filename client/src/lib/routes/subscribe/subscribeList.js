@@ -1,6 +1,6 @@
 import client from '../client';
 
-const subscribeInfo = ({authorId}) =>
+const subscribeListAPI = ({authorId}) =>
     client.get(`/routes/subscribe/subscribeInfo/${authorId}`);
 
-export default subscribeInfo;
+export default subscribeListAPI;
