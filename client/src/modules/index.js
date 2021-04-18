@@ -8,7 +8,7 @@ import writeReducer, { writeSaga } from './write';
 import diaryReducer, { diarySaga } from './diary';
 import diaryListReducer, { diaryListSaga } from './diaryList'
 import subscribeReducer, { subscribeSaga } from './subscribe';
-import subscribeListReducer, { subscribeListSaga } from '/subscribeList';
+import subscribeListReducer, { subscribeListSaga } from './subscribeList';
 
 const rootReducer = combineReducers({
     loadingReducer,
