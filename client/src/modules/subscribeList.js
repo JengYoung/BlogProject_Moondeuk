@@ -46,6 +46,6 @@ const subscribeListReducer = handleActions({
         ...state,
         subscribeError: error,
     }),
-})
+}, initialState)
 
 export default subscribeListReducer;

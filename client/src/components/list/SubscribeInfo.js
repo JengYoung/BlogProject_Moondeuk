@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import Modal from '../common/Modal';
 
 /*
 */
@@ -13,6 +14,7 @@ const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe}) => {
     console.log("너에게 닿기를, ", subscribe, subscribe)
     return (
         <StyledSubscribeInfo>
+            <Modal></Modal>
             <StyledGetSubscribeToBtn>{`${authorId}'s `}Following</StyledGetSubscribeToBtn>
             <StyledGetSubscribedFromBtn>{`${authorId}'s `}Followed</StyledGetSubscribedFromBtn>
             {
