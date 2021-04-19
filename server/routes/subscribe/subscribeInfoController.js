@@ -8,7 +8,7 @@ const subscribeInfoController = async (req, res) => {
     console.log(_id);
     const subscribeList = await Subscribe.find({subscribedFrom: _id}).exec();
     try {
-        const result = await User.getUserIdAndNickname(subscribeList);
+        const result = await User.getUserIdAndNickname(subscribeList, 'subscribeTo');
         console.log(result);
         return res.send({subscribeToList: result, count: subscribeList.length});
     } catch(e) {
