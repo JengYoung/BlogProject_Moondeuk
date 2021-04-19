@@ -3,18 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
 import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
-import { getSubscribeList } from '../../../modules/subscribeList';
+import { getSubscribeList, getSubscribedList } from '../../../modules/subscribeList';
 
 function SubscribeInfoContainer({ authorId }) {
     const [ modal, setModal ] = useState(false);
+    const [ isSubscribeList, setIsSubscribeList ] = useState(true);
     const dispatch = useDispatch();
     const { user, 
             subscribe, subscribeError, 
-            subscribeList, subscribeListError } = useSelector(({ userReducer, subscribeReducer, subscribeListReducer }) => ({
+            subscribeList, subscribedList, 
+            subscribeListError } = useSelector(({ userReducer, subscribeReducer, subscribeListReducer }) => ({
             user: userReducer.user,
             subscribe: subscribeReducer.subscribe,
             subscribeError: subscribeReducer.subscribeError,
             subscribeList: subscribeListReducer.subscribeList,
+            subscribedList: subscribeListReducer.subscribedList,
             subscribeListError: subscribeListReducer.subscribeListError
     }));
 
@@ -23,6 +26,8 @@ function SubscribeInfoContainer({ authorId }) {
     */
     useEffect(() => {
         dispatch(getSubscribeList({ authorId }));
+        dispatch(getSubscribedList({ authorId }));
+
         if (!user) return;
         const check = { subscribeTo: authorId, subscribedFrom: user.userId }
         const userId = user.userId;
@@ -54,6 +59,13 @@ function SubscribeInfoContainer({ authorId }) {
     const onGetSubscribeList = () => {
         if (subscribeList.length === 0) return;
         setModal(true);
+        setIsSubscribeList(true);
+    }
+
+    const onGetSubscribedList = () => {
+        if (subscribedList.length === 0) return;
+        setModal(true);
+        setIsSubscribeList(false);
     }
 
     const onConfirm = () => {
@@ -74,7 +86,10 @@ function SubscribeInfoContainer({ authorId }) {
             onUnSubscribe={onUnSubscribe} 
             subscribeError={subscribeError}
             onGetSubscribeList={onGetSubscribeList}
+            onGetSubscribedList={onGetSubscribedList}
             subscribeList={subscribeList}
+            subscribedList={subscribedList}
+            isSubscribeList={isSubscribeList}
             modal={modal}
             onConfirm={onConfirm}
         />

@@ -10,15 +10,35 @@ const StyledGetSubscribeToBtn = styled.button``;
 const StyledGetSubscribedFromBtn = styled.button``;
 const StyledSubscribeBtn = styled.button``;
 
-const SubscribeInfo = ({authorId, onSubscribe, onUnSubscribe, subscribe, modal, onGetSubscribeList, onConfirm, subscribeList}) => {
-    const { subscribeToList, count } = subscribeList;
+const SubscribeInfo = (
+    {
+        authorId, 
+        onSubscribe, 
+        onUnSubscribe, 
+        subscribe, 
+        modal, 
+        isSubscribeList,
+        onGetSubscribeList, 
+        onGetSubscribedList, 
+        onConfirm, 
+        subscribeList,
+        subscribedList
+    }) => {
+    const { subscribeToList } = subscribeList;
+    const { subscribedFromList } = subscribedList;
 
     console.log("너에게 닿기를, ", subscribe, subscribe)
     return (
         <StyledSubscribeInfo>
-            <Modal modal={modal} body={subscribeToList} onConfirm={onConfirm}></Modal>
-            <StyledGetSubscribeToBtn onClick={onGetSubscribeList}>{count} Following</StyledGetSubscribeToBtn>
-            <StyledGetSubscribedFromBtn>{`${authorId}'s `}Followed</StyledGetSubscribedFromBtn>
+            <Modal 
+                modal={modal} 
+                isSubscribeList={isSubscribeList} 
+                subscribeToList={subscribeToList} 
+                subscribedFromList={subscribedFromList} 
+                onConfirm={onConfirm}>
+            </Modal>
+            <StyledGetSubscribeToBtn onClick={onGetSubscribeList}>{subscribeList.count} Following</StyledGetSubscribeToBtn>
+            <StyledGetSubscribedFromBtn onClick={onGetSubscribedList}>{subscribedList.count} Followed</StyledGetSubscribedFromBtn>
             {
                 (subscribe) ? <StyledSubscribeBtn onClick={onUnSubscribe}>구독 중</StyledSubscribeBtn>
                             : <StyledSubscribeBtn onClick={onSubscribe}>구독하기</StyledSubscribeBtn>

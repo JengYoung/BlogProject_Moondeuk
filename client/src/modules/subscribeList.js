@@ -21,7 +21,7 @@ const [ SUBSCRIBED_LIST_SUCCESS, SUBSCRIBED_LIST_FAILURE ] = createActionTypes(S
 
 export const initializeSubscribe = createAction(INITIALIZE_SUBSCRIBE);
 export const getSubscribeList = createAction(SUBSCRIBE_LIST, subscribeList => subscribeList);
-export const getSubsribedList = createAction(SUBSCRIBED_LIST, subscribedList => subscribedList);
+export const getSubscribedList = createAction(SUBSCRIBED_LIST, subscribedList => subscribedList);
 
 const getSubscribeListSaga = createSaga(SUBSCRIBE_LIST, subscribeListAPI);
 const getSubscribedListSaga = createSaga(SUBSCRIBED_LIST, subscribedListAPI);
@@ -37,7 +37,7 @@ const initialState = {
         count: null,
     },
     subscribedList: {
-        subscribedFrom: null,
+        subscribedFromList: null,
         count: null,
     },
     subscribeError: null,

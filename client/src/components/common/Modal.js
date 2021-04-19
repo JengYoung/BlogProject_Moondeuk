@@ -38,7 +38,8 @@ const StyledSubscribeListItem = styled.div`
     border-bottom: 1px solid gray;
 `;
 
-const Modal = ({ modal, body, onConfirm, onCancel }) => {
+const Modal = ({ modal, isSubscribeList, subscribeToList, subscribedFromList, onConfirm, onCancel }) => {
+    const body = isSubscribeList ? subscribeToList : subscribedFromList
     console.log("body: ", body)
     if (!modal) return null;
     return (
