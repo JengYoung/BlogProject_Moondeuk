@@ -1,6 +1,6 @@
 import client from '../client';
 
-const subscribedListAPI = ({userId}) =>
-    client.get(`/routes/subscribe/subscribeInfo/${userId}`);
+const subscribedListAPI = ({authorId}) =>
+    client.get(`/routes/subscribe/subscribeInfo/${authorId}`);
 
 export default subscribedListAPI;

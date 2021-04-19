@@ -9,7 +9,7 @@ const subscribe = express.Router();
 subscribe.post('/', subscribeController);
 subscribe.post('/check', checkSubscribeController);
 subscribe.get('/subscribeInfo/:authorId', subscribeInfoController);
-subscribe.get('/subscribedInfo/:userId', subscribedInfoController);
+subscribe.get('/subscribedInfo/:authorId', subscribedInfoController);
 subscribe.post('/unSubscribe', unSubscribeController);
 
 export default subscribe;
