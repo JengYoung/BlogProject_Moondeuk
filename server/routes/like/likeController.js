@@ -7,6 +7,8 @@ const likeController = async (req, res) => {
         diaryId,
     });
     try {
+        const checkExist = await Like.findData({ userId, diaryId });
+        if (checkExist) return res.status(409).send();
         await like.save();
         return res.send(like)
     } catch(e) {

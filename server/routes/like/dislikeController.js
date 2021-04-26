@@ -4,7 +4,7 @@ const dislikeController = async (req, res) => {
     const { userId, diaryId } = req.params;
     try{
         if (!userId || !diaryId) return;
-        const data = await Like.findOne({ userId, diaryId });
+        const data = await Like.findData({ userId, diaryId });
         await Like.findByIdAndDelete(data._id)
         return res.status(204).send();
     } catch(e) {

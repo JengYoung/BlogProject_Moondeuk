@@ -13,5 +13,10 @@ const likeSchema = new Schema({
     }
 });
 
+
+likeSchema.statics.findData = async function({ userId, diaryId }) {
+    return await this.findOne({ userId, diaryId });
+}
+
 const Like = mongoose.model('Like', likeSchema);
 export default Like;
