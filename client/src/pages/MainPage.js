@@ -1,18 +1,14 @@
 import React from 'react'
-import { withRouter } from 'react-router'
-import UserInfo from '../components/common/UserInfo'
+import { withRouter } from 'react-router';
 import HeaderContainer from '../containers/HeaderContainer'
 import DiaryListContainer from '../containers/post/list/DiaryListContainer'
 import SubscribeInfoContainer from '../containers/post/list/SubscribeInfoContainer'
 
-function MainPage({match}) {
-    const authorId = match.params.userId;
+function MainPage() {
     return (
         <>
-            <HeaderContainer>
-            </HeaderContainer>
-            {authorId && <UserInfo authorId={authorId}></UserInfo>}
-            {authorId && <SubscribeInfoContainer authorId={authorId}/>}
+            <HeaderContainer />
+            <SubscribeInfoContainer/>
             <DiaryListContainer/>
         </>
     )

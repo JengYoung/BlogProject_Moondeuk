@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
+import UserInfo from '../../../components/common/UserInfo';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
 import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
 import { getSubscribeList, getSubscribedList } from '../../../modules/subscribeList';
 
-function SubscribeInfoContainer({ authorId }) {
+function SubscribeInfoContainer({ match }) {
+    const { authorId } = match.params ? match.params : null;
+    console.log("authorId: ", authorId)
     const [ modal, setModal ] = useState(false);
     const [ isSubscribeList, setIsSubscribeList ] = useState(true);
     const dispatch = useDispatch();
@@ -79,20 +82,23 @@ function SubscribeInfoContainer({ authorId }) {
     }
 
     return (
-        <SubscribeInfo 
-            authorId={authorId}
-            subscribe={subscribe} 
-            onSubscribe={onSubscribe} 
-            onUnSubscribe={onUnSubscribe} 
-            subscribeError={subscribeError}
-            onGetSubscribeList={onGetSubscribeList}
-            onGetSubscribedList={onGetSubscribedList}
-            subscribeList={subscribeList}
-            subscribedList={subscribedList}
-            isSubscribeList={isSubscribeList}
-            modal={modal}
-            onConfirm={onConfirm}
-        />
+        <>
+            { authorId && <UserInfo authorId={authorId}></UserInfo> }
+            { authorId && <SubscribeInfo 
+                authorId={authorId}
+                subscribe={subscribe} 
+                onSubscribe={onSubscribe} 
+                onUnSubscribe={onUnSubscribe} 
+                subscribeError={subscribeError}
+                onGetSubscribeList={onGetSubscribeList}
+                onGetSubscribedList={onGetSubscribedList}
+                subscribeList={subscribeList}
+                subscribedList={subscribedList}
+                isSubscribeList={isSubscribeList}
+                modal={modal}
+                onConfirm={onConfirm}
+            /> }
+        </>
     )
 }
 export default withRouter(SubscribeInfoContainer)
