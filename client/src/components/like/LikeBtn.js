@@ -18,7 +18,6 @@ const StyledLikeBtn = styled.div`
 
 const likeBtn = ({ onLike, like, onDislike }) => {
     const checkLikeExist = like.diaryId ? like.diaryId : null;
-    console.log(checkLikeExist, "add", like.diaryId)
     return (
         checkLikeExist ? 
             <StyledLikeBtn onClick={onDislike}>❤</StyledLikeBtn>

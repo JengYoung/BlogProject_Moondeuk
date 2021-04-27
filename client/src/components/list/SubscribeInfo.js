@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import Modal from '../common/Modal';
+import SubscribeListModal from '../subscribe/SubscribeListModal';
 
 /*
 */
@@ -27,16 +27,16 @@ const SubscribeInfo = (
     const { subscribeToList } = subscribeList;
     const { subscribedFromList } = subscribedList;
 
-    console.log("너에게 닿기를, ", subscribe, subscribe)
+    console.log("너에게 닿기를, ", subscribe)
     return (
         <StyledSubscribeInfo>
-            <Modal 
+            <SubscribeListModal 
                 modal={modal} 
                 isSubscribeList={isSubscribeList} 
                 subscribeToList={subscribeToList} 
                 subscribedFromList={subscribedFromList} 
                 onConfirm={onConfirm}>
-            </Modal>
+            </SubscribeListModal>
             <StyledGetSubscribeToBtn onClick={onGetSubscribeList}>{subscribeList.count} Following</StyledGetSubscribeToBtn>
             <StyledGetSubscribedFromBtn onClick={onGetSubscribedList}>{subscribedList.count} Followed</StyledGetSubscribedFromBtn>
             {

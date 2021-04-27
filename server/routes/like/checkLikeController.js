@@ -8,7 +8,7 @@ const checkLikeController = async (req, res) => {
         const result = await Like.findOne({ userId, diaryId });
         if (result) return res.send(result);
     } catch(e) {
-        return res.send(400).send("여기야")
+        return res.send(400).send()
     }
 }
 

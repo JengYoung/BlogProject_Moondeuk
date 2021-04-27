@@ -6,10 +6,12 @@ const subscribeInfoController = async (req, res) => {
     const { authorId } = req.params;
     if (!authorId) return;
     console.log("subscribeInfoController - authorId: ", authorId);
-    const checkId = await User.checkUserId(authorId)._id;
+    const checkId = await User.checkUserId(authorId);
+    console.log("checkId: ", checkId)
     const subscribeList = await Subscribe.find({subscribedFrom: checkId}).exec();
     try {
         const result = await User.getUserIdAndNickname(subscribeList, 'subscribeTo');
+        console.log("result: ", result);
         return res.send({subscribeToList: result, count: subscribeList.length});
     } catch(e) {
         return res.status(400).send(e);
