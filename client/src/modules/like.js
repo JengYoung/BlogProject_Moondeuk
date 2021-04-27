@@ -9,11 +9,12 @@ const LIKE = 'like/LIKE';
 const [ LIKE_SUCCESS, LIKE_FAILURE ] = createActionTypes(LIKE);
 
 export const initializeLike = createAction(INITIALIZE_LIKE);
-export const likeUser = createAction(LIKE, like => like);
+export const likeDiary = createAction(LIKE, like => like);
 
-const likeUserSaga = createSaga(LIKE, likeAPI);
+const likeDiarySaga = createSaga(LIKE, likeAPI);
+
 export function* likeSaga() {
-    yield takeLatest(LIKE, likeUserSaga);
+    yield takeLatest(LIKE, likeDiarySaga);
 };
 
 const initialState = {

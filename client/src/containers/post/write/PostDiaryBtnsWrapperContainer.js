@@ -21,6 +21,7 @@ function PostDiaryBtnsWrapperContainer({ history, match }) {
 
     const onPostDiary = () => {
         if (isPatch) {
+            console.log(diaryId, title, body, tags);
             dispatch(updateDiary({ diaryId, title, body, tags }));
             return;
         };
