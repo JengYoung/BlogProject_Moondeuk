@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import LikeBtn from '../../components/like/LikeBtn';
-import { likeDiary, initializeLike } from '../../modules/like';
+import { likeDiary, initializeLike, checkLike } from '../../modules/like';
 
 const LikeBtnContainer = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,12 @@ const LikeBtnContainer = () => {
 
     useEffect(() =>{
         dispatch(initializeLike());
-    }, [dispatch]);
+        if (!user || !diary) return;
+        const userId = user._id;
+        const diaryId = diary._id; 
+        console.log("checkLike: ", userId, diaryId);
+        dispatch(checkLike({ userId, diaryId }))
+    }, [dispatch, diary, user]);
 
     const onLike = () => {
         if (!user || !diary) return;
