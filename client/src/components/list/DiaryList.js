@@ -57,7 +57,7 @@ const DiaryList = ({ diaries, diariesError }) => {
     return (
         <StyledDiaryList>
             {diaries && diaries.map(diary => {
-                return <DiaryWrapper key={diaries._id} diary={diary}/>
+                return <DiaryWrapper key={diary._id} diary={diary}/>
             })}
         </StyledDiaryList>
     );
