@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 /*
+    좋아요 버튼
 */
 
 const StyledLikeBtn = styled.div`
