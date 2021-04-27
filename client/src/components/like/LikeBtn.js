@@ -16,10 +16,9 @@ const StyledLikeBtn = styled.div`
 `;
 
 const likeBtn = ({ onLike, like }) => {
-    console.log(like);
     return (
         <StyledLikeBtn onClick={onLike}>
-            { like.length > 0 ? '❤' : '♡'}
+            { like._id ? '❤' : '♡'}
         </StyledLikeBtn>
     );
 };
