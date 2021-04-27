@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import LikeBtn from '../../components/like/LikeBtn';
-import { likeDiary, initializeLike, checkLike } from '../../modules/like';
+import { likeDiary, initializeLike, checkLike, dislikeDiary } from '../../modules/like';
 
 const LikeBtnContainer = () => {
     const dispatch = useDispatch();
@@ -25,13 +25,21 @@ const LikeBtnContainer = () => {
         if (!user || !diary) return;
         const userId = user._id;
         const diaryId = diary._id; 
-        console.log(userId, diaryId)
-        dispatch(likeDiary({userId, diaryId}));
+        console.log("Like: ", userId, diaryId)
+        dispatch(likeDiary({ userId, diaryId }));
     };
+
+    const onDislike = () => {
+        if (!user || !diary) return;
+        const userId = user._id;
+        const diaryId = diary._id; 
+        console.log("dislike: ", userId, diaryId)
+        dispatch(dislikeDiary({ userId, diaryId }))
+    }
 
     return (
         <div>
-            <LikeBtn onLike={onLike} like={like}>나야나</LikeBtn>
+            <LikeBtn like={like} onLike={onLike} onDislike={onDislike}></LikeBtn>
         </div>
     )
 }

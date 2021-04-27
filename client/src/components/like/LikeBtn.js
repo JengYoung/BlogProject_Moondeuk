@@ -16,11 +16,14 @@ const StyledLikeBtn = styled.div`
     height: 1.5rem;
 `;
 
-const likeBtn = ({ onLike, like }) => {
+const likeBtn = ({ onLike, like, onDislike }) => {
+    const checkLikeExist = like.diaryId ? like.diaryId : null;
+    console.log(checkLikeExist, "add", like.diaryId)
     return (
-        <StyledLikeBtn onClick={onLike}>
-            { like._id ? '❤' : '♡'}
-        </StyledLikeBtn>
+        checkLikeExist ? 
+            <StyledLikeBtn onClick={onDislike}>❤</StyledLikeBtn>
+        : 
+            <StyledLikeBtn onClick={onLike}>♡</StyledLikeBtn>
     );
 };
 
