@@ -6,7 +6,6 @@ import { diaryList } from '../../../modules/diaryList';
 import { withRouter } from 'react-router';
 
 function DiaryListContainer({ match, location }) {
-    console.log(match.params);
     const dispatch = useDispatch();
     const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
         diaries: diaryListReducer.diaries,
