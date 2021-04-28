@@ -16,8 +16,8 @@ const StyledLikeBtn = styled.div`
     height: 1.5rem;
 `;
 
-const likeBtn = ({ onLike, like, onDislike }) => {
-    const checkLikeExist = like.diaryId ? like.diaryId : null;
+const LikeBtn = ({ onLike, like, onDislike }) => {
+    const checkLikeExist = like.userId ? like.userId : null;
     return (
         checkLikeExist ? 
             <StyledLikeBtn onClick={onDislike}>❤</StyledLikeBtn>
@@ -26,4 +26,4 @@ const likeBtn = ({ onLike, like, onDislike }) => {
     );
 };
 
-export default likeBtn;
+export default LikeBtn;
