@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import LikeBtn from '../../components/like/LikeBtn';
-import { likeDiary, initializeLike, checkLike, dislikeDiary } from '../../modules/like';
+import LikeCounters from '../../components/like/LikeCounters';
+import { likeDiary, initializeLike, checkLike, dislikeDiary, likeList } from '../../modules/like';
 
 const LikeBtnContainer = () => {
     const dispatch = useDispatch();
-    const { like, user, diary } = useSelector(({ likeReducer, userReducer, diaryReducer}) => ({
+    const { like, likes, user, diary } = useSelector(({ likeReducer, userReducer, diaryReducer}) => ({
         like: likeReducer.like,
+        likes: likeReducer.likes,
         user: userReducer.user,
         diary: diaryReducer.diary
     }))
@@ -19,6 +21,7 @@ const LikeBtnContainer = () => {
         const diaryId = diary._id; 
         console.log("checkLike: ", userId, diaryId);
         dispatch(checkLike({ userId, diaryId }))
+        dispatch(likeList(diaryId))
     }, [dispatch, diary, user]);
 
     const onLike = () => {
@@ -36,11 +39,14 @@ const LikeBtnContainer = () => {
         console.log("dislike: ", userId, diaryId)
         dispatch(dislikeDiary({ userId, diaryId }))
     }
-
+    const onLikeList = () => {
+        console.log(likes);
+    };
     return (
-        <div>
+        <>
             <LikeBtn like={like} onLike={onLike} onDislike={onDislike}></LikeBtn>
-        </div>
+            <LikeCounters likes={likes} onLikeList={onLikeList}/>
+        </>
     )
 }
 

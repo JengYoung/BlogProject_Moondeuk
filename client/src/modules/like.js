@@ -42,7 +42,7 @@ const initialState = {
         userId: null,
         diaryId: null,
     },
-    likeList: [],
+    likes: [],
     likeError: null,
     likeListError: null,
 }
@@ -78,9 +78,9 @@ const likeReducer = handleActions({
         ...state,
         likeError: error,
     }),
-    [LIKE_LIST_SUCCESS]: (state, { payload: likeList }) => ({
+    [LIKE_LIST_SUCCESS]: (state, { payload: likes }) => ({
         ...state,
-        likeList,
+        likes,
         likeListError: null,
     }),
     [LIKE_LIST_FAILURE]: (state, { payload: error }) => ({
