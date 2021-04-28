@@ -24,34 +24,34 @@ function SubscribeInfoContainer({ match }) {
             subscribeListError: subscribeListReducer.subscribeListError
     }));
 
+    const userId = user ? user.userId : null;
+
     /*
         return true if unSubscribe yet
     */
     useEffect(() => {
         dispatch(getSubscribeList({ authorId }));
         dispatch(getSubscribedList({ authorId }));
-
-        if (!user) return;
-        const check = { subscribeTo: authorId, subscribedFrom: user.userId }
-        const userId = user.userId;
-        console.log("check: ", check);
-        dispatch(checkSubscribe({ subscribeTo: authorId, subscribedFrom: userId}));
-    }, [dispatch, authorId, user]);
+    }, [dispatch, authorId, subscribe]);
 
     /*
         before unMount => initialize Subscribe state
     */ 
     useEffect(() => {
+        if (!userId) return;
+        // const check = { subscribeTo: authorId, subscribedFrom: userId }
+        // console.log("check: ", check);
+        dispatch(checkSubscribe({ subscribeTo: authorId, subscribedFrom: userId}));
         return () => dispatch(initializeSubscribe());
-    }, [dispatch])
+    }, [dispatch, authorId, userId])
 
     /* 
         if subscribe -> return, unSubscribe -> dispatch
     */
     const onSubscribe = () => {
         try {
-            if (!user) return alert('로그인 후 구독 가능합니다.')
-            if (authorId === user.userId) return alert('자신은 구독할 수 없습니다.')
+            if (!userId) return alert('로그인 후 구독 가능합니다.')
+            if (authorId === userId) return alert('자신은 구독할 수 없습니다.')
             dispatch(subscribeUser({ subscribeTo: authorId, subscribedFrom: user.userId }));
             return;
         } catch(e) {

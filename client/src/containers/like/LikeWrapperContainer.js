@@ -29,17 +29,9 @@ function LikeWrapperContainer() {
         dispatch(likeList(diaryId));
     },[diaryId, dispatch, like])
 
-    const onLike = () => {
-        dispatch(likeDiary({ userId, diaryId }));
-    };
-
-    const onDislike = () => {
-        dispatch(dislikeDiary({ userId, diaryId }));
-    }
-
-    const onLikeList = () => {
-        setModal(!modal);
-    };
+    const onLike = () => dispatch(likeDiary({ userId, diaryId }));
+    const onDislike = () => dispatch(dislikeDiary({ userId, diaryId }));
+    const onLikeList = () => setModal(!modal);
 
     return (
         <LikeWrapper>
@@ -50,7 +42,6 @@ function LikeWrapperContainer() {
             />
             <LikeCounter
                 modal={modal}
-                diaryId={diaryId}
                 likes={likes}
                 onLikeList={onLikeList}
             />
