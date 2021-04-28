@@ -21,7 +21,7 @@ const LikeCounter = ({ modal, likes, onLikeList }) => {
             { modal && 
                 <LikeModal onLikeList={onLikeList}>
                     {
-                        likes.map(like => <ModalListItem>{like.nickname + `(${like.userId})`}</ModalListItem>)
+                        likes.map(like => <ModalListItem key={like._id}>{like.nickname + `(${like.userId})`}</ModalListItem>)
                     }
                 </LikeModal>
             }
