@@ -2,9 +2,7 @@ import Comment from '../../models/comment.js';
 
 const commentController = async (req, res) => {
     const { userId, diaryId } = req.params;
-    console.log("userId, diaryId: ", userId, diaryId)
     const { content } = req.body;
-    console.log(content);
     try {
         const comment = new Comment({
             userId,
