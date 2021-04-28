@@ -1,14 +1,15 @@
 import express from 'express';
+import commentController from './commentController.js';
 
 const comment = express.Router();
 
 /* [ CREATE ] User's comment */ 
-comment.post('/comment/:userId/:diaryId', commentController);
+comment.post('/:userId/:diaryId', commentController);
 /* [ READ ] Diary's comment */ 
-comment.get('/comment/:diaryId', checkCommentController);
+// comment.get('/:diaryId', checkCommentController);
 /* [ UPDATE ] User's comment */
-comment.patch('/comment/:commentId/:diaryId', updateCommentController); 
+// comment.patch('/:commentId/:diaryId', updateCommentController); 
 /* [ DELETE ] User's comment */ 
-comment.delete('/comment/:commentId/:diaryId', deleteCommentController);
+// comment.delete('/:commentId/:diaryId', deleteCommentController);
 
 export default comment;

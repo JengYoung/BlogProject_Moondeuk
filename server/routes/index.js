@@ -9,5 +9,5 @@ routes.use('/auth', auth);
 routes.use('/post', post);
 routes.use('/subscribe', subscribe);
 routes.use('/like', like)
-routes.use('/commnet', comment);
+routes.use('/comment', comment);
 export default routes;
