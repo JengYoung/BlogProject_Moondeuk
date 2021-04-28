@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components';
-import Button from './Button';
+// import Button from './Button';
 
 /*
 */
 
-const StyledModalBackground = styled.div`
+export const StyledModalBackground = styled.div`
     position: fixed;
     top: 0;
     left: 0;
@@ -16,7 +16,7 @@ const StyledModalBackground = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const StyledModal = styled.div`
+export const StyledModal = styled.div`
     width: 400px;
     height: auto;
     background: white;
@@ -33,24 +33,10 @@ const StyledModal = styled.div`
     }
 `;
 
-const StyledSubscribeListItem = styled.div`
-    padding: 1rem;
-    border-bottom: 1px solid gray;
-`;
-
-const Modal = ({ modal, isSubscribeList, subscribeToList, subscribedFromList, onConfirm, onCancel }) => {
-    const body = isSubscribeList ? subscribeToList : subscribedFromList
-    console.log("body: ", body)
-    if (!modal) return null;
+const Modal = (props) => {
     return (
         <StyledModalBackground>
-            <StyledModal>
-                {body.map(user => <StyledSubscribeListItem>{user.nickname}{`(${user.userId})`}</StyledSubscribeListItem>)}
-                <div className="buttonWrapper">
-                    <Button onClick={onConfirm}>확인</Button>
-                    {onCancel ? <Button>취소</Button> : null}
-                </div>
-            </StyledModal>
+            <StyledModal {...props} />
         </StyledModalBackground>
     );
 };

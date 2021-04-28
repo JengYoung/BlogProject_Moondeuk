@@ -9,7 +9,7 @@ import { settingUpdate } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history }) => {
     const dispatch = useDispatch();
-    const { diary, diaryError, userId } = useSelector(({diaryReducer, userReducer}) => ({
+    const { diary, diaryError, userId } = useSelector(({ diaryReducer, userReducer }) => ({
         diary: diaryReducer.diary,
         diaryError: diaryReducer.diaryError,
         userId: userReducer.user.userId

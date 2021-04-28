@@ -8,7 +8,7 @@ import { getSubscribeList, getSubscribedList } from '../../../modules/subscribeL
 
 function SubscribeInfoContainer({ match }) {
     const { authorId } = match.params ? match.params : null;
-    console.log("authorId: ", authorId)
+    // console.log("authorId: ", authorId)
     const [ modal, setModal ] = useState(false);
     const [ isSubscribeList, setIsSubscribeList ] = useState(true);
     const dispatch = useDispatch();
@@ -90,6 +90,7 @@ function SubscribeInfoContainer({ match }) {
                 onSubscribe={onSubscribe} 
                 onUnSubscribe={onUnSubscribe} 
                 subscribeError={subscribeError}
+                subscribeListError={subscribeListError}
                 onGetSubscribeList={onGetSubscribeList}
                 onGetSubscribedList={onGetSubscribedList}
                 subscribeList={subscribeList}

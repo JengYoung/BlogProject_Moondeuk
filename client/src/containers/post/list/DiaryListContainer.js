@@ -6,11 +6,6 @@ import { diaryList } from '../../../modules/diaryList';
 import { withRouter } from 'react-router';
 
 function DiaryListContainer({ match, location }) {
-    const { userId } = match.params;
-    const { tag } = qs.parse(location.search, {
-        ignoreQueryPrefix: true,
-    });
-
     const dispatch = useDispatch();
     const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
         diaries: diaryListReducer.diaries,
@@ -18,8 +13,14 @@ function DiaryListContainer({ match, location }) {
     }));
     
     useEffect(() => {
-        dispatch(diaryList({userId, tag}))
-    }, [dispatch, userId, tag])
+        console.log(match.params);
+        const { authorId } = match.params;
+        const { tag } = qs.parse(location.search, {
+            ignoreQueryPrefix: true,
+        });
+        console.log("authorId: ", authorId, "tag: ", tag);
+        dispatch(diaryList({authorId, tag}))
+    }, [dispatch, match.params, location.search])
 
     return (
         <div>
