@@ -28,10 +28,10 @@ const StyledCommentDeleteBtn = styled.button`
     };
 `;
 
-const CommentBtnsWrapper = () => {
+const CommentBtnsWrapper = ({ onIsUpdateMode }) => {
     return (
             <StyledCommentBtnsWrapper>
-                <StyledCommentUpdateBtn>수정</StyledCommentUpdateBtn>
+                <StyledCommentUpdateBtn onClick={onIsUpdateMode}>수정</StyledCommentUpdateBtn>
                 <StyledCommentDeleteBtn>삭제</StyledCommentDeleteBtn>
             </StyledCommentBtnsWrapper>
     );

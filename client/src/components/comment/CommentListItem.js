@@ -1,6 +1,8 @@
 import React from 'react'
+import { useState } from 'react';
 import styled from 'styled-components';
 import CommentBtnsWrapper from './CommentBtnsWrapper';
+import UpdateInputWrapper from './UpdateInputWrapper';
 
 /*
 */
@@ -25,13 +27,23 @@ const StyledCommentListItem = styled.div`
     position: relative;
 `;
 
-const CommentListItem = ({key, userId, nickname, content, username}) => {
+const CommentListItem = ({key, userId, nickname, content, username, onUpdate}) => {
+    const [ isUpdateMode, setisUpdateMode ] = useState(false);
+    const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
     const isUser = userId === username;
     return (
         <StyledCommentListItem>
-            {isUser && <CommentBtnsWrapper key={key}></CommentBtnsWrapper>}
+            { isUser && 
+                <CommentBtnsWrapper 
+                    onIsUpdateMode={onIsUpdateMode}
+                />
+            }
             <StyledCommentUserInfo>{userId}({nickname})</StyledCommentUserInfo>
-            <StyledCommentContent>{content}</StyledCommentContent>
+            { 
+                isUpdateMode 
+                    ? <UpdateInputWrapper onIsUpdateMode={onIsUpdateMode} /> 
+                    : <StyledCommentContent>{content}</StyledCommentContent>
+            }
         </StyledCommentListItem>
 
     );
