@@ -25,10 +25,11 @@ const StyledCommentListItem = styled.div`
     position: relative;
 `;
 
-const CommentListItem = ({key, userId, nickname, content, }) => {
+const CommentListItem = ({key, userId, nickname, content, username}) => {
+    const isUser = userId === username;
     return (
         <StyledCommentListItem>
-            <CommentBtnsWrapper key={key}></CommentBtnsWrapper>
+            {isUser && <CommentBtnsWrapper key={key}></CommentBtnsWrapper>}
             <StyledCommentUserInfo>{userId}({nickname})</StyledCommentUserInfo>
             <StyledCommentContent>{content}</StyledCommentContent>
         </StyledCommentListItem>

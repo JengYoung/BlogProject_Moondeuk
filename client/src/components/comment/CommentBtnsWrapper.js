@@ -22,7 +22,7 @@ const StyledCommentDeleteBtn = styled.button`
     background-color: transparent;
     font-size: 0.5rem;
     outline: none;
-    border: none;x
+    border: none;
     &:hover {
         cursor: pointer;
     };

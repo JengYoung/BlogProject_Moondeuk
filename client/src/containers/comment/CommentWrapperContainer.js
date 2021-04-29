@@ -17,6 +17,7 @@ const CommentWrapperContainer = () => {
     }));
 
     const user_id = user ? user._id : null;
+    const username = user ? user.userId : null;
     const diary_id = diary ? diary._id : null;
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const CommentWrapperContainer = () => {
     return (
         <CommentWrapper>
             <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
-            <CommentListContainer comments={comments} />
+            <CommentListContainer username={username} comments={comments} />
         </CommentWrapper>
     )
 }
