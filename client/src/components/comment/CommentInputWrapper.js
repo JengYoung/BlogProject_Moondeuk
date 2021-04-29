@@ -19,10 +19,15 @@ const StyledInputBtn = styled.button`
     width: 15%;
 `;
 
-const CommentInputWrapper = () => {
+const CommentInputWrapper = ({ comment, onChangeText }) => {
+    const onChange = e => {
+        const { value } = e.target;
+        onChangeText(value);
+    };
+    
     return (
         <StyledCommentInputWrapper>
-            <StyledCommentInput placeholder="댓글을 작성해주세요😊" />
+            <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" value={comment}/>
             <StyledInputBtn>입력</StyledInputBtn>
         </StyledCommentInputWrapper>
     );
