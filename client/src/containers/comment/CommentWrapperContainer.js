@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import CommentList from '../../components/comment/CommentList';
 import CommentWrapper from '../../components/comment/CommentWrapper';
 import CommentInputWrapperContainer from './CommentInputWrapperContainer';
 
@@ -15,6 +16,7 @@ const CommentFormContainer = () => {
     return (
         <CommentWrapper>
             <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
+            <CommentList/>
         </CommentWrapper>
     )
 }

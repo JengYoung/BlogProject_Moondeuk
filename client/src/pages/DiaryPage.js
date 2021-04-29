@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentFormContainer from '../containers/comment/CommentFormContainer';
+import CommentWrapperContainer from '../containers/comment/CommentWrapperContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 import LikeWrapperContainer from '../containers/like/LikeWrapperContainer';
 import DiaryContainer from '../containers/post/read/DiaryContainer';
@@ -10,7 +10,7 @@ function DiaryPage() {
             <HeaderContainer />
             <DiaryContainer />
             <LikeWrapperContainer />
-            <CommentFormContainer />
+            <CommentWrapperContainer />
         </>
     )
 }
