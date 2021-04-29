@@ -28,9 +28,8 @@ const StyledCommentDeleteBtn = styled.button`
     };
 `;
 
-const CommentBtnsWrapper = ({ key, userId }) => {
+const CommentBtnsWrapper = () => {
     return (
-        userId && 
             <StyledCommentBtnsWrapper>
                 <StyledCommentUpdateBtn>수정</StyledCommentUpdateBtn>
                 <StyledCommentDeleteBtn>삭제</StyledCommentDeleteBtn>

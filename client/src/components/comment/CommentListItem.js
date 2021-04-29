@@ -25,12 +25,12 @@ const StyledCommentListItem = styled.div`
     position: relative;
 `;
 
-const CommentListItem = () => {
+const CommentListItem = ({key, userId, nickname, content, }) => {
     return (
         <StyledCommentListItem>
-            <CommentBtnsWrapper></CommentBtnsWrapper>
-            <StyledCommentUserInfo>유저이름</StyledCommentUserInfo>
-            <StyledCommentContent>내용</StyledCommentContent>
+            <CommentBtnsWrapper key={key}></CommentBtnsWrapper>
+            <StyledCommentUserInfo>{userId}({nickname})</StyledCommentUserInfo>
+            <StyledCommentContent>{content}</StyledCommentContent>
         </StyledCommentListItem>
 
     );

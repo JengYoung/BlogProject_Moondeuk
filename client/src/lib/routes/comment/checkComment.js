@@ -1,6 +1,6 @@
 import client from '../client';
 
-const checkCommentAPI = diaryId => 
-    client.get(`/routes/comment/:${diaryId}`);
+const checkCommentAPI = diary_id => 
+    client.get(`/routes/comment/:${diary_id}`);
 
 export default checkCommentAPI;
