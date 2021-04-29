@@ -4,7 +4,7 @@ import styled from 'styled-components';
 /*
 */
 
-const StyledCommentInputWrapper = styled.div`
+const StyledCommentInputWrapper = styled.form`
     display: flex;
 `;
 

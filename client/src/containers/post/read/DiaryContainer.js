@@ -9,12 +9,12 @@ import { initializeDiary, settingUpdate } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history }) => {
     const dispatch = useDispatch();
-    const { diary, diaryError, userId } = useSelector(({ diaryReducer, userReducer }) => ({
+    const { diary, diaryError, user } = useSelector(({ diaryReducer, userReducer }) => ({
         diary: diaryReducer.diary,
         diaryError: diaryReducer.diaryError,
-        userId: userReducer.user.userId
+        user: userReducer.user
     }));
-
+    const userId = user ? user.userId : null; 
     const { diaryId } = match.params;
 
     useEffect(() => {
