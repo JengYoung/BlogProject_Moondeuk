@@ -5,11 +5,13 @@ import commentAPI from '../lib/routes/comment/comment';
 import { takeLatest } from 'redux-saga/effects';
 
 /* Action to Comment on diary */ 
+const INITIALIZE_COMMENT = 'comment/INITIALIZE_COMMENT'
 const CHANGE_TEXT = 'comment/CHANGE_TEXT';
 const COMMENT = 'comment/COMMENT';
 const [ COMMENT_SUCCESS, COMMENT_FAILURE ] = createActionTypes(COMMENT);
 
 /* Action Creator */ 
+export const initializeComment = createAction(INITIALIZE_COMMENT);
 export const changeText = createAction(CHANGE_TEXT, value => value);
 export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, userInfo, content, commentAt }) => ({
     user_id,
@@ -40,6 +42,7 @@ const initialState = {
 };
 
 const commentReducer = handleActions({
+    [INITIALIZE_COMMENT]: state => initialState,
     [CHANGE_TEXT]: (state, { payload: value }) => ({
         ...state,
         content: value
