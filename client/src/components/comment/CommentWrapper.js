@@ -10,7 +10,9 @@ const StyledCommentWrapper = styled.div`
     top: 4rem;
     background-color: #f8f8f8;
     width: 400px;
-    height: 100%;
+    height: 90%;
+    overflow-y: scroll;
+    box-sizing: border-box;
 `;
 
 const CommentSpacer = styled.div`
