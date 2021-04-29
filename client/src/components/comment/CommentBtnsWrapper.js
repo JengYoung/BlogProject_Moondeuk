@@ -22,18 +22,19 @@ const StyledCommentDeleteBtn = styled.button`
     background-color: transparent;
     font-size: 0.5rem;
     outline: none;
-    border: none;
+    border: none;x
     &:hover {
         cursor: pointer;
     };
 `;
 
-const CommentBtnsWrapper = () => {
+const CommentBtnsWrapper = ({ key, userId }) => {
     return (
-        <StyledCommentBtnsWrapper>
-            <StyledCommentUpdateBtn>수정</StyledCommentUpdateBtn>
-            <StyledCommentDeleteBtn>삭제</StyledCommentDeleteBtn>
-        </StyledCommentBtnsWrapper>
+        userId && 
+            <StyledCommentBtnsWrapper>
+                <StyledCommentUpdateBtn>수정</StyledCommentUpdateBtn>
+                <StyledCommentDeleteBtn>삭제</StyledCommentDeleteBtn>
+            </StyledCommentBtnsWrapper>
     );
 };
 

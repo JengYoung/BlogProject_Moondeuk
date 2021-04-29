@@ -16,7 +16,7 @@ const CommentFormContainer = () => {
     return (
         <CommentWrapper>
             <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
-            <CommentList/>
+            {/* <CommentList/> */}
         </CommentWrapper>
     )
 }

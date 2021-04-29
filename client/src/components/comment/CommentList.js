@@ -9,10 +9,14 @@ const StyledCommentList = styled.div`
     padding: 1rem;
 `;
 
-const CommentList = () => {
+const CommentList = ({ comments }) => {
     return (
         <StyledCommentList>
-            <CommentListItem/>
+            { comments.map(comment => {
+                const { _id, userInfo, content } = comment;
+                const { userId, nickname } = userInfo;
+                return <CommentListItem key={_id} userId={userId} nickname={nickname} content={content} />
+            })}
         </StyledCommentList>
     );
 };

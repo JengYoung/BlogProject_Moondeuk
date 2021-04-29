@@ -13,12 +13,10 @@ const [ COMMENT_SUCCESS, COMMENT_FAILURE ] = createActionTypes(COMMENT);
 /* Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
 export const changeText = createAction(CHANGE_TEXT, value => value);
-export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, userInfo, content, commentAt }) => ({
+export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, content }) => ({
     user_id,
     diary_id,
-    userInfo,
     content,
-    commentAt,
 }));
 
 /* customized Saga */
@@ -30,14 +28,9 @@ export function* commentSaga() {
 };
 
 const initialState = {
-    user_id: null,
-    diary_id: null,
-    userInfo: {
-        userId: null,
-        nickname: null,
-    },
     content: '',
-    commentAt: null,
+    comment: null,
+    comments: [],
     commentError: null,
 };
 
@@ -47,13 +40,9 @@ const commentReducer = handleActions({
         ...state,
         content: value
     }),
-    [COMMENT_SUCCESS]: (state, { payload: user_id, diary_id, userInfo, content, commentAt }) => ({
+    [COMMENT_SUCCESS]: (state, { payload: comment }) => ({
         ...state,
-        user_id,
-        diary_id,
-        userInfo,
-        content,
-        commentAt,
+        comment,
         commentError: null,
     }),
     [COMMENT_FAILURE]: (state, { payload: error }) => ({
