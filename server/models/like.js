@@ -9,7 +9,7 @@ const likeSchema = new Schema({
     },
     diaryId: {
         type: mongoose.Types.ObjectId,
-        ref: 'post',
+        ref: 'Post',
     }
 });
 

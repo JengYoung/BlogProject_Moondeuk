@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import CommentInputWrapper from '../../components/comment/CommentInputWrapper';
+import React from 'react'
+import { useSelector } from 'react-redux';
 import CommentWrapper from '../../components/comment/CommentWrapper';
-import { changeText } from '../../modules/comment';
+import CommentInputWrapperContainer from './CommentInputWrapperContainer';
 
 const CommentFormContainer = () => {
-    const dispatch = useDispatch();
-    const { comment } = useSelector(state => ({ comment: state.commentReducer.comment }));
+    const { user, diary } = useSelector(({ userReducer, diaryReducer }) => ({ 
+        user: userReducer.user,
+        diary: diaryReducer.diary,
+    }));
 
-    const onChangeText = useCallback(comment => {
-        dispatch(changeText(comment));
-    }, [dispatch])
+    const user_id = user ? user._id : null;
+    const diary_id = diary ? diary._id : null;
 
     return (
         <CommentWrapper>
-            <CommentInputWrapper comment={comment} onChangeText={onChangeText} />
+            <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
         </CommentWrapper>
     )
 }
