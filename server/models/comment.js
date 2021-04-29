@@ -11,6 +11,14 @@ const commentSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Post',
     },
+    userInfo: {
+        userId: {
+            type: String,
+        },
+        nickname: {
+            type: String,
+        },
+    },
     content: {
         type: String,
     },

@@ -1,12 +1,18 @@
 import Comment from '../../models/comment.js';
+import User from '../../models/user.js';
 
 const commentController = async (req, res) => {
-    const { userId, diaryId } = req.params;
+    const { user_id, diary_id } = req.params;
     const { content } = req.body;
     try {
+        const { userId, nickname } = await User.findById(user_id).exec();
         const comment = new Comment({
-            userId,
-            diaryId,
+            user_id,
+            userInfo: {
+                userId,
+                nickname
+            },
+            diary_id,
             content,
         });
         await comment.save();

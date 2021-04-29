@@ -7,12 +7,12 @@ import updateCommentController from './updateCommentController.js';
 const comment = express.Router();
 
 /* [ CREATE ] User's comment */ 
-comment.post('/:userId/:diaryId', commentController);
+comment.post('/:user_id/:diary_id', commentController);
 /* [ READ ] Diary's comment */ 
-comment.get('/:diaryId', checkCommentController);
+comment.get('/:diary_id', checkCommentController);
 /* [ UPDATE ] User's comment */
-comment.patch('/:commentId', updateCommentController); 
+comment.patch('/:comment_id', updateCommentController); 
 /* [ DELETE ] User's comment */ 
-comment.delete('/:commentId', deleteCommentController);
+comment.delete('/:comment_id', deleteCommentController);
 
 export default comment;
