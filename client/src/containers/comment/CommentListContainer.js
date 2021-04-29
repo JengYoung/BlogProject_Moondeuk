@@ -2,17 +2,17 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import CommentList from '../../components/comment/CommentList'
 import CommentListItem from '../../components/comment/CommentListItem';
-import { updateComment } from '../../modules/comment';
+import { settingUpdate, updateComment } from '../../modules/comment';
 
 const CommentListContainer = ({ username, comments }) => {
     const dispatch = useDispatch();
     return (
         <CommentList>
             { comments.map(comment => {
-                console.log(comment)
                 const { _id, userInfo, content } = comment;
                 const { userId, nickname } = userInfo;
                 const onUpdate = () => dispatch(updateComment(_id));
+                const onSettingUpdate = (content) => dispatch(settingUpdate(content));
                 return (
                     <CommentListItem 
                         key={_id} 
@@ -21,6 +21,7 @@ const CommentListContainer = ({ username, comments }) => {
                         content={content} 
                         username={username}
                         onUpdate={onUpdate}
+                        onSettingUpdate={onSettingUpdate}
                     />
                 )
             })}

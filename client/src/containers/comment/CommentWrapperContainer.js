@@ -2,14 +2,15 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import CommentList from '../../components/comment/CommentList';
 import CommentWrapper from '../../components/comment/CommentWrapper';
 import { checkComment } from '../../modules/comment';
 import CommentInputWrapperContainer from './CommentInputWrapperContainer';
-import CommentListContainer from './CommentListContainer';
+import CommentListItemContainer from './CommentListItemContainer';
 
 const CommentWrapperContainer = () => {
     const dispatch = useDispatch();
-    const { user, diary, comment, comments } = useSelector(({ userReducer, diaryReducer, commentReducer, comments }) => ({ 
+    const { user, diary, comment, comments } = useSelector(({ userReducer, diaryReducer, commentReducer }) => ({ 
         user: userReducer.user,
         diary: diaryReducer.diary,
         comment: commentReducer.comment,
@@ -27,7 +28,11 @@ const CommentWrapperContainer = () => {
     return (
         <CommentWrapper>
             <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
-            <CommentListContainer username={username} comments={comments} />
+            <CommentList>
+                { comments.map(comment => {
+                    return <CommentListItemContainer key={comment._id} comment={comment} username={username} />
+                })}
+            </CommentList>
         </CommentWrapper>
     )
 }

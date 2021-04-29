@@ -29,12 +29,20 @@ const StyledUpdateBtn = styled.button`
 const StyledCancelBtn = styled.button`
 `;
 
-const UpdateInputWrapper = ({ onIsUpdateMode }) => {
+const UpdateInputWrapper = ({ onUpdate, onIsUpdateMode, onChangeText, updatedContent }) => {
+    const onClick = () => {
+        onIsUpdateMode();
+        onUpdate();
+    }
+    const onChange = e => {
+        const { name, value } = e.target;
+        onChangeText({ name, value });
+    };
     return (
         <StyledUpdateInputWrapper>
-            <StyledUpdateInput />
+            <StyledUpdateInput onChange={onChange} name="updatedContent" value={updatedContent}/>
             <StyledUpdateBtnsWrapper>
-                <StyledUpdateBtn>수정</StyledUpdateBtn>
+                <StyledUpdateBtn onClick={onClick}>수정</StyledUpdateBtn>
                 <StyledCancelBtn onClick={onIsUpdateMode}>취소</StyledCancelBtn>
             </StyledUpdateBtnsWrapper>
         </StyledUpdateInputWrapper>

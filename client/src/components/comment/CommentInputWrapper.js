@@ -28,8 +28,8 @@ const StyledInputBtn = styled.button`
 
 const CommentInputWrapper = ({ content, onComment, onChangeText }) => {
     const onChange = e => {
-        const { value } = e.target;
-        onChangeText(value);
+        const { name, value } = e.target;
+        onChangeText({ name, value });
     };
 
     const onSubmit = (e) => {
@@ -40,7 +40,7 @@ const CommentInputWrapper = ({ content, onComment, onChangeText }) => {
     return (
         <>
             <StyledCommentInputWrapper onSubmit={onSubmit}>
-                <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" value={content}/>
+                <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content}/>
                 <StyledInputBtn>입력</StyledInputBtn>
             </StyledCommentInputWrapper>
             <CommentInputWrapperSpacer/>

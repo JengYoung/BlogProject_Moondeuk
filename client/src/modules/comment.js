@@ -19,7 +19,10 @@ const SETTING_UPDATE = 'comment/SETTING_UPDATE';
 
 /* Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
-export const changeText = createAction(CHANGE_TEXT, value => value);
+export const changeText = createAction(CHANGE_TEXT, ({ name, value }) => ({
+    name, // comment or updateComment
+    value,
+}));
 export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, content }) => ({
     user_id,
     diary_id,
@@ -27,7 +30,10 @@ export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, content 
 }));
 export const settingUpdate = createAction(SETTING_UPDATE, content => content);
 export const checkComment = createAction(CHECK_COMMENT, diaryId => diaryId);
-export const updateComment = createAction(UPDATE_COMMENT, commentId => commentId );
+export const updateComment = createAction(UPDATE_COMMENT, comment => { 
+    console.log("module: ", comment)
+    return comment;
+} );
 
 /* customized Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
@@ -43,6 +49,7 @@ export function* commentSaga() {
 
 const initialState = {
     content: '',
+    updatedContent: '',
     comment: null,
     commentError: null,
     comments: [],
@@ -50,10 +57,15 @@ const initialState = {
 };
 
 const commentReducer = handleActions({
-    [INITIALIZE_COMMENT]: state => initialState,
-    [CHANGE_TEXT]: (state, { payload: value }) => ({
+    [INITIALIZE_COMMENT]: state => ({
         ...state,
-        content: value
+        content: null,
+        updatedContent: null,
+        comment: null,
+    }),
+    [CHANGE_TEXT]: (state, { payload: { name, value } }) => ({
+        ...state,
+        [name]: value
     }),
     [COMMENT_SUCCESS]: (state, { payload: comment }) => ({
         ...state,
@@ -84,7 +96,7 @@ const commentReducer = handleActions({
     }),
     [SETTING_UPDATE]: (state, { payload: content }) => ({
         ...state,
-        content,
+        updatedContent: content,
     })
 }, initialState);
 

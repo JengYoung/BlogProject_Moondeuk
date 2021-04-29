@@ -14,8 +14,8 @@ const CommentInputWrapperContainer = ({ user_id, diary_id }) => {
         dispatch(initializeComment());
     },[dispatch]);
 
-    const onChangeText = useCallback(content => {
-        dispatch(changeText(content));
+    const onChangeText = useCallback(payload => {
+        dispatch(changeText(payload));
     }, [dispatch]);
 
     const onComment = useCallback(content => {
