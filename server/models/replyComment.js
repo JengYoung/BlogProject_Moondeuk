@@ -19,6 +19,7 @@ const replyCommentSchema = new Schema({
             type: 'String',
         },
     },
+    content: '',
     replyAt: {
         type: Date,
         default: Date.now,
