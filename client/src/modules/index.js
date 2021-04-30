@@ -11,6 +11,7 @@ import subscribeReducer, { subscribeSaga } from './subscribe';
 import subscribeListReducer, { subscribeListSaga } from './subscribeList';
 import likeReducer, { likeSaga } from './like';
 import commentReducer, { commentSaga } from './comment';
+import replyCommentReducer, { replyCommentSaga } from './replyComment';
 
 const rootReducer = combineReducers({
     loadingReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     subscribeReducer,
     subscribeListReducer,
     likeReducer,
-    commentReducer
+    commentReducer,
+    replyCommentReducer
 });
 
 export function* rootSaga() {
@@ -38,6 +40,7 @@ export function* rootSaga() {
         subscribeListSaga(),
         likeSaga(),
         commentSaga(),
+        replyCommentSaga(),
     ]);
 };
 
