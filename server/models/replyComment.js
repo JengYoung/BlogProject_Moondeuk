@@ -7,11 +7,11 @@ const replyCommentSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Comment',
     },
-    writer_id: {
+    replier_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
     },
-    writerInfo: {
+    replierInfo: {
         userId: {
             type: 'String',
         },
@@ -26,6 +26,6 @@ const replyCommentSchema = new Schema({
     },
 });
 
-const ReplyComment = mongoose.connect('ReplyComment', replyCommentSchema);
+const ReplyComment = mongoose.model('ReplyComment', replyCommentSchema);
 
 export default ReplyComment;
