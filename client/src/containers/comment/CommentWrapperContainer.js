@@ -30,7 +30,13 @@ const CommentWrapperContainer = () => {
             <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
             <CommentList>
                 { comments.map(comment => {
-                    return <CommentListItemContainer key={comment._id} comment={comment} username={username} />
+                    return (
+                        <CommentListItemContainer 
+                            key={comment._id} 
+                            comment={comment} 
+                            username={username} 
+                        />
+                    )
                 })}
             </CommentList>
         </CommentWrapper>

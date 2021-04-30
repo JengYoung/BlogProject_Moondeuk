@@ -3,6 +3,7 @@ import User from '../../models/user.js';
 
 const likeListController = async (req, res) => {
     const { diaryId } = req.params;
+    console.log("likeListController - diaryId: ", diaryId);
     const likeList = await Like.find({ diaryId }).exec();
     try {
         const result = await User.getUserIdAndNickname(likeList, 'userId');

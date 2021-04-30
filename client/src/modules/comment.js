@@ -5,6 +5,7 @@ import commentAPI from '../lib/routes/comment/comment';
 import { takeLatest } from 'redux-saga/effects';
 import checkCommentAPI from '../lib/routes/comment/checkComment';
 import updateCommentAPI from '../lib/routes/comment/updateComment';
+import deleteCommentAPI from '../lib/routes/comment/deleteComment';
 
 /* Action to Comment on diary */ 
 const INITIALIZE_COMMENT = 'comment/INITIALIZE_COMMENT'
@@ -16,6 +17,8 @@ const [ CHECK_COMMENT_SUCCESS, CHECK_COMMENT_FAILURE ] = createActionTypes(CHECK
 const UPDATE_COMMENT = 'comment/UPDATE_COMMENT';
 const [ UPDATE_COMMENT_SUCCESS, UPDATE_COMMENT_FAILURE ] = createActionTypes(UPDATE_COMMENT);
 const SETTING_UPDATE = 'comment/SETTING_UPDATE';
+const DELETE_COMMENT = 'comment/DELETE_COMMENT';
+const [ DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE ] = createActionTypes(DELETE_COMMENT);
 
 /* Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
@@ -33,18 +36,21 @@ export const checkComment = createAction(CHECK_COMMENT, diaryId => diaryId);
 export const updateComment = createAction(UPDATE_COMMENT, comment => { 
     console.log("module: ", comment)
     return comment;
-} );
+});
+export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_id);
 
 /* customized Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
 const checkCommentSaga = createSaga(CHECK_COMMENT, checkCommentAPI);
 const updateCommentSaga = createSaga(UPDATE_COMMENT, updateCommentAPI);
+const deleteCommentSaga = createSaga(DELETE_COMMENT, deleteCommentAPI);
 
 /* Saga */ 
 export function* commentSaga() {
     yield takeLatest(COMMENT, commentDiarySaga);
     yield takeLatest(CHECK_COMMENT, checkCommentSaga);
     yield takeLatest(UPDATE_COMMENT, updateCommentSaga);
+    yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
 };
 
 const initialState = {
@@ -97,7 +103,16 @@ const commentReducer = handleActions({
     [SETTING_UPDATE]: (state, { payload: content }) => ({
         ...state,
         updatedContent: content,
-    })
+    }),
+    [DELETE_COMMENT_SUCCESS]: (state, { payload: comment }) => ({
+        ...state,
+        comment,
+        commentError: null,
+    }),
+    [DELETE_COMMENT_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        commentError: error,
+    }),
 }, initialState);
 
 export default commentReducer;

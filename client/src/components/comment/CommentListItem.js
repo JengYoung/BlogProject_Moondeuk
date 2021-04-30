@@ -26,7 +26,18 @@ const StyledCommentListItem = styled.div`
     position: relative;
 `;
 
-const CommentListItem = ({ userId, nickname, content, username, onUpdate, onSettingUpdate, updatedContent, onChangeText }) => {
+const CommentListItem = (
+    { 
+        userId, 
+        nickname, 
+        content, 
+        username, 
+        onUpdate,
+        onSettingUpdate,
+        updatedContent,
+        onChangeText,
+        onDeleteComment 
+    }) => {
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
     const isUser = userId === username;
@@ -37,6 +48,7 @@ const CommentListItem = ({ userId, nickname, content, username, onUpdate, onSett
                     onIsUpdateMode={onIsUpdateMode}
                     onSettingUpdate={onSettingUpdate}
                     content={content}
+                    onDeleteComment={onDeleteComment}
                 />
             }
             <StyledCommentUserInfo>{userId}({nickname})</StyledCommentUserInfo>

@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import CommentListItem from '../../components/comment/CommentListItem';
-import { changeText, settingUpdate, updateComment } from '../../modules/comment';
+import { changeText, deleteComment, settingUpdate, updateComment } from '../../modules/comment';
 
 const CommentListItemContainer = ({ comment, username }) => {
     const { updatedContent } = useSelector(({ commentReducer }) => ({ updatedContent: commentReducer.updatedContent }));
@@ -16,7 +16,9 @@ const CommentListItemContainer = ({ comment, username }) => {
     const onSettingUpdate = (content) => {
         dispatch(settingUpdate(content))
     }
-
+    const onDeleteComment = (comment_id) => {
+        dispatch(deleteComment(_id));
+    }
     const onChangeText = useCallback(payload => {
         dispatch(changeText(payload));
     }, [dispatch]);
@@ -31,6 +33,7 @@ const CommentListItemContainer = ({ comment, username }) => {
             onSettingUpdate={onSettingUpdate}
             updatedContent={updatedContent}
             onChangeText={onChangeText}
+            onDeleteComment={onDeleteComment}
         />
     )
 }
