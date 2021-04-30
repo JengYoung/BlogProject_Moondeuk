@@ -16,9 +16,11 @@ const CommentListItemContainer = ({ comment, username }) => {
     const onSettingUpdate = (content) => {
         dispatch(settingUpdate(content))
     }
-    const onDeleteComment = (comment_id) => {
+
+    const onDeleteComment = () => {
         dispatch(deleteComment(_id));
     }
+
     const onChangeText = useCallback(payload => {
         dispatch(changeText(payload));
     }, [dispatch]);
