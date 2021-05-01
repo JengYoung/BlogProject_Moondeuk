@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import replyCommentSchema from './replyComment.js';
+import ReplyComment from './replyComment.js';
 
 const { Schema } = mongoose;
 
@@ -26,6 +28,7 @@ const commentSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    replyComments: [replyCommentSchema]
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

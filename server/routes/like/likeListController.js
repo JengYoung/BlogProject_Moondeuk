@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Like from '../../models/like.js';
 import User from '../../models/user.js';
 

@@ -6,7 +6,7 @@ import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
 import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
 import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
-import ReplyCommentBtnContainer from '../../containers/replyComment/ReplyCommentBtnContainer';
+// import ReplyCommentBtnContainer from '../../containers/replyComment/ReplyCommentBtnContainer';
 // import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
 /*
 */
@@ -42,16 +42,18 @@ const CommentListItem = (
         updatedContent,
         onChangeText,
         onDeleteComment, 
-        comment_id
+        comment_id,
+        replyComments,
     }) => {
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
     const onIsReplyCommentMode = () => setIsReplyRootCommentMode(!isReplyRootCommentMode);
-    const isUser = userId === username;
+    const isWriter = userId === username;
+    const replyCommentCount = replyComments.length;
     return (
         <StyledCommentListItem>
-            { isUser && 
+            { isWriter && !isUpdateMode &&
                 <CommentBtnsWrapper 
                     onIsUpdateMode={onIsUpdateMode}
                     onSettingUpdate={onSettingUpdate}
@@ -75,7 +77,11 @@ const CommentListItem = (
             {isReplyRootCommentMode && 
                 <InputWrapperContainer comment_id={comment_id}/>
             }   
-            {/* <ReplyCommentBtnContainer comment_id={comment_id} >💬답글 보기</ReplyCommentBtnContainer> */}
+            {replyCommentCount && 
+                <ReplyCommentBtn comment_id={comment_id} > 
+                    {replyCommentCount}개의 💬답글 보기 
+                </ReplyCommentBtn>
+            }
             <ReplyCommentWrapper/>
         </StyledCommentListItem>
 
