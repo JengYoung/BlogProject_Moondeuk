@@ -6,6 +6,7 @@ import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
 import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
 import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
+import ReplyCommentBtnContainer from '../../containers/replyComment/ReplyCommentBtnContainer';
 // import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
 /*
 */
@@ -29,8 +30,6 @@ const StyledCommentListItem = styled.div`
     border-bottom: 1px solid gray;
     position: relative;
 `;
-
-const StyledReplyCommentBtn = styled(ReplyCommentBtn)``;
 
 const CommentListItem = (
     { 
@@ -76,7 +75,7 @@ const CommentListItem = (
             {isReplyRootCommentMode && 
                 <InputWrapperContainer comment_id={comment_id}/>
             }   
-            <StyledReplyCommentBtn>💬답글 보기</StyledReplyCommentBtn>
+            {/* <ReplyCommentBtnContainer comment_id={comment_id} >💬답글 보기</ReplyCommentBtnContainer> */}
             <ReplyCommentWrapper/>
         </StyledCommentListItem>
 
