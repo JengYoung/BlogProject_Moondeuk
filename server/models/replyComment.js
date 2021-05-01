@@ -7,9 +7,14 @@ const replyCommentSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User',
     },
-    repliedTo_id: {
+    replierInfo: {
+        userId: { type: String },
+        nickname: { type: String },
+    },
+    replyTo_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
+        default: null,
     },
     content: '',
     replyAt: {
