@@ -21,9 +21,18 @@ const StyledInput = styled.textarea`
     `}
 `;
 
-const Input = props => {
+
+const Input = ( props ) => {
+    const onChange = e => {
+        const { name, value } = e.target;
+        props.onChangeText({ name, value })
+    }
     return (
-        <StyledInput { ...props }></StyledInput>
+        <StyledInput 
+            { ...props }
+            onChange={onChange}
+            value={props.content}
+        >{props.children}</StyledInput>
     );
 };
 

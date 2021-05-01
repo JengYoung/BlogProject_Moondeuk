@@ -39,9 +39,9 @@ const initialState = {
 };
 
 const replyCommentReducer = handleActions({
-    [CHANGE_REPLYCOMMENT_TEXT]: (state, { payload: name, value }) => ({
+    [CHANGE_REPLYCOMMENT_TEXT]: (state, { payload: { name, value } }) => ({
         ...state,
-        [name]: value
+        content: value
     }),
     [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => ({
         ...state,

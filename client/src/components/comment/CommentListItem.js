@@ -8,6 +8,7 @@ import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
 import InputWrapper from '../common/comment/InputWrapper';
 import Input from '../common/comment/Input';
 import InputBtn from '../common/comment/InputBtn';
+import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
 /*
 */
 
@@ -74,10 +75,7 @@ const CommentListItem = (
                 onIsReplyCommentMode={onIsReplyCommentMode}>
             </OptionBtnsWrapper>
             {isReplyRootCommentMode && 
-                <InputWrapper>
-                    <Input isReplyRootCommentMode={isReplyRootCommentMode}/>
-                    <InputBtn setIsReplyRootCommentMode={setIsReplyRootCommentMode}/>
-                </InputWrapper>
+                <InputWrapperContainer/>
             }   
             <StyledReplyCommentBtn>💬답글 보기</StyledReplyCommentBtn>
             <ReplyCommentWrapper/>
