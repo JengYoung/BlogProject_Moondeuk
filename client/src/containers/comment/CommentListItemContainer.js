@@ -36,6 +36,7 @@ const CommentListItemContainer = ({ comment, username }) => {
             updatedContent={updatedContent}
             onChangeText={onChangeText}
             onDeleteComment={onDeleteComment}
+            comment_id={_id}
         />
     )
 }

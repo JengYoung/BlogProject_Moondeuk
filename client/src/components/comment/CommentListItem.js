@@ -5,10 +5,8 @@ import ReplyCommentWrapper from '../replyComment/ReplyCommentWrapper';
 import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
 import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
-import InputWrapper from '../common/comment/InputWrapper';
-import Input from '../common/comment/Input';
-import InputBtn from '../common/comment/InputBtn';
 import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
+// import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
 /*
 */
 
@@ -44,7 +42,8 @@ const CommentListItem = (
         onSettingUpdate,
         updatedContent,
         onChangeText,
-        onDeleteComment 
+        onDeleteComment, 
+        comment_id
     }) => {
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
@@ -75,7 +74,7 @@ const CommentListItem = (
                 onIsReplyCommentMode={onIsReplyCommentMode}>
             </OptionBtnsWrapper>
             {isReplyRootCommentMode && 
-                <InputWrapperContainer/>
+                <InputWrapperContainer comment_id={comment_id}/>
             }   
             <StyledReplyCommentBtn>💬답글 보기</StyledReplyCommentBtn>
             <ReplyCommentWrapper/>
