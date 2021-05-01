@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import CommentList from '../../components/comment/CommentList'
 import CommentListItem from '../../components/comment/CommentListItem';
+import ReplyCommentBtn from '../../components/common/comment/ReplyCommentBtn';
 import { settingUpdate, updateComment } from '../../modules/comment';
 
 const CommentListContainer = ({ username, comments }) => {
@@ -13,6 +14,7 @@ const CommentListContainer = ({ username, comments }) => {
                 const { userId, nickname } = userInfo;
                 const onUpdate = () => dispatch(updateComment(_id));
                 const onSettingUpdate = (content) => dispatch(settingUpdate(content));
+                // const onCheckReplyComment = () => dispatch(checkReplyComment(_id));
                 return (
                     <CommentListItem 
                         key={_id} 
@@ -22,6 +24,7 @@ const CommentListContainer = ({ username, comments }) => {
                         username={username}
                         onUpdate={onUpdate}
                         onSettingUpdate={onSettingUpdate}
+                        // replyCommentBtn={ <ReplyCommentBtn onClick={ onCheckReplyComment }/> }
                     />
                 )
             })}

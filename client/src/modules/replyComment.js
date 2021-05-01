@@ -6,6 +6,7 @@ import { takeLatest } from 'redux-saga/effects'
 
 
 /* create Action Types */ 
+const CHANGE_REPLYCOMMENT_TEXT = `replyComment/CHANGE_REPLYCOMMENT_TEXT`
 const REPLYCOMMENT = 'replyComment/REPLYCOMMENT';
 const [ REPLYCOMMENT_SUCCESS, REPLYCOMMENT_FAILURE ] = createActionTypes(REPLYCOMMENT);
 
@@ -14,6 +15,10 @@ export const replyComment = createAction(REPLYCOMMENT, ({ user_id, comment_id, c
     user_id, 
     comment_id, 
     content
+}));
+export const changeReplyCommentText = createAction(CHANGE_REPLYCOMMENT_TEXT, ({ name, value }) => ({
+    name, // content
+    value, // updatedContent
 }));
 
 /* create customized Saga */ 
@@ -34,6 +39,10 @@ const initialState = {
 };
 
 const replyCommentReducer = handleActions({
+    [CHANGE_REPLYCOMMENT_TEXT]: (state, { payload: name, value }) => ({
+        ...state,
+        [name]: value
+    }),
     [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => ({
         ...state,
         replyComment,

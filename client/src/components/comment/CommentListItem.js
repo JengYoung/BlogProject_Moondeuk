@@ -6,6 +6,8 @@ import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
 import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
 import InputWrapper from '../common/comment/InputWrapper';
+import Input from '../common/comment/Input';
+import InputBtn from '../common/comment/InputBtn';
 /*
 */
 
@@ -44,7 +46,9 @@ const CommentListItem = (
         onDeleteComment 
     }) => {
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
+    const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
+    const onIsReplyCommentMode = () => setIsReplyRootCommentMode(!isReplyRootCommentMode);
     const isUser = userId === username;
     return (
         <StyledCommentListItem>
@@ -69,8 +73,15 @@ const CommentListItem = (
                     /> 
                     : <StyledCommentContent>{content}</StyledCommentContent>
             }
-            <OptionBtnsWrapper></OptionBtnsWrapper>
-            <InputWrapper>입력</InputWrapper>
+            <OptionBtnsWrapper 
+                onIsReplyCommentMode={onIsReplyCommentMode}>
+            </OptionBtnsWrapper>
+            {isReplyRootCommentMode && 
+                <InputWrapper>
+                    <Input isReplyRootCommentMode={isReplyRootCommentMode}/>
+                    <InputBtn setIsReplyRootCommentMode={setIsReplyRootCommentMode}/>
+                </InputWrapper>
+            }   
             <StyledReplyCommentBtn>💬답글 보기</StyledReplyCommentBtn>
             <ReplyCommentWrapper/>
         </StyledCommentListItem>

@@ -19,14 +19,14 @@ const StyledOptionBtn = styled.button`
 `;
 
 
-const OptionBtnsWrapper = () => {
+const OptionBtnsWrapper = ({ isReplyCommentMode, onIsReplyCommentMode }) => {
     return (
         <StyledOptionBtnsWrapper>
             <StyledOptionBtn>
                 👍
                 <StyledOptionBtn>10000</StyledOptionBtn>
             </StyledOptionBtn>
-            <StyledOptionBtn>💭답글 달기</StyledOptionBtn>
+            <StyledOptionBtn onClick={onIsReplyCommentMode}>💭답글 달기</StyledOptionBtn>
         </StyledOptionBtnsWrapper>
     );
 };
