@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import ReplyCommentBtn from '../common/comment/ReplyCommentBtn';
+import ReplyCommentWrapper from '../replyComment/ReplyCommentWrapper';
 import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
-
+import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
+import InputWrapper from '../common/comment/InputWrapper';
 /*
 */
 
@@ -16,7 +19,7 @@ const StyledCommentContent = styled.span`
 `;
 
 const StyledCommentListItem = styled.div`
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
     display: flex;
     flex-direction: column;
     &:first-child {
@@ -25,6 +28,8 @@ const StyledCommentListItem = styled.div`
     border-bottom: 1px solid gray;
     position: relative;
 `;
+
+const StyledReplyCommentBtn = styled(ReplyCommentBtn)``;
 
 const CommentListItem = (
     { 
@@ -64,6 +69,10 @@ const CommentListItem = (
                     /> 
                     : <StyledCommentContent>{content}</StyledCommentContent>
             }
+            <OptionBtnsWrapper></OptionBtnsWrapper>
+            <InputWrapper>입력</InputWrapper>
+            <StyledReplyCommentBtn>💬답글 보기</StyledReplyCommentBtn>
+            <ReplyCommentWrapper/>
         </StyledCommentListItem>
 
     );

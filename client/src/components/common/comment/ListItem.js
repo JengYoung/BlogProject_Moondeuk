@@ -4,7 +4,7 @@ import styled from 'styled-components';
 /*
 */
 
-const StyledCommonCommentListItem = styled.div`
+const StyledListItem = styled.div`
     padding: 0.5rem 0.5rem;
     display: flex;
     flex-direction: column;
@@ -15,10 +15,10 @@ const StyledCommonCommentListItem = styled.div`
     position: relative;
 `;
 
-const CommonCommentListItem = props => {
+const ListItem = props => {
     return (
-        <StyledCommonCommentListItem {...props} />
+        <StyledListItem {...props} />
     );
 };
 
-export default CommonCommentListItem;
+export default ListItem;
