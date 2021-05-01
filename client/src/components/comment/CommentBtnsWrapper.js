@@ -28,10 +28,10 @@ const StyledCommentDeleteBtn = styled.button`
     };
 `;
 
-const CommentBtnsWrapper = ({ content, onIsUpdateMode, onSettingUpdate, onDeleteComment }) => {
+const CommentBtnsWrapper = ({ onIsUpdateMode, onSettingUpdate, onDeleteComment }) => {
     const onUpdateMode = () => {
         onIsUpdateMode();
-        onSettingUpdate(content);
+        onSettingUpdate();
     }
     const onDelete = () => {
         onDeleteComment();

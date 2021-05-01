@@ -56,7 +56,6 @@ const CommentListItem = (
                 <CommentBtnsWrapper 
                     onIsUpdateMode={onIsUpdateMode}
                     onSettingUpdate={onSettingUpdate}
-                    content={content}
                     onDeleteComment={onDeleteComment}
                 />
             }
@@ -64,10 +63,8 @@ const CommentListItem = (
             { 
                 isUpdateMode 
                     ? <UpdateInputWrapper 
-                        content={content} 
                         onUpdate={onUpdate} 
                         onIsUpdateMode={onIsUpdateMode} 
-                        onSettingUpdate={onSettingUpdate} 
                         updatedContent={updatedContent}
                         onChangeText={onChangeText}
                     /> 

@@ -13,7 +13,7 @@ const CommentListItemContainer = ({ comment, username }) => {
         dispatch(updateComment({_id, updatedContent}));
     };
 
-    const onSettingUpdate = (content) => {
+    const onSettingUpdate = () => {
         dispatch(settingUpdate(content))
     }
 
