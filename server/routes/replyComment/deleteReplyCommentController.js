@@ -5,7 +5,6 @@ const deleteReplyCommentController = async(req, res) => {
     const { comment_id, replyComment_id } = req.params;
     try {
         let { replyComments } = await Comment.findById(comment_id).exec();
-        let [ replyComment ] = await Comment.findReplyComment(comment_id, replyComment_id);
         replyComments = replyComments.filter(data => {
             if (data._id.toString() !== replyComment_id) return data
         })
