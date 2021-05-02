@@ -19,6 +19,7 @@ const replyCommentController = async (req, res) => {
         };
         let { replyComments } = await Comment.findById(comment_id).exec();
         replyComments = replyComments.concat(replyComment);
+        console.log(replyComments);
         await Comment.findByIdAndUpdate(comment_id, { replyComments }, { new: true }, (err, result) => {
             if (err) res.status(404).send('NOT FOUND');
             return res.send(result);

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import replyCommentSchema from './replyComment.js';
+import {replyCommentSchema} from './replyComment.js';
 import ReplyComment from './replyComment.js';
 
 const { Schema } = mongoose;
@@ -33,10 +33,10 @@ const commentSchema = new Schema({
 
 commentSchema.statics.findReplyComment = async function(comment_id, replyComment_id) {
     const { replyComments } = await this.findOne({_id: comment_id}).exec();
-    const replyComment = replyComments.filter(replyComment => {
+    const replyComment = replyComments.filter((replyComment, index) => {
         if (replyComment._id.toString() === replyComment_id) return replyComment
-    })
-    return replyComment
+    });
+    return replyComment;
 }
 
 const Comment = mongoose.model('Comment', commentSchema);

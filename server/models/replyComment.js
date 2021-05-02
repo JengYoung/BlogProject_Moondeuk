@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const replyCommentSchema = new Schema({
+export const replyCommentSchema = new Schema({
     replier_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
@@ -23,7 +23,5 @@ const replyCommentSchema = new Schema({
     },
 });
 
-export default replyCommentSchema;
-// const ReplyComment = mongoose.model('ReplyComment', replyCommentSchema);
-
-// export default ReplyComment;
+const ReplyComment = mongoose.model('ReplyComment', replyCommentSchema);
+export default ReplyComment;
