@@ -1,16 +1,20 @@
+import Comment from '../../models/comment.js';
 import ReplyComment from '../../models/replyComment.js';
 
-const deleteReplyCommentController = async (req, res) => {
-    const { replyComment_id } = req.params;
-    console.log(replyComment_id);
+const deleteReplyCommentController = async(req, res) => {
+    const { comment_id, replyComment_id } = req.params;
     try {
-        await ReplyComment.findByIdAndDelete( replyComment_id, (err, result) => {
-            if (err) return res.status(404).send(' FOUND');
-            return res.status(204).send();
-        });
+        let { replyComments } = await Comment.findById(comment_id).exec();
+        let [ replyComment ] = await Comment.findReplyComment(comment_id, replyComment_id);
+        replyComments = replyComments.filter(data => {
+            if (data._id.toString() !== replyComment_id) return data
+        })
+        await Comment.findByIdAndUpdate(comment_id, { replyComments }, { new: true }, (err, result) => {
+            if (err) return res.status(404).send();
+            return res.send(result);
+        })
     } catch(e) {
         res.status(500).send(e);
-    };
-};
-
+    }
+}
 export default deleteReplyCommentController;
