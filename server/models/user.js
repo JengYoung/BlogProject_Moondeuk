@@ -32,7 +32,8 @@ const userSchema = new Schema({
 
 /* ID, PASSWORD CHECK */ 
 userSchema.statics.checkUserId = function(userId) {
-    return this.findOne({ userId });
+    console.log("hi");
+    // return this.findOne({ userId });
 };
 
 /* get User Lists's id and nickname */

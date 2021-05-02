@@ -29,7 +29,6 @@ const StyledInputBtn = styled.button`
 const CommentInputWrapper = ({ content, onComment, onChangeText }) => {
     const onChange = e => {
         const { name, value } = e.target;
-        console.log(value);
         onChangeText({ name, value });
     };
 

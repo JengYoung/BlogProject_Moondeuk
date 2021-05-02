@@ -1,17 +1,16 @@
+import Comment from '../../models/comment.js';
 import ReplyComment from '../../models/replyComment.js';
 
 const updateReplyCommentController = async(req, res) => {
-    const { replyComment_id } = req.params;
-    const content = req.body;
+    const { comment_id, replyComment_id } = req.params;
+    console.log(comment_id, replyComment_id)
     try {
-        const updatedReplyComment = await ReplyComment.findByIdAndUpdate(replyComment_id, content, { new: true }, (err, result) => {
-            if (err) return res.status(404).send(); // Cannot find Id
-            return result;
-        })
-        return res.send(updatedReplyComment);
+        const comment = await Comment.findReplyComment(comment_id, replyComment_id);
+        res.send(comment);
     } catch(e) {
-        res.satus(500).send(e);
-    };
+        res.status(500).send(e);
+    }
+
 };
 
 export default updateReplyCommentController;

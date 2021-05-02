@@ -31,5 +31,13 @@ const commentSchema = new Schema({
     replyComments: [replyCommentSchema]
 });
 
+commentSchema.statics.findReplyComment = async function(comment_id, replyComment_id) {
+    const { replyComments } = await this.findOne({_id: comment_id}).exec();
+    const replyComment = replyComments.filter(replyComment => {
+        if (replyComment._id.toString() === replyComment_id) return replyComment
+    })
+    return replyComment
+}
+
 const Comment = mongoose.model('Comment', commentSchema);
 export default Comment;
