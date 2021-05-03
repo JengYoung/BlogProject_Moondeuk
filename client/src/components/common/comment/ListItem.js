@@ -14,6 +14,7 @@ const StyledContent = styled.span`
 const StyledListItem = styled.div`
     padding: 0.5rem 0.5rem;
     display: flex;
+    position: relative;
     flex-direction: column;
     &:first-child {
         border-top: 1px solid gray;
@@ -22,12 +23,13 @@ const StyledListItem = styled.div`
     position: relative;
 `;
 
-const ListItem = ({ replierInfo, content }) => {
+const ListItem = ({ children, replierInfo, content }) => {
     const { userId, nickname } = replierInfo;
     return (
         <StyledListItem>
             <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>
             {content}
+            {children}
         </StyledListItem>
     );
 };

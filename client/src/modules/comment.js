@@ -85,13 +85,15 @@ const commentReducer = handleActions({
         updatedContent: null,
         comment: null,
     }),
-    [CHANGE_TEXT]: (state, { payload: { name, idx, value }}) => ({
+    [CHANGE_TEXT]: (state, { payload: { name, idx, value }}) => {
+        
+        return ({
         ...state,
         [name]: {
-            ...state.name,
+            ...state[name],
             [idx]: value,
         }
-    }),
+    })},
     [COMMENT_SUCCESS]: (state, { payload: comment }) => ({
         ...state,
         comment,

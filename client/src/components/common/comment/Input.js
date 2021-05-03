@@ -14,11 +14,15 @@ const StyledInput = styled.textarea`
     ${props => 
     props.isReply && css`
         width: 85%;
-    `}
+    `};
+    ${props => 
+    props.hasMarginLeft && css`
+        width: 55%;
+    `};
 `;
 
 
-const Input = ({ isReply, comment_id, children, name, content, onChangeText }) => {
+const Input = ({ isReply, hasMarginLeft, comment_id, children, name, content, onChangeText }) => {
     const onChange = e => {
         const { name, value } = e.target;
         console.log("여기는 input: ", name, comment_id, value);
@@ -27,6 +31,7 @@ const Input = ({ isReply, comment_id, children, name, content, onChangeText }) =
     return (
         <StyledInput 
             isReply={isReply}
+            hasMarginLeft={hasMarginLeft}
             name={name}
             onChange={onChange}
             value={content}

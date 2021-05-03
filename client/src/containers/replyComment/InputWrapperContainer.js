@@ -7,7 +7,8 @@ import InputBtn from '../../components/common/comment/InputBtn';
 import InputWrapper from '../../components/common/comment/InputWrapper';
 import { changeText, replyComment } from '../../modules/comment';
 
-function InputWrapperContainer({ isReply, comment_id, }) {
+function InputWrapperContainer({ _id, isReply, hasMarginLeft, comment_id, }) {
+    console.log("original", _id)
     const dispatch = useDispatch();
     const { content, user } = useSelector(({ commentReducer, userReducer }) => ({
         content: commentReducer.content,
@@ -22,21 +23,22 @@ function InputWrapperContainer({ isReply, comment_id, }) {
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log({ user_id, comment_id, content: content[comment_id], replyTo_id: user_id })
-        dispatch(replyComment({ user_id, comment_id, content: content[comment_id], replyTo_id: user_id }))
+        // console.log({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id })
+        dispatch(replyComment({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id }))
         content[comment_id] = '';
     }
 
     return(
         <InputWrapper onSubmit={onSubmit}>
-            <Input 
+            <Input
                 isReply={isReply}
+                hasMarginLeft={hasMarginLeft}
                 comment_id={comment_id}
                 content={content[comment_id]}
                 onChangeText={onChangeText}
                 name="content"
             />
-            <InputBtn isReply>입력</InputBtn>
+            <InputBtn isReply={isReply} hasMarginLeft={hasMarginLeft}>입력</InputBtn>
         </InputWrapper>
     )
 };
