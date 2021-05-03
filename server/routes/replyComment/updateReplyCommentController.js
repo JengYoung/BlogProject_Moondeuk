@@ -9,8 +9,8 @@ const updateReplyCommentController = async(req, res) => {
         let [ replyComment ] = await Comment.findReplyComment(comment_id, replyComment_id);
         replyComment.content = content;
         replyComments = replyComments.map(data => {
-            if (data._id === replyComment_id) data = replyComment;
-            return replyComment
+            if (data._id.toString() === replyComment_id) data = replyComment;
+            return data
         })
         const result = await Comment.findByIdAndUpdate(comment_id, { replyComments }, { new: true }, (err, result) => {
             if (err) return res.status(404).send();
