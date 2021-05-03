@@ -24,7 +24,7 @@ const CommentInputWrapperContainer = ({ user_id, diary_id }) => {
     const onComment = useCallback(content => {
         console.log("content: ", content)
         console.log({ user_id, diary_id, content })
-        dispatch(commentDiary({ user_id, idx: diary_id, content: content[diary_id] }));
+        dispatch(commentDiary({ user_id, diary_id, content }));
         dispatch(initializeComment());
     },[dispatch, diary_id, user_id]);
 
