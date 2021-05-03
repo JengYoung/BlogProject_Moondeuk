@@ -7,19 +7,18 @@ import InputBtn from '../../components/common/comment/InputBtn';
 import InputWrapper from '../../components/common/comment/InputWrapper';
 import { changeText, replyComment } from '../../modules/comment';
 
-function InputWrapperContainer({ comment_id, }) {
+function InputWrapperContainer({ isReply, comment_id, }) {
     const dispatch = useDispatch();
-    const { content, user, diary } = useSelector(({ commentReducer, userReducer, diaryReducer }) => ({
+    const { content, user } = useSelector(({ commentReducer, userReducer }) => ({
         content: commentReducer.content,
         user: userReducer.user,
-        diary: diaryReducer.diary,
     }));
 
     const user_id = user ? user._id : null;
-    const diary_id = diary ? diary._id : null;
-    const onChangeReplyCommentText = useCallback(payload => {
+    const onChangeText = useCallback(payload => {
+        console.log(payload)
         dispatch(changeText(payload));
-    },[dispatch])
+    }, [dispatch]);
 
     const onSubmit = e => {
         e.preventDefault()
@@ -31,13 +30,13 @@ function InputWrapperContainer({ comment_id, }) {
     return(
         <InputWrapper onSubmit={onSubmit}>
             <Input 
+                isReply={isReply}
                 comment_id={comment_id}
-                placeholder="답글 내용을 입력해주세요."
                 content={content[comment_id]}
-                onChangeText={onChangeReplyCommentText}
+                onChangeText={onChangeText}
                 name="content"
             />
-            <InputBtn />
+            <InputBtn isReply>입력</InputBtn>
         </InputWrapper>
     )
 };

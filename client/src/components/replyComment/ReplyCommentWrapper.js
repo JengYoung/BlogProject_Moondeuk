@@ -1,21 +1,17 @@
 import React from 'react'
 import styled from 'styled-components';
-import ReplyCommentInputWrapper from './ReplyCommentInputWrapper';
-import ReplyCommentList from './ReplyCommentList';
 
 /*
 */
 
 const StyledReplyCommentWrapper = styled.div`
     background-color: gray;
-    padding-left: 3rem;
+    margin-left: 3rem;
 `;
 
-const ReplyCommentWrapper = () => {
+const ReplyCommentWrapper = (props) => {
     return (
-        <StyledReplyCommentWrapper>
-            <ReplyCommentInputWrapper/>
-            <ReplyCommentList/>
+        <StyledReplyCommentWrapper {...props}>
         </StyledReplyCommentWrapper>
     );
 };

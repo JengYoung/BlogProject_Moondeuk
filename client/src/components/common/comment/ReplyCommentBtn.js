@@ -16,10 +16,10 @@ const StyledReplyCommentBtn = styled.span`
     }
 `;
 
-const ReplyCommentBtn = (props) => {
+const ReplyCommentBtn = ({ children, onShowReplyComment }) => {
     return (
-        <StyledReplyCommentBtn {...props}>
-            
+        <StyledReplyCommentBtn onClick={onShowReplyComment}>
+            {children}
         </StyledReplyCommentBtn>
     );
 };

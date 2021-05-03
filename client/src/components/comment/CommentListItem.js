@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReplyCommentBtn from '../common/comment/ReplyCommentBtn';
-import ReplyCommentWrapper from '../replyComment/ReplyCommentWrapper';
 import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
 import OptionBtnsWrapper from '../common/comment/OptionBtnsWrapper';
 import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
-// import ReplyCommentBtnContainer from '../../containers/replyComment/ReplyCommentBtnContainer';
-// import InputWrapperContainer from '../../containers/replyComment/InputWrapperContainer';
+import ReplyCommentWrapperContainer from '../../containers/replyComment/ReplyCommentWrapperContainer';
+
 /*
 */
 
@@ -46,9 +45,15 @@ const CommentListItem = (
         replyComments,
     }) => {
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
-    const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
-    const onIsReplyCommentMode = () => setIsReplyRootCommentMode(!isReplyRootCommentMode);
+    const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
+    const onIsReplyCommentMode = () => {
+        setIsReplyRootCommentMode(!isReplyRootCommentMode)
+    };
+    const [ showReplyComment, setShowReplyComment ] = useState(false);
+    const onShowReplyComment = () => {
+        setShowReplyComment(!showReplyComment)
+    };
     const isWriter = userId === username;
     const replyCommentCount = replyComments.length;
     return (
@@ -79,11 +84,14 @@ const CommentListItem = (
                 <InputWrapperContainer comment_id={comment_id}/>
             }   
             {replyCommentCount > 0 && 
-                <ReplyCommentBtn comment_id={comment_id} > 
+                <ReplyCommentBtn onShowReplyComment={onShowReplyComment} comment_id={comment_id} > 
                     💬{replyCommentCount}개의 답글 보기 
                 </ReplyCommentBtn>
             }
-            <ReplyCommentWrapper/>
+            {showReplyComment && 
+                <ReplyCommentWrapperContainer comment_id={comment_id} replyComments={replyComments}>
+                </ReplyCommentWrapperContainer>
+            }
         </StyledCommentListItem>
 
     );

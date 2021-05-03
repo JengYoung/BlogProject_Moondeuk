@@ -35,7 +35,7 @@ const CommentWrapperContainer = () => {
                             diary_id={diary_id}
                             key={comment._id} 
                             comment={comment} 
-                            username={username} 
+                            username={username}
                         />
                     )
                 })}

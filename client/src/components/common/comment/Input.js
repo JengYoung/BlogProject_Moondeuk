@@ -9,32 +9,29 @@ const StyledInput = styled.textarea`
     height: 3rem;
     max-height: 5rem;
     padding: 0.5rem 0.5rem;
-    width: 85%;
+    width: 70%;
     word-break: normal;
     ${props => 
-    props.isReplyRootCommentMode && css`
-        width: 70%;
-    `}
-    ${props =>
-    props.isReplyCommentMode && css`
-        width: 58%;
+    props.isReply && css`
+        width: 85%;
     `}
 `;
 
 
-const Input = ( props ) => {
-    const { onChangeText, comment_id } = props;
+const Input = ({ isReply, comment_id, children, name, content, onChangeText }) => {
     const onChange = e => {
         const { name, value } = e.target;
-        console.log(name, comment_id, value);
+        console.log("여기는 input: ", name, comment_id, value);
         onChangeText({ name, idx: comment_id, value })
     }
     return (
         <StyledInput 
-            { ...props }
+            isReply={isReply}
+            name={name}
             onChange={onChange}
-            value={props.content}
-        >{props.children}</StyledInput>
+            value={content}
+            placeholder="답글을 입력해주세요!🤣"
+        >{children}</StyledInput>
     );
 };
 

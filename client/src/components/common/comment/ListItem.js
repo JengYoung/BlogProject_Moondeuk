@@ -2,7 +2,14 @@ import React from 'react'
 import styled from 'styled-components';
 
 /*
-*/
+*/const StyledUserInfo = styled.span`
+    font-size: 0.7rem;
+    font-weight: 300;
+`;
+
+const StyledContent = styled.span`
+    font-size: 0.9rem;
+`;
 
 const StyledListItem = styled.div`
     padding: 0.5rem 0.5rem;
@@ -15,9 +22,13 @@ const StyledListItem = styled.div`
     position: relative;
 `;
 
-const ListItem = props => {
+const ListItem = ({ replierInfo, content }) => {
+    const { userId, nickname } = replierInfo;
     return (
-        <StyledListItem {...props} />
+        <StyledListItem>
+            <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>
+            {content}
+        </StyledListItem>
     );
 };
 
