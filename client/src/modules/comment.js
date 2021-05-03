@@ -7,6 +7,7 @@ import checkCommentAPI from '../lib/routes/comment/checkComment';
 import updateCommentAPI from '../lib/routes/comment/updateComment';
 import deleteCommentAPI from '../lib/routes/comment/deleteComment';
 import replyCommentAPI from '../lib/routes/replyComment/replyComment';
+import updateReplyCommentAPI from '../lib/routes/replyComment/updateReplyComment';
 
 /* Action to Comment on diary */ 
 const INITIALIZE_COMMENT = 'comment/INITIALIZE_COMMENT'
@@ -26,7 +27,8 @@ const [ DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE ] = createActionTypes(DEL
 /* Action to ReplyComment on diary */
 const REPLYCOMMENT = 'replyComment/REPLYCOMMENT';
 const [ REPLYCOMMENT_SUCCESS, REPLYCOMMENT_FAILURE ] = createActionTypes(REPLYCOMMENT);
-
+const UPDATE_REPLYCOMMENT = 'replyComment/UPDATE_REPLYCOMMENT';
+const [ UPDATE_REPLYCOMMENT_SUCCESS, UPDATE_REPLYCOMMENT_FAILURE ] = createActionTypes(UPDATE_REPLYCOMMENT);
 
 /* Comment Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
@@ -48,6 +50,7 @@ export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_
 
 /* ReplyComment Action Creator */ 
 export const replyComment = createAction(REPLYCOMMENT, replyComments => replyComments);
+export const updateReplyComment = createAction(UPDATE_REPLYCOMMENT, replyComments => replyComments);
 
 /* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
@@ -57,6 +60,7 @@ const deleteCommentSaga = createSaga(DELETE_COMMENT, deleteCommentAPI);
 
 /* customized ReplyComment Saga */ 
 const replyCommentDiarySaga = createSaga(REPLYCOMMENT, replyCommentAPI);
+const updateReplyCommentDiarySaga = createSaga(UPDATE_REPLYCOMMENT, updateReplyCommentAPI);
 
 /* Saga */ 
 export function* commentSaga() {
@@ -65,6 +69,7 @@ export function* commentSaga() {
     yield takeLatest(UPDATE_COMMENT, updateCommentSaga);
     yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
     yield takeLatest(REPLYCOMMENT, replyCommentDiarySaga);
+    yield takeLatest(UPDATE_REPLYCOMMENT, updateReplyCommentDiarySaga);
 };
 
 const initialState = {
@@ -140,10 +145,19 @@ const commentReducer = handleActions({
     //ReplyComment
     [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
         ...state,
-        comment: replyComments,
+        replyComments,
         replyCommentsError: null,
     }),
     [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        replyCommentsError: error,
+    }),
+    [UPDATE_REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
+        ...state,
+        replyComments,
+        replyCommentsError: null,
+    }),
+    [UPDATE_REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         replyCommentsError: error,
     })
