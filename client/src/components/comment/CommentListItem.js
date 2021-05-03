@@ -78,9 +78,9 @@ const CommentListItem = (
             {isReplyRootCommentMode && 
                 <InputWrapperContainer comment_id={comment_id}/>
             }   
-            {replyCommentCount && 
+            {replyCommentCount > 0 && 
                 <ReplyCommentBtn comment_id={comment_id} > 
-                    {replyCommentCount}개의 💬답글 보기 
+                    💬{replyCommentCount}개의 답글 보기 
                 </ReplyCommentBtn>
             }
             <ReplyCommentWrapper/>

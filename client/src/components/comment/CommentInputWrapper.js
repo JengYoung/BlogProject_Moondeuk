@@ -35,6 +35,7 @@ const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => 
     const onSubmit = (e) => {
         e.preventDefault();
         onComment(content);
+        content = '';
     }
     return (
         <>

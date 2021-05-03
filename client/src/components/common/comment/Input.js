@@ -23,9 +23,11 @@ const StyledInput = styled.textarea`
 
 
 const Input = ( props ) => {
+    const { onChangeText, comment_id } = props;
     const onChange = e => {
         const { name, value } = e.target;
-        props.onChangeText({ name, value })
+        console.log(name, comment_id, value);
+        onChangeText({ name, idx: comment_id, value })
     }
     return (
         <StyledInput 
