@@ -23,7 +23,7 @@ const StyledListItem = styled.div`
     position: relative;
 `;
 
-const ListItem = ({ children, replierInfo, content }) => {
+const ListItem = ({ children, isUpdateMode, replierInfo, content }) => {
     const { userId, nickname } = replierInfo;
     return (
         <StyledListItem>

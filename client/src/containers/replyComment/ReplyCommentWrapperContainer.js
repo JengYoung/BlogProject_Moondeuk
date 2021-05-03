@@ -8,9 +8,8 @@ function ReplyCommentWrapperContainer({ comment_id, replyComments }) {
             {
                 replyComments.map(replyComment => {
                     const { _id, replierInfo, content } = replyComment;
-                    console.log(comment_id);
                     return(
-                        <ReplyCommentListItemContainer _id={comment_id} comment_id={_id} replierInfo={replierInfo} content={content}></ReplyCommentListItemContainer>
+                        <ReplyCommentListItemContainer key={_id} _id={comment_id} comment_id={_id} replierInfo={replierInfo} content={content}></ReplyCommentListItemContainer>
                     )
                 })
             }
