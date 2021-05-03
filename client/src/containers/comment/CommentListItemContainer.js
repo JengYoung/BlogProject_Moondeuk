@@ -12,7 +12,8 @@ const CommentListItemContainer = ({ diary_id, comment, username }) => {
     const { _id, userInfo, content, replyComments } = comment;
     const { userId, nickname } = userInfo;
     const onUpdate = () => {
-        dispatch(updateComment({_id, updatedContent}));
+        console.log(updatedContent, updatedContent[_id])
+        dispatch(updateComment({_id, updatedContent: updatedContent[_id]}));
     };
 
     const onSettingUpdate = () => {
