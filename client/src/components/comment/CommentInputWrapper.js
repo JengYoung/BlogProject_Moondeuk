@@ -26,17 +26,16 @@ const StyledInputBtn = styled.button`
     width: 15%;
 `;
 
-const CommentInputWrapper = ({ content, onComment, onChangeText }) => {
+const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => {
     const onChange = e => {
         const { name, value } = e.target;
-        onChangeText({ name, value });
+        onChangeText({ name, idx: diary_id, value });
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
         onComment(content);
     }
-
     return (
         <>
             <StyledCommentInputWrapper onSubmit={onSubmit}>

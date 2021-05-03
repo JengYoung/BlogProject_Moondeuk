@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
     subscribeListReducer,
     likeReducer,
     commentReducer,
-    replyCommentReducer
+    // replyCommentReducer
 });
 
 export function* rootSaga() {
@@ -40,7 +40,7 @@ export function* rootSaga() {
         subscribeListSaga(),
         likeSaga(),
         commentSaga(),
-        replyCommentSaga(),
+        // replyCommentSaga(),
     ]);
 };
 

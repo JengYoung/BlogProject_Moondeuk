@@ -5,24 +5,26 @@ import { useDispatch } from 'react-redux';
 import Input from '../../components/common/comment/Input';
 import InputBtn from '../../components/common/comment/InputBtn';
 import InputWrapper from '../../components/common/comment/InputWrapper';
+import diaryReducer from '../../modules/diary';
 import { changeReplyCommentText, initializeReplyComment, replyComment } from '../../modules/replyComment';
 
 function InputWrapperContainer({ comment_id, }) {
     const dispatch = useDispatch();
-    const { content, user } = useSelector(({ replyCommentReducer, userReducer }) => ({
+    const { content, user, diary } = useSelector(({ replyCommentReducer, userReducer, diaryReducer }) => ({
         content: replyCommentReducer.content,
-        user: userReducer.user
+        user: userReducer.user,
+        diary: diaryReducer.diary,
     }));
 
     const user_id = user ? user._id : null;
+    const diary_id = diary ? diary._id : null;
     const onChangeReplyCommentText = useCallback(({ name, value }) => {
         dispatch(changeReplyCommentText({ name, value }));
     },[dispatch])
 
     const onSubmit = e => {
         e.preventDefault()
-        console.log("시도합니다")
-        dispatch(replyComment({ user_id, comment_id, content }))
+        dispatch(replyComment({ user_id, comment_id, content: content[diary_id], replyTo_id: user_id }))
         dispatch(initializeReplyComment());
     }
 

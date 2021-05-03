@@ -6,6 +6,7 @@ import User from '../../models/user.js';
 const replyCommentController = async (req, res) => {
     const { user_id, comment_id } = req.params;
     const { replyTo_id, content } = req.body;
+    console.log("input: ", user_id, comment_id, replyTo_id, content)
     try {
         const { userId, nickname } = await User.findById(user_id).exec();
         const replyComment = {
@@ -17,11 +18,13 @@ const replyCommentController = async (req, res) => {
             replyTo_id,
             content,
         };
+        console.log("replyComment", replyComment)
         let { replyComments } = await Comment.findById(comment_id).exec();
         replyComments = replyComments.concat(replyComment);
-        console.log(replyComments);
-        await Comment.findByIdAndUpdate(comment_id, { replyComments }, { new: true }, (err, result) => {
-            if (err) res.status(404).send('NOT FOUND');
+        console.log("result: ", { replyComments: replyComments});
+        await Comment.findByIdAndUpdate(comment_id, { "replyComments": replyComments }, { new: true }, (err, result) => {
+            console.log("여기 문제인 듯하다.", result)
+            if (err) res.status(404).send(err);
             return res.send(result);
         });
     } catch(e) {

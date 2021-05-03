@@ -64,6 +64,7 @@ const CommentListItem = (
             { 
                 isUpdateMode 
                     ? <UpdateInputWrapper 
+                        comment_id={comment_id}
                         onUpdate={onUpdate} 
                         onIsUpdateMode={onIsUpdateMode} 
                         updatedContent={updatedContent}

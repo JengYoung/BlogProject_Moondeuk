@@ -1,25 +1,22 @@
-import React, { useCallback } from 'react'
-import { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import CommentListItem from '../../components/comment/CommentListItem';
 import { changeText, deleteComment, settingUpdate, updateComment } from '../../modules/comment';
-import { checkReplyComment } from '../../modules/replyComment';
 
-const CommentListItemContainer = ({ comment, username }) => {
-    const { updatedContent, replyComments } = useSelector(({ commentReducer, replyCommentReducer }) => ({ 
+const CommentListItemContainer = ({ diary_id, comment, username }) => {
+    const { updatedContent } = useSelector(({ commentReducer }) => ({ 
         updatedContent: commentReducer.updatedContent,
-        replyComments: replyCommentReducer.replyComments
     }));
     const dispatch = useDispatch();
-    const { _id, userInfo, content } = comment;
+    const { _id, userInfo, content, replyComments } = comment;
     const { userId, nickname } = userInfo;
     const onUpdate = () => {
         dispatch(updateComment({_id, updatedContent}));
     };
 
     const onSettingUpdate = () => {
-        dispatch(settingUpdate(content))
+        dispatch(settingUpdate({ idx: _id, content }))
     }
 
     const onDeleteComment = () => {
@@ -30,10 +27,6 @@ const CommentListItemContainer = ({ comment, username }) => {
         dispatch(changeText(payload));
     }, [dispatch]);
 
-    useEffect(() => {
-        console.log(_id)
-        dispatch(checkReplyComment(_id));
-    },[ dispatch, _id ])
 
     return (
         <CommentListItem 

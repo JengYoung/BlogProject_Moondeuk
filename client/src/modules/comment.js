@@ -6,6 +6,7 @@ import { takeLatest } from 'redux-saga/effects';
 import checkCommentAPI from '../lib/routes/comment/checkComment';
 import updateCommentAPI from '../lib/routes/comment/updateComment';
 import deleteCommentAPI from '../lib/routes/comment/deleteComment';
+import replyCommentAPI from '../lib/routes/replyComment/replyComment';
 
 /* Action to Comment on diary */ 
 const INITIALIZE_COMMENT = 'comment/INITIALIZE_COMMENT'
@@ -20,10 +21,18 @@ const SETTING_UPDATE = 'comment/SETTING_UPDATE';
 const DELETE_COMMENT = 'comment/DELETE_COMMENT';
 const [ DELETE_COMMENT_SUCCESS, DELETE_COMMENT_FAILURE ] = createActionTypes(DELETE_COMMENT);
 
-/* Action Creator */ 
+/********************************************************************************************/ 
+
+/* Action to ReplyComment on diary */
+const REPLYCOMMENT = 'replyComment/REPLYCOMMENT';
+const [ REPLYCOMMENT_SUCCESS, REPLYCOMMENT_FAILURE ] = createActionTypes(REPLYCOMMENT);
+
+
+/* Comment Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
-export const changeText = createAction(CHANGE_TEXT, ({ name, value }) => ({
+export const changeText = createAction(CHANGE_TEXT, ({ name, value, idx }) => ({
     name, // comment or updateComment
+    idx, // comment index
     value,
 }));
 export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, content }) => ({
@@ -33,17 +42,26 @@ export const commentDiary = createAction(COMMENT, ({ user_id, diary_id, content 
 }));
 export const settingUpdate = createAction(SETTING_UPDATE, content => content);
 export const checkComment = createAction(CHECK_COMMENT, diaryId => diaryId);
-export const updateComment = createAction(UPDATE_COMMENT, comment => { 
-    console.log("module: ", comment)
-    return comment;
-});
+export const updateComment = createAction(UPDATE_COMMENT, comment => comment);
 export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_id);
 
-/* customized Saga */
+
+/* ReplyComment Action Creator */ 
+export const replyComment = createAction(REPLYCOMMENT, ({ user_id, comment_id, content, replyTo_id }) => ({
+    user_id, 
+    comment_id, 
+    content,
+    replyTo_id
+}));
+
+/* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
 const checkCommentSaga = createSaga(CHECK_COMMENT, checkCommentAPI);
 const updateCommentSaga = createSaga(UPDATE_COMMENT, updateCommentAPI);
 const deleteCommentSaga = createSaga(DELETE_COMMENT, deleteCommentAPI);
+
+/* customized ReplyComment Saga */ 
+const replyCommentDiarySaga = createSaga(REPLYCOMMENT, replyCommentAPI);
 
 /* Saga */ 
 export function* commentSaga() {
@@ -51,27 +69,33 @@ export function* commentSaga() {
     yield takeLatest(CHECK_COMMENT, checkCommentSaga);
     yield takeLatest(UPDATE_COMMENT, updateCommentSaga);
     yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
+    yield takeLatest(REPLYCOMMENT,replyCommentDiarySaga);
 };
 
 const initialState = {
-    content: '',
+    content: {},
     updatedContent: '',
     comment: null,
     commentError: null,
     comments: [],
     commentsError: null,
+    replyComments: [],
+    replyCommentsError: null,
 };
 
 const commentReducer = handleActions({
     [INITIALIZE_COMMENT]: state => ({
         ...state,
-        content: null,
+        content: {},
         updatedContent: null,
         comment: null,
     }),
-    [CHANGE_TEXT]: (state, { payload: { name, value } }) => ({
+    [CHANGE_TEXT]: (state, { payload: { name, idx, value }}) => ({
         ...state,
-        [name]: value
+        [name]: {
+            ...state.name,
+            [idx]: value,
+        }
     }),
     [COMMENT_SUCCESS]: (state, { payload: comment }) => ({
         ...state,
@@ -100,9 +124,12 @@ const commentReducer = handleActions({
         ...state,
         commentError: error,
     }),
-    [SETTING_UPDATE]: (state, { payload: content }) => ({
+    [SETTING_UPDATE]: (state, { payload: { idx, content }}) => ({
         ...state,
-        updatedContent: content,
+        updatedContent: {
+            ...state.updatedContent,
+            [idx]: content
+        },
     }),
     [DELETE_COMMENT_SUCCESS]: (state, { payload: comment }) => ({
         ...state,
@@ -112,7 +139,17 @@ const commentReducer = handleActions({
     [DELETE_COMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         commentError: error,
+    }), 
+    // ReplyComments
+    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
+        ...state,
+        replyComments: { replyComments },
+        replyCommentsError: null,
     }),
+    [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        replyCommentsError: error,
+    })
 }, initialState);
 
 export default commentReducer;

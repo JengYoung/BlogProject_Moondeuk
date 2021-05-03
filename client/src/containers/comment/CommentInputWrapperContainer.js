@@ -9,23 +9,27 @@ const CommentInputWrapperContainer = ({ user_id, diary_id }) => {
     const { content } = useSelector(({ commentReducer }) => ({ 
         content: commentReducer.content,
     }));
-
     useEffect(() => {
         dispatch(initializeComment());
+        return () => {
+            dispatch(initializeComment());
+        }
     },[dispatch]);
 
     const onChangeText = useCallback(payload => {
+        console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
 
     const onComment = useCallback(content => {
+        console.log("content: ", content)
         console.log({ user_id, diary_id, content })
-        dispatch(commentDiary({ user_id, diary_id, content }));
+        dispatch(commentDiary({ user_id, idx: diary_id, content: content[diary_id] }));
         dispatch(initializeComment());
     },[dispatch, diary_id, user_id]);
 
     return (
-        <CommentInputWrapper content={content} onComment={onComment} onChangeText={onChangeText} />
+        <CommentInputWrapper content={content[diary_id]} diary_id={diary_id} onComment={onComment} onChangeText={onChangeText} />
     )
 }
 
