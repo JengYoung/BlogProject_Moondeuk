@@ -9,7 +9,7 @@ const READ_DIARY = `diary/READ_DIARY`;
 const [ READ_DIARY_SUCCESS, READ_DIARY_FAILURE ] = createActionTypes(READ_DIARY);
 
 /* create Action creator */
-export const readDiary = createAction(READ_DIARY, id => id);
+export const readDiary = createAction(READ_DIARY);
 
 /* create Action saga */
 const readDiarySaga = createSaga(READ_DIARY, readAPI);

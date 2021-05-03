@@ -1,5 +1,4 @@
 import Comment from '../../models/comment.js';
-import ReplyComment from '../../models/replyComment.js';
 import User from '../../models/user.js';
 
 /* write a reply to user's comment */
@@ -18,15 +17,18 @@ const replyCommentController = async (req, res) => {
             replyTo_id,
             content,
         };
-        console.log("replyComment", replyComment)
+        // console.log("replyComment", replyComment)
+        const comment = await Comment.findById(comment_id).exec();
+        console.log("comment: ", comment);
         let { replyComments } = await Comment.findById(comment_id).exec();
         replyComments = replyComments.concat(replyComment);
-        console.log("result: ", { replyComments: replyComments});
-        await Comment.findByIdAndUpdate(comment_id, { "replyComments": replyComments }, { new: true }, (err, result) => {
-            console.log("여기 문제인 듯하다.", result)
+        const result = await Comment.findByIdAndUpdate(comment_id, { "replyComments": replyComments }, { new: true }, (err, result) => {
             if (err) res.status(404).send(err);
-            return res.send(result);
+            return result
         });
+        const comments = await Comment.find({}).exec();
+        console.log("result: ", result);
+        res.send(comments);
     } catch(e) {
         return res.status(500).send(e);
     };

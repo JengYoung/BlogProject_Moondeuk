@@ -2,6 +2,7 @@ import Post from '../../models/post.js';
 
 const readController = async (req, res) => {
     const { id } = req.params;
+    console.log(id);
     try {
         await Post.findById(id).exec((err, result) => {
             // not exists post.

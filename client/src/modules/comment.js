@@ -47,12 +47,7 @@ export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_
 
 
 /* ReplyComment Action Creator */ 
-export const replyComment = createAction(REPLYCOMMENT, ({ user_id, comment_id, content, replyTo_id }) => ({
-    user_id, 
-    comment_id, 
-    content,
-    replyTo_id
-}));
+export const replyComment = createAction(REPLYCOMMENT, replyComments => replyComments);
 
 /* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
@@ -69,7 +64,7 @@ export function* commentSaga() {
     yield takeLatest(CHECK_COMMENT, checkCommentSaga);
     yield takeLatest(UPDATE_COMMENT, updateCommentSaga);
     yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
-    yield takeLatest(REPLYCOMMENT,replyCommentDiarySaga);
+    yield takeLatest(REPLYCOMMENT, replyCommentDiarySaga);
 };
 
 const initialState = {
@@ -79,7 +74,7 @@ const initialState = {
     commentError: null,
     comments: [],
     commentsError: null,
-    replyComments: [],
+    replyComments: null,
     replyCommentsError: null,
 };
 
@@ -140,10 +135,10 @@ const commentReducer = handleActions({
         ...state,
         commentError: error,
     }), 
-    // ReplyComments
+    //ReplyComment
     [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
         ...state,
-        replyComments: { replyComments },
+        comment: replyComments,
         replyCommentsError: null,
     }),
     [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({

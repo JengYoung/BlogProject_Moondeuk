@@ -5,6 +5,7 @@ import CommentInputWrapper from '../../components/comment/CommentInputWrapper';
 import { changeText, commentDiary, initializeComment } from '../../modules/comment';
 
 const CommentInputWrapperContainer = ({ user_id, diary_id }) => {
+    console.log("diary_id: ", diary_id)
     const dispatch = useDispatch();
     const { content } = useSelector(({ commentReducer }) => ({ 
         content: commentReducer.content,
