@@ -1,6 +1,7 @@
 import client from '../client';
 
-const deleteCommentAPI = commentId =>
-    client.delete(`/routes/comment/${commentId}`);
+const deleteCommentAPI = commentId => {
+    return client.delete(`/routes/comment/${commentId}`);
+}
 
 export default deleteCommentAPI;

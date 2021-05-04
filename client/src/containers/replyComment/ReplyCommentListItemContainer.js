@@ -7,7 +7,7 @@ import BtnsWrapper from '../../components/common/comment/BtnsWrapper'
 import ListItem from '../../components/common/comment/ListItem'
 import OptionBtnsWrapper from '../../components/common/comment/OptionBtnsWrapper'
 import UpdateInputWrapper from '../../components/common/comment/UpdateInputWrapper';
-import { changeText, settingUpdate, updateReplyComment } from '../../modules/comment';
+import { changeText, deleteReplyComment, settingUpdate, updateReplyComment } from '../../modules/comment';
 import InputWrapperContainer from './InputWrapperContainer';
 
 function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }) {
@@ -27,6 +27,10 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
     const onUpdate = (value) => {
         // console.log("onUpdate: ", {comment_id: _id, replyComment_id: comment_id, content: value})
         dispatch(updateReplyComment({comment_id: _id, replyComment_id: comment_id, content: value}));
+    };
+    const onDelete = () => {
+        console.log({ comment_id: _id, replyComment_id: comment_id })
+        dispatch(deleteReplyComment({ comment_id: _id, replyComment_id: comment_id }))
     };
     const onChangeText = useCallback(payload => {
         dispatch(changeText(payload));
@@ -52,7 +56,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
                         : content
                     }
         >
-            <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate}></BtnsWrapper>
+            <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate} onDelete={onDelete}></BtnsWrapper>
             <OptionBtnsWrapper onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} hasMarginLeft comment_id={comment_id}/>

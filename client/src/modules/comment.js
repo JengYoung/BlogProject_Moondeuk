@@ -55,7 +55,7 @@ export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_
 /* ReplyComment Action Creator */ 
 export const replyComment = createAction(REPLYCOMMENT, replyComment => replyComment);
 export const updateReplyComment = createAction(UPDATE_REPLYCOMMENT, replyComment => replyComment);
-export const deleteReplyComment = createAction(DELETE_COMMENT, ids => ids)
+export const deleteReplyComment = createAction(DELETE_REPLYCOMMENT)
 
 /* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
