@@ -1,15 +1,19 @@
 import React from 'react'
 import { useCallback } from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import BtnsWrapper from '../../components/common/comment/BtnsWrapper'
 import ListItem from '../../components/common/comment/ListItem'
 import OptionBtnsWrapper from '../../components/common/comment/OptionBtnsWrapper'
 import UpdateInputWrapper from '../../components/common/comment/UpdateInputWrapper';
-import { changeText, updateReplyComment } from '../../modules/comment';
+import { changeText, settingUpdate, updateReplyComment } from '../../modules/comment';
 import InputWrapperContainer from './InputWrapperContainer';
 
 function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }) {
+    const updatedContent = useSelector(({ commentReducer }) => ({
+        updatedContent: commentReducer.updatedContent
+    }))
     const dispatch = useDispatch();
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onUpdateMode = () => { 
@@ -21,12 +25,18 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
         setIsReplyCommentMode(!isReplyCommentMode)
     };
     const onUpdate = () => {
-        console.log(content, content[_id])
+        console.log("onUpdate: ", {comment_id: _id, replyComment_id: comment_id, content: content[_id]})
         dispatch(updateReplyComment({comment_id: _id, replyComment_id: comment_id, content: content[_id]}));
     };
     const onChangeText = useCallback(payload => {
+        console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
+
+    const onSettingUpdate = () => {
+        console.log(comment_id, content);
+        dispatch(settingUpdate({ idx: comment_id, content: content }))
+    }
 
     return (
         <ListItem 
@@ -36,6 +46,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
                         ? <UpdateInputWrapper 
                             comment_id={comment_id}
                             content={content}
+                            updatedContent={updatedContent}
                             onUpdate={onUpdate}
                             onUpdateMode={onUpdateMode}
                             onChangeText={onChangeText}
@@ -43,7 +54,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
                         : content
                     }
         >
-            <BtnsWrapper onUpdateMode={onUpdateMode}></BtnsWrapper>
+            <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate}></BtnsWrapper>
             <OptionBtnsWrapper onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} hasMarginLeft comment_id={comment_id}/>

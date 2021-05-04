@@ -49,8 +49,8 @@ export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_
 
 
 /* ReplyComment Action Creator */ 
-export const replyComment = createAction(REPLYCOMMENT, replyComments => replyComments);
-export const updateReplyComment = createAction(UPDATE_REPLYCOMMENT, replyComments => replyComments);
+export const replyComment = createAction(REPLYCOMMENT, replyComment => replyComment);
+export const updateReplyComment = createAction(UPDATE_REPLYCOMMENT, replyComment => replyComment);
 
 /* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
@@ -143,19 +143,19 @@ const commentReducer = handleActions({
         commentError: error,
     }), 
     //ReplyComment
-    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => { 
+    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => { 
         return ({
         ...state,
-        comment: replyComments,
+        comment: replyComment,
         replyCommentsError: null,
     })},
     [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         replyCommentsError: error,
     }),
-    [UPDATE_REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
+    [UPDATE_REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => ({
         ...state,
-        replyComments,
+        comment: replyComment,
         replyCommentsError: null,
     }),
     [UPDATE_REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
