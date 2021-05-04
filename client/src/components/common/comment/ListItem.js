@@ -28,7 +28,7 @@ const ListItem = ({ children, isUpdateMode, replierInfo, content }) => {
     return (
         <StyledListItem>
             <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>
-            {content}
+            <StyledContent>{content}</StyledContent>
             {children}
         </StyledListItem>
     );

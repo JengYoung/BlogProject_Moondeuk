@@ -18,10 +18,11 @@ const StyledBtnsWrapper = styled.div`
     right: 0;
 `;
 
-const BtnsWrapper = (props, { onDelete, onUpdateMode }) => {
+const BtnsWrapper = ({ onUpdateMode, onDelete }) => {
     return (
-        <StyledBtnsWrapper {...props}>
+        <StyledBtnsWrapper>
             <StyledBtn onClick={onUpdateMode}>수정</StyledBtn>
+
             <StyledBtn onClick={onDelete}>삭제</StyledBtn>
         </StyledBtnsWrapper>
     );

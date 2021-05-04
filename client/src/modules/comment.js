@@ -143,11 +143,12 @@ const commentReducer = handleActions({
         commentError: error,
     }), 
     //ReplyComment
-    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => ({
+    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComments }) => { 
+        return ({
         ...state,
-        replyComments,
+        comment: replyComments,
         replyCommentsError: null,
-    }),
+    })},
     [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         replyCommentsError: error,

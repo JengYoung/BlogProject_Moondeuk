@@ -81,7 +81,7 @@ const CommentListItem = (
                 onIsReplyCommentMode={onIsReplyCommentMode}>
             </OptionBtnsWrapper>
             {isReplyRootCommentMode && 
-                <InputWrapperContainer comment_id={comment_id}/>
+                <InputWrapperContainer _id={comment_id} comment_id={comment_id}/>
             }   
             {replyCommentCount > 0 && 
                 <ReplyCommentBtn onShowReplyComment={onShowReplyComment} comment_id={comment_id} > 

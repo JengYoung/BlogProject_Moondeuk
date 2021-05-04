@@ -10,6 +10,7 @@ const CommentListItemContainer = ({ diary_id, comment, username }) => {
     }));
     const dispatch = useDispatch();
     const { _id, userInfo, content, replyComments } = comment;
+    console.log( userInfo, content );
     const { userId, nickname } = userInfo;
     const onUpdate = () => {
         console.log(updatedContent, updatedContent[_id])

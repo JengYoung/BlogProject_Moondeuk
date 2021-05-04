@@ -23,7 +23,7 @@ function InputWrapperContainer({ _id, isReply, hasMarginLeft, comment_id, }) {
 
     const onSubmit = e => {
         e.preventDefault()
-        // console.log({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id })
+        console.log({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id })
         dispatch(replyComment({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id }))
         content[comment_id] = '';
     }

@@ -22,13 +22,10 @@ const replyCommentController = async (req, res) => {
         console.log("comment: ", comment);
         let { replyComments } = await Comment.findById(comment_id).exec();
         replyComments = replyComments.concat(replyComment);
-        const result = await Comment.findByIdAndUpdate(comment_id, { "replyComments": replyComments }, { new: true }, (err, result) => {
+        await Comment.findByIdAndUpdate(comment_id, { "replyComments": replyComments }, { new: true }, (err, result) => {
             if (err) res.status(404).send(err);
-            return result
+            return res.send(result)
         });
-        const comments = await Comment.find({}).exec();
-        console.log("result: ", result);
-        res.send(comments);
     } catch(e) {
         return res.status(500).send(e);
     };
