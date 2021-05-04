@@ -8,6 +8,8 @@ import updateCommentAPI from '../lib/routes/comment/updateComment';
 import deleteCommentAPI from '../lib/routes/comment/deleteComment';
 import replyCommentAPI from '../lib/routes/replyComment/replyComment';
 import updateReplyCommentAPI from '../lib/routes/replyComment/updateReplyComment';
+import deleteReplyCommentAPI from '../lib/routes/replyComment/deleteReplyComment';
+
 
 /* Action to Comment on diary */ 
 const INITIALIZE_COMMENT = 'comment/INITIALIZE_COMMENT'
@@ -29,6 +31,8 @@ const REPLYCOMMENT = 'replyComment/REPLYCOMMENT';
 const [ REPLYCOMMENT_SUCCESS, REPLYCOMMENT_FAILURE ] = createActionTypes(REPLYCOMMENT);
 const UPDATE_REPLYCOMMENT = 'replyComment/UPDATE_REPLYCOMMENT';
 const [ UPDATE_REPLYCOMMENT_SUCCESS, UPDATE_REPLYCOMMENT_FAILURE ] = createActionTypes(UPDATE_REPLYCOMMENT);
+const DELETE_REPLYCOMMENT = 'replyComment/DELETE_REPLYCOMMENT';
+const [ DELETE_REPLYCOMMENT_SUCCESS, DELETE_REPLYCOMMENT_FAILURE ] = createActionTypes(DELETE_REPLYCOMMENT);
 
 /* Comment Action Creator */ 
 export const initializeComment = createAction(INITIALIZE_COMMENT);
@@ -51,6 +55,7 @@ export const deleteComment = createAction(DELETE_COMMENT, comment_id => comment_
 /* ReplyComment Action Creator */ 
 export const replyComment = createAction(REPLYCOMMENT, replyComment => replyComment);
 export const updateReplyComment = createAction(UPDATE_REPLYCOMMENT, replyComment => replyComment);
+export const deleteReplyComment = createAction(DELETE_COMMENT, ids => ids)
 
 /* customized Comment Saga */
 const commentDiarySaga = createSaga(COMMENT, commentAPI);
@@ -61,6 +66,7 @@ const deleteCommentSaga = createSaga(DELETE_COMMENT, deleteCommentAPI);
 /* customized ReplyComment Saga */ 
 const replyCommentDiarySaga = createSaga(REPLYCOMMENT, replyCommentAPI);
 const updateReplyCommentDiarySaga = createSaga(UPDATE_REPLYCOMMENT, updateReplyCommentAPI);
+const deleteReplyCommentDiarySaga = createSaga(DELETE_REPLYCOMMENT, deleteReplyCommentAPI);
 
 /* Saga */ 
 export function* commentSaga() {
@@ -70,6 +76,7 @@ export function* commentSaga() {
     yield takeLatest(DELETE_COMMENT, deleteCommentSaga);
     yield takeLatest(REPLYCOMMENT, replyCommentDiarySaga);
     yield takeLatest(UPDATE_REPLYCOMMENT, updateReplyCommentDiarySaga);
+    yield takeLatest(DELETE_REPLYCOMMENT, deleteReplyCommentDiarySaga);
 };
 
 const initialState = {
@@ -159,6 +166,15 @@ const commentReducer = handleActions({
         replyCommentsError: null,
     }),
     [UPDATE_REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        replyCommentsError: error,
+    }),
+    [DELETE_REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => ({
+        ...state,
+        comment: replyComment,
+        replyCommentsError: null,
+    }),
+    [DELETE_REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         replyCommentsError: error,
     })
