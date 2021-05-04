@@ -74,7 +74,7 @@ export function* commentSaga() {
 
 const initialState = {
     content: {},
-    updatedContent: '',
+    updatedContent: {},
     comment: null,
     commentError: null,
     comments: [],

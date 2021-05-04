@@ -30,10 +30,9 @@ const StyledCancelBtn = styled.button`
 `;
 
 const UpdateInputWrapper = ({ comment_id, onUpdate, updatedContent, onUpdateMode, onChangeText, content, name="updatedContent" }) => {
-    console.log("안에서", content);
     const onClick = () => {
         onUpdateMode();
-        onUpdate();
+        onUpdate(updatedContent[comment_id]);
     }
     const onChange = e => {
         const { name, value } = e.target;
@@ -41,9 +40,9 @@ const UpdateInputWrapper = ({ comment_id, onUpdate, updatedContent, onUpdateMode
     };
     return (
         <StyledUpdateInputWrapper>
-            <StyledUpdateInput onChange={onChange} name={name} value={updatedContent[comment_id]}>{content}</StyledUpdateInput>
+            <StyledUpdateInput onChange={onChange} name={name} value={updatedContent[comment_id]}></StyledUpdateInput>
             <StyledUpdateBtnsWrapper>
-                <StyledUpdateBtn onClick={onClick}>수정</StyledUpdateBtn>
+                <StyledUpdateBtn updatedContent={updatedContent} onClick={onClick}>수정</StyledUpdateBtn>
                 <StyledCancelBtn onClick={onUpdateMode}>취소</StyledCancelBtn>
             </StyledUpdateBtnsWrapper>
         </StyledUpdateInputWrapper>

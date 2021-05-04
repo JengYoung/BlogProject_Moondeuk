@@ -11,7 +11,7 @@ import { changeText, settingUpdate, updateReplyComment } from '../../modules/com
 import InputWrapperContainer from './InputWrapperContainer';
 
 function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }) {
-    const updatedContent = useSelector(({ commentReducer }) => ({
+    const { updatedContent } = useSelector(({ commentReducer }) => ({
         updatedContent: commentReducer.updatedContent
     }))
     const dispatch = useDispatch();
@@ -24,17 +24,15 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
     const onIsReplyCommentMode = () => {
         setIsReplyCommentMode(!isReplyCommentMode)
     };
-    const onUpdate = () => {
-        console.log("onUpdate: ", {comment_id: _id, replyComment_id: comment_id, content: content[_id]})
-        dispatch(updateReplyComment({comment_id: _id, replyComment_id: comment_id, content: content[_id]}));
+    const onUpdate = (value) => {
+        // console.log("onUpdate: ", {comment_id: _id, replyComment_id: comment_id, content: value})
+        dispatch(updateReplyComment({comment_id: _id, replyComment_id: comment_id, content: value}));
     };
     const onChangeText = useCallback(payload => {
-        console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
 
     const onSettingUpdate = () => {
-        console.log(comment_id, content);
         dispatch(settingUpdate({ idx: comment_id, content: content }))
     }
 

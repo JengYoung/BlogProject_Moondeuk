@@ -8,7 +8,6 @@ import InputWrapper from '../../components/common/comment/InputWrapper';
 import { changeText, replyComment } from '../../modules/comment';
 
 function InputWrapperContainer({ _id, isReply, hasMarginLeft, comment_id, }) {
-    console.log("original", _id)
     const dispatch = useDispatch();
     const { content, user } = useSelector(({ commentReducer, userReducer }) => ({
         content: commentReducer.content,
