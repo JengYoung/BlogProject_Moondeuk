@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import UserInfo from '../../../components/common/UserInfo';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
+import { alertUser } from '../../../modules/alert';
 import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
 import { getSubscribeList, getSubscribedList } from '../../../modules/subscribeList';
 
@@ -25,6 +26,7 @@ function SubscribeInfoContainer({ match }) {
     }));
 
     const userId = user ? user.userId : null;
+    const user_id = user ? user._id : null;
 
     /*
         return true if unSubscribe yet
@@ -53,6 +55,10 @@ function SubscribeInfoContainer({ match }) {
             if (!userId) return alert('로그인 후 구독 가능합니다.')
             if (authorId === userId) return alert('자신은 구독할 수 없습니다.')
             dispatch(subscribeUser({ subscribeTo: authorId, subscribedFrom: user.userId }));
+            /* 
+                [server] findById(authorId) -> return user nickname (params to enter user's blog)
+            */
+            dispatch(alertUser({ sender_id: user_id, receiver_id: authorId, type: "Subscribe", type_id: authorId })); 
             return;
         } catch(e) {
             alert(e);
