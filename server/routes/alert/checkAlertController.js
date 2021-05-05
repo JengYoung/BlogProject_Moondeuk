@@ -3,7 +3,7 @@ import User from '../../models/user.js';
 
 const checkAlertController = async (req, res) => {
     const { user_id } = req.params;
-    console.log(user_id)
+    console.log("user_id in checkAlertController: ", user_id)
     try {
         const userAlert = await Alert.find({ receiver_id: user_id }).exec();
         res.send(userAlert)

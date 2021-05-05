@@ -6,14 +6,16 @@ import { takeLatest } from 'redux-saga/effects';
 import checkAlertAPI from '../lib/routes/alert/checkAlert';
 
 /* create alert action types */ 
+const INITIALIZE_ALERT = `alert/INITIALIZE_ALERT`;
 const ALERT = `alert/ALERT`;
 const [ ALERT_SUCCESS, ALERT_FAILURE ] = createActionTypes(ALERT);
 const CHECK_ALERT = `alert/CHECK_ALERT`;
 const [ CHECK_ALERT_SUCCESS, CHECK_ALERT_FAILURE ] = createActionTypes(CHECK_ALERT);
 
 /* create alert aciton creator */ 
+export const iniitalize_alert = createAction(INITIALIZE_ALERT);
 export const alertUser = createAction(ALERT, params => params);
-export const checkAlertUser = createAction(CHECK_ALERT);
+export const checkAlertUser = createAction(CHECK_ALERT, user_id => {console.log("creator: ", user_id); return user_id});
 
 /* create customized saga */ 
 const alertUserSaga = createSaga(ALERT, alertAPI);
@@ -25,7 +27,7 @@ export function* alertSaga() {
     yield takeLatest(CHECK_ALERT, checkAlertUserSaga);
 };
 
-const intialState = {
+const initialState = {
     alert: null, // for check if alert succeed or not 
     alerts: [], // for checkAlert (to import user's alerts)
     alertError: null, // for error checking
@@ -33,6 +35,7 @@ const intialState = {
 };
 
 const alertReducer = handleActions({
+    [INITIALIZE_ALERT]: state => initialState,
     [ALERT_SUCCESS]: (state, { payload: alert }) => ({
         ...state,
         alert,
@@ -51,6 +54,6 @@ const alertReducer = handleActions({
         ...state,
         alertsError: error,
     })
-}, intialState);
+}, initialState);
 
 export default alertReducer;

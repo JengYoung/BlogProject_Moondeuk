@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
-import AlertBtn from './AlertBtn';
 import ResponsiveWrapper from './Responsive';
 
 /*
@@ -43,7 +43,7 @@ const Header = ({write, user, onLogout}) => {
                 <Wrapper>
                     <Link to="/" className="logo">MOONDEUK</Link>
                     <StyledAlertWrapper>
-                        <AlertBtn>💡</AlertBtn>
+                        <AlertBtnContainer></AlertBtnContainer>
                         {user ? (
                             <>
                             <div>

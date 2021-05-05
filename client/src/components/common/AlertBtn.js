@@ -16,10 +16,10 @@ const StyledAlertBtn = styled.button`
     }
 `;
 
-const AlertBtn = (props) => {
+const AlertBtn = ({count}) => {
     return (
-        <StyledAlertBtn {... props}>
-            
+        <StyledAlertBtn>
+            {count}
         </StyledAlertBtn>
     );
 };
