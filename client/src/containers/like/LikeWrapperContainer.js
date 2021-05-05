@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import LikeBtn from '../../components/like/LikeBtn';
 import LikeCounter from '../../components/like/LikeCounter';
 import LikeWrapper from '../../components/like/LikeWrapper'
+import { alertUser } from '../../modules/alert';
 import { checkLike, dislikeDiary, initializeLike, likeDiary, likeList } from '../../modules/like';
 
 function LikeWrapperContainer() {
@@ -13,12 +14,12 @@ function LikeWrapperContainer() {
         likes: likeReducer.likes,
         user: userReducer.user,
         diary: diaryReducer.diary,
-        like: likeReducer.like
+        like: likeReducer.like,
     }));
 
     const diaryId = diary ? diary._id : null;
     const userId = user ? user._id : null;
-
+    const author_id = diary ? diary.author._id : null;
     useEffect(() => {
         dispatch(initializeLike());
         if(!userId || !diaryId) return;
@@ -29,7 +30,10 @@ function LikeWrapperContainer() {
         dispatch(likeList(diaryId));
     },[diaryId, dispatch, like])
 
-    const onLike = () => dispatch(likeDiary({ userId, diaryId }));
+    const onLike = () => {
+        dispatch(likeDiary({ userId, diaryId }))
+        dispatch(alertUser({ sender_id: userId, receiver_id: author_id, type: "Like", type_id: diaryId }))
+    };
     const onDislike = () => dispatch(dislikeDiary({ userId, diaryId }));
     const onLikeList = () => setModal(!modal);
 

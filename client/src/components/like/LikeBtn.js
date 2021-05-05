@@ -20,9 +20,9 @@ const LikeBtn = ({ onLike, like, onDislike }) => {
     const checkLikeExist = like.userId ? like.userId : null;
     return (
         checkLikeExist ? 
-            <StyledLikeBtn onClick={onDislike}>❤</StyledLikeBtn>
+            <StyledLikeBtn onClick={onDislike}>🧡</StyledLikeBtn>
         : 
-            <StyledLikeBtn onClick={onLike}>♡</StyledLikeBtn>
+            <StyledLikeBtn onClick={onLike}>🖤</StyledLikeBtn>
     );
 };
 

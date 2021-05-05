@@ -15,7 +15,7 @@ const [ CHECK_ALERT_SUCCESS, CHECK_ALERT_FAILURE ] = createActionTypes(CHECK_ALE
 /* create alert aciton creator */ 
 export const initializeAlert = createAction(INITIALIZE_ALERT);
 export const alertUser = createAction(ALERT, params => params);
-export const checkAlertUser = createAction(CHECK_ALERT, user_id => {console.log("creator: ", user_id); return user_id});
+export const checkAlertUser = createAction(CHECK_ALERT, user_id => user_id);
 
 /* create customized saga */ 
 const alertUserSaga = createSaga(ALERT, alertAPI);
