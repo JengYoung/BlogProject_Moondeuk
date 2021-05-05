@@ -20,6 +20,7 @@ const CommentWrapperContainer = () => {
     const user_id = user ? user._id : null;
     const username = user ? user.userId : null;
     const diary_id = diary ? diary._id : null;
+    const author_id = diary ? diary.author._id : null;
 
     useEffect(() => {
         dispatch(checkComment(diary_id))
@@ -27,7 +28,7 @@ const CommentWrapperContainer = () => {
 
     return (
         <CommentWrapper>
-            <CommentInputWrapperContainer user_id={user_id} diary_id={diary_id} />
+            <CommentInputWrapperContainer author_id={author_id} user_id={user_id} diary_id={diary_id} />
             <CommentList>
                 { comments.map(comment => {
                     return (
