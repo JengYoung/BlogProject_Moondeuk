@@ -13,7 +13,7 @@ const CHECK_ALERT = `alert/CHECK_ALERT`;
 const [ CHECK_ALERT_SUCCESS, CHECK_ALERT_FAILURE ] = createActionTypes(CHECK_ALERT);
 
 /* create alert aciton creator */ 
-export const iniitalize_alert = createAction(INITIALIZE_ALERT);
+export const initializeAlert = createAction(INITIALIZE_ALERT);
 export const alertUser = createAction(ALERT, params => params);
 export const checkAlertUser = createAction(CHECK_ALERT, user_id => {console.log("creator: ", user_id); return user_id});
 
