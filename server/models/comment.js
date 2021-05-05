@@ -5,11 +5,11 @@ import ReplyComment from './replyComment.js';
 const { Schema } = mongoose;
 
 const commentSchema = new Schema({
-    userId: {
+    user_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
     },
-    diaryId: {
+    diary_id: {
         type: mongoose.Types.ObjectId,
         ref: 'Post',
     },

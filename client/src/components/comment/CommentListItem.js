@@ -32,18 +32,17 @@ const StyledCommentListItem = styled.div`
 
 const CommentListItem = (
     { 
-        userId, 
-        nickname, 
         content, 
-        username, 
+        comment,
         onUpdate,
         onSettingUpdate,
         updatedContent,
         onChangeText,
         onDeleteComment, 
         comment_id,
-        replyComments,
     }) => {
+    const { user_id, diary_id, userInfo, username, replyComments} = comment;
+    const { userId, nickname } = userInfo;
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
     const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
@@ -81,7 +80,7 @@ const CommentListItem = (
                 onIsReplyCommentMode={onIsReplyCommentMode}>
             </OptionBtnsWrapper>
             {isReplyRootCommentMode && 
-                <InputWrapperContainer _id={comment_id} comment_id={comment_id}/>
+                <InputWrapperContainer replier_id={user_id} diary_id={diary_id} _id={comment_id} comment_id={comment_id}/>
             }   
             {replyCommentCount > 0 && 
                 <ReplyCommentBtn onShowReplyComment={onShowReplyComment} comment_id={comment_id} > 

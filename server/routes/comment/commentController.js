@@ -3,6 +3,7 @@ import User from '../../models/user.js';
 
 const commentController = async (req, res) => {
     const { user_id, diary_id } = req.params;
+    console.log("user_id: ", user_id, "diary_id: ", diary_id)
     const { content } = req.body;
     console.log(user_id, diary_id, content);
     try {
@@ -17,6 +18,7 @@ const commentController = async (req, res) => {
             content,
         });
         await comment.save();
+        res.alert = comment;
         return res.send(comment);
     } catch(e) {
         return res.status(400).send(e)

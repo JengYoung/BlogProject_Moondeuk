@@ -10,7 +10,7 @@ import UpdateInputWrapper from '../../components/common/comment/UpdateInputWrapp
 import { changeText, deleteReplyComment, settingUpdate, updateReplyComment } from '../../modules/comment';
 import InputWrapperContainer from './InputWrapperContainer';
 
-function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }) {
+function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_id, content }) {
     const { updatedContent } = useSelector(({ commentReducer }) => ({
         updatedContent: commentReducer.updatedContent
     }))
@@ -59,7 +59,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, content }
             <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate} onDelete={onDelete}></BtnsWrapper>
             <OptionBtnsWrapper onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
             {isReplyCommentMode && 
-                <InputWrapperContainer _id={_id} hasMarginLeft comment_id={comment_id}/>
+                <InputWrapperContainer _id={_id} replier_id={replier_id} hasMarginLeft comment_id={comment_id}/>
             }
         </ListItem>
     )
