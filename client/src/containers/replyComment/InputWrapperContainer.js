@@ -32,20 +32,20 @@ function InputWrapperContainer({ _id, replier_id, isReply, hasMarginLeft, commen
         console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
-    console.log("dispatch - InputWrapperContainer: ", { sender_id: user_id, receiver_id: replier_id, type: "ReplyComments", type_id: comment_id })
+    console.log("dispatch - InputWrapperContainer: ", { sender_id: user_id, receiver_id: replier_id, type: "ReplyComments", type_detail: comment_id })
     const onSubmit = e => {
         e.preventDefault()
         console.log({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id })
         dispatch(replyComment({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: comment_id }))
         const comment__id = comment ? comment._id : null;
         console.log('과연 바뀔까, comment__id: ', comment__id);
-        console.log("dispatch - InputWrapperContainer: ", { sender_id: user_id, receiver_id: replier_id, type: "ReplyComments", type_id: comment_id })
+        console.log("dispatch - InputWrapperContainer: ", { sender_id: user_id, receiver_id: replier_id, type: "ReplyComments", type_detail: comment_id })
         dispatch(alertUser({ 
             sender_id: 
             user_id, 
             receiver_id: replier_id, 
             type: "ReplyComments", 
-            type_id: { 
+            type_detail: { 
                 diary_id, 
                 comment_id, 
                 content: content[comment_id]

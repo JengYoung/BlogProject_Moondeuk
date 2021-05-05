@@ -58,7 +58,7 @@ function SubscribeInfoContainer({ match }) {
             /* 
                 [server] findById(authorId) -> return user nickname (params to enter user's blog)
             */
-            dispatch(alertUser({ sender_id: user_id, receiver_id: authorId, type: "Subscribe", type_id: authorId })); 
+            dispatch(alertUser({ sender_id: user_id, receiver_id: authorId, type: "Subscribe", type_detail: authorId })); 
             return;
         } catch(e) {
             alert(e);

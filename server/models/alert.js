@@ -11,7 +11,7 @@ const alertSchema = new Schema({
         ref: 'User'
     },
     type: String,
-    type_id: Schema.Types.Mixed,
+    type_detail: Schema.Types.Mixed,
     alarm_At: {
         type: Date,
         default: Date.now,
