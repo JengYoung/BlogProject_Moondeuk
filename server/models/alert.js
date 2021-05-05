@@ -11,11 +11,11 @@ const alertSchema = new Schema({
         ref: 'User'
     },
     type: String,
-    type_id: mongoose.Types.ObjectId,
+    type_id: Schema.Types.Mixed,
     alarm_At: {
         type: Date,
         default: Date.now,
-    },
+    },  
     checkRead: {
         type: Boolean,
         default: false,

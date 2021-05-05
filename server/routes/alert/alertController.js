@@ -10,7 +10,7 @@ const alertController = async (req, res) => {
     });
     try {
         await alert.save();
-        console.log(alert)
+        res.send(alert);
     } catch(e) {
         await res.status(400).send(e);
     };
