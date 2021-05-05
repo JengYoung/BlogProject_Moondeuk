@@ -16,9 +16,9 @@ const StyledAlertBtn = styled.button`
     }
 `;
 
-const AlertBtn = ({count}) => {
+const AlertBtn = ({ onConform, count}) => {
     return (
-        <StyledAlertBtn>
+        <StyledAlertBtn onClick={onConform}>
             {count}
         </StyledAlertBtn>
     );
