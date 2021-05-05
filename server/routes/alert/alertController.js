@@ -5,6 +5,7 @@ const alertController = async (req, res) => {
     const { sender_id, type, type_id } = req.body;
     let { receiver_id } = req.body;
     if (!sender_id || !receiver_id || !type || !type_id) return res.status(400).send("여기 잘못");
+    if (sender_id === receiver_id) return res.status(409).send('Conflict');
     try {
         if (type === "Subscribe") {
             receiver_id = await User.findUser_id(receiver_id);
