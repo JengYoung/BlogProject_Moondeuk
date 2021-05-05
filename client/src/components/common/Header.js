@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
+import AlertBtn from './AlertBtn';
 import ResponsiveWrapper from './Responsive';
 
 /*
@@ -16,6 +17,8 @@ const StyledHeader = styled.div`
 `;
 
 const Wrapper = styled(ResponsiveWrapper)`
+    display: flex;
+    justify-content: space-between;
     height: 4rem;
     a {
         padding: 10px;
@@ -26,6 +29,12 @@ const Spacer = styled.div`
     height: 4rem;
 `;
 
+const StyledAlertWrapper = styled.div`
+    display: flex;
+    button + div {
+        padding-left: 1rem;
+    }
+`;
 
 const Header = ({write, user, onLogout}) => {
     return (!write) ? (
@@ -33,16 +42,21 @@ const Header = ({write, user, onLogout}) => {
             <StyledHeader>
                 <Wrapper>
                     <Link to="/" className="logo">MOONDEUK</Link>
-                    {user ? (
-                        <div>
-                            <div>{user.userId}님 안녕하세요!</div>
-                            <Link to="/" onClick={onLogout}>로그아웃</Link>
-                        </div>
-                    ) : (
-                        <div>
-                            <Link to="/login">로그인</Link>
-                        </div>
-                    )}
+                    <StyledAlertWrapper>
+                        <AlertBtn>💡</AlertBtn>
+                        {user ? (
+                            <>
+                            <div>
+                                <div>{user.userId}</div>
+                                <Link to="/" onClick={onLogout}>로그아웃</Link>
+                            </div>
+                            </>
+                        ) : (
+                            <div>
+                                <Link to="/login">로그인</Link>
+                            </div>
+                        )}
+                    </StyledAlertWrapper>
                 </Wrapper>
             </StyledHeader>
             <Spacer/>
