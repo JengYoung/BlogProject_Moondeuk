@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const alarmSchema = new Schema({
+const { Schema } = mongoose;
+const alertSchema = new Schema({
     sender_id: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
@@ -15,8 +16,11 @@ const alarmSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    checkRead: Boolean,
+    checkRead: {
+        type: Boolean,
+        default: false,
+    },
 })
 
-const Alarm = mongoose.model('Alarm', alarmSchema);
-export default Alarm;
+const Alert = mongoose.model('Alert', alertSchema);
+export default Alert;
