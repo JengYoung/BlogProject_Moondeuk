@@ -1,16 +1,16 @@
-import Alarm from '../../models/alarm.js'
+import Alert from '../../models/alert.js';
 
 const alertController = async (req, res) => {
     const { sender_id, receiver_id, type, type_id } = req.body;
-    const alarm = new Alarm({
+    const alert = new Alert({
         sender_id,
         receiver_id, 
         type,
         type_id
     });
     try {
-        await alarm.save();
-        console.log(alarm)
+        await alert.save();
+        console.log(alert)
     } catch(e) {
         await res.status(400).send(e);
     };

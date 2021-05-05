@@ -1,8 +1,8 @@
 import express from 'express';
-import alertController from './sendAlertController.js';
+import alertController from './alertController.js';
 
 const alert = express.Router();
 
-alarm.post('/alert', alertController);
-alarm.post('/checkAlert/:user_id', checkAlertController);
-export default alarm;
+alert.post('/alert', alertController);
+alert.post('/checkAlert/:user_id', checkAlertController);
+export default alert;
