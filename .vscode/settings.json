@@ -1,0 +1,84 @@
+{
+    "workbench.preferredHighContrastColorTheme": "Default Dark+",
+    "workbench.preferredLightColorTheme": "Default High Contrast",
+    "workbench.colorTheme": "Default Light+",
+    "editor.tokenColorCustomizations": {
+        "comments": "#cf0000",
+    },
+    "workbench.colorCustomizations": {
+        "terminal.background":"#292C36",
+        "terminal.foreground":"#D8D8D8",
+        "terminalCursor.background":"#D8D8D8",
+        "terminalCursor.foreground":"#D8D8D8",
+        "terminal.ansiBlack":"#292C36",
+        "terminal.ansiBlue":"#8485CE",
+        "terminal.ansiBrightBlack":"#65568A",
+        "terminal.ansiBrightBlue":"#8485CE",
+        "terminal.ansiBrightCyan":"#64878F",
+        "terminal.ansiBrightGreen":"#95C76F",
+        "terminal.ansiBrightMagenta":"#B74989",
+        "terminal.ansiBrightRed":"#F84547",
+        "terminal.ansiBrightWhite":"#F8F8F8",
+        "terminal.ansiBrightYellow":"#EFA16B",
+        "terminal.ansiCyan":"#64878F",
+        "terminal.ansiGreen":"#95C76F",
+        "terminal.ansiMagenta":"#B74989",
+        "terminal.ansiRed":"#F84547",
+        "terminal.ansiWhite":"#D8D8D8",
+        "terminal.ansiYellow":"#EFA16B",
+    },
+    "bracketPairColorizer.activeScopeCSS": [
+        "borderStyle : solid",
+        "borderWidth : 1px",
+        "borderColor : {color}; opacity: 0.5"
+    ],
+    "better-comments.tags": [
+
+    
+        {
+            "tag": "!",
+            "color": "#FF2D00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "#000000",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "?",
+            "color": "#3498DB",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "//",
+            "color": "#474747",
+            "strikethrough": true,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "todo",
+            "color": "#FF8C00",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        },
+        {
+            "tag": "*",
+            "color": "#7d3c8d",
+            "strikethrough": false,
+            "underline": false,
+            "backgroundColor": "transparent",
+            "bold": true,
+            "italic": false
+        }
+    ]
+}

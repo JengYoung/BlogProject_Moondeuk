@@ -27,7 +27,7 @@ const CommentListItemContainer = ({ comment }) => {
         dispatch(changeText(payload));
     }, [dispatch]);
 
-
+//we are good teach
     return (
         <CommentListItem 
             content={content} 
