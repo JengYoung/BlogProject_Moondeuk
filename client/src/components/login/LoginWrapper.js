@@ -6,48 +6,49 @@ import {Link} from 'react-router-dom';
 import HeadName from '../common/HeadName';
 import registerReducer from '../../modules/register';
 import ErrorMessage from '../common/ErrorMessage';
+import InputBox from '../common/auth/InputBox';
 /*
 */
 
 const StyledLoginForm = styled.form`
+    margin-top: 2rem;
     width: 300px;
     height: auto;
-    padding: 3rem 3rem 0 3rem;
+    padding: 1rem 3rem 0 3rem;
     background-color: transparent;
-    border: 1px solid white;
-    border-radius: 20px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0px 10px 4px rgba(0,0,0,0.2);
 `;
 
 const Links = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     margin: 1rem 0rem;
 `;
 
 const StyledLink = styled(Link)`
-    color: white;
+    color: black;
     transition: all 0.7s;
     &:hover {
-        color: yellow;
-        opacity: 1;
-        transform: scale(1.05);
+        color: #a52ca5;
+        transform: scale(1.03);
     }
 `;
-
 const LoginWrapper = ({onChange, onSubmit, error}) => {
     return (
-        <StyledLoginForm onSubmit={onSubmit}>
-            <HeadName colorWhite name="로그인"></HeadName>
-            <Input colorWhite onChange={onChange} name="userId" value={registerReducer.userId}/>
-            <Input colorWhite onChange={onChange} type="password" name="password" value={registerReducer.password} />
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-            <Button fullWidth topMargin name="로그인" />
-            <Links>
-                <StyledLink to='/register'>회원가입</StyledLink>
-            </Links>
-        </StyledLoginForm>
+        // <StyledLoginForm onSubmit={onSubmit}>
+        //     <HeadName name="로그인"></HeadName>
+        //     <Input autoComplete="new-password" onChange={onChange} name="userId" value={registerReducer.userId}/>
+        //     <Input onChange={onChange} type="password" name="password" value={registerReducer.password} />
+        //     {error && <ErrorMessage>{error}</ErrorMessage>}
+        //     <Button fullWidth topMargin name="로그인" />
+        //     <Links>
+        //         <StyledLink to='/register'>회원가입</StyledLink>
+        //     </Links>
+        // </StyledLoginForm>
+        <InputBox name="password"/>
     );
 };
 

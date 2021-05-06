@@ -15,6 +15,7 @@ export const StyledInput = styled.input`
     outline: none;
     width: 100%;
     box-sizing: border-box;
+    
     &:focus {
         border-bottom: 1px solid #ffbfff; 
     }
@@ -34,11 +35,14 @@ export const StyledInput = styled.input`
     props.BottomMargin && css`
         margin-bottom:1rem;
     `}
-`;
+`
 
 const Input = (props) => {
+    console.log(props.names, props.name)
+    const placeholder = `${props.names[props.name]}`;
+    console.log(placeholder);
     return (
-        <StyledInput {...props} placeholder={`${props.name} 입력`}/>
+        <StyledInput placeholder={placeholder}/>
     );
 };
 

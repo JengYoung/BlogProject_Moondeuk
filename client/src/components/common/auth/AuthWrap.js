@@ -13,7 +13,6 @@ const StyledAuthWrap = styled.div`
     justify-content: center;
     margin: 0 auto;
     height: 100vh;
-    background: purple;
     @media (max-width: 500px) {
     };
     @media (min-width: 501px) {

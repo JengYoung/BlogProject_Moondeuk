@@ -9,7 +9,7 @@ const StyledSideWrap = styled.main`
     display: flex;
     flex-direction: column;
     width: 500px;
-    background-color: #f8f8f8;
+    background-color: #fffdfd;
     @media screen and (max-width: 500px) {
         display: flex;
         flex-direction: column;

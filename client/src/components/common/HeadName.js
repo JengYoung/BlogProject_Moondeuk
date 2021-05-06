@@ -7,9 +7,8 @@ import styled, { css } from 'styled-components';
 const StyledHeadName = styled.h1`
     font-size: 30px;
     font-weight: 900;
-    color: purple;
+    color: #441444;
     padding-bottom: 1rem;
-    border-bottom: 1px solid purple;
     text-align:center;
     ${props =>
     props.colorWhite && css`
