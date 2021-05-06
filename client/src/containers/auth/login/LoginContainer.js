@@ -58,6 +58,7 @@ function Logincontainer({ history }) {
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
+            inputs={inputs}
         />
     )
 }

@@ -4,9 +4,7 @@ import Button from '../common/Button';
 import Input from '../common/Input';
 import {Link} from 'react-router-dom';
 import HeadName from '../common/HeadName';
-import registerReducer from '../../modules/register';
 import ErrorMessage from '../common/ErrorMessage';
-import InputBox from '../common/auth/InputBox';
 /*
 */
 
@@ -36,12 +34,12 @@ const StyledLink = styled(Link)`
         transform: scale(1.03);
     }
 `;
-const LoginWrapper = ({onChange, onSubmit, error}) => {
+const LoginWrapper = ({onChange, onSubmit, error, inputs}) => {
     return (
         <StyledLoginForm onSubmit={onSubmit}>
             <HeadName name="로그인"></HeadName>
-            <Input autoComplete="new-password" onChange={onChange} name="userId" value={registerReducer.userId}/>
-            <Input onChange={onChange} type="password" name="password" value={registerReducer.password} />
+            <Input autoComplete="new-password" onChange={onChange} name="userId" value={inputs.userId}/>
+            <Input onChange={onChange} type="password" name="password" value={inputs.password} />
             {error && <ErrorMessage>{error}</ErrorMessage>}
             <Button fullWidth topMargin name="로그인" />
             <Links>
