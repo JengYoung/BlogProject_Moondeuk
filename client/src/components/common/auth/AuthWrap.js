@@ -8,6 +8,8 @@ import styled from 'styled-components';
 const StyledAuthWrap = styled.div`
     width: 300px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 0 auto;
     height: 100vh;

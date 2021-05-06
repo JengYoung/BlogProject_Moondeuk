@@ -8,12 +8,11 @@ import styled from 'styled-components';
 const StyledSideWrap = styled.main`
     display: flex;
     flex-direction: column;
-    background: yellow;
     width: 500px;
+    background-color: #f8f8f8;
     @media screen and (max-width: 500px) {
         display: flex;
         flex-direction: column;
-        background: skyblue;
         justify-content: center;
         align-items: center;
     }
