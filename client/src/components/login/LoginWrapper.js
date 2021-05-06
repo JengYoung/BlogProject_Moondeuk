@@ -38,17 +38,16 @@ const StyledLink = styled(Link)`
 `;
 const LoginWrapper = ({onChange, onSubmit, error}) => {
     return (
-        // <StyledLoginForm onSubmit={onSubmit}>
-        //     <HeadName name="로그인"></HeadName>
-        //     <Input autoComplete="new-password" onChange={onChange} name="userId" value={registerReducer.userId}/>
-        //     <Input onChange={onChange} type="password" name="password" value={registerReducer.password} />
-        //     {error && <ErrorMessage>{error}</ErrorMessage>}
-        //     <Button fullWidth topMargin name="로그인" />
-        //     <Links>
-        //         <StyledLink to='/register'>회원가입</StyledLink>
-        //     </Links>
-        // </StyledLoginForm>
-        <InputBox name="password"/>
+        <StyledLoginForm onSubmit={onSubmit}>
+            <HeadName name="로그인"></HeadName>
+            <Input autoComplete="new-password" onChange={onChange} name="userId" value={registerReducer.userId}/>
+            <Input onChange={onChange} type="password" name="password" value={registerReducer.password} />
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+            <Button fullWidth topMargin name="로그인" />
+            <Links>
+                <StyledLink to='/register'>회원가입</StyledLink>
+            </Links>
+        </StyledLoginForm>
     );
 };
 

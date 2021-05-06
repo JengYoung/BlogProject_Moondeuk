@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
+import names from '../../lib/inputNames';
 
 /*
     일반적으로 본 프로젝트에서 사용할 Input bar 기본 컴포넌트
@@ -38,11 +39,9 @@ export const StyledInput = styled.input`
 `
 
 const Input = (props) => {
-    console.log(props.names, props.name)
-    const placeholder = `${props.names[props.name]}`;
-    console.log(placeholder);
+    const placeholder = `${names[props.name]}`;
     return (
-        <StyledInput placeholder={placeholder}/>
+        <StyledInput {...props} placeholder={placeholder}/>
     );
 };
 

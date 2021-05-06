@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import names, { postposition } from '../../../lib/inputNames';
 import Button from '../Button';
 import Input from '../Input';
 
@@ -22,11 +23,9 @@ const StyledInputTitle = styled.h2`
 `;
 
 const InputBox = (props) => {
-    const names = {"id": "ID", "password": "비밀번호", "passwordConform": "비밀번호 확인", "nickname": "닉네임"}
-    const postposition = ["id", "password"].includes(props.name) ? "를" : "을"
     return (
         <StyledInputBox>
-            <StyledInputTitle>{names[props.name]}{postposition} 입력해주세요.</StyledInputTitle>
+            <StyledInputTitle>{names[props.name]}{postposition(props.name)} 입력해주세요.</StyledInputTitle>
             <Input {...props} names={names}></Input>
             {props.name === 'password' && <Input names={names} name="passwordConform"></Input>}
             <Button fullWidth topMargin>확인</Button>
