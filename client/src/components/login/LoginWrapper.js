@@ -41,7 +41,7 @@ const LoginWrapper = ({onChange, onSubmit, error, inputs}) => {
             <Input autoComplete="new-password" onChange={onChange} name="userId" value={inputs.userId}/>
             <Input onChange={onChange} type="password" name="password" value={inputs.password} />
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <Button fullWidth topMargin name="로그인" />
+            <Button fullWidth topMargin>로그인</Button>
             <Links>
                 <StyledLink to='/register'>회원가입</StyledLink>
             </Links>

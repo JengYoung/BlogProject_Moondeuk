@@ -18,9 +18,9 @@ const RegisterContainer = ({ history }) => {
         dispatch(onChangeInput({ inputs, name, value }))
     }
     const onSubmit = (e) => {
-        const { userId, password, passwordConform, nickname, birthday } = inputs;
+        const { userId, password, passwordConform, nickname } = inputs;
         e.preventDefault();
-        if ([userId, password, passwordConform, nickname, birthday].includes('')) {
+        if ([userId, password, passwordConform, nickname].includes('')) {
             setError("정보를 모두 입력해주세요.")
             return;
         }
@@ -28,7 +28,7 @@ const RegisterContainer = ({ history }) => {
             setError("입력하신 두 비밀번호가 같지 않습니다.")
             return;
         }
-        dispatch(register({ userId, password, passwordConform, nickname, birthday }))
+        dispatch(register({ userId, password, passwordConform, nickname }))
     }
 
     useEffect(() => {
@@ -55,6 +55,7 @@ const RegisterContainer = ({ history }) => {
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
+            inputs={inputs}
         />
     )
 }

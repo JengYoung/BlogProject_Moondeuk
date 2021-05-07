@@ -22,12 +22,11 @@ export const onChangeInput = createAction(ONCHANGE_INPUT, ({ name, value }) => (
 
 export const initializeForm = createAction(INITIALIZE_FORM, form => form )
 
-export const register = createAction(REGISTER, ({ userId, password, passwordConform, nickname, birthday }) => ({ 
+export const register = createAction(REGISTER, ({ userId, password, passwordConform, nickname }) => ({ 
     userId, // 유저 ID
     password, // 비밀번호
     passwordConform, // 비밀번호 확인
     nickname, // 닉네임
-    birthday // 생일
 }));
 
 /* 

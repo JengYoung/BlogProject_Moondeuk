@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import registerReducer from '../../modules/register';
+import names from '../../lib/inputNames';
+import InputBox from '../common/auth/InputBox';
 import Button from '../common/Button';
 import HeadName from '../common/HeadName';
 import Input from '../common/Input';
@@ -19,8 +20,9 @@ const StyledRegisterFormWrapper = styled.form`
     width: 400px;
     max-height: 100%;
     padding: 2rem 3rem 2rem 3rem;
-    border-radius: 10px;
-    background-color: white;
+    background-color: transparent;
+    border: 1px solid lightgray;
+    margin-bottom: 3rem;
 `;
 
 const StyledErrorMessage = styled.div`
@@ -29,28 +31,39 @@ const StyledErrorMessage = styled.div`
     font-weight: 700;
 `;
 
-const RegisterForm = ({ onChange, onSubmit, error }) => {
-    const QuestionNames = ['userId', 'password', 'passwordConform', 'nickname', 'birthday']
+const StyledRegisterBtn = styled(Button)`
+    margin-top: 2rem;
+`;
+
+const RegisterForm = ({ onChange, onSubmit, error, inputs }) => {
+    const QuestionNames = ['userId', 'password', 'nickname']
     return (
         <StyledRegisterFormWrapper onSubmit={onSubmit}>
-            <HeadName name="회원가입"></HeadName>
-        {QuestionNames.map(QuestionName => {
-            return (
-                <>
-                    <StyledQuestion>{QuestionName}</StyledQuestion>
-                    <Input 
-                        BottomMargin 
-                        type={QuestionName.indexOf('password') !== -1 ? "password" : null}
+            <HeadName>회원가입</HeadName>
+            {QuestionNames.map(QuestionName => {
+                return (
+                    <InputBox 
                         name={QuestionName}
-                        value={registerReducer[QuestionName]} 
+                        type={QuestionName.indexOf('password') !== -1 ? "password" : null}
+                        value={inputs[QuestionName]}
                         onChange={onChange}
-                    />
-                </>
-            )
-        })}
-        {error && <StyledErrorMessage error={error}>{error}</StyledErrorMessage>}
-        <Button fullWidth name="회원가입" />
-    </StyledRegisterFormWrapper>
+                    >
+                    </InputBox>
+                    // <Inp>
+                    //     <StyledQuestion>{names[QuestionName]}</StyledQuestion>
+                    //     <Input 
+                    //         BottomMargin 
+                    //         type={QuestionName.indexOf('password') !== -1 ? "password" : null}
+                    //         name={QuestionName}
+                    //         value={registerReducer[QuestionName]} 
+                    //         onChange={onChange}
+                    //     />
+                    // </Inputb>
+                )
+            })}
+            {error && <StyledErrorMessage error={error}>{error}</StyledErrorMessage>}
+            <StyledRegisterBtn fullWidth>회원가입</StyledRegisterBtn>
+        </StyledRegisterFormWrapper>
     );
 };
 

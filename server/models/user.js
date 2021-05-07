@@ -22,12 +22,6 @@ const userSchema = new Schema({
         max: 8,
         required: true,
     },
-    birthday: {
-        type: String,
-        min: 6,
-        max: 6,
-        required: true,
-    }
 })
 
 /* ID, PASSWORD CHECK */ 

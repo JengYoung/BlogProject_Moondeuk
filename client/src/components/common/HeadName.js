@@ -5,11 +5,13 @@ import styled, { css } from 'styled-components';
 */
 
 const StyledHeadName = styled.h1`
-    font-size: 30px;
+    font-size: 1.3rem;
     font-weight: 900;
     color: #441444;
-    padding-bottom: 1rem;
-    text-align:center;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.3rem;
+    background-color: #f5f5f5;
     ${props =>
     props.colorWhite && css`
         color: white;
@@ -20,7 +22,7 @@ const StyledHeadName = styled.h1`
 const HeadName = (props) => {
     return (
         <StyledHeadName {...props}>
-            { props.name }
+            { props.children }
         </StyledHeadName>
     );
 };

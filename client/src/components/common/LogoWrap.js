@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import imglogo from '../../images/moondeuk-imglogo.png';
 import logo from '../../images/moondeuk-logo.png';
 
@@ -28,11 +28,19 @@ const StyledLogoWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 1rem;
+    // * if register page => position wrap's top
+    ${props =>
+        props.register && css`
+            width: 500px;
+            padding-bottom: 4rem;
+        `
+    }
 `;
 
-const LogoWrap = () => {
+const LogoWrap = (props) => {
     return (
-        <StyledLogoWrap>
+        <StyledLogoWrap {...props}>
             <StyledImglogo></StyledImglogo>
             <StyledLogo></StyledLogo>
         </StyledLogoWrap>
