@@ -4,10 +4,41 @@ import styled from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import LogoWrap from './LogoWrap';
+import { GrMenu } from 'react-icons/gr';
 // import ResponsiveWrapper from './Responsive';
 
 /*
 */
+
+const MenuWrap = styled.div`
+    display: flex;
+    position: relative;
+    left: 1rem;
+    align-items: center;
+    width: 80%auto;
+`;
+
+const SideWrapBtn = styled.button`
+    display: flex;
+    /* position: relative; */
+    flex-direction: column;
+    align-items: center;
+    background: transparent;
+    outline: none;
+    border: none;
+    width: 2rem;
+    margin-right: 2vw;
+    font-size: 1rem;
+    &:hover {
+        cursor: pointer;
+    }
+    @media screen and (min-width: 461px) {
+        font-size: 1.5rem;
+    }
+    @media screen and (min-width: 769px) {
+        font-size: 2rem;
+    }
+`;
 
 const StyledHeader = styled.div`
     position: fixed;
@@ -42,7 +73,13 @@ const Wrapper = styled.div`
 `;
 
 const Spacer = styled.div`
-    height: 4rem;
+    height: 8vh;
+    @media screen and (min-width: 481px) {
+        height: 10vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 12vh;
+    }
 `;
 
 const StyledAlertWrapper = styled.div`
@@ -57,7 +94,7 @@ const StyledAlertWrapper = styled.div`
 
 const LoginLink = styled(Link)`
     position: relative;
-    right: 20px;
+    right: 4vw;
     padding: 0.5vh 1vh;
     border-radius: 7px;
     font-size: 0.8rem;
@@ -66,6 +103,9 @@ const LoginLink = styled(Link)`
         color: white;
         transition: all 0.7s;
     }
+    @media screen and (min-width: 461px) {
+        font-size: 1rem;
+    }
 `;
 
 const Header = ({write, user, onLogout}) => {
@@ -73,7 +113,10 @@ const Header = ({write, user, onLogout}) => {
         <>
             <StyledHeader>
                 <Wrapper>
-                    <LogoWrap isHeader></LogoWrap>
+                    <MenuWrap>
+                        <SideWrapBtn><GrMenu/></SideWrapBtn>
+                        <LogoWrap isHeader></LogoWrap>
+                    </MenuWrap>
                     <StyledAlertWrapper>
                         {user ? (
                             <>

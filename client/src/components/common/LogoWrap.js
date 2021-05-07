@@ -9,11 +9,25 @@ import logo from '../../images/moondeuk-logo.png';
 **/
 
 const StyledImglogo = styled.img`
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
+    @media screen and (min-width: 481px) {
+        width: 50px;
+        height: 50px;
+    }
     ${props =>
         props.isHeader && css`
             display: none;
+            @media screen and (min-width: 481px) {
+                width: 35px;
+                height: 35px;
+                display: block;
+            }
+            @media screen and (min-width: 769px) {
+                width: 50px;
+                height: 50px;
+                display: inline-block;
+            }
         `
     }
 `;
@@ -44,6 +58,7 @@ const StyledLogoWrap = styled.div`
         padding-top: 1rem;
         ${props =>
         props.isHeader && css`
+            flex-direction: row;
             padding: 0;
         `
     }
