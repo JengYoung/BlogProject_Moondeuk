@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
-import ResponsiveWrapper from './Responsive';
+import LogoWrap from './LogoWrap';
+// import ResponsiveWrapper from './Responsive';
 
 /*
 */
@@ -16,12 +17,27 @@ const StyledHeader = styled.div`
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
 `;
 
-const Wrapper = styled(ResponsiveWrapper)`
+// const Wrapper = styled(ResponsiveWrapper)`
+//     display: flex;
+//     justify-content: space-between;
+//     height: 4rem;
+//     a {
+//         padding: 10px;
+//     }
+// `;
+
+const Wrapper = styled.div`
+    width: 100vw;
+    height: 8vh;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    height: 4rem;
-    a {
-        padding: 10px;
+    //* 481px - small device (smartphone ~ Tablet)
+    @media screen and (min-width: 481px) {
+        height: 10vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 12vh;
     }
 `;
 
@@ -30,9 +46,25 @@ const Spacer = styled.div`
 `;
 
 const StyledAlertWrapper = styled.div`
+    position: relative;
     display: flex;
+    /* width: 100%; */
+    align-items: center;
     button + div {
         padding-left: 1rem;
+    }
+`;
+
+const LoginLink = styled(Link)`
+    position: relative;
+    right: 20px;
+    padding: 0.5vh 1vh;
+    border-radius: 7px;
+    font-size: 0.8rem;
+    &:hover {
+        background-color: #421642;
+        color: white;
+        transition: all 0.7s;
     }
 `;
 
@@ -41,20 +73,20 @@ const Header = ({write, user, onLogout}) => {
         <>
             <StyledHeader>
                 <Wrapper>
-                    <Link to="/" className="logo">MOONDEUK</Link>
+                    <LogoWrap isHeader></LogoWrap>
                     <StyledAlertWrapper>
-                        <AlertBtnContainer></AlertBtnContainer>
                         {user ? (
                             <>
-                            <div>
-                                <div>{user.userId}</div>
-                                <Link to="/" onClick={onLogout}>로그아웃</Link>
-                            </div>
+                                <AlertBtnContainer></AlertBtnContainer>
+                                <>
+                                    <div>{user.userId}</div>
+                                    <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
+                                </>
                             </>
                         ) : (
-                            <div>
-                                <Link to="/login">로그인</Link>
-                            </div>
+                            <>
+                                <LoginLink to="/login">로그인</LoginLink>
+                            </>
                         )}
                     </StyledAlertWrapper>
                 </Wrapper>

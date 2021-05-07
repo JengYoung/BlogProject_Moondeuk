@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import imglogo from '../../images/moondeuk-imglogo.png';
 import logo from '../../images/moondeuk-logo.png';
@@ -7,29 +8,29 @@ import logo from '../../images/moondeuk-logo.png';
  * * 문득 이미지 로고 & 문자 로고
 **/
 
-const StyledImglogo = styled.div`
+const StyledImglogo = styled.img`
     width: 50px;
     height: 50px;
-    background-image: url(${imglogo});
-    background-size: contain;
-    image-rendering: auto;
+    ${props =>
+        props.isHeader && css`
+            display: none;
+        `
+    }
 `;
-const StyledLogo = styled.div`
+const StyledLogo = styled.img`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 150px;
-    height: 50px;
-    background-image: url(${logo});
-    background-size: contain;
-    background-repeat: none;
-    
+    width: 99px;
+    height: 33px;
+    @media screen and (min-width: 469px) {
+        width: 150px;
+        height: 50px;
+    }
 `;
 const StyledLogoWrap = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding-top: 1rem;
     // * if register page => position wrap's top
     ${props =>
         props.register && css`
@@ -37,13 +38,27 @@ const StyledLogoWrap = styled.div`
             padding-bottom: 4rem;
         `
     }
+    @media screen and (min-width: 469px) {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 1rem;
+        ${props =>
+        props.isHeader && css`
+            padding: 0;
+        `
+    }
+    }
 `;
 
 const LogoWrap = (props) => {
     return (
         <StyledLogoWrap {...props}>
-            <StyledImglogo></StyledImglogo>
-            <StyledLogo></StyledLogo>
+            <Link to="/">
+                <StyledImglogo isHeader={props.isHeader} src={imglogo} alt="moondeuk image logo"></StyledImglogo>
+            </Link>
+            <Link to="/">
+                <StyledLogo src={logo} alt="moondeuk logo"></StyledLogo>
+            </Link>
         </StyledLogoWrap>
     );
 };

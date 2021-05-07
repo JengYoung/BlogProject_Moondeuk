@@ -9,18 +9,15 @@ export const StyledResponsive = styled.div`
     width: 1024px;
     margin: 0 auto;
     /* text-align: center; */
-    @media screen and (min-width: 481px) {
-        
+    @media (max-width: 1024px) {
+        width: 768px;
     }
-
-    @media screen and (min-width: 1024px) {
-
+    @media (max-width: 768px) {
+        width: 100%;
     }
-
-
 `;
 
-const ResponsiveWrap = ({children, ...rest}) => {
+const ResponsiveWrapper = ({children, ...rest}) => {
     return (
         <StyledResponsive {...rest}>
             {children}
@@ -28,4 +25,4 @@ const ResponsiveWrap = ({children, ...rest}) => {
     );
 };
 
-export default ResponsiveWrap;
+export default ResponsiveWrapper;
