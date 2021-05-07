@@ -1,21 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
-import names from '../../lib/inputNames';
 import InputBox from '../common/auth/InputBox';
 import Button from '../common/Button';
 import HeadName from '../common/HeadName';
-import Input from '../common/Input';
 
 /*
 */
 
-const StyledQuestion = styled.div`
-    font-size: 1rem;
-    font-weight: 700;
-    color: #9e0997;
-    padding-left: 0.5rem;
-    padding-bottom: 0.5rem;
-`;
 const StyledRegisterFormWrapper = styled.form`
     width: 400px;
     max-height: 100%;
@@ -44,21 +35,11 @@ const RegisterForm = ({ onChange, onSubmit, error, inputs }) => {
                 return (
                     <InputBox 
                         name={QuestionName}
-                        type={QuestionName.indexOf('password') !== -1 ? "password" : null}
+                        type={QuestionName === "password" ? "password" : "null"}
                         value={inputs[QuestionName]}
                         onChange={onChange}
                     >
                     </InputBox>
-                    // <Inp>
-                    //     <StyledQuestion>{names[QuestionName]}</StyledQuestion>
-                    //     <Input 
-                    //         BottomMargin 
-                    //         type={QuestionName.indexOf('password') !== -1 ? "password" : null}
-                    //         name={QuestionName}
-                    //         value={registerReducer[QuestionName]} 
-                    //         onChange={onChange}
-                    //     />
-                    // </Inputb>
                 )
             })}
             {error && <StyledErrorMessage error={error}>{error}</StyledErrorMessage>}

@@ -12,6 +12,7 @@ const StyledImglogo = styled.div`
     height: 50px;
     background-image: url(${imglogo});
     background-size: contain;
+    image-rendering: auto;
 `;
 const StyledLogo = styled.div`
     display: flex;
