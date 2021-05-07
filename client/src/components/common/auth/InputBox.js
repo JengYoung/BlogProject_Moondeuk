@@ -8,7 +8,7 @@ import Input from '../Input';
 **/
 
 const StyledInputBox = styled.div`
-    width: 300px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

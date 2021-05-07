@@ -8,7 +8,10 @@ import HeadName from '../common/HeadName';
 */
 
 const StyledRegisterFormWrapper = styled.form`
-    width: 400px;
+    @media screen and (min-width: 481px) {
+        width: 400px;
+    }
+    width: 300px;
     max-height: 100%;
     padding: 2rem 3rem 2rem 3rem;
     background-color: transparent;

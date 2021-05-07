@@ -33,7 +33,7 @@ const StyledLogoWrap = styled.div`
     // * if register page => position wrap's top
     ${props =>
         props.register && css`
-            width: 500px;
+            width: 100%;
             padding-bottom: 4rem;
         `
     }
