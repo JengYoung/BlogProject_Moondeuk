@@ -90,21 +90,49 @@ const StyledAlertWrapper = styled.div`
     button + div {
         padding-left: 1rem;
     }
+    @media screen and (min-width: 481px) {
+        height: 10vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 12vh;
+    }
+`;
+
+const UserInfoBox = styled.div`
+    display: flex;
+    position: relative;
+    align-items: center;
+    right: 6vw;
+    background: red;
+    @media screen and (min-width: 481px) {
+        height: 10vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 12vh;
+    }
+`;
+const UserInfo = styled.div`
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    @media screen and (min-width: 481px) {
+        display: flex;
+        font-size: 1rem;
+    }
+    @media screen and (min-width: 769px) {
+        height: 12vh;
+    }
 `;
 
 const LoginLink = styled(Link)`
-    position: relative;
-    right: 4vw;
     padding: 0.5vh 1vh;
     border-radius: 7px;
-    font-size: 0.8rem;
     &:hover {
         background-color: #421642;
         color: white;
         transition: all 0.7s;
-    }
-    @media screen and (min-width: 461px) {
-        font-size: 1rem;
     }
 `;
 
@@ -119,13 +147,13 @@ const Header = ({write, user, onLogout}) => {
                     </MenuWrap>
                     <StyledAlertWrapper>
                         {user ? (
-                            <>
+                            <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
-                                <>
+                                <UserInfo>
                                     <div>{user.userId}</div>
                                     <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
-                                </>
-                            </>
+                                </UserInfo>
+                            </UserInfoBox>
                         ) : (
                             <>
                                 <LoginLink to="/login">로그인</LoginLink>
