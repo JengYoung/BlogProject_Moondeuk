@@ -17,8 +17,9 @@ const StyledAlertBtn = styled.button`
     font-size: 1.5rem;
     border: 1px solid #535353;
     color: #535353;
-    ${props => props.count > 0 && css`
+    ${props => (props.count > 0) && css`
         color:  #ffe600;
+        background: #e7a7e7;
         border: none;
     `}
     &:hover {
@@ -32,7 +33,7 @@ const StyledAlertBtn = styled.button`
 
 const AlertBtn = ({ onConform, count}) => {
     return (
-        <StyledAlertBtn onClick={onConform}>
+        <StyledAlertBtn count={count} onClick={onConform}>
             {count > 0 ? <BsBellFill></BsBellFill> : <BsBell></BsBell>}
         </StyledAlertBtn>
     );

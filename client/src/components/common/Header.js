@@ -103,7 +103,6 @@ const UserInfoBox = styled.div`
     position: relative;
     align-items: center;
     right: 6vw;
-    background: red;
     @media screen and (min-width: 481px) {
         height: 10vh;
     }
