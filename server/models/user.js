@@ -22,6 +22,10 @@ const userSchema = new Schema({
         max: 8,
         required: true,
     },
+    userImage: {
+        type: String,
+        
+    }
 })
 
 /* ID, PASSWORD CHECK */ 

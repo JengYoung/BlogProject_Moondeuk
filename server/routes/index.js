@@ -6,6 +6,7 @@ import like from './like/index.js';
 import comment from './comment/index.js';
 import replyComment from './replyComment/index.js';
 import alert from './alert/index.js';
+import upload from './upload/index.js';
 
 const routes = express.Router();
 
@@ -16,5 +17,6 @@ routes.use('/like', like)
 routes.use('/comment', comment);
 routes.use('/replyComment', replyComment);
 routes.use('/alert', alert);
+routes.use('/upload', upload);
 
 export default routes;
