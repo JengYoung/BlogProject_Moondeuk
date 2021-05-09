@@ -1,4 +1,5 @@
 import upload from '../../lib/upload.js';
+import User from '../../models/user.js';
 
 const imgUploadController = async (req, res) => {
     const { user_id } = req.params;
@@ -16,6 +17,15 @@ const imgUploadController = async (req, res) => {
                 message: "Success",
                 files: reqFiles
             });
+            const user = await User.findById(user_id);
+            await User.findByIdAndUpdate(user_id, { userImage: reqFiles }, (err, result) => {
+                if (err) {
+                    return res.status(500).send({
+                        message: err.message,
+                        files: reqFiles
+                    })
+                }
+            })
         });
     } catch(err) {
         res.status(500).send({
