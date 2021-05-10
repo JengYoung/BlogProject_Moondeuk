@@ -18,14 +18,14 @@ const StyledAlertBtn = styled.button`
     font-size: 1.5rem;
     border: 1px solid #535353;
     color: #535353;
+    &:hover {
+        cursor: pointer;
+    }
     ${props => (props.count > 0) && css`
         color:  #ffe600;
         background: #e7a7e7;
         border: none;
     `}
-    &:hover {
-        cursor: pointer;
-    }
     @media screen and (min-width: 481px) {
         width: 3rem;
         height: 3rem;

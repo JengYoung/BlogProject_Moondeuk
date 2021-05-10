@@ -1,7 +1,6 @@
 {
     "workbench.preferredHighContrastColorTheme": "Default Dark+",
     "workbench.preferredLightColorTheme": "Default High Contrast",
-    "workbench.colorTheme": "Default Light+",
     "editor.tokenColorCustomizations": {
         "comments": "#cf0000",
     },

@@ -1,8 +1,9 @@
 import express from 'express';
-import imgUploadController from './imgUploadController.js';
+import uploadImgFile from '../../lib/upload.js';
+import userImgUploadController from './userImgUploadController.js';
 
 const upload = express.Router();
 
-upload.post("/:userId", imgUploadController);
+upload.post("/:user_id", uploadImgFile.single('file'), userImgUploadController);
 
 export default upload;

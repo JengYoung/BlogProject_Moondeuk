@@ -1,6 +1,6 @@
 import multer from 'multer';
 import moment from 'moment';
-
+import path from 'path';
 /* 
 ! 파일을 저장하기 위한 업로드 모듈
 * storage: 파일을 저장하기 위한 제어 기능
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = function(req, file, cb) {
-    const fileFormat = ['.jpg', '.jpeg', '.png'];
+    const fileFormat = ['.jpg', '.jpeg', '.png', '.JPG', '.JPEG', '.PNG'];
     const ext = path.extname(file.originalname);
     if (!fileFormat.includes(ext)) {
         return cb(new Error("Please send me '.jpg / .png / .jpeg file'"))
@@ -29,10 +29,10 @@ const limits = {
     filesize: 5 * 1024 * 1024 // 5MB 제한
 }
 
-const upload = multer({
+const uploadImgFile = multer({
     storage,
     fileFilter,
     limits
-}).single("file")
+})
 
-export default upload;
+export default uploadImgFile;

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
+import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
 // import ResponsiveWrapper from './Responsive';
 
 /*
@@ -134,8 +135,29 @@ const LoginLink = styled(Link)`
         transition: all 0.7s;
     }
 `;
+const UserImage= styled.input`
+    /* display:none; */
+`;
+const ProfileImgBtn = styled.button`
+    background: red;
+    &:hover {
+        cursor: pointer;
+    }
+`;
 
 const Header = ({write, user, onLogout}) => {
+    const profileImgInput = useRef();
+    const profileImgBtn = useRef();
+    const onClick = () => {
+        profileImgInput.current.click();
+    }
+    const onChange = (e) => {
+        const user_id = user ? user._id : null;
+        console.log(user_id)
+        const imgFiles = e.target.files
+        console.log("onChange", imgFiles);
+        userImgUploadAPI(user_id, imgFiles)
+    }
     return (!write) ? (
         <>
             <StyledHeader>
@@ -149,6 +171,14 @@ const Header = ({write, user, onLogout}) => {
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
                                 <UserInfo>
+                                    <ProfileImgBtn ref={profileImgBtn} onClick={onClick}>gg</ProfileImgBtn>
+                                    <UserImage 
+                                        type="file" 
+                                        accept="image/jpeg, image/jpg, image/png" 
+                                        ref={profileImgInput}
+                                        enctype="multipart/form-data"
+                                        onChange={onChange}
+                                    />
                                     <div>{user.userId}</div>
                                     <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
                                 </UserInfo>
