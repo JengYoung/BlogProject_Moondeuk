@@ -6,6 +6,8 @@ import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiary
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
+import { useEffect } from 'react';
+import client from '../../lib/routes/client';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -44,15 +46,6 @@ const StyledHeader = styled.div`
     background: white;
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
 `;
-
-// const Wrapper = styled(ResponsiveWrapper)`
-//     display: flex;
-//     justify-content: space-between;
-//     height: 4rem;
-//     a {
-//         padding: 10px;
-//     }
-// `;
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -106,6 +99,9 @@ const UserInfoBox = styled.div`
     @media screen and (min-width: 769px) {
         height: 12vh;
     }
+    * + * {
+        margin-left: 0.5vw;
+    }
 `;
 const UserInfo = styled.div`
     display: flex;
@@ -132,15 +128,23 @@ const LoginLink = styled(Link)`
     }
 `;
 const UserImageInput= styled.input`
-    /* display:none; */
+    display:none;
 `;
 const UserImageLabel = styled.label`
-    width: 50px;
-    height: 50px;
+    width: 2rem;
+    height: 2rem;
     border: 1px solid gray;
     border-radius: 50px;
+    overflow: hidden;
     &:hover {
         cursor: pointer;
+    }
+    img {
+        height: 100%;
+    }
+    @media screen and (min-width: 481px) {
+        width: 3rem;
+        height: 3rem;
     }
 `;
 
@@ -152,6 +156,9 @@ const Header = ({write, user, onLogout}) => {
         console.log("onChange", imgFiles);
         userImgUploadAPI(user_id, imgFiles)
     }
+    useEffect(() => {
+        // return client.get('/routes/img')
+    },[])
     return (!write) ? (
         <>
             <StyledHeader>
@@ -164,17 +171,17 @@ const Header = ({write, user, onLogout}) => {
                         {user ? (
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
+                                <UserImageLabel htmlFor="userImg">
+                                    <img src="/img/10-1_DSC01117_OK20210510175119.jpg" alt="유저 프로필 이미지"></img>
+                                </UserImageLabel>
                                 <UserInfo>
                                     <UserImageInput 
-                                        id="please"
+                                        id="userImg"
                                         type="file" 
                                         accept="image/jpeg, image/jpg, image/png" 
                                         enctype="multipart/form-data"
                                         onChange={onChange}
                                     />
-                                    <UserImageLabel htmlFor="please">
-                                        <img src="../../images/LoginBg.jpg" alt="유저 프로필 이미지"></img>
-                                    </UserImageLabel>
                                     <div>{user.userId}</div>
                                     <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
                                 </UserInfo>
@@ -185,7 +192,7 @@ const Header = ({write, user, onLogout}) => {
                             </>
                         )}
                     </StyledAlertWrapper>
-                </Wrapper>
+                </Wrapper> 
             </StyledHeader>
             <Spacer/>
         </>
