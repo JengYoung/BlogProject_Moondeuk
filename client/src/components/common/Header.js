@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
@@ -6,10 +6,6 @@ import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiary
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
-// import ResponsiveWrapper from './Responsive';
-
-/*
-*/
 
 const MenuWrap = styled.div`
     display: flex;
@@ -112,7 +108,7 @@ const UserInfoBox = styled.div`
     }
 `;
 const UserInfo = styled.div`
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
@@ -135,22 +131,20 @@ const LoginLink = styled(Link)`
         transition: all 0.7s;
     }
 `;
-const UserImage= styled.input`
+const UserImageInput= styled.input`
     /* display:none; */
 `;
-const ProfileImgBtn = styled.button`
-    background: red;
+const UserImageLabel = styled.label`
+    width: 50px;
+    height: 50px;
+    border: 1px solid gray;
+    border-radius: 50px;
     &:hover {
         cursor: pointer;
     }
 `;
 
 const Header = ({write, user, onLogout}) => {
-    const profileImgInput = useRef();
-    const profileImgBtn = useRef();
-    const onClick = () => {
-        profileImgInput.current.click();
-    }
     const onChange = (e) => {
         const user_id = user ? user._id : null;
         console.log(user_id)
@@ -171,14 +165,16 @@ const Header = ({write, user, onLogout}) => {
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
                                 <UserInfo>
-                                    <ProfileImgBtn ref={profileImgBtn} onClick={onClick}>gg</ProfileImgBtn>
-                                    <UserImage 
+                                    <UserImageInput 
+                                        id="please"
                                         type="file" 
                                         accept="image/jpeg, image/jpg, image/png" 
-                                        ref={profileImgInput}
                                         enctype="multipart/form-data"
                                         onChange={onChange}
                                     />
+                                    <UserImageLabel htmlFor="please">
+                                        <img src="../../images/LoginBg.jpg" alt="유저 프로필 이미지"></img>
+                                    </UserImageLabel>
                                     <div>{user.userId}</div>
                                     <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
                                 </UserInfo>
