@@ -178,7 +178,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
                                 <UserImageLabel htmlFor="userImg">
-                                    <img src={`img/${userImage}`} alt="유저 프로필 이미지"></img>
+                                    <img src={`/img/${userImage}`} alt="유저 프로필 이미지"></img>
                                 </UserImageLabel>
                                 <UserInfo>
                                     <UserImageInput 

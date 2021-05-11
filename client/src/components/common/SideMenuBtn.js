@@ -1,6 +1,5 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import { GrSubtract } from 'react-icons/gr';
 import { AiOutlineLine } from "react-icons/ai";
 
 /**

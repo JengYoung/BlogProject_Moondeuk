@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 
 /*
 */
 
-const StyledDiary = styled.div``;
+const StyledDiary = styled(ResponsiveWrapper)``;
 const StyledDiaryTitle = styled.div``;
 const StyledDiaryTag = styled.div``;
 const StyledDiaryBody = styled.div``;

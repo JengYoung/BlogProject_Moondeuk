@@ -16,7 +16,11 @@ img {
 #root {
   height: 100%;
 }
-
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
 html {
   height: 100vh;
 }

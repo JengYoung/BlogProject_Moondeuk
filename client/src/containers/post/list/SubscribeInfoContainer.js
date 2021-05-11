@@ -66,13 +66,13 @@ function SubscribeInfoContainer({ match }) {
     };
 
     const onGetSubscribeList = () => {
-        if (subscribeList.length === 0) return;
+        if (subscribeList.subscribeToList.length === 0) return;
         setModal(true);
         setIsSubscribeList(true);
     }
 
     const onGetSubscribedList = () => {
-        if (subscribedList.length === 0) return;
+        if (subscribedList.subscribedFromList.length === 0) return;
         setModal(true);
         setIsSubscribeList(false);
     }
@@ -88,7 +88,7 @@ function SubscribeInfoContainer({ match }) {
 
     return (
         <>
-            { authorId && <UserInfo authorId={authorId}></UserInfo> }
+            { authorId && <UserInfo propId={authorId}></UserInfo> }
             { authorId && <SubscribeInfo 
                 authorId={authorId}
                 subscribe={subscribe} 

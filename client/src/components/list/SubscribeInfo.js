@@ -1,14 +1,75 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import ResponsiveWrapper from '../common/Responsive';
 import SubscribeListModal from '../subscribe/SubscribeListModal';
-
+import {AiFillStar} from 'react-icons/ai';
 /*
 */
 
-const StyledSubscribeInfo = styled.div``;
-const StyledGetSubscribeToBtn = styled.button``;
-const StyledGetSubscribedFromBtn = styled.button``;
-const StyledSubscribeBtn = styled.button``;
+const StyledSubscribeInfo = styled(ResponsiveWrapper)`
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    padding-bottom: 2rem;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    button {
+        margin: 0.5rem;
+    }
+`;
+const SubscribeListBtn = styled.button`
+    div {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    &:hover {
+        cursor: pointer;
+        color: #ffe600;
+    }
+`;
+const StyledSubscribeBtn = styled.button`
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    color: #2d1c31;
+    svg {
+        font-size: 2rem; 
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: #e5bdf5;
+        border-radius: 5px;
+        color: #fffb00;
+        transition: all 0.5s;
+        /* ${
+            props =>
+                !props.isSubscribe && css`
+                    background-color: #e5bdf5;
+                    border-radius: 5px;
+                    color: #fffb00;
+                    transition: all 0.5s;
+                `
+        } */
+    }
+    ${props =>
+        props.isSubscribe && css`
+            color: #ffe600;
+            &:hover {
+                background: transparent;
+                color: #2d1c31;
+                &::after {
+                    content: "구독 취소";
+                }
+            }
+        `
+    }
+`;
 
 const SubscribeInfo = (
     {
@@ -26,6 +87,7 @@ const SubscribeInfo = (
     }) => {
     const { subscribeToList } = subscribeList;
     const { subscribedFromList } = subscribedList;
+    console.log("subscribe: ", subscribe)
     return (
         <StyledSubscribeInfo>
             <SubscribeListModal 
@@ -35,12 +97,20 @@ const SubscribeInfo = (
                 subscribedFromList={subscribedFromList} 
                 onConfirm={onConfirm}>
             </SubscribeListModal>
-            <StyledGetSubscribeToBtn onClick={onGetSubscribeList}>{subscribeList.count} Following</StyledGetSubscribeToBtn>
-            <StyledGetSubscribedFromBtn onClick={onGetSubscribedList}>{subscribedList.count} Followed</StyledGetSubscribedFromBtn>
             {
-                (subscribe) ? <StyledSubscribeBtn onClick={onUnSubscribe}>구독 중</StyledSubscribeBtn>
-                            : <StyledSubscribeBtn onClick={onSubscribe}>구독하기</StyledSubscribeBtn>
+                (subscribe) ? 
+                    <StyledSubscribeBtn isSubscribe={true} onClick={onUnSubscribe}>
+                        <AiFillStar/>
+                    </StyledSubscribeBtn>
+                    : 
+                    <StyledSubscribeBtn isSubscribe={false} onClick={onSubscribe}><AiFillStar/>+ 구독하기</StyledSubscribeBtn>
             }
+            <div>
+                <SubscribeListBtn onClick={onGetSubscribeList}>
+                    <div>{subscribeList.count}</div> Following
+                </SubscribeListBtn>
+                <SubscribeListBtn onClick={onGetSubscribedList}><div>{subscribedList.count}</div> Followed</SubscribeListBtn>
+            </div>
         </StyledSubscribeInfo>
     );
 };
