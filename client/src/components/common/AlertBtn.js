@@ -18,6 +18,9 @@ const StyledAlertBtn = styled.button`
     font-size: 1.5rem;
     border: 1px solid #535353;
     color: #535353;
+    * {
+        margin: 0;
+    }
     &:hover {
         cursor: pointer;
     }

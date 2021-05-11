@@ -9,45 +9,124 @@ import { Link } from 'react-router-dom';
 
 const StyledDiaryList = styled(ResponsiveWrapper)`
     display: flex;
+    justify-content: center;
     /* flex-direction: row; */
-    background-color: purple;
+    /* background-color: black; */
     margin-top: 3rem;
     flex-flow: wrap;
 `;
 
 const StyledDiaryThumbnail = styled.div`
-    width: 90%;
+    border-radius: inherit;
+    width: 100%;
     height: 300px;
     background-image: url(${LoginBg});
+    background-size: cover;
 `;
 const StyledDiaryWrapper = styled(Link)`
     display: flex;
+    position: relative;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    width: 30%;
+    width: 200px;
+    height: 300px;
     padding: 1%;
-    margin: 1%;
+    margin: 1vw;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 4px;
+    border: 1px solid lightgray;
+    box-shadow: 2px 5px 4px rgba(0,0,0,0.2);
 `;
 
 const StyledDiaryData = styled.div`
+    &::before {
+        border-radius: 0 0 2px 2px;
+        margin: -10px -10px;
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        content: "";
+        z-index: -1;
+        background-color: black;
+        opacity: 0.6;
+    }
+    border-radius: 0 0 2px 2px;
+    padding: 10px 10px;
+    width: 200px;
+    position: absolute;
+    z-index: 99;
+    height: 30%;
+    bottom: 0;
     word-break:break-all;
+    color: white;
 `;
+
+const StyledDiaryTitle = styled.h2`
+    margin: 0;
+    font-size: 16px;
+`;
+const StyledAuthorInfoBox = styled.div`
+    display: flex;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    * + * {
+        padding-left: 5px;
+    }
+`;
+
+const StyledAuthorName = styled.h3`
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 200;
+`;
+const StyledAuthorImage = styled.div`
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+`;
+
+const StyledDiaryDetailBox = styled.div`
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    div {
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+    position: absolute;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s;
+    color: white;
+    &:hover {
+        background-color: rgba(0,0,0,0.6);
+        opacity: 1;
+    }
+`;
+
 const DiaryWrapper = ({ diary }) => {
     const { title, tags, author,_id } = diary;
     const { userId } = author;
     return (
         <StyledDiaryWrapper to={`/@${userId}/${_id}`}>
             <StyledDiaryThumbnail />
+            <StyledDiaryDetailBox>{tags.map(tag => <div key={tag}>#{tag}</div>)}</StyledDiaryDetailBox>
             <StyledDiaryData>
-                <h1>{title}</h1>
-                <div>
-                    {userId}
-                </div>
-                {tags.map(tag => <div key={tag}><b>{tag}</b></div>)}
-                <hr/>
+                <StyledDiaryTitle>{title.length < 30 ? title : title.slice(0,30)+'...'}</StyledDiaryTitle>
+                <StyledAuthorInfoBox>
+                    <StyledAuthorImage></StyledAuthorImage>
+                    <StyledAuthorName>{userId}</StyledAuthorName>
+                </StyledAuthorInfoBox>
             </StyledDiaryData>
         </StyledDiaryWrapper>
     )
