@@ -14,6 +14,7 @@ const StyledSideWrap = styled.main`
     background: white;
     height: auto;
     min-height: 100%;
+    
     @media screen and (min-width: 481px) {
         display: flex;
         flex-direction: column;
@@ -23,7 +24,9 @@ const StyledSideWrap = styled.main`
     ${props =>
         props.isMain && css`
             display: flex;
+            flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
             position: fixed;
             top: 0;
             z-index: 100;
@@ -32,7 +35,7 @@ const StyledSideWrap = styled.main`
         `
     }
     ${props => 
-        !props.isSideBar && css`
+        (props.isSideBar === false) && css`
             display: none;
             min-width: 0vw;
             max-width: 0vw;

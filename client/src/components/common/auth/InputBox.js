@@ -8,6 +8,7 @@ import Input from '../Input';
 **/
 
 const StyledInputBox = styled.div`
+    margin-top: 0.5rem;
     width: 100%;
     display: flex;
     flex-direction: column;

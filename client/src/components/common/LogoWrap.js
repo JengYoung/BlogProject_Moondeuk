@@ -48,11 +48,14 @@ const StyledLogoWrap = styled.div`
     // * if register page => position wrap's top
     ${props =>
         props.register && css`
+            margin-top: 2rem;
+            justify-content: center;
             width: 100%;
-            padding-bottom: 4rem;
+            padding-bottom: 2rem;
         `
     }
     @media screen and (min-width: 469px) {
+        margin-top: 0.5rem;
         flex-direction: column;
         align-items: center;
         padding-top: 1rem;

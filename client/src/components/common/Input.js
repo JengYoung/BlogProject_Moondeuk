@@ -7,6 +7,7 @@ import names from '../../lib/inputNames';
 */
 
 export const StyledInput = styled.input`
+    margin-top: 0.5rem;
     background-color: transparent;
     font-size: 0.9rem;
     border: none;
@@ -23,7 +24,6 @@ export const StyledInput = styled.input`
     &::placeholder {
         color: gray;
         font-size: 0.9rem;
-        font-style: italic;
     }
     & + & {
         margin-top: 1rem;
