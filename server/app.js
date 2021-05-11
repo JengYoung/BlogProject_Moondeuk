@@ -30,7 +30,7 @@ app.use(morgan('dev'))
     .listen(PORT || 4000, () => {
     console.log(`Listening To ${PORT || 4000}...`);
 
-app.get('/img/:id', function(req, res) {
+app.get('/img/uploads/:id', function(req, res) {
     const {id} = req.params;
     console.log("Id: ", id)
     // 10-1_DSC01117_OK20210510175119.jpg

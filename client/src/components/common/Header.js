@@ -8,6 +8,8 @@ import { GrMenu } from 'react-icons/gr';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
 import { useEffect } from 'react';
 import client from '../../lib/routes/client';
+import { check } from '../../modules/user';
+import { useDispatch } from 'react-redux';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -149,16 +151,23 @@ const UserImageLabel = styled.label`
 `;
 
 const Header = ({write, user, onLogout}) => {
+    const dispatch = useDispatch();
+    const user_id = user ? user._id : null;
+    const userImage = user ? user.userImage : null;
+    console.log("userImage in header; ", userImage)
+
+    // onChagne: image Uploads by Input
     const onChange = (e) => {
-        const user_id = user ? user._id : null;
         console.log(user_id)
         const imgFiles = e.target.files
         console.log("onChange", imgFiles);
         userImgUploadAPI(user_id, imgFiles)
     }
+
     useEffect(() => {
-        // return client.get('/routes/img')
-    },[])
+        dispatch(check())
+    },[user])
+    
     return (!write) ? (
         <>
             <StyledHeader>
@@ -172,7 +181,7 @@ const Header = ({write, user, onLogout}) => {
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
                                 <UserImageLabel htmlFor="userImg">
-                                    <img src="/img/10-1_DSC01117_OK20210510175119.jpg" alt="유저 프로필 이미지"></img>
+                                    <img src={`img/${userImage}`} alt="유저 프로필 이미지"></img>
                                 </UserImageLabel>
                                 <UserInfo>
                                     <UserImageInput 
