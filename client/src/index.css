@@ -28,6 +28,7 @@ a {
 
 * {
   box-sizing: inherit;
+  margin: 0;
 }
 
 code {

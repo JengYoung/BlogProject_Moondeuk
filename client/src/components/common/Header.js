@@ -6,10 +6,6 @@ import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiary
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
-import { useEffect } from 'react';
-import client from '../../lib/routes/client';
-import { check } from '../../modules/user';
-import { useDispatch } from 'react-redux';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -21,7 +17,8 @@ const MenuWrap = styled.div`
 
 const SideWrapBtn = styled.button`
     display: flex;
-    /* position: relative; */
+    position: relative;
+    z-index: 99;
     flex-direction: column;
     align-items: center;
     background: transparent;
@@ -101,7 +98,7 @@ const UserInfoBox = styled.div`
     @media screen and (min-width: 769px) {
         height: 12vh;
     }
-    * + * {
+    button + label {
         margin-left: 0.5vw;
     }
 `;
@@ -133,6 +130,9 @@ const UserImageInput= styled.input`
     display:none;
 `;
 const UserImageLabel = styled.label`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 2rem;
     height: 2rem;
     border: 1px solid gray;
@@ -142,7 +142,8 @@ const UserImageLabel = styled.label`
         cursor: pointer;
     }
     img {
-        height: 100%;
+        width: 3rem;
+        height: 3rem;
     }
     @media screen and (min-width: 481px) {
         width: 3rem;
@@ -150,30 +151,26 @@ const UserImageLabel = styled.label`
     }
 `;
 
-const Header = ({write, user, onLogout}) => {
-    const dispatch = useDispatch();
+const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
-    console.log("userImage in header; ", userImage)
+    // console.log("userImage in header; ", userImage)
 
-    // onChagne: image Uploads by Input
+    // onChange: image Uploads by Input
     const onChange = (e) => {
         console.log(user_id)
         const imgFiles = e.target.files
         console.log("onChange", imgFiles);
         userImgUploadAPI(user_id, imgFiles)
+        checkUser();
     }
 
-    useEffect(() => {
-        dispatch(check())
-    },[user])
-    
     return (!write) ? (
         <>
             <StyledHeader>
                 <Wrapper>
                     <MenuWrap>
-                        <SideWrapBtn><GrMenu/></SideWrapBtn>
+                        <SideWrapBtn onClick={onSideBar}><GrMenu/></SideWrapBtn>
                         <LogoWrap isHeader></LogoWrap>
                     </MenuWrap>
                     <StyledAlertWrapper>

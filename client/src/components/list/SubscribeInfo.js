@@ -26,8 +26,6 @@ const SubscribeInfo = (
     }) => {
     const { subscribeToList } = subscribeList;
     const { subscribedFromList } = subscribedList;
-
-    console.log("너에게 닿기를, ", subscribe)
     return (
         <StyledSubscribeInfo>
             <SubscribeListModal 

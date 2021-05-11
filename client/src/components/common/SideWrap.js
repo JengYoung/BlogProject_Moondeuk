@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /**
 * * SideWrap: wrap that contains overall side layout
@@ -20,9 +20,29 @@ const StyledSideWrap = styled.main`
         justify-content: center;
         align-items: center;
     }
+    ${props =>
+        props.isMain && css`
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+            border: 1px solid black;
+            background-color: #312330;
+        `
+    }
+    ${props => 
+        !props.isSideBar && css`
+            display: none;
+            min-width: 0vw;
+            max-width: 0vw;
+            overflow: hidden;
+        ` 
+    }
 `;
 
 const SideWrap = (props) => {
+    console.log("inSideWrap: ", props.isSideBar)
     return (
         <StyledSideWrap {...props}>
             

@@ -83,7 +83,6 @@ function SubscribeInfoContainer({ match }) {
 
     const onUnSubscribe = () => {
         const { subscribeTo, subscribedFrom } = subscribe;
-        console.log(subscribe, subscribedFrom, "여기")
         return dispatch(unSubscribeUser({ subscribeTo, subscribedFrom }));
     }
 

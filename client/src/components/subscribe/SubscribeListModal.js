@@ -8,7 +8,7 @@ import ModalListItem from '../common/ModalListItem';
 
 const SubscribeListModal = ({ modal, isSubscribeList, subscribeToList, subscribedFromList, onConfirm, onCancel }) => {
     const body = isSubscribeList ? subscribeToList : subscribedFromList
-    console.log("body: ", body)
+    // console.log("body: ", body)
     if (!modal) return null;
     return (
         <Modal>
