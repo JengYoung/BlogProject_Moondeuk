@@ -13,12 +13,12 @@ const StyledPageWrap = styled.div`
     margin: 0;
     min-height: 100%;
     ${props => 
-            props.register && css`
-                /* width: 100%; */
-                justify-content: center;
-                background-image: url(${background});
-                background-repeat: no-repeat;
-                background-size: cover;
+        props.register && css`
+            /* width: 100%; */
+            justify-content: center;
+            background-image: url(${background});
+            background-repeat: no-repeat;
+            background-size: cover;
         `}
 `;
 

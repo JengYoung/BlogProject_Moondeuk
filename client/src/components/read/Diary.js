@@ -1,13 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import PageWrap from '../common/PageWrap';
 import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 
 /*
 */
-
-const StyledDiary = styled(ResponsiveWrapper)``;
-const StyledDiaryTitle = styled.div``;
+const StyledDiary = styled(ResponsiveWrapper)`
+`;
+const DiaryBackground = styled.div`
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+`;
+const StyledDiaryTitle = styled.div`
+    background: white;
+    border-bottom: 1px solid lightgray;
+    height: 100%;
+`;
 const StyledDiaryTag = styled.div``;
 const StyledDiaryBody = styled.div``;
 
@@ -28,7 +43,6 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
                 <div>{author.userId}</div>
                 <div>{postedDate}</div>
                 <StyledDiaryTag>{tags}</StyledDiaryTag>
-                <hr></hr>
             </StyledDiaryTitle>
             <StyledDiaryBody>{body}</StyledDiaryBody>
         </StyledDiary>

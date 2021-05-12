@@ -6,13 +6,8 @@ import LikeModal from './LikeModal';
 /*
 */
 
-const StyledLikeCounters = styled.button`
-    border: none;
-    background-color: transparent;
-    outline: none;
-    &:hover {
-        cursor: pointer;
-    };
+const StyledLikeCounter = styled.div`
+    padding-left: 5px;
 `;
 
 const LikeCounter = ({ modal, likes, onLikeList }) => {
@@ -28,9 +23,9 @@ const LikeCounter = ({ modal, likes, onLikeList }) => {
                     }
                 </LikeModal>
             }
-            <StyledLikeCounters onClick={onLikeList}>
+            <StyledLikeCounter onClick={onLikeList}>
                 {likes.length}
-            </StyledLikeCounters>
+            </StyledLikeCounter>
         </>
     );
 };

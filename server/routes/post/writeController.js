@@ -1,5 +1,6 @@
 import { check, validationResult } from 'express-validator';
 import Post from '../../models/post.js';
+import User from '../../models/user.js';
 export const postValidationCheck = async (req, res, next) => {
     await check('title')
         .exists()
@@ -32,14 +33,17 @@ export const postValidationCheck = async (req, res, next) => {
 }
 const writeController = async (req, res) => {
     const { title, body, tags } = req.body;
-    const author = req.user;
+    const {_id, userId} = req.user;
     // console.log(req)
-    console.log(author);
+    console.log("author: ", req.user);
     const post = new Post({
         title,
         body,
         tags,
-        author,
+        author: {
+            _id,
+            authorId: userId
+        },
     });
     console.log(post);
     try {

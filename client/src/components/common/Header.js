@@ -12,7 +12,7 @@ const MenuWrap = styled.div`
     position: relative;
     left: 1rem;
     align-items: center;
-    width: 80%auto;
+    width: 80%;
 `;
 
 const SideWrapBtn = styled.button`
