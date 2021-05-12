@@ -2,8 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import WriteBackground from '../../../components/write/WriteBackground';
-import WriteForm from '../../../components/write/WriteForm';
+import Editor from '../../../components/write/Editor';
 import { changeText, initializeDiary } from '../../../modules/write';
 
 function WriteFormContainer() {
@@ -20,9 +19,7 @@ function WriteFormContainer() {
 
     return (
         <>
-            <WriteBackground>
-                <WriteForm onChangeText={onChangeText} title={title} body={body}></WriteForm>
-            </WriteBackground>
+            <Editor title={title} body={body} onChangeText={onChangeText}></Editor>
         </>
     )
 }

@@ -12,8 +12,8 @@ function App() {
       <Route component={MainPage} path={['/@:authorId', '/']} exact/>
       <Route component={RegisterPage} path='/register' />
       <Route component={LoginPage} path='/login' />
-      <Route component={WritePage} path={['/write/@:userId/:diaryId', '/write']} />
-      <Route component={DiaryPage} path='/@:userId/:diaryId' />
+      <Route component={WritePage} path={['/write/@:authorId/:diaryId', '/write']} />
+      <Route component={DiaryPage} path='/@:authorId/:diaryId' />
     </>
   );
 }

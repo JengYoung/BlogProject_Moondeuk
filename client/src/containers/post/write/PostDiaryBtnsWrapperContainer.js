@@ -17,7 +17,7 @@ function PostDiaryBtnsWrapperContainer({ history, match }) {
 
     console.log(user)
     //현재 페이지가 수정페이지인지 확인
-    const isPatch = (!match.params.diaryId && !match.params.userId) ? false : true; 
+    const isPatch = (!match.params.diaryId && !match.params.authorId) ? false : true; 
 
     const onPostDiary = () => {
         if (isPatch) {
@@ -36,7 +36,7 @@ function PostDiaryBtnsWrapperContainer({ history, match }) {
         if (writeError) console.error(writeError)
         if (diary) {
             const { _id, author } = diary;
-            history.push(`/@${author.userId}/${_id}`);
+            history.push(`/@${author.authorId}/${_id}`);
         };
     }, [writeError, diary, history])
     return (

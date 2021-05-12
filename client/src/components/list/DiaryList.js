@@ -115,17 +115,17 @@ const StyledDiaryDetailBox = styled.div`
 `;
 
 const DiaryWrapper = ({ diary }) => {
-    const { title, tags, author,_id } = diary;
-    const { userId } = author;
+    const { title, tags, author, _id } = diary;
+    const { authorId } = author;
     return (
-        <StyledDiaryWrapper to={`/@${userId}/${_id}`}>
+        <StyledDiaryWrapper to={`/@${authorId}/${_id}`}>
             <StyledDiaryThumbnail />
             <StyledDiaryDetailBox>{tags.map(tag => <div key={tag}>#{tag}</div>)}</StyledDiaryDetailBox>
             <StyledDiaryData>
                 <StyledDiaryTitle>{title.length < 30 ? title : title.slice(0,30)+'...'}</StyledDiaryTitle>
                 <StyledAuthorInfoBox>
                     <StyledAuthorImage></StyledAuthorImage>
-                    <StyledAuthorName>{userId}</StyledAuthorName>
+                    <StyledAuthorName>{authorId}</StyledAuthorName>
                 </StyledAuthorInfoBox>
             </StyledDiaryData>
         </StyledDiaryWrapper>

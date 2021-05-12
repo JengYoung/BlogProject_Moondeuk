@@ -15,6 +15,8 @@ export const StyledResponsive = styled.div`
     @media (max-width: 768px) {
         width: 100%;
     }
+    border: 1px solid lightgray;
+    
 `;
 
 const ResponsiveWrapper = ({children, ...rest}) => {

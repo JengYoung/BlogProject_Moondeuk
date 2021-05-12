@@ -1,16 +1,17 @@
-import React from 'react';
-import WriteBackground from '../components/write/WriteBackground';
-import HeaderContainer from '../containers/HeaderContainer';
-import TagBarContainer from '../containers/post/write/TagBarContainer';
-import WriteFormContainer from '../containers/post/write/WriteFormContainer';
+import React from 'react'
+import Header from '../components/common/Header'
+import ResponsiveWrapper from '../components/common/Responsive'
+import Editor from '../components/write/Editor'
+import EditorContainer from '../containers/post/write/EditorContainer'
+
 function WritePage() {
     return (
         <>
-            <HeaderContainer write/>
-            <TagBarContainer />
-            <WriteBackground>
-                <WriteFormContainer />
-            </WriteBackground>
+            <Header write></Header>
+            <ResponsiveWrapper>
+                <EditorContainer>
+                </EditorContainer>
+            </ResponsiveWrapper>
         </>
     )
 }
