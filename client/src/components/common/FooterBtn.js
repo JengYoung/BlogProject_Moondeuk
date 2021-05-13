@@ -4,7 +4,7 @@ import styled from 'styled-components';
 /**
 **/
 
-const StyledCounterBtn = styled.button`
+const StyledFooterBtn = styled.button`
     display: flex;
     justify-content:center;
     align-items: center;
@@ -17,12 +17,12 @@ const StyledCounterBtn = styled.button`
     }
 `;
 
-const CounterBtn = (props) => {
+const FooterBtn = (props) => {
     return (
-        <StyledCounterBtn {...props}>
+        <StyledFooterBtn {...props}>
             
-        </StyledCounterBtn>
+        </StyledFooterBtn>
     );
 };
 
-export default CounterBtn;
+export default FooterBtn;

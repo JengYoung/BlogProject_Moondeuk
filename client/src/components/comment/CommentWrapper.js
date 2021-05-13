@@ -7,15 +7,23 @@ import styled from 'styled-components';
 const StyledCommentWrapper = styled.div`
     display: none;
     position: fixed;
-    z-index: -1;
+    z-index: 50;
     right: 0%;
-    top: 4rem;
+    bottom: 8vh;
     background-color: #f8f8f8;
     width: 400px;
-    height: 90%;
-    overflow-y: scroll;
+    height: 84vh;
     box-sizing: border-box;
+    transition: all 10s;
+    @media screen and (min-width: 481px) {
+        height: 80vh;
+        bottom: 10vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 78vh;
+    }
     &.open {
+        background-color: green;
         display: block;
     }
 `;

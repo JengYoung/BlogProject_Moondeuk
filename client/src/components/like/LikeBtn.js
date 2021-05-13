@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
-import CircleBtn from '../common/CircleBtn';
-import CounterBtn from '../common/CounterBtn';
+import FooterBtn from '../common/FooterBtn';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 /*
     좋아요 버튼
 */
 
-const StyledLikeBtn = styled(CounterBtn)`
+const StyledLikeBtn = styled(FooterBtn)`
     color: #e76060;
 `;
 

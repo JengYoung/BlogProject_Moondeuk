@@ -5,11 +5,20 @@ import CommentInputWrapper from '../../components/comment/CommentInputWrapper';
 import { alertUser } from '../../modules/alert';
 import { changeText, commentDiary, initializeComment } from '../../modules/comment';
 
-const CommentInputWrapperContainer = ({ user_id, diary_id, author_id }) => {
+//{ user_id, diary_id, author_id }  
+const CommentInputWrapperContainer = () => {
     const dispatch = useDispatch();
-    const { content } = useSelector(({ commentReducer }) => ({ 
+    const { user, diary, content } = useSelector(({ userReducer, diaryReducer, commentReducer }) => ({ 
+        user: userReducer.user,
+        diary: diaryReducer.diary,
         content: commentReducer.content,
     }));
+
+    const user_id = user ? user._id : null;
+    const diary_id = diary ? diary._id : null;
+    const author_id = diary ? diary.author._id : null;
+
+
     useEffect(() => {
         dispatch(initializeComment());
         return () => {
@@ -30,7 +39,7 @@ const CommentInputWrapperContainer = ({ user_id, diary_id, author_id }) => {
     },[dispatch, diary_id, user_id, author_id]);
 
     return (
-        <CommentInputWrapper content={content[diary_id]} diary_id={diary_id} onComment={onComment} onChangeText={onChangeText} />
+        <CommentInputWrapper id="commentInput" content={content[diary_id]} diary_id={diary_id} onComment={onComment} onChangeText={onChangeText} />
     )
 }
 

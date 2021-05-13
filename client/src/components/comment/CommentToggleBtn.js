@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import {BsChatDotsFill} from 'react-icons/bs'
-import CounterBtn from '../common/CounterBtn';
+import FooterBtn from '../common/FooterBtn';
 /**
 **/
 
@@ -13,12 +13,15 @@ const StyledCommentBtnBox = styled.div`
     position: fixed;
     right: 120px;
 `;
-const StyledCommentToggleBtn = styled(CounterBtn)`
+
+const StyledCommentToggleBtn = styled(FooterBtn)`
 
 `;
+
 const CommentCounter = styled.div`
     padding-left: 5px;
 `;
+
 const CommentToggleBtn = ({...props}) => {
     const onClick = () => {
         const contentWrapper = document.querySelector('#contentWrapper');

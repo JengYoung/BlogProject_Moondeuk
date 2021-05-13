@@ -1,4 +1,6 @@
 import React from 'react';
+import CommentInputBtn from '../components/comment/CommentInputBtn';
+import CommentInputWrapper from '../components/comment/CommentInputWrapper';
 import CommentToggleBtn from '../components/comment/CommentToggleBtn';
 import ResponsiveWrapper from '../components/common/Responsive';
 import DiaryFooter from '../components/read/DiaryFooter';
@@ -14,18 +16,14 @@ function DiaryPage() {
             <HeaderContainer />
             <DiaryContainer/>
             <DiaryFooter>
-                <CommentWrapperContainer />
                 <>
                     <LikeWrapperContainer></LikeWrapperContainer>
-                    <CommentToggleBtn></CommentToggleBtn>              
+                    <CommentToggleBtn></CommentToggleBtn>    
+                    <CommentInputBtn></CommentInputBtn>          
                 </>
             </DiaryFooter>
-            {/* <LikeWrapperContainer /> */}
-
-            {/* <DiaryWrap>
-                <DiaryContainer/>
-                <LikeWrapperContainer />
-            </DiaryWrap> */}
+            <CommentWrapperContainer />
+            <CommentInputWrapper/>
         </div>
     )
 }

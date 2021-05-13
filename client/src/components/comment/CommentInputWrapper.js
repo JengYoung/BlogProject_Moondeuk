@@ -6,9 +6,17 @@ import styled from 'styled-components';
 
 const StyledCommentInputWrapper = styled.form`
     position: fixed;
-    display: flex;
+    display: none;
     width: 400px;
     z-index: 99;
+    bottom: 8vh;
+    right: 0;
+    @media screen and (min-width: 481px) {
+        bottom: 10vh;
+    }
+    &.open {
+        display: flex;
+    }
 `;
 const CommentInputWrapperSpacer = styled.div`
     width: 100%;
@@ -39,7 +47,7 @@ const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => 
     }
     return (
         <>
-            <StyledCommentInputWrapper onSubmit={onSubmit}>
+            <StyledCommentInputWrapper id="commentInputWrapper" onSubmit={onSubmit}>
                 <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content}/>
                 <StyledInputBtn>입력</StyledInputBtn>
             </StyledCommentInputWrapper>
