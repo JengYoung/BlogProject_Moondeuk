@@ -39,7 +39,13 @@ const CommentInputWrapperContainer = () => {
     },[dispatch, diary_id, user_id, author_id]);
 
     return (
-        <CommentInputWrapper id="commentInput" content={content[diary_id]} diary_id={diary_id} onComment={onComment} onChangeText={onChangeText} />
+        <CommentInputWrapper 
+            id="commentInput" 
+            content={content[diary_id]} 
+            diary_id={diary_id} 
+            onComment={onComment} 
+            onChangeText={onChangeText} 
+        />
     )
 }
 

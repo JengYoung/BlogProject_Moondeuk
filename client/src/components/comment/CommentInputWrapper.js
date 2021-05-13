@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-
+import { TiPencil } from "react-icons/ti";
+import FooterBtn from '../common/FooterBtn';
 /*
 */
 
@@ -17,6 +18,7 @@ const StyledCommentInputWrapper = styled.form`
     &.open {
         display: flex;
     }
+    margin-bottom: 2vh;
 `;
 const CommentInputWrapperSpacer = styled.div`
     width: 100%;
@@ -29,9 +31,24 @@ const StyledCommentInput = styled.textarea`
     max-height: 5rem;
     padding: 0.5rem 0.5rem;
     width: 85%;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid lightgray;
 `;
-const StyledInputBtn = styled.button`
-    width: 15%;
+const StyledInputBtn = styled(FooterBtn)`
+    height: 3rem;
+    width: 3rem;
+    border-bottom: 2px solid lightgray;
+    &:hover {
+        flex-direction: column;
+        background-color: #aa78aa;
+        color: #ffee00;
+        &::after {
+            content:"작성";
+            font-size: 0.5rem;
+        }
+    }
+    /* width: 15%; */
 `;
 
 const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => {
@@ -49,7 +66,10 @@ const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => 
         <>
             <StyledCommentInputWrapper id="commentInputWrapper" onSubmit={onSubmit}>
                 <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content}/>
-                <StyledInputBtn>입력</StyledInputBtn>
+                <StyledInputBtn>
+                    <TiPencil/>
+                    {/* <span>작성</span> */}
+                </StyledInputBtn>
             </StyledCommentInputWrapper>
             <CommentInputWrapperSpacer/>
         </>
