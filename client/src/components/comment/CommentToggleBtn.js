@@ -31,7 +31,7 @@ const CommentToggleBtn = ({...props}) => {
     return (
         <StyledCommentBtnBox>
             <StyledCommentToggleBtn onClick={onClick}><BsChatDotsFill/></StyledCommentToggleBtn>
-            <CommentCounter>1</CommentCounter>
+            <CommentCounter>{props.children}</CommentCounter>
         </StyledCommentBtnBox>
     );
 };

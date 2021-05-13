@@ -23,7 +23,7 @@ const StyledCommentWrapper = styled.div`
         height: 78vh;
     }
     &.open {
-        background-color: green;
+        background-color: #e3e1e4;
         display: block;
     }
 `;

@@ -33,13 +33,22 @@ const StyledCommentInput = styled.textarea`
     width: 85%;
     border: none;
     background-color: transparent;
-    border-bottom: 2px solid lightgray;
+    border-bottom: 2px solid #4e4e4e;
+    outline: none;
+    border-left: 5px solid #5f3b5f;
+    &:focus {
+        border-top: 1px solid #4e4e4e;
+        border-right: 1px solid #4e4e4e;
+        background-color: #ffffff;
+    }
 `;
 const StyledInputBtn = styled(FooterBtn)`
     height: 3rem;
     width: 3rem;
-    border-bottom: 2px solid lightgray;
+    border-bottom: 2px solid #4e4e4e;
     &:hover {
+        border-right: 1px solid #4e4e4e;
+        border-top: 1px solid #4e4e4e;
         flex-direction: column;
         background-color: #aa78aa;
         color: #ffee00;

@@ -6,6 +6,7 @@ import ResponsiveWrapper from '../components/common/Responsive';
 import DiaryFooter from '../components/read/DiaryFooter';
 import DiaryWrap from '../components/read/DiaryWrap';
 import CommentInputWrapperContainer from '../containers/comment/CommentInputWrapperContainer';
+import CommentToggleBtnContainer from '../containers/comment/CommentToggleBtnContainer';
 import CommentWrapperContainer from '../containers/comment/CommentWrapperContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 import LikeWrapperContainer from '../containers/like/LikeWrapperContainer';
@@ -19,7 +20,7 @@ function DiaryPage() {
             <DiaryFooter>
                 <>
                     <LikeWrapperContainer></LikeWrapperContainer>
-                    <CommentToggleBtn></CommentToggleBtn>    
+                    <CommentToggleBtnContainer></CommentToggleBtnContainer>    
                     <CommentInputBtn></CommentInputBtn>          
                 </>
             </DiaryFooter>
