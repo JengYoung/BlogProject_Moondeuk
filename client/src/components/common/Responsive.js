@@ -7,7 +7,6 @@ import styled from 'styled-components';
 
 export const StyledResponsive = styled.div`
     position: relative;
-    width: calc(100vw - 600px);
     margin: 0 auto;
     /* text-align: center; */
     @media (max-width: 1024px) {
@@ -16,7 +15,7 @@ export const StyledResponsive = styled.div`
     @media (max-width: 768px) {
         width: 100%;
     }
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
 
 `;
 

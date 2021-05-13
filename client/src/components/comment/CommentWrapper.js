@@ -5,29 +5,31 @@ import styled from 'styled-components';
 */
 
 const StyledCommentWrapper = styled.div`
-    display: block;
+    display: flex;
     position: fixed;
     z-index: 50;
     right: 0%;
     bottom: 8vh;
     height: 84vh;
-    background-color: #f8f8f8;
     width: 100%;
+    background-color: #FAFAFA;
     box-sizing: border-box;
-    right: -400px;
+    bottom: -76vh;
     transition: all 0.5s ease;
     @media screen and (min-width: 481px) {
-        height: 80vh;
-        bottom: 10vh;
+        height: 78vh;
+        bottom: -70vh;
     }
     @media screen and (min-width: 769px) {
-        height: 78vh;
+        height: 80vh;
         width: 400px;
+        bottom: -70vh;
     }
     &.open {
-        right: 0;
-        background-color: #e3e1e4;
-        display: block;
+        bottom: 8vh;
+        @media screen and (min-width: 481px) {
+            bottom: 10vh;
+        }
     }
 `;
 
