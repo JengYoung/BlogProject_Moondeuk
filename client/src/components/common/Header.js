@@ -76,9 +76,6 @@ const StyledAlertWrapper = styled.div`
     display: flex;
     /* width: 100%; */
     align-items: center;
-    button + div {
-        padding-left: 1rem;
-    }
     @media screen and (min-width: 481px) {
         height: 10vh;
     }

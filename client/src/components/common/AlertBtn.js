@@ -11,13 +11,12 @@ const StyledAlertBtn = styled.button`
     align-items: center;
     width: 2rem;
     height: 2rem;
+    margin-right: 0.25rem;
     border-radius: 50px;
     background-color: transparent;
     border: 1px solid lightgray;
     outline: none;
     font-size: 1.5rem;
-    border: 1px solid #535353;
-    color: #535353;
     * {
         margin: 0;
     }
@@ -32,6 +31,7 @@ const StyledAlertBtn = styled.button`
     @media screen and (min-width: 481px) {
         width: 3rem;
         height: 3rem;
+        margin-right: 0.25rem;
     }
 `;
 const StyledCount = styled.div`

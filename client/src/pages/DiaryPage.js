@@ -7,7 +7,6 @@ import CommentWrapperContainer from '../containers/comment/CommentWrapperContain
 import HeaderContainer from '../containers/HeaderContainer';
 import LikeWrapperContainer from '../containers/like/LikeWrapperContainer';
 import DiaryContainer from '../containers/post/read/DiaryContainer';
-import PostDiaryBtnsWrapperContainer from '../containers/post/write/PostDiaryBtnsWrapperContainer';
 
 function DiaryPage() {
     return (
