@@ -13,7 +13,7 @@ const post = express.Router();
 */ 
 
 /* create - write */ 
-post.post('/write', postValidationCheck, writeController);
+post.post('/write', checkValidId, postValidationCheck, writeController);
 
 /* read (all) - list */ 
 post.get('/', listController);

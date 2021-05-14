@@ -3,7 +3,6 @@ import User from '../../models/user.js';
 
 /* 친구 추가 */ 
 const subscribeController = async (req, res) => {
-    console.log(req.body);
     const { subscribeTo, subscribedFrom } = req.body;
     try {
         const subscribeTo_id = await User.checkUserId(subscribeTo);
@@ -12,7 +11,6 @@ const subscribeController = async (req, res) => {
             subscribeTo: subscribeTo_id._id,
             subscribedFrom: subscribedFrom_id._id,
         });
-        console.log("checkExist: ", checkExist)
         if (checkExist) return res.status(409).send();
 
         const subscribe = new Subscribe({

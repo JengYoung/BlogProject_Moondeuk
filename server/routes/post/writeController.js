@@ -41,9 +41,6 @@ export const postValidationCheck = async (req, res, next) => {
 const writeController = async (req, res) => {
     const { title, body, tags } = req.body;
     const {_id, userId} = req.user;
-    console.log("sanitized: ", sanitizeHtml(body, sanitizePostOption))
-    // console.log(req)
-    console.log("author: ", req.user);
     const post = new Post({
         title,
         body: sanitizeHtml(body, sanitizePostOption),
@@ -53,7 +50,6 @@ const writeController = async (req, res) => {
             authorId: userId
         },
     });
-    console.log(post);
     try {
         await post.save();
         res.send(post);

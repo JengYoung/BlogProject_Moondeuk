@@ -1,5 +1,5 @@
 const checkAuthUser = (req, res, next) => {
-    console.log("check", req.user);
-    return next();
+    if (!req.user) return res.status(401).send();
+    else return next();
 }
 export default checkAuthUser;

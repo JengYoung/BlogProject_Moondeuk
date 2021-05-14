@@ -6,7 +6,6 @@ const updateCommentController = async (req, res) => {
     try {
         await Comment.findByIdAndUpdate(comment_id, content, { new: true }, ( err, result ) => {
             if (err) return res.status(404).send(err);
-            console.log(result);
             return res.send(result);
         }).exec();
     } catch(e) {

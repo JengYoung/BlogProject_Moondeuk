@@ -2,7 +2,6 @@ import Like from '../../models/like.js';
 
 const dislikeController = async (req, res) => {
     const { userId, diaryId } = req.params;
-    console.log('dislike: ', userId, diaryId)
     try{
         if (!userId || !diaryId) return;
         const data = await Like.findData({ userId, diaryId });

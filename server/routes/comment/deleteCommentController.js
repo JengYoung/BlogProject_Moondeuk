@@ -2,7 +2,6 @@ import Comment from '../../models/comment.js';
 
 const deleteCommentController = async (req, res) => {
     const { comment_id } = req.params;
-    console.log(req.params);
     try {
         await Comment.findByIdAndDelete(comment_id, (err, result) => {
             if (err) res.status(404).send();
