@@ -5,7 +5,7 @@ import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
-import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
+import UserImageBox from './UserImageBox';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -126,44 +126,10 @@ const LoginLink = styled(Link)`
         transition: all 0.7s;
     }
 `;
-const UserImageInput= styled.input`
-    display:none;
-`;
-const UserImageLabel = styled.label`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid gray;
-    border-radius: 50px;
-    overflow: hidden;
-    &:hover {
-        cursor: pointer;
-    }
-    img {
-        width: 3rem;
-        height: 3rem;
-    }
-    @media screen and (min-width: 481px) {
-        width: 3rem;
-        height: 3rem;
-    }
-`;
 
 const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
-    // console.log("userImage in header; ", userImage)
-
-    // onChange: image Uploads by Input
-    const onChange = (e) => {
-        console.log(user_id)
-        const imgFiles = e.target.files
-        console.log("onChange", imgFiles);
-        userImgUploadAPI(user_id, imgFiles)
-        checkUser();
-    }
 
     return (!write) ? (
         <>
@@ -177,17 +143,13 @@ const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
                         {user ? (
                             <UserInfoBox>
                                 <AlertBtnContainer></AlertBtnContainer>
-                                <UserImageLabel htmlFor="userImg">
-                                    <img src={`/img/${userImage}`} alt="유저 프로필 이미지"></img>
-                                </UserImageLabel>
+                                <UserImageBox 
+                                    user_id={user_id} 
+                                    user_image={userImage} 
+                                    isHeader 
+                                    checkUser={checkUser}
+                                />
                                 <UserInfo>
-                                    <UserImageInput 
-                                        id="userImg"
-                                        type="file" 
-                                        accept="image/jpeg, image/jpg, image/png" 
-                                        enctype="multipart/form-data"
-                                        onChange={onChange}
-                                    />
                                     <div>{user.userId}</div>
                                     <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
                                 </UserInfo>

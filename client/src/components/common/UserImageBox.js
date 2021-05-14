@@ -1,6 +1,7 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { useEffect } from 'react'
+import styled, { css } from 'styled-components';
 import { AiFillCamera } from "react-icons/ai";
+import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
 /** 
 **/
 
@@ -12,6 +13,27 @@ const StyledUserImageBox = styled.div`
     border-radius: 150px;
     border: 1px solid lightgray;
     background-color: white;
+    background-size: cover;
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+    ${props => 
+        props.imgUrl && css`
+            background-image: url(${props.imgUrl});
+        `
+    }
+    ${props => 
+        props.isHeader && css`
+            width: 2rem;
+            height: 2rem;
+            @media screen and (min-width: 481px) {
+                width: 3rem;
+                height: 3rem;
+            }    
+        `
+    }
     &:hover {
         cursor: pointer;
     }
@@ -40,16 +62,42 @@ const StyledSettingImageLabel = styled.label`
     * {
         font-size: 1rem;
     }
+    ${props => 
+        props.isHeader && css`
+            display: none;
+        `
+    }
 `;
-const UserImageBox = () => {
+const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
+    console.log("userImage, userId: ", user_image)
+    const imgUrl = user_image ? '/img/' + user_image.replace('\\', '/') : null;
+    console.log(imgUrl)
+    const onChange = (e) => {
+        console.log(user_id)
+        const imgFiles = e.target.files
+        console.log("onChange", imgFiles);
+        userImgUploadAPI(user_id, imgFiles)
+        checkUser();
+    }
+    
+    useEffect(() => {
+        checkUser();
+    }, [user_image, checkUser])
+
     return (
-        <StyledUserImageBox>
-            <StyledUserImageInput id="userImage"></StyledUserImageInput>
-            <StyledSettingImageLabel htmlFor="userImage">
+        <StyledUserImageBox isHeader={isHeader} imgUrl={imgUrl}>
+            <StyledUserImageInput 
+                id="sideUserImage"
+                type="file" 
+                accept="image/jpeg, image/jpg, image/png" 
+                enctype="multipart/form-data"
+                onChange={onChange}
+            />
+            <StyledSettingImageLabel isHeader={isHeader} htmlFor="sideUserImage">
                 <AiFillCamera></AiFillCamera>
             </StyledSettingImageLabel>
         </StyledUserImageBox>
     );
 };
 
-export default UserImageBox;
+export default React.memo(UserImageBox);

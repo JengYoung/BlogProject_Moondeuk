@@ -18,7 +18,6 @@ function DiaryListContainer({ match, location }) {
         const { tag } = qs.parse(location.search, {
             ignoreQueryPrefix: true,
         });
-        console.log("authorId: ", authorId, "tag: ", tag);
         dispatch(diaryList({authorId, tag}))
     }, [dispatch, match.params, location.search])
 
