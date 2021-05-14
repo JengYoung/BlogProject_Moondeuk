@@ -38,7 +38,7 @@ function InputWrapperContainer({ _id, replier_id, isReply, hasMarginLeft, commen
             sender_id: 
             user_id, 
             receiver_id: replier_id, 
-            type: "ReplyComments", 
+            type: "ReplyComment", 
             type_detail: { 
                 diary_id, 
                 comment_id, 

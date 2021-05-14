@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { FaRegCommentDots } from 'react-icons/fa'
 /*
 */
