@@ -29,9 +29,10 @@ const StyledDiaryWrapper = styled(Link)`
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    min-width: 200px;
     width: 200px;
     height: 300px;
-    padding: 1%;
+    padding: 2px;
     margin: 3vh 1vw;
     background-color: white;
     border-radius: 4px;

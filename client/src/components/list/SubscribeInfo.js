@@ -87,7 +87,7 @@ const SubscribeInfo = (
     }) => {
     const { subscribeToList } = subscribeList;
     const { subscribedFromList } = subscribedList;
-    console.log("subscribe: ", subscribe)
+    // console.log("subscribe: ", subscribe)
     return (
         <StyledSubscribeInfo>
             <SubscribeListModal 

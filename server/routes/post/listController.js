@@ -3,7 +3,7 @@ import Post from '../../models/post.js';
 const listController = async (req, res) => {
     const { tag, userId } = req.query;
     const query = {
-        ...(userId ? { 'author.userId': userId } : {}),
+        ...(userId ? { 'author.authorId': userId } : {}),
         ...(tag ? { tags: tag } : {})
     }
     try {
