@@ -5,7 +5,7 @@
  */ 
 
 const sanitizePostOption = {
-    allowedTag: [
+    allowedTags: [
         'h1',
         'h2',
         'h3',
@@ -27,7 +27,7 @@ const sanitizePostOption = {
         'blockquote',
         'pre',
     ],
-    allowedAttribute: {
+    allowedAttributes: {
         a: [
             'href', 
             'name', 
@@ -38,4 +38,4 @@ const sanitizePostOption = {
     allowedSchemes: ['data', 'http'],
 };
 
-export default sanitizePostOption
+export default sanitizePostOption;

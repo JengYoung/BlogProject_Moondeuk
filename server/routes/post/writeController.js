@@ -1,6 +1,12 @@
+import sanitizeHtml from 'sanitize-html';
 import { check, validationResult } from 'express-validator';
+import sanitizePostOption from '../../lib/sanitizePostOption.js';
 import Post from '../../models/post.js';
 import User from '../../models/user.js';
+
+/*
+* * 유효성 검사를 체크합니다. 
+*/
 export const postValidationCheck = async (req, res, next) => {
     await check('title')
         .exists()
@@ -31,14 +37,16 @@ export const postValidationCheck = async (req, res, next) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.array() });
     return next();
 }
+
 const writeController = async (req, res) => {
     const { title, body, tags } = req.body;
     const {_id, userId} = req.user;
+    console.log("sanitized: ", sanitizeHtml(body, sanitizePostOption))
     // console.log(req)
     console.log("author: ", req.user);
     const post = new Post({
         title,
-        body,
+        body: sanitizeHtml(body, sanitizePostOption),
         tags,
         author: {
             _id,
