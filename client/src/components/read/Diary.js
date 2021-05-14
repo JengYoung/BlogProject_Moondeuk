@@ -6,7 +6,15 @@ import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 /*
 */
 const StyledDiary = styled(ResponsiveWrapper)`
-    padding: 0 300px;
+    padding: 20px;
+    @media screen and (min-width: 481px) {
+        width: 100%;
+        padding: 0 100px;
+    }
+    @media screen and (min-width: 769px) {
+        width: 100%;
+        padding: 0 300px;
+    }
 `;
 
 const StyledDiaryTitle = styled.div`
@@ -15,11 +23,10 @@ const StyledDiaryTitle = styled.div`
     justify-content: flex-end;
     align-items: flex-start;
     background: white;
-    padding-bottom: 10vh;
-    border-bottom: 1px solid lightgray;
     margin: 0;
     width: 100%;
     height: 84vh;
+    padding-bottom: 10vh;
     &::before {
         content:"";
         position: absolute;
@@ -28,8 +35,9 @@ const StyledDiaryTitle = styled.div`
         top: 0;
         z-index: 1;
         width: 100%;
-        height: 78vh;
+        height: 84vh;
         background: rgba(0,0,0,0.15);
+        border-bottom: 1px solid lightgray;
         @media screen and (min-width: 481px) {
             height: 80vh;
         }
@@ -68,17 +76,16 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     }
     if (!diary) return null;
     const { title, body, tags, author, postedDate } = diary;
-
     return (
         <StyledDiary>
-            {/* {userId === author.authorId ? <DiaryModifyAndDeleteBtns onPatch={onPatch} onDelete={onDelete}></DiaryModifyAndDeleteBtns> : null} */}
             <StyledDiaryTitle>
                 <h2>{postedDate.slice(0,10).split('-').join('. ')}</h2>
                 <h1>{title}</h1>
                 <h3>by {author.authorId}</h3>
                 <StyledDiaryTag>{tags}</StyledDiaryTag>
             </StyledDiaryTitle>
-            <StyledDiaryBody>{body}</StyledDiaryBody>
+            <StyledDiaryBody dangerouslySetInnerHTML={{ __html: body }}/>
+            {userId === author.authorId ? <DiaryModifyAndDeleteBtns onPatch={onPatch} onDelete={onDelete}></DiaryModifyAndDeleteBtns> : null}
         </StyledDiary>
     );
 };

@@ -10,24 +10,45 @@ import ReplyCommentWrapperContainer from '../../containers/replyComment/ReplyCom
 /*
 */
 
-const StyledCommentUserInfo = styled.span`
-    font-size: 0.7rem;
-    font-weight: 300;
+const StyledCommentUserInfo = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0 0 0.5rem;
+    b {
+        padding-left: 10px;
+        font-weight: 700;
+        font-size: 0.8rem;
+    }
+`;
+const StyledUserImage = styled.div`
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid lightgray;
+    background-color: white;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
-const StyledCommentContent = styled.span`
+const StyledCommentContent = styled.div`
+    padding: 1rem 0 1rem 0.5rem;
     font-size: 0.9rem;
 `;
 
 const StyledCommentListItem = styled.div`
-    padding: 0.5rem 0 0.5rem 0.5rem;
     display: flex;
-    flex-direction: column;
-    &:first-child {
-        border-top: 1px solid gray;
-    }
-    border-bottom: 1px solid gray;
     position: relative;
+    flex-direction: column;
+    background-color: white;
+    width: 360px;
+    margin-bottom: 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 `;
 
 const CommentListItem = (
@@ -64,7 +85,10 @@ const CommentListItem = (
                     onDeleteComment={onDeleteComment}
                 />
             }
-            <StyledCommentUserInfo>{userId}({nickname})</StyledCommentUserInfo>
+            <StyledCommentUserInfo>
+                <StyledUserImage/>
+                <b>{userId}({nickname})</b>
+            </StyledCommentUserInfo>
             { 
                 isUpdateMode 
                     ? <UpdateInputWrapper 
@@ -83,9 +107,11 @@ const CommentListItem = (
                 <InputWrapperContainer replier_id={user_id} diary_id={diary_id} _id={comment_id} comment_id={comment_id}/>
             }   
             {replyCommentCount > 0 && 
-                <ReplyCommentBtn onShowReplyComment={onShowReplyComment} comment_id={comment_id} > 
-                    💬{replyCommentCount}개의 답글 보기 
-                </ReplyCommentBtn>
+                <ReplyCommentBtn 
+                    onShowReplyComment={onShowReplyComment} 
+                    comment_id={comment_id} 
+                    count={replyCommentCount}
+                />
             }
             {showReplyComment && 
                 <ReplyCommentWrapperContainer comment_id={comment_id} replyComments={replyComments}>

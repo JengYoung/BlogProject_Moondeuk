@@ -9,11 +9,11 @@ export const StyledResponsive = styled.div`
     position: relative;
     margin: 0 auto;
     /* text-align: center; */
-    @media (max-width: 1024px) {
-        width: 768px;
-    }
-    @media (max-width: 768px) {
+    @media screen and (min-width: 481px) {
         width: 100%;
+    }
+    @media screen and (min-width: 769px) {
+        width: 768px;
     }
     /* border: 1px solid lightgray; */
 

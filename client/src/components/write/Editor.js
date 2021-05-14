@@ -41,6 +41,7 @@ const QuillWrapper = styled.div`
 `;
 
 const Editor = ({title, body, onChangeText}) => {
+    console.log("title : ", title, "body: ", body)
     const quillElement = useRef(null);
     const quillInstance = useRef(null);
     
@@ -77,11 +78,13 @@ const Editor = ({title, body, onChangeText}) => {
 
     const onChangeTitle = e => {
         onChangeText({ name: 'title', value: e.target.value });
+        console.log("title문제", e.target.value);
     };
 
     return (
         <StyledEditor>
             <TitleInput 
+                name="title"
                 placeholder="제목을 입력하세요" 
                 onChange={onChangeTitle} 
                 value={title}

@@ -6,6 +6,8 @@ import styled from 'styled-components';
 
 const StyledCommentWrapper = styled.div`
     display: flex;
+    justify-content: center;
+    padding-top: 1rem;
     position: fixed;
     z-index: 50;
     right: 0%;

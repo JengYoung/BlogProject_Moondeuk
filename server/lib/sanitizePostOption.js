@@ -4,7 +4,7 @@
  * ! Diary를 작성할 시, 허용하는 option을 setting.
  */ 
 
-const sanitizePostOption = {
+const sanitizeOption = {
     allowedTags: [
         'h1',
         'h2',
@@ -34,8 +34,9 @@ const sanitizePostOption = {
             'target'
         ],
         img: ['src'],
+        li: ['class']
     },
     allowedSchemes: ['data', 'http'],
 };
 
-export default sanitizePostOption;
+export default sanitizeOption;

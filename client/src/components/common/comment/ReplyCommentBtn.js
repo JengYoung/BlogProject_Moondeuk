@@ -1,25 +1,36 @@
 import React from 'react'
 import styled from 'styled-components';
-
+import { FaRegComments } from "react-icons/fa";
 /*
 */
 
-const StyledReplyCommentBtn = styled.span`
+const StyledReplyCommentBtn = styled.div`
+    display: flex;
+    position: relative;
+    align-items: center;
     border: none;
-    background-color: transparent;
-    color: #ce64ce;
-    margin-top: 0.5rem;
+    width: calc(100% + 1px);
+    background-color: #e4d2e4;
+    bottom: -1px;
     font-size: 0.8rem;
     font-weight: 600;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-bottom: 0.5rem;
+    span {
+        padding-left: 5px;
+    }
     &:hover {
         cursor: pointer;
+        color: #8d4a8d;
     }
 `;
 
-const ReplyCommentBtn = ({ children, onShowReplyComment }) => {
+const ReplyCommentBtn = ({ children, onShowReplyComment, count }) => {
     return (
         <StyledReplyCommentBtn onClick={onShowReplyComment}>
-            {children}
+            <FaRegComments/>
+            <span>답글 {count}</span>
         </StyledReplyCommentBtn>
     );
 };

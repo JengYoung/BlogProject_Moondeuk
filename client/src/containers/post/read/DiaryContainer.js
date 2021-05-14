@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import Diary from '../../../components/read/Diary'
 import deleteAPI from '../../../lib/routes/post/delete';
-import { readDiary } from '../../../modules/diary';
-import { initializeDiary, settingUpdate } from '../../../modules/write';
+import { initializeDiary, readDiary } from '../../../modules/diary';
+import { settingUpdate } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history }) => {
     const dispatch = useDispatch();
@@ -20,12 +20,13 @@ const DiaryContainer = ({ match, history }) => {
     useEffect(() => {
         dispatch(readDiary(diaryId));
         return () => {
-            return dispatch(initializeDiary())
+            dispatch(initializeDiary());
         }
     }, [dispatch, diaryId]);
 
     const onPatch = () => {
         dispatch(settingUpdate(diary));
+        console.log(diary);
         history.push(`/write/@${userId}/${diaryId}`);
     };
 

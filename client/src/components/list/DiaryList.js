@@ -32,11 +32,15 @@ const StyledDiaryWrapper = styled(Link)`
     width: 200px;
     height: 300px;
     padding: 1%;
-    margin: 1vw;
+    margin: 3vh 1vw;
     background-color: white;
     border-radius: 4px;
     border: 1px solid lightgray;
     box-shadow: 2px 5px 4px rgba(0,0,0,0.2);
+    &:nth-child(3n + 2) {
+        position: relative;
+        top: 5vh;
+    }
 `;
 
 const StyledDiaryData = styled.div`
@@ -56,7 +60,7 @@ const StyledDiaryData = styled.div`
     padding: 10px 10px;
     width: 200px;
     position: absolute;
-    z-index: 99;
+    z-index: 50;
     height: 30%;
     bottom: 0;
     word-break:break-all;

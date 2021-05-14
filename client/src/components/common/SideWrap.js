@@ -45,7 +45,6 @@ const StyledSideWrap = styled.main`
 `;
 
 const SideWrap = (props) => {
-    console.log("inSideWrap: ", props.isSideBar)
     return (
         <StyledSideWrap {...props}>
             
