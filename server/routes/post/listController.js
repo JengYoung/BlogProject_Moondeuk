@@ -1,6 +1,7 @@
 import Post from '../../models/post.js';
 
 const listController = async (req, res) => {
+    console.log("여긴가...")
     const { tag, userId } = req.query;
     const query = {
         ...(userId ? { 'author.authorId': userId } : {}),

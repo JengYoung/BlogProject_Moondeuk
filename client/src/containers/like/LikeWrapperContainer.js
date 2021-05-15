@@ -32,7 +32,7 @@ function LikeWrapperContainer() {
 
     const onLike = () => {
         dispatch(likeDiary({ userId, diaryId }))
-        dispatch(alertUser({ sender_id: userId, receiver_id: author_id, type: "Like", type_detail: diaryId }))
+        dispatch(alertUser({ sender_id: userId, receiver_id: author_id, type: "Like", type_detail: {diary_id: diaryId} }))
     };
     const onDislike = () => dispatch(dislikeDiary({ userId, diaryId }));
     const onLikeList = () => setModal(!modal);

@@ -9,7 +9,10 @@ import SideBarContainer from './SideBarContainer';
 
 const HeaderContainer = (props) => {
     const [ isSideBar, setIsSideBar ] = useState(false);
-    const { user } = useSelector(({ userReducer }) => ({ user: userReducer.user }));
+    const { user, alerts } = useSelector(({ userReducer, alertReducer }) => ({ 
+        user: userReducer.user,
+        alerts: alertReducer.alerts, 
+    }));
     const dispatch = useDispatch();
     const onLogout = () => {
         dispatch(logout());
@@ -21,7 +24,7 @@ const HeaderContainer = (props) => {
     const checkUser = useCallback(() => {
         dispatch(check())
     }, [dispatch])
-    
+
     return (
         <>
             <Header 
@@ -30,6 +33,7 @@ const HeaderContainer = (props) => {
                 write={props.write} 
                 checkUser={checkUser}
                 onSideBar={onSideBar}
+                alerts={alerts}
             />
             <SideBarContainer isSideBar={isSideBar} onSideBar={onSideBar} />
         </>

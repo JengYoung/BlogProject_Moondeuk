@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AlertBtn from '../../components/common/AlertBtn'
-import { checkAlertUser, conformAlertUser, initializeAlert } from '../../modules/alert';
+import { checkAlertUser, initializeAlert } from '../../modules/alert';
 
-function AlertBtnContainer() {
+function AlertBtnContainer({ onOpenAlertList }) {
     const dispatch = useDispatch();
     const { user, alerts } =  useSelector(({ userReducer, alertReducer }) => ({
         user: userReducer.user,
         alerts: alertReducer.alerts,
     }));
     const user_id = user ? user._id : null;
-    const onConform = () => {
-        dispatch(conformAlertUser(user_id))
-    };
     
     /* count: the number of 'checkRead = false' datas */ 
     const [ count, setCount ] = useState(0)
@@ -29,7 +26,9 @@ function AlertBtnContainer() {
 
     useEffect(() => {
         check()
-        return () => dispatch(initializeAlert());
+        return () => {
+            dispatch(initializeAlert())
+        };
     },[dispatch, check])
 
     useEffect(() => {
@@ -37,7 +36,7 @@ function AlertBtnContainer() {
     }, [checkCount])
 
     return (
-        <AlertBtn onConform={onConform} count={count}>
+        <AlertBtn onOpenAlertList={onOpenAlertList} count={count}>
         </AlertBtn>
     )
 }

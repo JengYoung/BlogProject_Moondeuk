@@ -7,21 +7,28 @@ const checkAlertController = async (req, res) => {
     try {
         const userAlert = await Alert.find({ receiver_id: user_id }).exec();
         const result = await Promise.all(userAlert.map(async eachAlert => {
-            const { sender_id, receiver_id, type, type_detail, alarm_At, checkRead } = eachAlert
+            const { _id, sender_id, receiver_id, type, type_detail, alarm_At, checkRead } = eachAlert
+            const { userImage } = await User.findById(sender_id);
             const message = await alertMessage(eachAlert);
+            if (type_detail.content) {
+                if (type_detail.content.length > 20) type_detail.content = type_detail.content.slice(0,20) + `...`;
+            }
+
             const newAlert = {
+                _id,
                 sender_id,
                 receiver_id,
                 type,
                 type_detail,
                 alarm_At,
                 message,
-                checkRead
+                checkRead,
+                userImage,
             }
-            console.log(newAlert)
+            // console.log(newAlert)
             return newAlert
         }));
-        console.log("userAlert: ", result)
+        // console.log("userAlert: ", result)
         res.send(result)
     } catch(e) {
         console.log(e)

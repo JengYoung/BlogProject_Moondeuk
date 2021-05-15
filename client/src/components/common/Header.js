@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
@@ -6,6 +6,8 @@ import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiary
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
 import UserImageBox from './UserImageBox';
+import AlertList from '../alert/AlertList';
+import { useCallback } from 'react';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -124,10 +126,21 @@ const LoginLink = styled(Link)`
     }
 `;
 
-const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
+const AlertBox = styled.div`
+    display: block;
+    position: relative;
+    @media screen and (min-width: 481px) {
+        display: flex;
+        justify-content: center;
+    }
+`;
+
+const Header = ({write, user, onLogout, checkUser, onSideBar, alerts }) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
-
+    const [ openAlertList, setOpenAlertList ] = useState(false);
+    const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
+    console.log(openAlertList)
     return (!write) ? (
         <>
             <StyledHeader>
@@ -139,7 +152,10 @@ const Header = ({write, user, onLogout, checkUser, onSideBar}) => {
                     <StyledAlertWrapper>
                         {user ? (
                             <UserInfoBox>
-                                <AlertBtnContainer></AlertBtnContainer>
+                                <AlertBox>
+                                    <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>
+                                    <AlertList openAlertList={openAlertList} alerts={alerts} />
+                                </AlertBox>
                                 <UserImageBox 
                                     user_id={user_id} 
                                     user_image={userImage} 
