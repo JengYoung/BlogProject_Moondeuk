@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import LogoWrap from './LogoWrap';
@@ -8,6 +8,7 @@ import { GrMenu } from 'react-icons/gr';
 import UserImageBox from './UserImageBox';
 import AlertList from '../alert/AlertList';
 import { useCallback } from 'react';
+import { AiOutlineEllipsis } from 'react-icons/ai'
 
 const MenuWrap = styled.div`
     display: flex;
@@ -76,7 +77,6 @@ const Spacer = styled.div`
 const StyledAlertWrapper = styled.div`
     position: relative;
     display: flex;
-    /* width: 100%; */
     align-items: center;
     @media screen and (min-width: 481px) {
         height: 10vh;
@@ -103,9 +103,8 @@ const UserInfoBox = styled.div`
 `;
 const UserInfo = styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     font-size: 0.8rem;
     @media screen and (min-width: 481px) {
         display: flex;
@@ -116,7 +115,22 @@ const UserInfo = styled.div`
     }
 `;
 
+const HeaderOptionBtn = styled.div`
+    transition: all 0.5s ease;
+    font-size: 2rem;
+    &:hover { 
+        cursor: pointer;
+    }
+    ${props => {
+        return props.openLogout && css`
+            position: relative;
+            color: red;
+            transform: rotate(90deg);
+        `
+    }}
+`;
 const LoginLink = styled(Link)`
+    min-width: 4rem;
     padding: 0.5vh 1vh;
     border-radius: 7px;
     &:hover {
@@ -139,8 +153,13 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
+    const [ openLogout, setopenLogout ] = useState(false);
     const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
-    console.log(openAlertList)
+    const onOpenLogout = useCallback(() => {
+            console.log("여기", openLogout); 
+            setopenLogout(!openLogout); 
+            console.log("바뀌고 난 후 ", openLogout);
+    }, [openLogout]);
     return (!write) ? (
         <>
             <StyledHeader>
@@ -163,8 +182,11 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
                                     checkUser={checkUser}
                                 />
                                 <UserInfo>
-                                    <div>{user.userId}</div>
-                                    <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>
+                                    {openLogout && <div>{user.userId}</div>}
+                                    {!openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
+                                    <HeaderOptionBtn openLogout={openLogout} onClick={onOpenLogout}>
+                                        <AiOutlineEllipsis/>
+                                    </HeaderOptionBtn>
                                 </UserInfo>
                             </UserInfoBox>
                         ) : (

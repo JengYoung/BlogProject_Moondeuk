@@ -17,7 +17,7 @@ const StyledImglogo = styled.img`
     }
     ${props =>
         props.isHeader && css`
-            display: none;
+            display: block;
             @media screen and (min-width: 481px) {
                 width: 35px;
                 height: 35px;
@@ -37,7 +37,14 @@ const StyledLogo = styled.img`
     align-items: center;
     width: 99px;
     height: 33px;
-    @media screen and (min-width: 469px) {
+    ${props =>
+        props.isHeader && css`
+            @media screen and (max-width: 480px) {
+                display: none;
+            }
+        `
+    }
+    @media screen and (min-width: 481px) {
         width: 150px;
         height: 50px;
     }
@@ -75,7 +82,7 @@ const LogoWrap = (props) => {
                 <StyledImglogo isHeader={props.isHeader} src={imglogo} alt="moondeuk image logo"></StyledImglogo>
             </Link>
             <Link to="/">
-                <StyledLogo src={logo} alt="moondeuk logo"></StyledLogo>
+                <StyledLogo isHeader={props.isHeader} src={logo} alt="moondeuk logo"></StyledLogo>
             </Link>
         </StyledLogoWrap>
     );

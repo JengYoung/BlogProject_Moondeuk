@@ -26,8 +26,10 @@ const StyledUserImageBox = styled.div`
     }
     ${props => 
         props.isHeader && css`
-            width: 2rem;
-            height: 2rem;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            min-height: 30px;
             margin-right: 0.25rem;
             @media screen and (min-width: 481px) {
                 width: 3rem;
