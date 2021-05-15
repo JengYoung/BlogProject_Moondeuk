@@ -135,7 +135,7 @@ const AlertBox = styled.div`
     }
 `;
 
-const Header = ({write, user, onLogout, checkUser, onSideBar, alerts }) => {
+const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform }) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
@@ -154,7 +154,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts }) => {
                             <UserInfoBox>
                                 <AlertBox>
                                     <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>
-                                    <AlertList openAlertList={openAlertList} alerts={alerts} />
+                                    {openAlertList && <AlertList alerts={alerts} onConform={onConform}/>}
                                 </AlertBox>
                                 <UserImageBox 
                                     user_id={user_id} 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import UserImage from '../common/UserImage';
 
@@ -6,7 +7,6 @@ import UserImage from '../common/UserImage';
 **/
 
 const StyledAlertList = styled.div`
-    display: none;
     position: fixed;
     top: 8vh;
     width: 100vw;
@@ -25,11 +25,11 @@ const StyledAlertList = styled.div`
     @media screen and (min-width: 769px) {
         top: 12vh;
     }
-    ${props => 
+    /* ${props => 
         props.openAlertList && css`
             display: block;
         `
-    }
+    } */
 `;
 
 
@@ -64,10 +64,13 @@ const StyledAlertContent = styled.div`
     }
 `;
 
-const AlertList = ({ openAlertList, alerts }) => {
+const AlertList = ({ alerts, onConform }) => {
+    useEffect(() => {
+        return () => onConform()
+    },[]);
 
     return (
-        <StyledAlertList openAlertList={openAlertList}>
+        <StyledAlertList>
             {alerts.map(alertItem => {
                 const { _id, checkRead, message, userImage, type_detail } = alertItem;
                 console.log(message, typeof(message))
