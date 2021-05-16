@@ -50,11 +50,14 @@ const StyledCommentListItem = styled.div`
     position: relative;
     flex-direction: column;
     background-color: white;
-    width: 360px;
+    width: 100vw;
     margin-bottom: 1rem;
     border: 1px solid lightgray;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    @media screen and (min-width: 481px) {
+        width: 360px;
+    }
 `;
 
 const CommentListItem = (
@@ -120,6 +123,7 @@ const CommentListItem = (
             }   
             {replyCommentCount > 0 && 
                 <ReplyCommentBtn 
+                    showReplyComment={showReplyComment}
                     onShowReplyComment={onShowReplyComment} 
                     comment_id={comment_id} 
                     count={replyCommentCount}

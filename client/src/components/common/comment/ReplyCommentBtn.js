@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FaRegComments } from "react-icons/fa";
 /*
 */
@@ -24,11 +24,16 @@ const StyledReplyCommentBtn = styled.div`
         cursor: pointer;
         color: #8d4a8d;
     }
+    ${props =>
+        props.showReplyComment && css`
+            color: #8d4a8d;
+        `
+    }
 `;
 
-const ReplyCommentBtn = ({ children, onShowReplyComment, count }) => {
+const ReplyCommentBtn = ({ children, onShowReplyComment, count, showReplyComment }) => {
     return (
-        <StyledReplyCommentBtn onClick={onShowReplyComment}>
+        <StyledReplyCommentBtn showReplyComment={showReplyComment} onClick={onShowReplyComment}>
             <FaRegComments/>
             <span>답글 {count}</span>
         </StyledReplyCommentBtn>

@@ -6,24 +6,25 @@ import styled from 'styled-components';
 
 const StyledCommentWrapper = styled.div`
     display: flex;
-    justify-content: center;
-    padding-top: 1rem;
     position: fixed;
     z-index: 50;
-    right: 0%;
-    bottom: 8vh;
+    right: 0;
+    bottom: -76vh;
+    width: 100vw;
     height: 84vh;
-    width: 100%;
+    padding-top: 1rem;
     background-color: #FAFAFA;
     box-sizing: border-box;
-    bottom: -76vh;
     transition: all 0.5s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
     @media screen and (min-width: 481px) {
-        height: 78vh;
+        justify-content: center;
+        height: 80vh;
         bottom: -70vh;
     }
     @media screen and (min-width: 769px) {
-        height: 80vh;
+        height: 78vh;
         width: 400px;
         bottom: -70vh;
     }
