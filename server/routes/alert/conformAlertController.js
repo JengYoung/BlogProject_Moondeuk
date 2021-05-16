@@ -1,10 +1,10 @@
 import Alert from '../../models/alert.js';
 
-const conformAlertController = async (req, res) => {
+const conformAlertController = async (req, res, next) => {
     const { user_id } = req.params;
     try {
         const alerts = await Alert.find({ receiver_id: user_id }).exec();
-        const result = await Promise.all(
+        await Promise.all(
             alerts.map(async alert => {
                 if (alert.checkRead === false) { 
                     const updatedAlert = await Alert.findByIdAndUpdate(alert._id, { checkRead: true }, { new: true }).exec();
@@ -13,7 +13,7 @@ const conformAlertController = async (req, res) => {
                 return alert
             }
         ));
-        res.send(result);
+        return next()
     } catch(e) {
         res.status(400).send(e)
     };

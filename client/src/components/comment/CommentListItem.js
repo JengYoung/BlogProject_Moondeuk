@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ReplyCommentBtn from '../common/comment/ReplyCommentBtn';
 import CommentBtnsWrapper from './CommentBtnsWrapper';
 import UpdateInputWrapper from './UpdateInputWrapper';
@@ -32,6 +32,12 @@ const StyledUserImage = styled.div`
     &:hover {
         cursor: pointer;
     }
+    ${props =>
+        props.imgUrl && css`
+            background-image: url(${props.imgUrl});
+            background-size: cover;
+        `
+    }
 `;
 
 const StyledCommentContent = styled.div`
@@ -62,20 +68,26 @@ const CommentListItem = (
         onDeleteComment, 
         comment_id,
     }) => {
-    const { user_id, diary_id, userInfo, username, replyComments} = comment;
+    const { user_id, diary_id, userInfo, username, replyComments, userImage } = comment;
     const { userId, nickname } = userInfo;
+
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
+
     const [ isReplyRootCommentMode, setIsReplyRootCommentMode ] = useState(false);
     const onIsReplyCommentMode = () => {
         setIsReplyRootCommentMode(!isReplyRootCommentMode)
     };
+
     const [ showReplyComment, setShowReplyComment ] = useState(false);
     const onShowReplyComment = () => {
         setShowReplyComment(!showReplyComment)
     };
+
     const isWriter = userId === username;
     const replyCommentCount = replyComments.length;
+    const imgUrl = '/img/' + userImage.replace('\\', '/') 
+    console.log(imgUrl)
     return (
         <StyledCommentListItem>
             { isWriter && !isUpdateMode &&
@@ -86,7 +98,7 @@ const CommentListItem = (
                 />
             }
             <StyledCommentUserInfo>
-                <StyledUserImage/>
+                <StyledUserImage imgUrl={imgUrl}/>
                 <b>{userId}({nickname})</b>
             </StyledCommentUserInfo>
             { 

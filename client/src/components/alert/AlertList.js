@@ -66,14 +66,17 @@ const StyledAlertContent = styled.div`
 
 const AlertList = ({ alerts, onConform }) => {
     useEffect(() => {
-        return () => onConform()
-    },[onConform]);
+        // console.log(onConform());
+        return () => {
+            console.log("여기 문제")
+            onConform()
+        }
+    },[alerts]);
 
     return (
         <StyledAlertList>
             {alerts.map(alertItem => {
                 const { _id, checkRead, message, userImage, type_detail } = alertItem;
-                console.log(message, typeof(message))
                 return (
                     <StyledAlertListItem key={ _id } isCheckRead={ checkRead }>
                         <UserImage userImage={userImage}/>

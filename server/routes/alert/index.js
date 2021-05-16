@@ -8,5 +8,5 @@ const alert = express.Router();
 
 alert.post('/', checkAuthUser, alertController);
 alert.get('/checkAlert/:user_id', checkAuthUser, checkAlertController);
-alert.patch('/conformAlert/:user_id', checkAuthUser, conformAlertController);
+alert.patch('/conformAlert/:user_id', checkAuthUser, conformAlertController, checkAlertController);
 export default alert;

@@ -27,9 +27,9 @@ const HeaderContainer = (props) => {
         dispatch(check())
     }, [dispatch])
 
-    const onConform = () => {
+    const onConform = useCallback(() => {
         dispatch(conformAlertUser(user_id))
-    };
+    }, [dispatch, user_id]);
 
     return (
         <>
