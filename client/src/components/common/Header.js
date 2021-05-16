@@ -137,13 +137,18 @@ const HeaderOptionBtn = styled.div`
     }
 `;
 const LoginLink = styled(Link)`
-    min-width: 4rem;
+    display: flex;
+    justify-content: center;
     padding: 0.5vh 1vh;
     border-radius: 7px;
+    width: 4rem;
     &:hover {
-        background-color: #421642;
-        color: white;
+        background-color: #946894;
+        color: #fcff62;
         transition: all 0.7s;
+    }
+    @media screen and (min-width: 481px) {
+        width: 5rem;
     }
 `;
 const HeaderUserName = styled.div`

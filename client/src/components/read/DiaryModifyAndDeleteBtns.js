@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components';
-import Button from '../common/Button';
 import { RiEraserLine, RiDeleteBinLine } from 'react-icons/ri';
 import { AiTwotoneSetting } from 'react-icons/ai'
 import { useState } from 'react';
@@ -71,4 +70,4 @@ const DiaryModifyAndDeleteBtns = ({onPatch, onDelete}) => {
     );
 };
 
-export default DiaryModifyAndDeleteBtns;
+export default React.memo(DiaryModifyAndDeleteBtns);

@@ -55,7 +55,7 @@ const AlertBtn = ({ onOpenAlertList, count}) => {
     }
     return (
         <StyledAlertBtn onClick={onClick} count={count}>
-            <StyledCount>{count > 99 ? "+99" : count}</StyledCount>
+            {count > 0 && <StyledCount>{count > 99 ? "+99" : count}</StyledCount>}
             {count > 0 ? <BsBellFill/>: <BsBell/>}
         </StyledAlertBtn>
     );
