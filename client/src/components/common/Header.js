@@ -90,7 +90,7 @@ const UserInfoBox = styled.div`
     display: flex;
     position: relative;
     align-items: center;
-    right: 6vw;
+    right: 4vw;
     @media screen and (min-width: 481px) {
         height: 10vh;
     }
@@ -116,18 +116,25 @@ const UserInfo = styled.div`
 `;
 
 const HeaderOptionBtn = styled.div`
-    transition: all 0.5s ease;
-    font-size: 2rem;
+    display: block;
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    color: #afafaf;
     &:hover { 
         cursor: pointer;
     }
     ${props => {
         return props.openLogout && css`
             position: relative;
-            color: red;
+            color: #b67fc4;
             transform: rotate(90deg);
         `
     }}
+    @media screen and (min-width: 481px) {
+        right: 0;
+        font-size: 2rem;
+    }
 `;
 const LoginLink = styled(Link)`
     min-width: 4rem;
@@ -137,6 +144,14 @@ const LoginLink = styled(Link)`
         background-color: #421642;
         color: white;
         transition: all 0.7s;
+    }
+`;
+const HeaderUserName = styled.div`
+    padding-bottom: 0.5rem;
+    margin-right: 0.5vw;
+    font-weight: 700;
+    @media screen and (min-width: 481px) {
+        margin-right: 1vw;
     }
 `;
 
@@ -156,9 +171,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
     const [ openLogout, setopenLogout ] = useState(false);
     const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
     const onOpenLogout = useCallback(() => {
-            console.log("여기", openLogout); 
             setopenLogout(!openLogout); 
-            console.log("바뀌고 난 후 ", openLogout);
     }, [openLogout]);
     return (!write) ? (
         <>
@@ -182,8 +195,8 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
                                     checkUser={checkUser}
                                 />
                                 <UserInfo>
-                                    {openLogout && <div>{user.userId}</div>}
-                                    {!openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
+                                    {!openLogout && <HeaderUserName>{user.userId}</HeaderUserName>}
+                                    {openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
                                     <HeaderOptionBtn openLogout={openLogout} onClick={onOpenLogout}>
                                         <AiOutlineEllipsis/>
                                     </HeaderOptionBtn>

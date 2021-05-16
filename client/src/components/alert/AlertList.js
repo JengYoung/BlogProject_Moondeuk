@@ -38,7 +38,6 @@ const StyledAlertListItem = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    font-size: 0.7rem;
     width: 100%;
     height: 4rem;
     padding: 0.5rem;
@@ -57,9 +56,10 @@ const StyledAlertContent = styled.div`
     height: 100%;
     margin-left: 0.5rem;
     h3 {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
     h4 {
+        font-size: 0.7rem;
         font-weight: 500;
     }
 `;

@@ -79,13 +79,22 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     return (
         <StyledDiary>
             <StyledDiaryTitle>
+                {userId === author.authorId ? 
+                    <DiaryModifyAndDeleteBtns 
+                        onPatch={onPatch} 
+                        onDelete={onDelete}
+                    /> 
+                    : null
+                }
                 <h2>{postedDate.slice(0,10).split('-').join('. ')}</h2>
                 <h1>{title}</h1>
                 <h3>by {author.authorId}</h3>
                 <StyledDiaryTag>{tags}</StyledDiaryTag>
             </StyledDiaryTitle>
-            <StyledDiaryBody dangerouslySetInnerHTML={{ __html: body }}/>
-            {userId === author.authorId ? <DiaryModifyAndDeleteBtns onPatch={onPatch} onDelete={onDelete}></DiaryModifyAndDeleteBtns> : null}
+            <StyledDiaryBody 
+                dangerouslySetInnerHTML={{ __html: body }}
+            >
+            </StyledDiaryBody>
         </StyledDiary>
     );
 };
