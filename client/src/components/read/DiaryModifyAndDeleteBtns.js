@@ -13,13 +13,22 @@ const StyledDiaryModifyAndDeleteBtns = styled.ul`
     justify-content: flex-end;
     align-items: flex-end;
     position: absolute;
-    z-index: 99;
+    z-index: 199;
     right: 2vw;
-    top: 80vh;
+    top: 86vh;
     font-size: 1.5rem;
     color: black;
     &:hover {
         cursor: pointer;
+    }
+    div {
+        margin-top: 0.5rem;
+    }
+    @media screen and (min-width: 481px) {
+        top: 82vh;
+    }
+    @media screen and (min-width: 769px) {
+        top: 80vh;
     }
 `;
 
@@ -31,6 +40,7 @@ const StyledDiaryModifyAndDeleteBtn = styled.li`
     font-size: 0.9rem;
     font-weight: 700;
     color: gray;
+    background: white;
     transition: all 0.2s ease-out;
     &:hover { 
         background: #673c74;
@@ -51,10 +61,10 @@ const DiaryModifyAndDeleteBtns = ({onPatch, onDelete}) => {
             <AiTwotoneSetting></AiTwotoneSetting>
             {
                 openBtns ? 
-                <>
+                <div>
                     <StyledDiaryModifyAndDeleteBtn onClick={onPatch}><RiEraserLine/> 수정</StyledDiaryModifyAndDeleteBtn>
                     <StyledDiaryModifyAndDeleteBtn onClick={onDelete}><RiDeleteBinLine/> 삭제</StyledDiaryModifyAndDeleteBtn>
-                </>
+                </div>
                 : null
             }                
         </StyledDiaryModifyAndDeleteBtns>
