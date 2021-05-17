@@ -10,7 +10,6 @@ const alertMessage = async (alert) => {
         if (Object.keys(type_detail).includes("diary_id")) {
             diary = await Post.findById(type_detail.diary_id)
         }
-        console.log("diary: ", diary)
         switch(type) {
             case "Subscribe":
                 return `${sender.nickname}님이 ${receiver.nickname}님을 구독합니다.`

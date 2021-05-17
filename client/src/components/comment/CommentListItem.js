@@ -21,6 +21,7 @@ const StyledCommentUserInfo = styled.div`
         font-size: 0.8rem;
     }
 `;
+
 const StyledUserImage = styled.div`
     position: relative;
     display: inline-block;
@@ -42,6 +43,7 @@ const StyledUserImage = styled.div`
 
 const StyledCommentContent = styled.div`
     padding: 1rem 0 1rem 0.5rem;
+    margin-left: 0.25rem;
     font-size: 0.9rem;
 `;
 
@@ -89,10 +91,8 @@ const CommentListItem = (
     };
     const loginUserId = user ? user._id : null;
     const isWriter = user_id === loginUserId;
-    console.log("isWriter: ", isWriter, "//", userId, loginUserId)
     const replyCommentCount = replyComments.length;
-    const imgUrl = '/img/' + userImage.replace('\\', '/') 
-    console.log(imgUrl)
+    const imgUrl = '/img/' + userImage.replace('\\', '/');
     return (
         <StyledCommentListItem>
             { isWriter && !isUpdateMode &&

@@ -57,7 +57,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_i
                     }
         >
             <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate} onDelete={onDelete}></BtnsWrapper>
-            <OptionBtnsWrapper onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
+            <OptionBtnsWrapper isReply onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} replier_id={replier_id} hasMarginLeft comment_id={comment_id}/>
             }

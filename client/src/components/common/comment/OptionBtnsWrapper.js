@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FaHeart } from "react-icons/fa";
 import { FaRegCommentDots } from 'react-icons/fa'
 /*
@@ -9,6 +9,7 @@ const StyledOptionBtnsWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    padding-top: 0.5rem;
     padding-left: 0.5rem;
     padding-bottom: 0.5rem;
     span {
@@ -17,6 +18,12 @@ const StyledOptionBtnsWrapper = styled.div`
         &:hover {
             color: #8d4a8d;
         }
+    }
+    ${props =>
+        props.isReply && css`
+            padding-left: 0;
+            padding-bottom: 0.5rem;
+        `
     }
 `;
 
@@ -35,9 +42,9 @@ const StyledOptionBtn = styled.button`
 `;
 
 
-const OptionBtnsWrapper = ({ onIsReplyCommentMode }) => {
+const OptionBtnsWrapper = ({ isReply, onIsReplyCommentMode }) => {
     return (
-        <StyledOptionBtnsWrapper>
+        <StyledOptionBtnsWrapper isReply={isReply}>
             <StyledOptionBtn>
                 <FaHeart/>
             </StyledOptionBtn>

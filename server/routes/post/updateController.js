@@ -3,7 +3,6 @@ import sanitizeHtml from 'sanitize-html';
 import sanitizeOption from '../../lib/sanitizePostOption.js';
 const updateController = async (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
     const newData = { ...req.body };
     try {
         await Post.findByIdAndUpdate(id, newData, { new: true }, (err, result) => {
