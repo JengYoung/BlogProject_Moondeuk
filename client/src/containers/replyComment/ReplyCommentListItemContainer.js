@@ -11,9 +11,11 @@ import { changeText, deleteReplyComment, settingUpdate, updateReplyComment } fro
 import InputWrapperContainer from './InputWrapperContainer';
 
 function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_id, content }) {
-    const { updatedContent } = useSelector(({ commentReducer }) => ({
-        updatedContent: commentReducer.updatedContent
+    const { updatedContent, user } = useSelector(({ commentReducer, userReducer }) => ({
+        updatedContent: commentReducer.updatedContent,
+        user: userReducer.user,
     }))
+    const loginUser_id = user ? user._id : null;
     const dispatch = useDispatch();
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onUpdateMode = () => { 
@@ -56,7 +58,14 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_i
                         : content
                     }
         >
-            <BtnsWrapper onUpdateMode={onUpdateMode} onSettingUpdate={onSettingUpdate} onDelete={onDelete}></BtnsWrapper>
+            {
+                loginUser_id === replier_id &&
+                <BtnsWrapper 
+                    onUpdateMode={onUpdateMode} 
+                    onSettingUpdate={onSettingUpdate} 
+                    onDelete={onDelete}
+                />
+            }
             <OptionBtnsWrapper isReply onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} replier_id={replier_id} hasMarginLeft comment_id={comment_id}/>
