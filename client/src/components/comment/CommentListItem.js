@@ -70,8 +70,9 @@ const CommentListItem = (
         onChangeText,
         onDeleteComment, 
         comment_id,
+        user
     }) => {
-    const { user_id, diary_id, userInfo, username, replyComments, userImage } = comment;
+    const { user_id, diary_id, userInfo, replyComments, userImage } = comment;
     const { userId, nickname } = userInfo;
 
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
@@ -86,8 +87,9 @@ const CommentListItem = (
     const onShowReplyComment = () => {
         setShowReplyComment(!showReplyComment)
     };
-
-    const isWriter = userId === username;
+    const loginUserId = user ? user._id : null;
+    const isWriter = user_id === loginUserId;
+    console.log("isWriter: ", isWriter, "//", userId, loginUserId)
     const replyCommentCount = replyComments.length;
     const imgUrl = '/img/' + userImage.replace('\\', '/') 
     console.log(imgUrl)

@@ -12,7 +12,7 @@ const StyledDiaryModifyAndDeleteBtns = styled.ul`
     justify-content: flex-end;
     align-items: flex-end;
     position: absolute;
-    z-index: 199;
+    z-index: 50;
     right: 2vw;
     top: 86vh;
     font-size: 1.5rem;

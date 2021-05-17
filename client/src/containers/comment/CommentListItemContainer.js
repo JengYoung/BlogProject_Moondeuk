@@ -5,8 +5,9 @@ import CommentListItem from '../../components/comment/CommentListItem';
 import { changeText, deleteComment, settingUpdate, updateComment } from '../../modules/comment';
 
 const CommentListItemContainer = ({ comment }) => {
-    const { updatedContent } = useSelector(({ commentReducer }) => ({ 
+    const { updatedContent, user } = useSelector(({ commentReducer, userReducer }) => ({ 
         updatedContent: commentReducer.updatedContent,
+        user: userReducer.user
     }));
     const dispatch = useDispatch();
     const { _id, content } = comment;
@@ -38,6 +39,7 @@ const CommentListItemContainer = ({ comment }) => {
             onDeleteComment={onDeleteComment}
             comment_id={_id}
             comment={comment}
+            user={user}
         />
     )
 }

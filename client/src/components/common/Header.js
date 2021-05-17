@@ -139,7 +139,7 @@ const HeaderOptionBtn = styled.div`
 const LoginLink = styled(Link)`
     display: flex;
     justify-content: center;
-    padding: 0.5vh 1vh;
+    padding: 0.5vh 0.5rem;
     border-radius: 7px;
     width: 4rem;
     &:hover {
@@ -152,9 +152,9 @@ const LoginLink = styled(Link)`
     }
 `;
 const HeaderUserName = styled.div`
-    padding-bottom: 0.5rem;
     margin-right: 0.5vw;
     font-weight: 700;
+    padding: 0 0.5rem;
     @media screen and (min-width: 481px) {
         margin-right: 1vw;
     }

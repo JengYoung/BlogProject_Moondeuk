@@ -9,22 +9,16 @@ const StyledCommentBtnsWrapper = styled.div`
     position: absolute;
     right: 0;
 `;
-const StyledCommentUpdateBtn = styled.button`
+
+const StyledCommentBtn = styled.button`
     background-color: transparent;
     font-size: 0.5rem;
     outline: none;
     border: none;
     &:hover {
         cursor: pointer;
-    };
-`;
-const StyledCommentDeleteBtn = styled.button`
-    background-color: transparent;
-    font-size: 0.5rem;
-    outline: none;
-    border: none;
-    &:hover {
-        cursor: pointer;
+        color: #7a4e88;
+        border-bottom: 1px solid #7a4e88;
     };
 `;
 
@@ -38,8 +32,8 @@ const CommentBtnsWrapper = ({ onIsUpdateMode, onSettingUpdate, onDeleteComment }
     }
     return (
             <StyledCommentBtnsWrapper>
-                <StyledCommentUpdateBtn onClick={onUpdateMode}>수정</StyledCommentUpdateBtn>
-                <StyledCommentDeleteBtn onClick={onDelete}>삭제</StyledCommentDeleteBtn>
+                <StyledCommentBtn onClick={onUpdateMode}>수정</StyledCommentBtn>
+                <StyledCommentBtn onClick={onDelete}>삭제</StyledCommentBtn>
             </StyledCommentBtnsWrapper>
     );
 };
