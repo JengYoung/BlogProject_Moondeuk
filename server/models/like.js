@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const likeSchema = new Schema({
+    likeType: {
+        type: String,
+        default: "Diary"
+    },
     userId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',

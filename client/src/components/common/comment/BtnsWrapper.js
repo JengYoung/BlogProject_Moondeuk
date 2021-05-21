@@ -11,6 +11,8 @@ const StyledBtn = styled.button`
     border: none;
     &:hover {
         cursor: pointer;
+        color: #734879;
+        border-bottom: 1px solid #734879;
     };
 `;
 const StyledBtnsWrapper = styled.div`

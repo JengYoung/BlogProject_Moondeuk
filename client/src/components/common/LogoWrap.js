@@ -88,4 +88,4 @@ const LogoWrap = (props) => {
     );
 };
 
-export default LogoWrap;
+export default React.memo(LogoWrap);
