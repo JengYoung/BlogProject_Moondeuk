@@ -30,6 +30,10 @@ const likeSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Diary'
     },
+    likeAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 
