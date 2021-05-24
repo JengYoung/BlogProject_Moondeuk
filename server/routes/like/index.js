@@ -7,8 +7,8 @@ import likeListController from './likeListController.js';
 
 const like = express.Router();
 
-like.post('/:userId/:diaryId', checkAuthUser, likeController);
-like.delete('/:userId/:diaryId', checkAuthUser, dislikeController);
+like.post('/:userId/:diaryId' ,likeController);
+like.delete('/:userId/:diaryId', dislikeController);
 like.get('/:diaryId', likeListController);
 like.get('/:userId/:diaryId', checkLikeController);
 

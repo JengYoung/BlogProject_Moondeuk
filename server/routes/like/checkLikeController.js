@@ -4,10 +4,13 @@ const checkLikeController = async (req, res) => {
     const { userId, diaryId } = req.params;
     if (!userId || !diaryId) return res.status(400).send(); 
     try {
-        const result = await Like.findOne({ userId, diaryId });
-        if (result) return res.send(result);
+        const [diaryTypeResult] = await Like.find({ typeName: 'Diary', userId, diaryId }).exec();
+        const [commentTypeResult] = await Like.find({ typeName:"Comment", userId, diaryId }).exec();
+        const [replyCommentTypeResult] = await Like.find({ typeName: "ReplyComment", userId, diaryId}).exec()
+        console.log({diaryTypeResult, commentTypeResult, replyCommentTypeResult})
+        // return res.send();
     } catch(e) {
-        return res.send(400).send()
+        return res.status(400).send()
     }
 }
 
