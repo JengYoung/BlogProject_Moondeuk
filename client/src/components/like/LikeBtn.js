@@ -11,10 +11,9 @@ const StyledLikeBtn = styled(FooterBtn)`
 `;
 
 
-const LikeBtn = ({ onLike, like, onDislike }) => {
-    const checkLikeExist = like.userId ? like.userId : null;
+const LikeBtn = ({ onLike, onDislike, likeExist }) => {
     return (
-        checkLikeExist ? 
+        likeExist ? 
             <StyledLikeBtn onClick={onDislike}><FaHeart/></StyledLikeBtn>
         : 
             <StyledLikeBtn onClick={onLike}><FaRegHeart/></StyledLikeBtn>

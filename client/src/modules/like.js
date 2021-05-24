@@ -48,12 +48,23 @@ const initialState = {
         commentList: [],
         replyCommentList: []
     },
+    likeSuccess: null,
     likeError: null,
     likeListError: null,
 }
 const likeReducer = handleActions({
     [INITIALIZE_LIKE]: state => initialState,
-    [LIKE_SUCCESS]: (state, { payload: { diaryList, commentList, replyCommentList } }) => ({
+    [LIKE_SUCCESS]: (state, { payload: likeSuccess }) => ({
+        // 제대로 like가 성공적으로 전달되었는지 redux 상태관리창에서 확인하기 위해.
+        ...state,
+        likeSuccess,
+        likeError: null,
+    }),
+    [LIKE_FAILURE]: (state, { payload: error }) => ({
+        ...state,
+        likeError: error,
+    }),
+    [CHECK_LIKE_SUCCESS]: (state, { payload: { diaryList, commentList, replyCommentList } }) => ({
         ...state,
         like: {
             ...state.like,
@@ -61,15 +72,6 @@ const likeReducer = handleActions({
             commentList,
             replyCommentList,
         },
-        likeError: null,
-    }),
-    [LIKE_FAILURE]: (state, { payload: error }) => ({
-        ...state,
-        likeError: error,
-    }),
-    [CHECK_LIKE_SUCCESS]: (state, { payload: like }) => ({
-        ...state,
-        like,
         likeError: null,
     }),
     [CHECK_LIKE_FAILURE]: (state, { payload: error }) => ({
