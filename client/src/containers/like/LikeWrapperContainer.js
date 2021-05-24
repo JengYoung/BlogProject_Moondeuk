@@ -9,6 +9,7 @@ import { checkLike, dislikeDiary, initializeLike, likeDiary, likeList } from '..
 
 function LikeWrapperContainer({ typeName, typeId }) {
     const [ modal, setModal ] = useState(false);
+    // const [ likeExist, setLikeExist ] = useState(false);
     const dispatch = useDispatch();
     const { like, likes, user, diary, likeSuccess } = useSelector(({ likeReducer, userReducer, diaryReducer }) => ({ 
         likes: likeReducer.likes,
@@ -23,11 +24,12 @@ function LikeWrapperContainer({ typeName, typeId }) {
         ReplyComment: 'replyCommentList'
     };
     const likeUsersList = likes[likeListNames[typeName]]
-    const likeExist = like[likeListNames[typeName]].filter(data => data.typeId === typeId).length > 0 ? true : false;
-    console.log("likeExist: ", likeExist);
+
     const diaryId = diary ? diary._id : null;
     const userId = user ? user._id : null;
     const author_id = diary ? diary.author._id : null;
+    const likeExist = like[likeListNames[typeName]].filter(data => data.typeId === typeId).length > 0 ? true : false
+
     useEffect(() => {
         dispatch(initializeLike());
     }, [dispatch]);
@@ -43,7 +45,11 @@ function LikeWrapperContainer({ typeName, typeId }) {
         dispatch(likeDiary({ userId, diaryId, typeName, typeId }))
         dispatch(alertUser({ sender_id: userId, receiver_id: author_id, type: "Like", type_detail: {diary_id: diaryId} }))
     };
-    const onDislike = () => dispatch(dislikeDiary({ userId, diaryId, typeName, typeId }));
+    
+    const onDislike = () => {
+        dispatch(dislikeDiary({ userId, diaryId, typeName, typeId }))
+    };
+
     const onLikeList = () => setModal(!modal);
 
     return (

@@ -22,7 +22,7 @@ const [ LIKE_LIST_SUCCESS, LIKE_LIST_FAILURE ] = createActionTypes(LIKE_LIST);
 export const initializeLike = createAction(INITIALIZE_LIKE);
 export const likeDiary = createAction(LIKE, like => like);
 export const checkLike = createAction(CHECK_LIKE, like => like);
-export const dislikeDiary = createAction(DISLIKE);
+export const dislikeDiary = createAction(DISLIKE, dislike => dislike);
 export const likeList = createAction(LIKE_LIST, likeList => likeList);
 
 const likeDiarySaga = createSaga(LIKE, likeAPI);
@@ -48,7 +48,7 @@ const initialState = {
         commentList: [],
         replyCommentList: []
     },
-    likeSuccess: null,
+    likeSuccess: undefined,
     likeError: null,
     likeListError: null,
 }
@@ -80,11 +80,8 @@ const likeReducer = handleActions({
     }),
     [DISLIKE_SUCCESS]: (state) => ({
         ...state,
-        like: {
-            ...state.like,
-            userId: null,
-            diaryId: null,
-        },
+        likeSuccess: null,
+        likeError: null,
     }),
     [DISLIKE_FAILURE]: (state, { payload: error }) => ({
         ...state,

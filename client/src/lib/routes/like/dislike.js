@@ -1,6 +1,6 @@
 import client from '../client';
-const dislikeAPI = (params) => {
-    const { userId, diaryId, typeName, typeId } = params;
-    return client.delete(`/routes/like/${userId}/${diaryId}`, { typeName, typeId });
+const dislikeAPI = ({ userId, diaryId, typeName, typeId }) => {
+    console.log({ userId, diaryId, typeName, typeId });
+    return client.delete(`/routes/like/${userId}/${diaryId}/${typeName}/${typeId}`);
 }
 export default dislikeAPI;
