@@ -39,8 +39,9 @@ export function* likeSaga() {
 
 const initialState = {
     like: {
-        userId: null,
-        diaryId: null,
+        diaryList: [],
+        commentList: [],
+        replyCommentList: []
     },
     likes: {
         diaryList: [],
@@ -52,9 +53,14 @@ const initialState = {
 }
 const likeReducer = handleActions({
     [INITIALIZE_LIKE]: state => initialState,
-    [LIKE_SUCCESS]: (state, { payload: like }) => ({
+    [LIKE_SUCCESS]: (state, { payload: { diaryList, commentList, replyCommentList } }) => ({
         ...state,
-        like,
+        like: {
+            ...state.like,
+            diaryList,
+            commentList,
+            replyCommentList,
+        },
         likeError: null,
     }),
     [LIKE_FAILURE]: (state, { payload: error }) => ({
