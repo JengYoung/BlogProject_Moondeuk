@@ -7,7 +7,7 @@ import LikeWrapper from '../../components/like/LikeWrapper'
 import { alertUser } from '../../modules/alert';
 import { checkLike, dislikeDiary, initializeLike, likeDiary, likeList } from '../../modules/like';
 
-function LikeWrapperContainer() {
+function LikeWrapperContainer({ typeName, typeId }) {
     const [ modal, setModal ] = useState(false);
     const dispatch = useDispatch();
     const { like, likes, user, diary } = useSelector(({ likeReducer, userReducer, diaryReducer }) => ({ 
@@ -16,6 +16,12 @@ function LikeWrapperContainer() {
         diary: diaryReducer.diary,
         like: likeReducer.like,
     }));
+    const likeListNames = {
+        Diary: 'diaryList',
+        Comment: 'commentList',
+        ReplyComment: 'replyCommentList'
+    };
+    const likeUsersList = likes[likeListNames[typeName]]
 
     const diaryId = diary ? diary._id : null;
     const userId = user ? user._id : null;
@@ -31,10 +37,10 @@ function LikeWrapperContainer() {
     },[diaryId, dispatch, like])
 
     const onLike = () => {
-        dispatch(likeDiary({ userId, diaryId }))
+        dispatch(likeDiary({ userId, diaryId, typeName, typeId }))
         dispatch(alertUser({ sender_id: userId, receiver_id: author_id, type: "Like", type_detail: {diary_id: diaryId} }))
     };
-    const onDislike = () => dispatch(dislikeDiary({ userId, diaryId }));
+    const onDislike = () => dispatch(dislikeDiary({ userId, diaryId, typeName, typeId }));
     const onLikeList = () => setModal(!modal);
 
     return (
@@ -46,7 +52,7 @@ function LikeWrapperContainer() {
             />
             <LikeCounter
                 modal={modal}
-                likes={likes}
+                likeUsersList={likeUsersList}
                 onLikeList={onLikeList}
             />
         </LikeWrapper>
