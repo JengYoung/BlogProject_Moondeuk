@@ -9,6 +9,7 @@ import LikeModal from './LikeModal';
 
 const StyledLikeCounter = styled.div`
     padding-left: 5px;
+    transition: all 0.3s;
     ${props =>
         props.typeName !== 'Diary' && css`
             position: relative;
@@ -16,6 +17,12 @@ const StyledLikeCounter = styled.div`
             margin: 0;
             padding-left: 0;
         `
+    }
+    &:hover {
+        cursor: pointer;
+        font-weight: 700;
+        transform: scale(1.1);
+        color: #be89be;
     }
 `;
 
