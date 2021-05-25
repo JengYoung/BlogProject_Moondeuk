@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 export const StyledModalBackground = styled.div`
     position: fixed;
+    z-index: 999;
     top: 0;
     left: 0;
     width: 100%;
