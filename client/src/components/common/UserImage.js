@@ -10,6 +10,7 @@ const StyledUserImage = styled.div`
     border-radius: 3rem;
     border: 1px solid lightgray;
     background: white;
+    min-width: 50px;
     ${props => 
         props.imgUrl && css`
             background-image: url(${props.imgUrl});
