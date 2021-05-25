@@ -5,7 +5,7 @@ import likeAPI from '../lib/routes/like/like';
 import { takeLatest } from 'redux-saga/effects';
 import checkLikeAPI from '../lib/routes/like/checkLike';
 import dislikeAPI from '../lib/routes/like/dislike';
-import likeListAPI from '../lib/routes/like/likeList';
+// import likeListAPI from '../lib/routes/like/likeList';
 
 const INITIALIZE_LIKE = 'like/INITIALIZE_LIKE';
 const LIKE = 'like/LIKE';
@@ -15,26 +15,26 @@ const [ CHECK_LIKE_SUCCESS, CHECK_LIKE_FAILURE ] = createActionTypes(CHECK_LIKE)
 const DISLIKE = 'like/DISLIKE';
 const [ DISLIKE_SUCCESS, DISLIKE_FAILURE ] = createActionTypes(DISLIKE);
 /* get diary's liker list */ 
-const LIKE_LIST = 'like/LIKE_LIST';
-const [ LIKE_LIST_SUCCESS, LIKE_LIST_FAILURE ] = createActionTypes(LIKE_LIST); 
+// const LIKE_LIST = 'like/LIKE_LIST';
+// const [ LIKE_LIST_SUCCESS, LIKE_LIST_FAILURE ] = createActionTypes(LIKE_LIST); 
 
 
 export const initializeLike = createAction(INITIALIZE_LIKE);
 export const likeDiary = createAction(LIKE, like => like);
 export const checkLike = createAction(CHECK_LIKE, like => like);
 export const dislikeDiary = createAction(DISLIKE, dislike => dislike);
-export const likeList = createAction(LIKE_LIST, likeList => likeList);
+// export const likeList = createAction(LIKE_LIST, likeList => likeList);
 
 const likeDiarySaga = createSaga(LIKE, likeAPI);
 const checkLikeDiarySaga = createSaga(CHECK_LIKE, checkLikeAPI);
 const dislikeDiarySaga = createSaga(DISLIKE, dislikeAPI);
-const listLikeSaga = createSaga(LIKE_LIST, likeListAPI);
+// const listLikeSaga = createSaga(LIKE_LIST, likeListAPI);
 
 export function* likeSaga() {
     yield takeLatest(LIKE, likeDiarySaga);
     yield takeLatest(CHECK_LIKE, checkLikeDiarySaga);
     yield takeLatest(DISLIKE, dislikeDiarySaga);
-    yield takeLatest(LIKE_LIST, listLikeSaga);
+    // yield takeLatest(LIKE_LIST, listLikeSaga);
 };
 
 const initialState = {
@@ -43,11 +43,11 @@ const initialState = {
         commentList: [],
         replyCommentList: []
     },
-    likes: {
-        diaryList: [],
-        commentList: [],
-        replyCommentList: []
-    },
+    // likes: {
+    //     diaryList: [],
+    //     commentList: [],
+    //     replyCommentList: []
+    // },
     likeSuccess: undefined,
     likeError: null,
     likeListError: null,
@@ -87,20 +87,20 @@ const likeReducer = handleActions({
         ...state,
         likeError: error,
     }),
-    [LIKE_LIST_SUCCESS]: (state, { payload: { diaryList, commentList, replyCommentList } }) => ({
-        ...state,
-        likes: {
-            ...state.likes,
-            diaryList,
-            commentList,
-            replyCommentList,
-        },
-        likeListError: null,
-    }),
-    [LIKE_LIST_FAILURE]: (state, { payload: error }) => ({
-        ...state,
-        likeListError: error,
-    })
+    // [LIKE_LIST_SUCCESS]: (state, { payload: { diaryList, commentList, replyCommentList } }) => ({
+    //     ...state,
+    //     likes: {
+    //         ...state.likes,
+    //         diaryList,
+    //         commentList,
+    //         replyCommentList,
+    //     },
+    //     likeListError: null,
+    // }),
+    // [LIKE_LIST_FAILURE]: (state, { payload: error }) => ({
+    //     ...state,
+    //     likeListError: error,
+    // })
 }, initialState);
 
 export default likeReducer;

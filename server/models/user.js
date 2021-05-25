@@ -41,9 +41,18 @@ userSchema.statics.findUser_id = async function(userId) {
 /* get User Lists's id and nickname */
 userSchema.statics.getUserIdAndNickname = async function(userList, key) {
     const result = await Promise.all(userList.map(async user => {
-        const userInfo = await this.findById(user[key]).exec();
-        const { userId, nickname } = userInfo;
-        return { userId, nickname };
+        const userInfo = await this.findById(user[key]).lean();
+        const { nickname, userImage } = userInfo;
+        const username = userInfo.userId;
+        user = {
+            ...user,
+            userInfo: {
+                nickname,
+                userImage,
+                username
+            }
+        }
+        return user;
     }));
     return result;
 }

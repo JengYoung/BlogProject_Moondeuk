@@ -42,12 +42,10 @@ const StyledOptionBtn = styled.button`
 `;
 
 
-const OptionBtnsWrapper = ({ isReply, onIsReplyCommentMode }) => {
+const OptionBtnsWrapper = ({ isReply, onIsReplyCommentMode, likeBtn }) => {
     return (
         <StyledOptionBtnsWrapper isReply={isReply}>
-            <StyledOptionBtn>
-                <FaHeart/>
-            </StyledOptionBtn>
+            {likeBtn}
             <StyledOptionBtn onClick={onIsReplyCommentMode}><FaRegCommentDots/><span>답글 달기</span></StyledOptionBtn>
         </StyledOptionBtnsWrapper>
     );

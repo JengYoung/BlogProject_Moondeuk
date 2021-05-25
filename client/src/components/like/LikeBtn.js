@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FooterBtn from '../common/FooterBtn';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 /*
@@ -8,15 +8,22 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const StyledLikeBtn = styled(FooterBtn)`
     color: #e76060;
+    ${props =>
+        props.typeName !== 'Diary' && css`
+            position: none;
+            font-size: 0.8rem;
+            margin: 0;
+        `
+    }
 `;
 
 
-const LikeBtn = ({ onLike, onDislike, likeExist }) => {
+const LikeBtn = ({ typeName, onLike, onDislike, likeExist }) => {
     return (
         likeExist ? 
-            <StyledLikeBtn onClick={onDislike}><FaHeart/></StyledLikeBtn>
+            <StyledLikeBtn typeName={typeName} onClick={onDislike}><FaHeart/></StyledLikeBtn>
         : 
-            <StyledLikeBtn onClick={onLike}><FaRegHeart/></StyledLikeBtn>
+            <StyledLikeBtn typeName={typeName} onClick={onLike}><FaRegHeart/></StyledLikeBtn>
     );
 };
 

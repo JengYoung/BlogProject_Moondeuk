@@ -5,14 +5,13 @@ import LikeBtn from '../../components/like/LikeBtn';
 import LikeCounter from '../../components/like/LikeCounter';
 import LikeWrapper from '../../components/like/LikeWrapper'
 import { alertUser } from '../../modules/alert';
-import { checkLike, dislikeDiary, initializeLike, likeDiary, likeList } from '../../modules/like';
+import { checkLike, dislikeDiary, initializeLike, likeDiary } from '../../modules/like';
 
 function LikeWrapperContainer({ typeName, typeId }) {
     const [ modal, setModal ] = useState(false);
     // const [ likeExist, setLikeExist ] = useState(false);
     const dispatch = useDispatch();
-    const { like, likes, user, diary, likeSuccess } = useSelector(({ likeReducer, userReducer, diaryReducer }) => ({ 
-        likes: likeReducer.likes,
+    const { like, user, diary, likeSuccess } = useSelector(({ likeReducer, userReducer, diaryReducer }) => ({ 
         user: userReducer.user,
         diary: diaryReducer.diary,
         like: likeReducer.like,
@@ -23,11 +22,12 @@ function LikeWrapperContainer({ typeName, typeId }) {
         Comment: 'commentList',
         ReplyComment: 'replyCommentList'
     };
-    const likeUsersList = likes[likeListNames[typeName]]
+    // const likeUsersList = likes[likeListNames[typeName]]
 
     const diaryId = diary ? diary._id : null;
     const userId = user ? user._id : null;
     const author_id = diary ? diary.author._id : null;
+    const likeUsersList = like[likeListNames[typeName]].filter(data => data.typeId === typeId)
     const likeExist = like[likeListNames[typeName]].filter(data => data.typeId === typeId).length > 0 ? true : false
 
     useEffect(() => {
@@ -37,9 +37,9 @@ function LikeWrapperContainer({ typeName, typeId }) {
         if(!userId || !diaryId) return;
         dispatch(checkLike({ userId, diaryId }))
     }, [dispatch, userId, diaryId, likeSuccess])
-    useEffect(() => {
-        dispatch(likeList(diaryId));
-    },[diaryId, dispatch, like])
+    // useEffect(() => {
+    //     dispatch(likeList(diaryId));
+    // },[diaryId, dispatch, like])
 
     const onLike = () => {
         dispatch(likeDiary({ userId, diaryId, typeName, typeId }))
@@ -53,14 +53,16 @@ function LikeWrapperContainer({ typeName, typeId }) {
     const onLikeList = () => setModal(!modal);
 
     return (
-        <LikeWrapper>
+        <LikeWrapper typeName={typeName}>
             <LikeBtn 
+                typeName={typeName}
                 like={like}
                 onLike={onLike}
                 onDislike={onDislike}
                 likeExist={likeExist}
             />
             <LikeCounter
+                typeName={typeName}
                 modal={modal}
                 likeUsersList={likeUsersList}
                 onLikeList={onLikeList}

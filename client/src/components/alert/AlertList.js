@@ -66,9 +66,7 @@ const StyledAlertContent = styled.div`
 
 const AlertList = ({ alerts, onConform }) => {
     useEffect(() => {
-        // console.log(onConform());
         return () => {
-            console.log("여기 문제")
             onConform()
         }
     },[alerts]);

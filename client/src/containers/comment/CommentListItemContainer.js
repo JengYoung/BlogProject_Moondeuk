@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import CommentListItem from '../../components/comment/CommentListItem';
 import { changeText, deleteComment, settingUpdate, updateComment } from '../../modules/comment';
+import LikeWrapperContainer from '../like/LikeWrapperContainer';
 
 const CommentListItemContainer = ({ comment }) => {
     const { updatedContent, user } = useSelector(({ commentReducer, userReducer }) => ({ 
@@ -11,6 +12,7 @@ const CommentListItemContainer = ({ comment }) => {
     }));
     const dispatch = useDispatch();
     const { _id, content } = comment;
+    console.log(_id)
     const onUpdate = () => {
         console.log(updatedContent, updatedContent[_id])
         dispatch(updateComment({_id, updatedContent: updatedContent[_id]}));
@@ -40,8 +42,9 @@ const CommentListItemContainer = ({ comment }) => {
             comment_id={_id}
             comment={comment}
             user={user}
+            likeBtn={<LikeWrapperContainer isComment typeName="Comment" typeId={_id}/>}
         />
     )
 }
 
-export default CommentListItemContainer
+export default React.memo(CommentListItemContainer)

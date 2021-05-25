@@ -72,7 +72,8 @@ const CommentListItem = (
         onChangeText,
         onDeleteComment, 
         comment_id,
-        user
+        user,
+        likeBtn
     }) => {
     const { user_id, diary_id, userInfo, replyComments, userImage } = comment;
     const { userId, nickname } = userInfo;
@@ -118,8 +119,9 @@ const CommentListItem = (
                     : <StyledCommentContent>{content}</StyledCommentContent>
             }
             <OptionBtnsWrapper 
-                onIsReplyCommentMode={onIsReplyCommentMode}>
-            </OptionBtnsWrapper>
+                onIsReplyCommentMode={onIsReplyCommentMode}
+                likeBtn={likeBtn}
+            />
             {isReplyRootCommentMode && 
                 <InputWrapperContainer replier_id={user_id} diary_id={diary_id} _id={comment_id} comment_id={comment_id}/>
             }   
