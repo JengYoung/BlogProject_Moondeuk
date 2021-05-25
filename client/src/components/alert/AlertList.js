@@ -10,9 +10,10 @@ const StyledAlertList = styled.div`
     position: fixed;
     top: 8vh;
     width: 100vw;
-    height: 10rem;
+    height: 12rem;
     background: white;
     border: 1px solid lightgray;
+    border-top: 4px solid #bb7dbb;
     overflow-y: scroll;
     @media screen and (max-width: 480px) {
         left: 0;

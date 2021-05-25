@@ -52,4 +52,4 @@ const LikeCounter = ({ typeName, modal, onLikeList, likeUsersList }) => {
     );
 };
 
-export default LikeCounter;
+export default React.memo(LikeCounter);

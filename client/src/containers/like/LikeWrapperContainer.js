@@ -71,4 +71,4 @@ function LikeWrapperContainer({ typeName, typeId }) {
     )
 }
 
-export default LikeWrapperContainer
+export default React.memo(LikeWrapperContainer)
