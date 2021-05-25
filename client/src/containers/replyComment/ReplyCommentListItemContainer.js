@@ -8,6 +8,7 @@ import ListItem from '../../components/common/comment/ListItem'
 import OptionBtnsWrapper from '../../components/common/comment/OptionBtnsWrapper'
 import UpdateInputWrapper from '../../components/common/comment/UpdateInputWrapper';
 import { changeText, deleteReplyComment, settingUpdate, updateReplyComment } from '../../modules/comment';
+import LikeWrapperContainer from '../like/LikeWrapperContainer';
 import InputWrapperContainer from './InputWrapperContainer';
 
 function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_id, content }) {
@@ -66,7 +67,11 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_i
                     onDelete={onDelete}
                 />
             }
-            <OptionBtnsWrapper isReply onIsReplyCommentMode={onIsReplyCommentMode}></OptionBtnsWrapper>
+            <OptionBtnsWrapper 
+                isReply 
+                onIsReplyCommentMode={onIsReplyCommentMode}
+                likeBtn={<LikeWrapperContainer isComment typeName="ReplyComment" typeId={comment_id}/>}
+            />
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} replier_id={replier_id} hasMarginLeft comment_id={comment_id}/>
             }
