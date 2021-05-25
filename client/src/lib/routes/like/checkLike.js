@@ -1,8 +1,8 @@
 import client from '../client';
 
 const checkLikeAPI = (params) => {
-    const { userId, diaryId } = params;
-    return client.get(`/routes/like/${userId}/${diaryId}`);
+    const { diaryId } = params;
+    return client.get(`/routes/like/${diaryId}`);
 }
     
 

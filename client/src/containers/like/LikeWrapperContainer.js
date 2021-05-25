@@ -27,15 +27,15 @@ function LikeWrapperContainer({ typeName, typeId }) {
     const diaryId = diary ? diary._id : null;
     const userId = user ? user._id : null;
     const author_id = diary ? diary.author._id : null;
-    const likeUsersList = like[likeListNames[typeName]]
-    const likeExist = like[likeListNames[typeName]].filter(data => data.typeId === typeId).length > 0 ? true : false
+    const likeUsersList = like[likeListNames[typeName]].filter(data => data.typeId === typeId)
+    const likeExist = like[likeListNames[typeName]].filter(data => data.typeId === typeId && data.userId === userId).length > 0 ? true : false
 
     useEffect(() => {
         dispatch(initializeLike());
     }, [dispatch]);
     useEffect(() => {
         if(!userId || !diaryId) return;
-        dispatch(checkLike({ userId, diaryId }))
+        dispatch(checkLike({ diaryId }))
     }, [dispatch, userId, diaryId, likeSuccess])
     // useEffect(() => {
     //     dispatch(likeList(diaryId));
