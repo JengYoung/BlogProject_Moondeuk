@@ -7,7 +7,9 @@ const listController = async (req, res) => {
         ...(tag ? { tags: tag } : {})
     }
     try {
-        const posts = await Post.find(query).exec();
+        const posts = await Post.find(query)
+                                .lean()
+                                .sort({postedDate: -1});
         res.send(posts);
     } catch(e) {
         res.status(500).send(e);

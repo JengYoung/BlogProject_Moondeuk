@@ -4,7 +4,9 @@ import ReplyComment from '../../models/replyComment.js';
 const checkReplyCommentController = async (req, res) => {
     const { comment_id } = req.params;
     try {
-        const replyCommentList = await ReplyComment.find({ comment_id }).exec();
+        const replyCommentList = await ReplyComment.find({ comment_id })
+                                                    .lean()
+                                                    .sort({replyAt: -1});
         return res.send(replyCommentList);
     } catch(e) {
         return res.status(400).send(e);

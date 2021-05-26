@@ -21,7 +21,6 @@ function ReplyCommentListItemContainer({ _id, comment_id, replierInfo, replier_i
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onUpdateMode = () => { 
         setisUpdateMode(!isUpdateMode)
-        console.log(isUpdateMode); 
     };
     const [ isReplyCommentMode, setIsReplyCommentMode ] = useState(false);
     const onIsReplyCommentMode = () => {

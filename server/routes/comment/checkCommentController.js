@@ -3,8 +3,12 @@ import User from '../../models/user.js';
 
 const checkCommentController = async (req, res) => {
     const { diary_id } = req.params;
+    console.log("checkCommentController: ", diary_id)
     try {
-        let commentList = await Comment.find({ diary_id }).lean();
+        let commentList = await Comment.find({ diary_id })
+                                        .lean()
+                                        .sort({commentAt: -1});
+        console.log(commentList);
         const result = await Promise.all(commentList.map( async comment => {
             const { user_id } = comment
             const { userImage } = await User.findById(user_id);

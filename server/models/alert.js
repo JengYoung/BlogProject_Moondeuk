@@ -12,7 +12,7 @@ const alertSchema = new Schema({
     },
     type: String,
     type_detail: Schema.Types.Mixed,
-    alarm_At: {
+    alertAt: {
         type: Date,
         default: Date.now,
     },  

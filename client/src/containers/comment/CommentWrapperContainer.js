@@ -21,6 +21,7 @@ const CommentWrapperContainer = () => {
     const diary_id = diary ? diary._id : null;
 
     useEffect(() => {
+        console.log("checkComment: ", diary_id)
         dispatch(checkComment(diary_id))
     }, [dispatch, diary_id, comment]);
 

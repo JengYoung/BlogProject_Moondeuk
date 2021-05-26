@@ -150,6 +150,12 @@ const LoginLink = styled(Link)`
     @media screen and (min-width: 481px) {
         width: 5rem;
     }
+    ${props =>
+        props.login && css`
+            position: relative;
+            right: 6vw;
+        `
+    }
 `;
 const HeaderUserName = styled.div`
     margin-right: 0.5vw;
@@ -209,7 +215,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
                             </UserInfoBox>
                         ) : (
                             <>
-                                <LoginLink to="/login">로그인</LoginLink>
+                                <LoginLink to="/login" login>로그인</LoginLink>
                             </>
                         )}
                     </StyledAlertWrapper>

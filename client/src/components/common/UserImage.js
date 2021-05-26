@@ -21,7 +21,6 @@ const StyledUserImage = styled.div`
 
 const UserImage = ({ userImage }) => {
     const imgUrl = userImage ? '/img/' + userImage.replace('\\', '/') : null;
-    console.log("imgUrl", imgUrl)
     return (
         <StyledUserImage imgUrl={imgUrl}>
             
