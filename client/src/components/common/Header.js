@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
-import PostDiaryBtnsWrapperContainer from '../../containers/post/write/PostDiaryBtnsWrapperContainer';
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
 import UserImageBox from './UserImageBox';
@@ -184,7 +183,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
     const onOpenLogout = useCallback(() => {
             setopenLogout(!openLogout); 
     }, [openLogout]);
-    return (!write) ? (
+    return (
         <>
             <StyledHeader>
                 <Wrapper>
@@ -220,16 +219,6 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
                         )}
                     </StyledAlertWrapper>
                 </Wrapper> 
-            </StyledHeader>
-            <Spacer/>
-        </>
-    ) : (
-        <>
-            <StyledHeader>
-                <Wrapper>
-                    <Link to="/" className="logo">MOONDEUK</Link>
-                    <PostDiaryBtnsWrapperContainer/>
-                </Wrapper>
             </StyledHeader>
             <Spacer/>
         </>

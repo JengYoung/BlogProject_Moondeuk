@@ -26,6 +26,8 @@ const sanitizeOption = {
         'ol',
         'blockquote',
         'pre',
+        'em',
+        'strong',
     ],
     allowedAttributes: {
         a: [

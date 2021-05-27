@@ -1,5 +1,5 @@
 import express from 'express';
-import checkValidId from '../../middleware/routesMiddleware/checkValidId.js';
+import checkAuthUser from '../../middleware/checkAuthUser.js';
 import deleteController from './deleteController.js';
 import listController from './listController.js';
 import readController from './readController.js';
@@ -13,17 +13,17 @@ const post = express.Router();
 */ 
 
 /* create - write */ 
-post.post('/write', checkValidId, postValidationCheck, writeController);
+post.post('/write', checkAuthUser, postValidationCheck, writeController);
 
 /* read (all) - list */ 
 post.get('/', listController);
 
 /* read (id) - read */
-post.get('/:id',checkValidId, readController);
+post.get('/:id',checkAuthUser, readController);
 
 /* update (PATCH /:id) - update */ 
-post.patch('/update/:id', checkValidId, updateController);
+post.patch('/update/:id', checkAuthUser, updateController);
 
 /* delete (DELETE /:id) - delete */
-post.delete('/delete/:id', checkValidId, deleteController);
+post.delete('/delete/:id', checkAuthUser, deleteController);
 export default post;

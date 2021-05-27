@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../components/common/Header'
 import ResponsiveWrapper from '../components/common/Responsive'
 import DiaryFooter from '../components/read/DiaryFooter'
 import HeaderContainer from '../containers/HeaderContainer'
@@ -11,8 +10,7 @@ function WritePage() {
         <>
             <HeaderContainer></HeaderContainer>
             <ResponsiveWrapper>
-                <EditorContainer>
-                </EditorContainer>
+                <EditorContainer/>
             </ResponsiveWrapper>
             <DiaryFooter>
                 <PostDiaryBtnsWrapperContainer/>

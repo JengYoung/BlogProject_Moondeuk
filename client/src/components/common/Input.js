@@ -4,6 +4,7 @@ import names from '../../lib/inputNames';
 
 /*
     일반적으로 본 프로젝트에서 사용할 Input bar 기본 컴포넌트
+    loginPage / register Page
 */
 
 export const StyledInput = styled.input`
@@ -41,7 +42,7 @@ export const StyledInput = styled.input`
 const Input = (props) => {
     const placeholder = `${names[props.name]}`;
     return (
-        <StyledInput {...props} placeholder={placeholder}/>
+        <StyledInput {...props} autoComplete="off" placeholder={placeholder}/>
     );
 };
 
