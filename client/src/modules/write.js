@@ -44,6 +44,7 @@ export function* writeSaga() {
 
 const initialState = {
     title: '',
+    subtitle: '',
     body: '',
     tags: [],
     diaryError: '',

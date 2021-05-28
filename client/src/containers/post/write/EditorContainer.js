@@ -6,9 +6,10 @@ import Editor from '../../../components/write/Editor';
 import { changeText, initializeDiary } from '../../../modules/write';
 
 function WriteFormContainer() {
-    const { title, body } = useSelector(({ writeReducer }) => ({
+    const { title, body, subtitle } = useSelector(({ writeReducer }) => ({
         title: writeReducer.title,
         body: writeReducer.body,
+        subtitle: writeReducer.subtitle,
     }));
     const dispatch = useDispatch();
     const onChangeText = useCallback(payload => dispatch(changeText(payload)),[dispatch]);
@@ -19,7 +20,7 @@ function WriteFormContainer() {
 
     return (
         <>
-            <Editor title={title} body={body} onChangeText={onChangeText}></Editor>
+            <Editor title={title} body={body} subtitle={subtitle} onChangeText={onChangeText}></Editor>
         </>
     )
 }

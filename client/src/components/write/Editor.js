@@ -179,8 +179,7 @@ const QuillWrapper = styled.div`
         border: none;
     }
     .ql-editor.ql-blank::before{
-            padding-left: 0.5rem;
-            font-style: normal;
+        font-style: normal;
     }
     .ql-snow .ql-picker.ql-size {
         .ql-picker-label[data-value=small]::before,
@@ -204,7 +203,7 @@ const QuillWrapper = styled.div`
     }
 `;
 
-const Editor = ({title, body, onChangeText}) => {
+const Editor = ({title, subtitle, body, onChangeText}) => {
     const mainTitle = useRef(null);
 
     const quillElement = useRef(null);
@@ -223,7 +222,7 @@ const Editor = ({title, body, onChangeText}) => {
         ]
         quillInstance.current = new Quill(quillElement.current, {
             theme: 'snow',
-            placeholder: '내용을 작성하세요 🌙',
+            placeholder: '내용을 작성하세요.',
             modules: {
                 toolbar: toolbarOptions
             },
@@ -255,7 +254,7 @@ const Editor = ({title, body, onChangeText}) => {
     }, [])
 
     const onChangeTitle = e => {
-        onChangeText({ name: 'title', value: e.target.value });
+        onChangeText({ name: e.target.name, value: e.target.value });
     };
 
     return (
@@ -270,7 +269,7 @@ const Editor = ({title, body, onChangeText}) => {
                         onChange={onChangeTitle} 
                         value={title}
                     />
-                    <SubtitleInput placeholder="소제목을 입력하세요."/>
+                    <SubtitleInput name="subtitle" value={subtitle} onChange={onChangeTitle} placeholder="소제목을 입력하세요."/>
                 </>
                 <TitleToolbar>
                     <div><IoImage/></div>
