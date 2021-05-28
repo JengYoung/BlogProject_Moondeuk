@@ -234,7 +234,6 @@ const Editor = ({title, body, onChangeText}) => {
             if (source === 'user') {
                 onChangeText({ name: 'body', value: quill.root.innerHTML });
             }
-            quill.focus()
         });
     }, [onChangeText]);
 
