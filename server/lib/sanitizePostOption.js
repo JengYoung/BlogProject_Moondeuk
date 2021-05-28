@@ -28,6 +28,7 @@ const sanitizeOption = {
         'pre',
         'em',
         'strong',
+        'script',
     ],
     allowedAttributes: {
         a: [
@@ -36,7 +37,8 @@ const sanitizeOption = {
             'target'
         ],
         img: ['src'],
-        li: ['class']
+        li: ['class'],
+        span: ['class'],
     },
     allowedSchemes: ['data', 'http'],
 };

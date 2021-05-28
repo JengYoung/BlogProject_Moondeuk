@@ -32,7 +32,7 @@ const SideWrapBtn = styled.button`
     &:hover {
         cursor: pointer;
     }
-    @media screen and (min-width: 461px) {
+    @media screen and (min-width: 481px) {
         font-size: 1.5rem;
     }
     @media screen and (min-width: 769px) {
@@ -49,7 +49,7 @@ const StyledHeader = styled.div`
 `;
 
 const Wrapper = styled.div`
-    width: 100vw;
+    width: 100%;
     height: 8vh;
     display: flex;
     align-items: center;

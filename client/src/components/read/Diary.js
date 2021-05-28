@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
+import 'quill/dist/quill.bubble.css';
 
 /*
 */

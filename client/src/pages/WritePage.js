@@ -9,9 +9,7 @@ function WritePage() {
     return (
         <>
             <HeaderContainer></HeaderContainer>
-            <ResponsiveWrapper>
-                <EditorContainer/>
-            </ResponsiveWrapper>
+            <EditorContainer/>
             <DiaryFooter>
                 <PostDiaryBtnsWrapperContainer/>
             </DiaryFooter>
