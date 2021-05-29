@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaegu&family=Nanum+Gothic+Coding:wght@400;700&family=Noto+Sans+KR:wght@100;300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Gamja+Flower&family=Nanum+Myeongjo:wght@400;700;800&display=swap');
 
 body {  
   margin: 0;
@@ -11,7 +12,7 @@ body {
   height: 100%;
 }
 
-textarea {
+textarea, input {
   font-family: 'Noto Sans KR', sans-serif;
 }
 img {
@@ -46,4 +47,13 @@ code {
 
 .nanum-gothic {
   font-family: 'Nanum Gothic', sans-serif;
+}
+.nanum-myeongjo {
+  font-family: 'Nanum Myeongjo', sans-serif;
+}
+.dancing-script {
+  font-family: 'Dancing Script' sans-serif;
+}
+.gamja-flower {
+  font-family: 'Gamja Flower', cursive;
 }

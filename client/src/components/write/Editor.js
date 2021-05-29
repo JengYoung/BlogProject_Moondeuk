@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { useCallback } from 'react';
 import { CgArrowsShrinkV } from 'react-icons/cg'
 import { IoIosColorPalette } from 'react-icons/io'
 import { IoImage } from 'react-icons/io5'
+import { useState } from 'react';
 /*
     Editor UI 컴포넌트
 */
@@ -39,12 +40,13 @@ const TitleInput = styled.textarea`
     display: block;
     position: relative;
     font-size: 2rem;
+    font-weight: 900;
     outline: none;
-    padding-bottom: 0.5rem;
     border: none;
     margin-bottom: 0.5rem;
     width: 100%;
     overflow-y: hidden;
+    padding-left: 0.5rem;
     @media screen and (min-width: 481px) {
         font-size: 2.25rem;
     }
@@ -53,10 +55,21 @@ const TitleInput = styled.textarea`
     }
 `;
 const SubtitleInput = styled.input`
+    font-size: 1rem;
     margin-bottom: 2rem;
     outline: none;
     border: none;
+    width: 100%;
+    padding-left: 0.5rem;
 `;
+
+const TitleBox = styled.div`
+    ${props =>
+        props.isCenter && css`
+            text-align: center;
+        `
+    }
+`
 
 const TitleToolbar = styled.div`
     display: flex;
@@ -68,15 +81,21 @@ const TitleToolbar = styled.div`
     border: 1px solid lightgray;
     width: 2rem;
     align-items: center;
+    .active {
+            color: #f5e83a;
+        }
     div {
+        position: relative;
+        left: 0;
+        top: 0;
+        outline: none;
         color: #a09ca0;
         font-weight: 700;
         margin: 0.25rem;
-        b, svg {
-            &:hover {
+        &:hover {
                 cursor: pointer;
+                color: #f5e83a;
             }
-        }
         svg {
             font-size: 1.5rem;
         }
@@ -204,11 +223,25 @@ const QuillWrapper = styled.div`
 `;
 
 const Editor = ({title, subtitle, body, onChangeText}) => {
-    const mainTitle = useRef(null);
+    const [ titleStyle, setTitleStyle ] = useState({
+        isCenter: false,
+        thumbnail: '',
+        color: '',
+        font: '',
+    });
 
+    const onTitleStyle = (name, value) => {
+        setTitleStyle({
+            ...titleStyle,
+            [name]: value,
+        })
+    }
+
+    const titleBox = useRef(null);
+    const mainTitle = useRef(null);
+    const subTitle = useRef(null);
     const quillElement = useRef(null);
     const quillInstance = useRef(null);
-
     useEffect(() => {
         const toolbarOptions =   [
             [{ 'size': ['small', false, 'large', 'huge'] }, { 'font': [] }],
@@ -248,7 +281,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
             return;
         }
         /* 기본 높이 설정 */
-        mainTitle.current.style.height = '1em';
+        mainTitle.current.style.height = '1px';
         /* 기본 길이에서 현재 높이에 따라서 높이 추가 */
         mainTitle.current.style.height = mainTitle.current.scrollHeight + 'px';
     }, [])
@@ -257,10 +290,31 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         onChangeText({ name: e.target.name, value: e.target.value });
     };
 
+    const onChangeFont = e => {
+        const fontItem = document.querySelectorAll('.font-btn');
+        // 현재 누른 게 아니라면 item에 있는 font-active 다 지우기.
+        fontItem.forEach(item => {
+            if (e.target !== item) {
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    mainTitle.current.classList.remove(item.classList[1])
+                }
+            } else {
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    mainTitle.current.classList.remove(item.classList[1])
+                } else {
+                    item.classList.toggle('active');
+                    mainTitle.current.classList.toggle(item.classList[1])
+                }
+            }
+        })
+
+    }
     return (
         <StyledEditor>
             <TitleThumbnailBox>
-                <>
+                <TitleBox ref={titleBox}>
                     <TitleInput 
                         ref={mainTitle}
                         onInput={onResizeTitle(mainTitle)}
@@ -269,14 +323,24 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                         onChange={onChangeTitle} 
                         value={title}
                     />
-                    <SubtitleInput name="subtitle" value={subtitle} onChange={onChangeTitle} placeholder="소제목을 입력하세요."/>
-                </>
-                <TitleToolbar>
-                    <div><IoImage/></div>
-                    <div><CgArrowsShrinkV/></div>
-                    <div><IoIosColorPalette/></div>
-                    <div className="nanum-gothic"><b>가</b></div>
-                </TitleToolbar>
+                    <SubtitleInput 
+                        ref={subTitle}
+                        name="subtitle" 
+                        value={subtitle} 
+                        onChange={onChangeTitle} 
+                        placeholder="소제목을 입력하세요."
+                    />
+                    {/* font -> event bubbling (추후 많아질 수도 있으니) */}
+                    <TitleToolbar onClick={onChangeFont}>
+                        <div><IoImage /></div>
+                        <div><CgArrowsShrinkV /></div>
+                        <div><IoIosColorPalette/></div>
+                        <div className="font-btn nanum-gothic" >가</div>
+                        <div className="font-btn nanum-myeongjo">가</div>
+                        <div className="font-btn gamja-flower">가</div>
+                        <div className="font-btn dancing-script">abc</div>
+                    </TitleToolbar>
+                </TitleBox>
             </TitleThumbnailBox>
             <QuillWrapper>
                 <div ref={quillElement}/>
