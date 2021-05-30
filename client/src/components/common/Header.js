@@ -150,7 +150,7 @@ const LoginLink = styled(Link)`
         width: 5rem;
     }
     ${props =>
-        props.login && css`
+        props.login ==='true' && css`
             position: relative;
             right: 6vw;
         `
@@ -174,7 +174,7 @@ const AlertBox = styled.div`
     }
 `;
 
-const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform }) => {
+const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
@@ -214,7 +214,7 @@ const Header = ({write, user, onLogout, checkUser, onSideBar, alerts, onConform 
                             </UserInfoBox>
                         ) : (
                             <>
-                                <LoginLink to="/login" login>로그인</LoginLink>
+                                <LoginLink to="/login" login='true'>로그인</LoginLink>
                             </>
                         )}
                     </StyledAlertWrapper>

@@ -21,7 +21,6 @@ const HeaderContainer = (props) => {
     };
     const onSideBar = () => {
         setIsSideBar(!isSideBar)
-        console.log("now isSideBar in Header: ", isSideBar)
     };
     const checkUser = useCallback(() => {
         dispatch(check())

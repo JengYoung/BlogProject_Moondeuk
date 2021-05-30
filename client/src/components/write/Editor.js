@@ -225,6 +225,7 @@ const QuillWrapper = styled.div`
 const Editor = ({title, subtitle, body, onChangeText}) => {
     const [ titleStyle, setTitleStyle ] = useState({
         isCenter: false,
+        isFullSize: true,
         thumbnail: '',
         color: '',
         font: '',
@@ -302,15 +303,20 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
             } else {
                 if (item.classList.contains('active')) {
                     item.classList.remove('active');
+                    setTitleStyle(() => ({...titleStyle, font: ''}))
                     mainTitle.current.classList.remove(item.classList[1])
                 } else {
                     item.classList.toggle('active');
+                    setTitleStyle(() => ({...titleStyle, font: item.classList[1]}))
                     mainTitle.current.classList.toggle(item.classList[1])
                 }
             }
         })
-
     }
+    // check titleStyle state
+    // useEffect(() => {
+    //     console.log(titleStyle.font)
+    // }, [titleStyle])
     return (
         <StyledEditor>
             <TitleThumbnailBox>
