@@ -28,12 +28,25 @@ const TitleThumbnailBox = styled.div`
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
-        /* bottom: 10vh; */
     }
     @media screen and (min-width: 769px) {
         padding: 0 20vw;
         height: 78vh;
         /* bottom: 12vh; */
+    }
+    ${props => 
+        props.isFullSize===true && css`
+            height: 42vh;
+            @media screen and (min-width: 481px) {
+                padding: 0 15vw;
+                height: 40vh;
+            }
+            @media screen and (min-width: 769px) {
+                padding: 0 20vw;
+                height: 39vh;
+                /* bottom: 12vh; */
+            }
+        `
     }
 `;
 const TitleInput = styled.textarea`
@@ -93,9 +106,9 @@ const TitleToolbar = styled.div`
         font-weight: 700;
         margin: 0.25rem;
         &:hover {
-                cursor: pointer;
-                color: #f5e83a;
-            }
+            cursor: pointer;
+            color: #f5e83a;
+        }
         svg {
             font-size: 1.5rem;
         }
@@ -291,6 +304,13 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         onChangeText({ name: e.target.name, value: e.target.value });
     };
 
+    /*
+    ! 이벤트가 발생할 때 font 변경!
+    */
+    const onActive = e => {
+        if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
+        e.currentTarget.classList.toggle('active');
+    }
     const onChangeFont = e => {
         const fontItem = document.querySelectorAll('.font-btn');
         // 현재 누른 게 아니라면 item에 있는 font-active 다 지우기.
@@ -312,14 +332,17 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                 }
             }
         })
+        console.log(titleStyle.font);
     }
     // check titleStyle state
-    // useEffect(() => {
-    //     console.log(titleStyle.font)
-    // }, [titleStyle])
+    useEffect(() => {
+        console.log(titleStyle)
+    }, [titleStyle])
+
+
     return (
         <StyledEditor>
-            <TitleThumbnailBox>
+            <TitleThumbnailBox isFullSize={titleStyle.isFullSize}>
                 <TitleBox ref={titleBox}>
                     <TitleInput 
                         ref={mainTitle}
@@ -339,7 +362,11 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
                     <TitleToolbar onClick={onChangeFont}>
                         <div><IoImage /></div>
-                        <div><CgArrowsShrinkV /></div>
+                        <div  
+                            onClick={() => setTitleStyle({...titleStyle, isFullSize: !titleStyle.isFullSize})}
+                        >
+                            <CgArrowsShrinkV onClick={onActive}/>
+                        </div>
                         <div><IoIosColorPalette/></div>
                         <div className="font-btn nanum-gothic" >가</div>
                         <div className="font-btn nanum-myeongjo">가</div>
