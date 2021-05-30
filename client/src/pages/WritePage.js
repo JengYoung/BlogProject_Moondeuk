@@ -1,5 +1,4 @@
 import React from 'react'
-import ResponsiveWrapper from '../components/common/Responsive'
 import DiaryFooter from '../components/read/DiaryFooter'
 import HeaderContainer from '../containers/HeaderContainer'
 import EditorContainer from '../containers/post/write/EditorContainer'

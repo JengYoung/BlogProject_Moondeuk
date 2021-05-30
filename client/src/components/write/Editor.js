@@ -12,9 +12,43 @@ import { useState } from 'react';
 */
 
 const StyledEditor = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /* 페이지 위아래 여백 지정 */
     /* padding-top: 5rem;
     padding-bottom: 5rem; */
+    .red {
+        background: #f38686;
+    }
+    .orange {
+        background: #ff9900;
+    }
+    .yellow {
+        background: #ffd900;
+    }
+    .green {
+        background: #b8e264;
+    }
+    .blue {
+        background: #726bd3;
+    }
+    .purple {
+        background: #7f51a5;
+    }
+    .mint {
+        background: #a7ffd3;
+    }
+    .sky {
+        background: #96e1ff;
+    }
+    .black {
+        background: #2e2d2d;
+    }
+    .gray {
+        background: #686565;
+    }
 `;
 
 const TitleThumbnailBox = styled.div`
@@ -24,7 +58,8 @@ const TitleThumbnailBox = styled.div`
     position:relative;
     width: 100%;
     height: 84vh;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid lightgray;
+    transition: all 0.5s;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -32,24 +67,46 @@ const TitleThumbnailBox = styled.div`
     @media screen and (min-width: 769px) {
         padding: 0 20vw;
         height: 78vh;
-        /* bottom: 12vh; */
     }
-    ${props => 
-        props.isFullSize===true && css`
-            height: 42vh;
-            @media screen and (min-width: 481px) {
-                padding: 0 15vw;
-                height: 40vh;
-            }
-            @media screen and (min-width: 769px) {
-                padding: 0 20vw;
-                height: 39vh;
-                /* bottom: 12vh; */
-            }
-        `
+    &.half {
+        height: 42vh;
+        @media screen and (min-width: 481px) {
+            padding: 0 15vw;
+            height: 40vh;
+        }
+        @media screen and (min-width: 769px) {
+            padding: 0 20vw;
+            height: 39vh;
+        }
+    }
+`;
+
+const ThumbnailColorBox = styled.ul`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    height: 30px;
+    position: absolute;
+    padding: 0 20px;
+    top: 20px;
+    li {
+        width: 15px;
+        height: 15px;
+        border-radius: 20px;
+        border: 1px solid #ffffff6c;
+        transition: all 0.5s;
+        &:hover {
+            cursor: pointer;
+            transform: translateY(-5px);
+        }
+    }
+    .active {
+        display: flex;
     }
 `;
 const TitleInput = styled.textarea`
+    background: transparent;
     display: block;
     position: relative;
     font-size: 2rem;
@@ -60,6 +117,8 @@ const TitleInput = styled.textarea`
     width: 100%;
     overflow-y: hidden;
     padding-left: 0.5rem;
+    z-index: 11;
+    opacity: 1;
     @media screen and (min-width: 481px) {
         font-size: 2.25rem;
     }
@@ -68,6 +127,7 @@ const TitleInput = styled.textarea`
     }
 `;
 const SubtitleInput = styled.input`
+    background: transparent;
     font-size: 1rem;
     margin-bottom: 2rem;
     outline: none;
@@ -234,7 +294,6 @@ const QuillWrapper = styled.div`
         }
     }
 `;
-
 const Editor = ({title, subtitle, body, onChangeText}) => {
     const [ titleStyle, setTitleStyle ] = useState({
         isCenter: false,
@@ -251,6 +310,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         })
     }
 
+    const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
     const mainTitle = useRef(null);
     const subTitle = useRef(null);
@@ -311,6 +371,10 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
         e.currentTarget.classList.toggle('active');
     }
+    const onSize = e => {
+        setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
+        thumbnailBox.current.classList.toggle('half')
+    }
     const onChangeFont = e => {
         const fontItem = document.querySelectorAll('.font-btn');
         // 현재 누른 게 아니라면 item에 있는 font-active 다 지우기.
@@ -338,11 +402,36 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
     useEffect(() => {
         console.log(titleStyle)
     }, [titleStyle])
+    useEffect(() => {
+        // thumbnailBox.current.classList.add(titleStyle.color);
+        console.log(titleStyle.color)
+    },[titleStyle])
 
+    const changeColor = e => {
+        const colors = document.querySelectorAll(".color");
+        if (e.target.nodeName !== 'LI') return;
+        colors.forEach(color => {
+            // 만약 다른 버튼을 눌렀을 경우
+            if(color.classList !== e.target.classList) {
+                // 만약 지금 클래스를 포함시
+                if (thumbnailBox.current.classList.contains(color.classList[1])) {
+                    return thumbnailBox.current.classList.remove(color.classList[1])
+                } 
+            //같은 버튼일 경우
+            } else {
+                // 현재 포함 중일 때 그냥 리턴.
+                if (thumbnailBox.current.classList.contains(color.classList[1])) return;
+                else {
+                    setTitleStyle(() => ({ ...titleStyle, color: color.classList[1]}))
+                    thumbnailBox.current.classList.toggle(color.classList[1])
+                }
+            }
+        })
+    }
 
     return (
         <StyledEditor>
-            <TitleThumbnailBox isFullSize={titleStyle.isFullSize}>
+            <TitleThumbnailBox ref={thumbnailBox} className="half">
                 <TitleBox ref={titleBox}>
                     <TitleInput 
                         ref={mainTitle}
@@ -363,7 +452,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     <TitleToolbar onClick={onChangeFont}>
                         <div><IoImage /></div>
                         <div  
-                            onClick={() => setTitleStyle({...titleStyle, isFullSize: !titleStyle.isFullSize})}
+                            onClick={onSize}
                         >
                             <CgArrowsShrinkV onClick={onActive}/>
                         </div>
@@ -375,6 +464,18 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     </TitleToolbar>
                 </TitleBox>
             </TitleThumbnailBox>
+            <ThumbnailColorBox onClick={changeColor}>
+                <li className="color red"></li>
+                <li className="color orange"></li>
+                <li className="color yellow"></li>
+                <li className="color green"></li>
+                <li className="color blue"></li>
+                <li className="color purple"></li>
+                <li className="color mint"></li>
+                <li className="color sky"></li>
+                <li className="color black"></li>
+                <li className="color gray"></li>
+            </ThumbnailColorBox>
             <QuillWrapper>
                 <div ref={quillElement}/>
             </QuillWrapper>
