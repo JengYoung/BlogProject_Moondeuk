@@ -96,7 +96,7 @@ const ThumbnailColorBox = styled.ul`
     height: 30px;
     position: absolute;
     padding: 0 20px;
-    top: 20px;
+    top: 40px;
     li {
         width: 15px;
         height: 15px;
@@ -110,6 +110,9 @@ const ThumbnailColorBox = styled.ul`
     }
     .active {
         display: flex;
+    }
+    @media screen and (min-width: 481px) {
+        top: 20px;
     }
 `;
 const TitleInput = styled.textarea`
@@ -163,14 +166,17 @@ const TitleBox = styled.div`
 
 const TitleToolbar = styled.div`
     display: flex;
+    flex-wrap: wrap;
     position: absolute;
     Z-index: 9;
-    top: 20px;
-    right: 6vw;
-    flex-direction: column;
-    border: 1px solid lightgray;
-    width: 2rem;
+    top: 10px;
+    /* flex-direction: row; */
+    width: 100%;
+    justify-content: center;
     align-items: center;
+
+    height: 2rem;
+
     .active {
             color: #f5e83a;
         }
@@ -187,7 +193,7 @@ const TitleToolbar = styled.div`
             color: #f5e83a;
         }
         svg {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
     }
     .font-color-btn {
@@ -214,9 +220,13 @@ const TitleToolbar = styled.div`
         }
     }
     @media screen and (min-width: 481px) {
+        flex-direction: column;
+        width: 2rem !important;
+        height: 280px;
         right: 8vw;
     }
     @media screen and (min-width: 769px) {
+        flex-direction: column;
         right: 15vw;
     }
 `;
@@ -546,32 +556,32 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                         placeholder="소제목을 입력하세요."
                     />
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
-                    <TitleToolbar onClick={onChangeFont}>
-                        <div><IoImage /></div>
-                        <div onClick={onSize}>
-                            <CgArrowsShrinkV onClick={onActive}/>
-                        </div>
-                        <div onClick={onColor}>
-                            <IoIosColorPalette className="thumbnail-color-btn" onClick={onActive}/>
-                        </div>
-                        <div className="font-btn nanum-gothic" >가</div>
-                        <div className="font-btn nanum-myeongjo">가</div>
-                        <div className="font-btn gamja-flower">가</div>
-                        <div className="font-btn dancing-script">abc</div>
-                        <TitlePositionModifier
-                            isCenter={titleStyle.isCenter} 
-                            onClick={onTitleCenter}
-                        >
-                            가
-                        </TitlePositionModifier>
-                        <div 
-                            className="font-color-btn" 
-                            onClick={onTitleColor}
-                        >
-                            <IoBrushOutline onClick={onActive}/>
-                        </div>
-                    </TitleToolbar>
                 </TitleBox>
+                <TitleToolbar onClick={onChangeFont}>
+                    <div><IoImage /></div>
+                    <div onClick={onSize}>
+                        <CgArrowsShrinkV onClick={onActive}/>
+                    </div>
+                    <div onClick={onColor}>
+                        <IoIosColorPalette className="thumbnail-color-btn" onClick={onActive}/>
+                    </div>
+                    <div className="font-btn nanum-gothic" >가</div>
+                    <div className="font-btn nanum-myeongjo">가</div>
+                    <div className="font-btn gamja-flower">가</div>
+                    <div className="font-btn dancing-script">abc</div>
+                    <TitlePositionModifier
+                        isCenter={titleStyle.isCenter} 
+                        onClick={onTitleCenter}
+                    >
+                        가
+                    </TitlePositionModifier>
+                    <div 
+                        className="font-color-btn" 
+                        onClick={onTitleColor}
+                    >
+                        <IoBrushOutline onClick={onActive}/>
+                    </div>
+                </TitleToolbar>
             </TitleThumbnailBox>
             <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
                 <li className="color red"></li>
