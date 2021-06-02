@@ -82,7 +82,7 @@ const TitleThumbnailBox = styled.div`
 `;
 
 const ThumbnailColorBox = styled.ul`
-    display: flex;
+    display: none;
     justify-content: space-around;
     align-items: center;
     width: 300px;
@@ -300,6 +300,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         isFullSize: true,
         thumbnail: '',
         color: '',
+        fontColor: '',
         font: '',
     });
 
@@ -374,6 +375,13 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
     const onSize = e => {
         setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
         thumbnailBox.current.classList.toggle('half')
+    }
+    const onColor = e => {
+        const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
+        const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+        if (thumbnailColorBtn.classList.contains('active')) {
+            return thumbnailColorBox.style.display = 'flex';
+        } else return thumbnailColorBox.style.display = 'none';
     }
     const onChangeFont = e => {
         const fontItem = document.querySelectorAll('.font-btn');
@@ -451,12 +459,12 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
                     <TitleToolbar onClick={onChangeFont}>
                         <div><IoImage /></div>
-                        <div  
-                            onClick={onSize}
-                        >
+                        <div onClick={onSize}>
                             <CgArrowsShrinkV onClick={onActive}/>
                         </div>
-                        <div><IoIosColorPalette/></div>
+                        <div onClick={onColor}>
+                            <IoIosColorPalette className="thumbnail-color-btn" onClick={onActive}/>
+                        </div>
                         <div className="font-btn nanum-gothic" >가</div>
                         <div className="font-btn nanum-myeongjo">가</div>
                         <div className="font-btn gamja-flower">가</div>
@@ -464,7 +472,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     </TitleToolbar>
                 </TitleBox>
             </TitleThumbnailBox>
-            <ThumbnailColorBox onClick={changeColor}>
+            <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
                 <li className="color red"></li>
                 <li className="color orange"></li>
                 <li className="color yellow"></li>
