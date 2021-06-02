@@ -68,13 +68,13 @@ const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => 
 
     const onSubmit = (e) => {
         e.preventDefault();
-        onComment(content);
-        content = '';
+        onComment(content[diary_id]);
+        content[diary_id]='';
     }
     return (
         <>
             <StyledCommentInputWrapper id="commentInputWrapper" onSubmit={onSubmit}>
-                <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content}/>
+                <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content[diary_id]}/>
                 <StyledInputBtn>
                     <TiPencil/>
                     {/* <span>작성</span> */}
