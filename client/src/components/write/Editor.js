@@ -4,6 +4,7 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import { useCallback } from 'react';
 import { CgArrowsShrinkV } from 'react-icons/cg'
+import { IoBrushOutline } from 'react-icons/io5'
 import { IoIosColorPalette } from 'react-icons/io'
 import { IoImage } from 'react-icons/io5'
 import { useState } from 'react';
@@ -110,7 +111,7 @@ const TitleInput = styled.textarea`
     display: block;
     position: relative;
     font-size: 2rem;
-    font-weight: 900;
+    font-weight: 700;
     outline: none;
     border: none;
     margin-bottom: 0.5rem;
@@ -171,6 +172,29 @@ const TitleToolbar = styled.div`
         }
         svg {
             font-size: 1.5rem;
+        }
+    }
+    .font-color-btn {
+        display: none;
+        svg {
+            color: #a09ca0;
+            path {
+                fill: #a09ca0;
+            }
+            &.active {
+                color: #f5e83a;
+                path {
+                    fill: white;
+                }
+            }
+        }
+        &:hover {
+            svg {
+                color: #f5e83a;
+                path {
+                    fill: #f5e83a;
+                }
+            }
         }
     }
     @media screen and (min-width: 481px) {
@@ -300,16 +324,15 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         isFullSize: true,
         thumbnail: '',
         color: '',
-        fontColor: '',
+        fontColor: 'black',
         font: '',
     });
 
     const onTitleStyle = (name, value) => {
-        setTitleStyle({
+        return setTitleStyle(titleStyle => ({
             ...titleStyle,
             [name]: value,
-        })
-    }
+    }))}
 
     const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
@@ -366,9 +389,11 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
     };
 
     /*
-    ! 이벤트가 발생할 때 font 변경!
+        ! 이벤트가 발생할 때 font 변경!
     */
+
     const onActive = e => {
+        console.log(e.currentTarget.classList);
         if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
         e.currentTarget.classList.toggle('active');
     }
@@ -377,13 +402,31 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         thumbnailBox.current.classList.toggle('half')
     }
     const onColor = e => {
+        // console.log(mainTitle.current.style.color = 'white');
+        // console.log(subTitle.current.style.color = 'white');
         const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
         const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+        const fontColorBtn = document.querySelector('.font-color-btn');
         if (thumbnailColorBtn.classList.contains('active')) {
-            return thumbnailColorBox.style.display = 'flex';
-        } else return thumbnailColorBox.style.display = 'none';
+            thumbnailColorBox.style.display = 'flex';
+            fontColorBtn.style.display = 'block';
+            onTitleStyle('color', 'red');
+            thumbnailBox.current.classList.toggle('red');
+        } else {
+            thumbnailColorBox.style.display = 'none';
+            fontColorBtn.style.display = 'none';
+            thumbnailBox.current.classList.remove(titleStyle.color);
+            onTitleStyle('color', '');
+        }
     }
+
+    const onTitleColor = e => {
+        if (titleStyle.fontColor === 'black') onTitleStyle('fontColor', 'white');
+        else onTitleStyle('fontColor', 'black');
+    }
+
     const onChangeFont = e => {
+        if (!e.target.classList.contains('font-btn')) return;
         const fontItem = document.querySelectorAll('.font-btn');
         // 현재 누른 게 아니라면 item에 있는 font-active 다 지우기.
         fontItem.forEach(item => {
@@ -404,7 +447,6 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                 }
             }
         })
-        console.log(titleStyle.font);
     }
     // check titleStyle state
     useEffect(() => {
@@ -414,6 +456,10 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         // thumbnailBox.current.classList.add(titleStyle.color);
         console.log(titleStyle.color)
     },[titleStyle])
+    useEffect(() => {
+        mainTitle.current.style.color = titleStyle.fontColor;
+        subTitle.current.style.color = titleStyle.fontColor;
+    }, [titleStyle])
 
     const changeColor = e => {
         const colors = document.querySelectorAll(".color");
@@ -432,6 +478,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                 else {
                     setTitleStyle(() => ({ ...titleStyle, color: color.classList[1]}))
                     thumbnailBox.current.classList.toggle(color.classList[1])
+                    console.log(mainTitle.current)
                 }
             }
         })
@@ -469,6 +516,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                         <div className="font-btn nanum-myeongjo">가</div>
                         <div className="font-btn gamja-flower">가</div>
                         <div className="font-btn dancing-script">abc</div>
+                        <div className="font-color-btn" onClick={onTitleColor}><IoBrushOutline onClick={onActive}/></div>
                     </TitleToolbar>
                 </TitleBox>
             </TitleThumbnailBox>
