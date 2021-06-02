@@ -80,6 +80,12 @@ const TitleThumbnailBox = styled.div`
             height: 39vh;
         }
     }
+    ${props => 
+        props.isCenter && css`
+            justify-content: center;
+            align-items: center;
+        `
+    }
 `;
 
 const ThumbnailColorBox = styled.ul`
@@ -143,6 +149,16 @@ const TitleBox = styled.div`
             text-align: center;
         `
     }
+    ${props => 
+        props.isFontColor === 'white' && css`
+            input, textarea {
+                &::-webkit-input-placeholder {
+                    color: white;
+                }
+                color: white;
+            }
+        `
+    }
 `
 
 const TitleToolbar = styled.div`
@@ -204,7 +220,30 @@ const TitleToolbar = styled.div`
         right: 15vw;
     }
 `;
+const TitlePositionModifier = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #a09ca0;
+    &:hover {
+        border: 1px solid #f5e83a;
+        color: #f5e83a;
+    }
 
+    ${props => 
+        props.isCenter && css`
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #f5e83a;
+            color: #f5e83a !important;
+        `
+    }
+`
 const QuillWrapper = styled.div`
     position: relative;
     height: auto;
@@ -397,34 +436,42 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
         e.currentTarget.classList.toggle('active');
     }
-    const onSize = e => {
+    const onSize = () => {
         setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
         thumbnailBox.current.classList.toggle('half')
     }
-    const onColor = e => {
-        // console.log(mainTitle.current.style.color = 'white');
-        // console.log(subTitle.current.style.color = 'white');
+    const onColor = () => {
         const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
         const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
         const fontColorBtn = document.querySelector('.font-color-btn');
         if (thumbnailColorBtn.classList.contains('active')) {
             thumbnailColorBox.style.display = 'flex';
             fontColorBtn.style.display = 'block';
+            // 1. initialize titleStyle.color (red; first-order color)
             onTitleStyle('color', 'red');
             thumbnailBox.current.classList.toggle('red');
         } else {
             thumbnailColorBox.style.display = 'none';
             fontColorBtn.style.display = 'none';
+            // 1. remove value from titleStyle.color
             thumbnailBox.current.classList.remove(titleStyle.color);
             onTitleStyle('color', '');
+            // 2. fontColor -> black, btn active cancel
+            titleStyle.fontColor = 'black';
+            document.querySelector('.font-color-btn > svg').classList.toggle('active');
         }
     }
 
-    const onTitleColor = e => {
+    const onTitleColor = () => {
         if (titleStyle.fontColor === 'black') onTitleStyle('fontColor', 'white');
         else onTitleStyle('fontColor', 'black');
     }
-
+    const onTitleCenter = () => {
+        setTitleStyle(titleStyle => ({
+            ...titleStyle,
+            isCenter: !(titleStyle.isCenter)
+        }))
+    }
     const onChangeFont = e => {
         if (!e.target.classList.contains('font-btn')) return;
         const fontItem = document.querySelectorAll('.font-btn');
@@ -456,10 +503,6 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         // thumbnailBox.current.classList.add(titleStyle.color);
         console.log(titleStyle.color)
     },[titleStyle])
-    useEffect(() => {
-        mainTitle.current.style.color = titleStyle.fontColor;
-        subTitle.current.style.color = titleStyle.fontColor;
-    }, [titleStyle])
 
     const changeColor = e => {
         const colors = document.querySelectorAll(".color");
@@ -478,7 +521,6 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                 else {
                     setTitleStyle(() => ({ ...titleStyle, color: color.classList[1]}))
                     thumbnailBox.current.classList.toggle(color.classList[1])
-                    console.log(mainTitle.current)
                 }
             }
         })
@@ -486,8 +528,8 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
 
     return (
         <StyledEditor>
-            <TitleThumbnailBox ref={thumbnailBox} className="half">
-                <TitleBox ref={titleBox}>
+            <TitleThumbnailBox ref={thumbnailBox} isCenter={titleStyle.isCenter} className="half">
+                <TitleBox isFontColor={titleStyle.fontColor} ref={titleBox}>
                     <TitleInput 
                         ref={mainTitle}
                         onInput={onResizeTitle(mainTitle)}
@@ -500,7 +542,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                         ref={subTitle}
                         name="subtitle" 
                         value={subtitle} 
-                        onChange={onChangeTitle} 
+                        onChange={onChangeTitle}
                         placeholder="소제목을 입력하세요."
                     />
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
@@ -516,7 +558,18 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                         <div className="font-btn nanum-myeongjo">가</div>
                         <div className="font-btn gamja-flower">가</div>
                         <div className="font-btn dancing-script">abc</div>
-                        <div className="font-color-btn" onClick={onTitleColor}><IoBrushOutline onClick={onActive}/></div>
+                        <TitlePositionModifier
+                            isCenter={titleStyle.isCenter} 
+                            onClick={onTitleCenter}
+                        >
+                            가
+                        </TitlePositionModifier>
+                        <div 
+                            className="font-color-btn" 
+                            onClick={onTitleColor}
+                        >
+                            <IoBrushOutline onClick={onActive}/>
+                        </div>
                     </TitleToolbar>
                 </TitleBox>
             </TitleThumbnailBox>
