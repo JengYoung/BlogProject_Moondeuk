@@ -655,7 +655,6 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     <div className="font-btn gamja-flower">가</div>
                     <div className="font-btn dancing-script">abc</div>
                     <TitlePositionModifier
-                        className="title-position"
                         isCenter={titleStyle.isCenter} 
                         onClick={onTitleCenter}
                     >

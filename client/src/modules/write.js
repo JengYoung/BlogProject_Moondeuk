@@ -34,7 +34,6 @@ export const updateDiary = createAction(UPDATE_DIARY, ({ diaryId, title, body, t
     tags, // diary tags
 }));
 
-
 const writeDiarySaga =  createSaga(WRITE_DIARY, writeAPI);
 const updateDiarySaga = createSaga(UPDATE_DIARY, updateAPI);
 export function* writeSaga() {
