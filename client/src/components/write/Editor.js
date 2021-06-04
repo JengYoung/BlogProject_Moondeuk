@@ -81,11 +81,9 @@ const TitleThumbnailBox = styled.div`
             height: 39vh;
         }
     }
-    ${props => 
-        props.isCenter && css`
-            justify-content: center;
-            align-items: center;
-        `
+    &.center {
+        justify-content: center;
+        align-items: center;
     }
 `;
 
@@ -519,6 +517,15 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
             isCenter: !(titleStyle.isCenter)
         }))
     }
+    useEffect(() => {
+        if (titleStyle.isCenter) {
+            thumbnailBox.current.classList.add('center')
+        } else {
+            if (thumbnailBox.current.classList.contains('center')) {
+                thumbnailBox.current.classList.remove('center')
+            }
+        }
+    }, [titleStyle.isCenter])
     const onChangeFont = e => {
         if (!e.target.classList.contains('font-btn')) return;
         const fontItem = document.querySelectorAll('.font-btn');
@@ -648,7 +655,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     <div className="font-btn gamja-flower">가</div>
                     <div className="font-btn dancing-script">abc</div>
                     <TitlePositionModifier
-                        className="test"
+                        className="title-position"
                         isCenter={titleStyle.isCenter} 
                         onClick={onTitleCenter}
                     >
