@@ -61,10 +61,7 @@ const TitleThumbnailBox = styled.div`
     height: 84vh;
     border-bottom: 1px solid lightgray;
     transition: all 0.5s;
-    
-    &.thumbnail {
-        background-size: cover;
-    }
+    background-size: cover;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -225,6 +222,17 @@ const TitleToolbar = styled.div`
                     fill: #f5e83a;
                 }
             }
+        }
+    }
+    &.thumbnail {
+        div, div > * {
+            color: white;
+            &:hover {
+                color: #f5e83a;
+            }
+        }
+        .active {
+            color: #f5e83a;
         }
     }
     @media screen and (min-width: 481px) {
@@ -458,15 +466,21 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
 
     const onTitleImageUpload = e => {
         if (!e.target.files[0]) return;
+        // 만약 color가 추가되어 있었다면 제거하기.
         let fileReader = new FileReader();
         fileReader.readAsDataURL(e.target.files[0]);
         fileReader.onload = function (e) {
+            if (titleStyle.color) {
+                const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
+                const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+                thumbnailColorBox.style.display = 'none';
+                thumbnailColorBtn.classList.remove('active');
+            }
             setTitleStyle({
                 ...titleStyle,
                 thumbnail: e.target.result,
                 color: ''
             });
-            thumbnailBox.current.style.backgroundImage += `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${e.target.result})`;
         };
     };
 
@@ -475,24 +489,23 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         thumbnailBox.current.classList.toggle('half')
     }
     const onColor = () => {
+        if (titleStyle.thumbnail) {
+            thumbnailBox.current.style.backgroundImage = '';
+            onTitleStyle('thumbnail', '');
+        }
         const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
         const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
-        const fontColorBtn = document.querySelector('.font-color-btn');
         if (thumbnailColorBtn.classList.contains('active')) {
             thumbnailColorBox.style.display = 'flex';
-            fontColorBtn.style.display = 'block';
             // 1. initialize titleStyle.color (red; first-order color)
             onTitleStyle('color', 'red');
-            thumbnailBox.current.classList.toggle('red');
         } else {
             thumbnailColorBox.style.display = 'none';
-            fontColorBtn.style.display = 'none';
             // 1. remove value from titleStyle.color
             thumbnailBox.current.classList.remove(titleStyle.color);
             onTitleStyle('color', '');
             // 2. fontColor -> black, btn active cancel
             titleStyle.fontColor = 'black';
-            document.querySelector('.font-color-btn > svg').classList.toggle('active');
         }
     }
 
@@ -541,38 +554,64 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
     // if thumbnail in TitleThumbnailBox -> set gradient & background-size
     useEffect(() => {
         const titleThumbnailBtn = document.querySelector('#title-thumbnail-btn');
+        const titleToolbar = document.querySelector('.title-toolbar');
         if (titleStyle.thumbnail) {
+            titleToolbar.classList.toggle('thumbnail')
             thumbnailBox.current.classList.toggle('thumbnail')
             titleThumbnailBtn.classList.add('active');
+            thumbnailBox.current.style.backgroundImage = `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${titleStyle.thumbnail})`;
         } else {
-            if (!titleStyle.thumbnail) {
-                if (titleThumbnailBtn.classList.contains('active')) titleThumbnailBtn.classList.remove('active');;
-                thumbnailBox.current.classList.toggle('thumbnail')
-            }
+            if (titleToolbar.classList.contains('thumbnail')) titleToolbar.classList.remove('thumbnail');
+            if (titleThumbnailBtn.classList.contains('active')) titleThumbnailBtn.classList.remove('active');
+            if (thumbnailBox.current.classList.contains('thumbnail')) thumbnailBox.current.classList.remove('thumbnail')
         }
     }, [titleStyle.thumbnail])
 
+    useEffect(() => {
+        const fontColorBtn = document.querySelector('.font-color-btn');
+        if (document.querySelector('#title-thumbnail-btn').classList.contains('active') || 
+            (document.querySelector('.thumbnail-color-btn')).classList.contains('active')
+            ) {
+            fontColorBtn.style.display = 'block';
+        } else {
+            fontColorBtn.style.display = 'none';
+        }
+    },[titleStyle.thumbnail, titleStyle.color])
+
+    // toggle thumbnail-color-btn titleStyle color
     const changeColor = e => {
         const colors = document.querySelectorAll(".color");
         if (e.target.nodeName !== 'LI') return;
         colors.forEach(color => {
-            // 만약 다른 버튼을 눌렀을 경우
-            if(color.classList !== e.target.classList) {
-                // 만약 지금 클래스를 포함시
-                if (thumbnailBox.current.classList.contains(color.classList[1])) {
-                    return thumbnailBox.current.classList.remove(color.classList[1])
-                } 
-            //같은 버튼일 경우
-            } else {
+            // 만약 같은 버튼을 눌렀을 경우
+            if(color.classList === e.target.classList) {
                 // 현재 포함 중일 때 그냥 리턴.
                 if (thumbnailBox.current.classList.contains(color.classList[1])) return;
                 else {
                     setTitleStyle(() => ({ ...titleStyle, color: color.classList[1]}))
-                    thumbnailBox.current.classList.toggle(color.classList[1])
                 }
             }
         })
     }
+
+    useEffect(() => {
+        const colors = ['red', 'orange', 'sky', 'blue', 'purple', 'yellow', 'mint', 'black', 'gray', 'green']
+        if (titleStyle.color) {
+            colors.forEach(color => {
+                if (titleStyle.color === color) {
+                    thumbnailBox.current.classList.add(color)
+                } else if (thumbnailBox.current.classList.contains(color)) {
+                    thumbnailBox.current.classList.remove(color);
+                }    
+            })
+        } else {
+            colors.forEach(color => {
+                if (thumbnailBox.current.classList.contains(color)) {
+                    thumbnailBox.current.classList.remove(color);
+                }    
+            }) 
+        }
+    },[titleStyle.color])
 
     return (
         <StyledEditor>
@@ -595,7 +634,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     />
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
                 </TitleBox>
-                <TitleToolbar onClick={onChangeFont}>
+                <TitleToolbar className="title-toolbar" onClick={onChangeFont}>
                     <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
                     <input onChange={onTitleImageUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
                     <div onClick={onSize}>
