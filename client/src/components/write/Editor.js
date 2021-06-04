@@ -15,7 +15,6 @@ const StyledEditor = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     /* 페이지 위아래 여백 지정 */
     /* padding-top: 5rem;
     padding-bottom: 5rem; */
@@ -56,7 +55,7 @@ const TitleThumbnailBox = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     position:relative;
-    width: 100%;
+    width: 100vw;
     height: 84vh;
     border-bottom: 1px solid lightgray;
     transition: all 0.5s;
@@ -82,7 +81,7 @@ const TitleThumbnailBox = styled.div`
     }
     &.center {
         justify-content: center;
-        align-items: center;
+        /* align-items: center; */
     }
 `;
 
@@ -90,11 +89,12 @@ const ThumbnailColorBox = styled.ul`
     display: none;
     justify-content: space-around;
     align-items: center;
-    width: 300px;
+    width: 260px;
     height: 30px;
     position: absolute;
-    padding: 0 20px;
     top: 40px;
+    right: 6vw;
+    padding: 0;
     li {
         width: 15px;
         height: 15px;
@@ -110,7 +110,10 @@ const ThumbnailColorBox = styled.ul`
         display: flex;
     }
     @media screen and (min-width: 481px) {
-        top: 20px;
+        right: 15vw;
+    }
+    @media screen and (min-width: 769px) {
+        right: 20vw;
     }
 `;
 const TitleInput = styled.textarea`
@@ -127,6 +130,7 @@ const TitleInput = styled.textarea`
     padding-left: 0.5rem;
     z-index: 11;
     opacity: 1;
+    width: 100%;
     @media screen and (min-width: 481px) {
         font-size: 2.25rem;
     }
@@ -160,6 +164,11 @@ const TitleBox = styled.div`
             }
         `
     };
+    &.center {
+        textarea, input {
+            text-align: center;
+        }
+    }
 `
 
 const TitleToolbar = styled.div`
@@ -169,15 +178,15 @@ const TitleToolbar = styled.div`
     Z-index: 9;
     top: 10px;
     /* flex-direction: row; */
-    width: 100%;
+    /* width: 100%; */
     justify-content: center;
     align-items: center;
-
     height: 2rem;
+    right: 6vw;
 
     .active {
-            color: #f5e83a;
-        }
+        color: #f5e83a;
+    }
     input {
         display: none;
     }
@@ -233,15 +242,17 @@ const TitleToolbar = styled.div`
         }
     }
     @media screen and (min-width: 481px) {
-        flex-direction: column;
+        right: 15vw;
+        /* flex-direction: column;
         width: 2rem !important;
         height: 280px;
         right: 8vw;
-        justify-content: flex-start;
+        justify-content: flex-start; */
     }
     @media screen and (min-width: 769px) {
-        flex-direction: column;
-        right: 15vw;
+        right: 20vw;
+        /* flex-direction: column;
+        right: 15vw; */
     }
 `;
 const TitlePositionModifier = styled.div`
@@ -272,6 +283,7 @@ const QuillWrapper = styled.div`
     position: relative;
     height: auto;
     padding-bottom: 12vh;
+    width: 100vw;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -511,9 +523,11 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, onChangeStyle}
     useEffect(() => {
         if (titleStyle.isCenter) {
             thumbnailBox.current.classList.add('center')
+            titleBox.current.classList.add('center')
         } else {
             if (thumbnailBox.current.classList.contains('center')) {
                 thumbnailBox.current.classList.remove('center')
+                titleBox.current.classList.remove('center')
             }
         }
     }, [titleStyle.isCenter])
@@ -658,19 +672,19 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, onChangeStyle}
                         <IoBrushOutline onClick={onActive}/>
                     </div>
                 </TitleToolbar>
+                <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
+                    <li className="color red"></li>
+                    <li className="color orange"></li>
+                    <li className="color yellow"></li>
+                    <li className="color green"></li>
+                    <li className="color blue"></li>
+                    <li className="color purple"></li>
+                    <li className="color mint"></li>
+                    <li className="color sky"></li>
+                    <li className="color black"></li>
+                    <li className="color gray"></li>
+                </ThumbnailColorBox>
             </TitleThumbnailBox>
-            <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
-                <li className="color red"></li>
-                <li className="color orange"></li>
-                <li className="color yellow"></li>
-                <li className="color green"></li>
-                <li className="color blue"></li>
-                <li className="color purple"></li>
-                <li className="color mint"></li>
-                <li className="color sky"></li>
-                <li className="color black"></li>
-                <li className="color gray"></li>
-            </ThumbnailColorBox>
             <QuillWrapper>
                 <div ref={quillElement}/>
             </QuillWrapper>
