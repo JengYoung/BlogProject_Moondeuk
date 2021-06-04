@@ -7,7 +7,6 @@ import { CgArrowsShrinkV } from 'react-icons/cg'
 import { IoBrushOutline } from 'react-icons/io5'
 import { IoIosColorPalette } from 'react-icons/io'
 import { IoImage } from 'react-icons/io5'
-import { useState } from 'react';
 /*
     Editor UI 컴포넌트
 */
@@ -382,15 +381,7 @@ const QuillWrapper = styled.div`
         }
     }
 `;
-const Editor = ({title, subtitle, body, onChangeText}) => {
-    const [ titleStyle, setTitleStyle ] = useState({
-        isCenter: false,
-        isFullSize: true,
-        thumbnail: '',
-        color: '',
-        fontColor: 'black',
-        font: '',
-    });
+const Editor = ({title, subtitle, body, onChangeText, titleStyle, setTitleStyle}) => {
 
     const onTitleStyle = (name, value) => {
         return setTitleStyle(titleStyle => ({

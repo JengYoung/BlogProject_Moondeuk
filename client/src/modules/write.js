@@ -12,13 +12,17 @@ const [ WRITE_DIARY_SUCCESS, WRITE_DIARY_FAILURE ] = createActionTypes(WRITE_DIA
 const SETTING_UPDATE = 'write/SETTING_UPDATE';
 const UPDATE_DIARY = 'write/UPDATE_DIARY';
 const [ UPDATE_DIARY_SUCCESS, UPDATE_DIARY_FAILURE ] = createActionTypes(UPDATE_DIARY);
+const CHANGE_STYLE = 'write/CHANGE_STYLE'; // change Title style
 
 /* create Action Creator*/ 
 export const changeText = createAction(CHANGE_TEXT, ({ name, value }) => ({
     name,
     value,
 }));
-
+export const changeStyle = createAction(CHANGE_STYLE, ({ name, value }) => ({
+    name, // isCenter, isFullSize, fontColor, thumbnail, font, color
+    value,
+}))
 export const initializeDiary = createAction(INITIALIZE_DIARY, diary => diary)
 export const writeDiary = createAction(WRITE_DIARY, ({ title, body, tags, titleStyle }) => ({
     title, // diary title
@@ -49,12 +53,27 @@ const initialState = {
     tags: [],
     diaryError: '',
     diary: '',
+    titleStyle: {
+        isCenter: false,
+        isFullSize: false,
+        color: '',
+        fontColor: 'black',
+        font: '',
+        thumbnail: '',
+    }
 };
 
 const writeReducer = handleActions({
     [CHANGE_TEXT]: (state, { payload: {name, value} }) => ({
         ...state,
         [name]: value
+    }),
+    [CHANGE_STYLE]: (state, { payload: {name, value} }) => ({
+        ...state,
+        titleStyle: {
+            ...state.titleStyle,
+            [name]: value
+        }
     }),
     [INITIALIZE_DIARY]: state => initialState,
     [WRITE_DIARY]: state => ({
