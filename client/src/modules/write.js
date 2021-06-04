@@ -20,10 +20,11 @@ export const changeText = createAction(CHANGE_TEXT, ({ name, value }) => ({
 }));
 
 export const initializeDiary = createAction(INITIALIZE_DIARY, diary => diary)
-export const writeDiary = createAction(WRITE_DIARY, ({ title, body, tags }) => ({
+export const writeDiary = createAction(WRITE_DIARY, ({ title, body, tags, titleStyle }) => ({
     title, // diary title
     body, // diary content
     tags, // diary tags
+    titleStyle,
 }));
 
 export const settingUpdate = createAction(SETTING_UPDATE, diary => diary);
