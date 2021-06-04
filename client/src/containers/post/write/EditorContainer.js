@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -12,15 +12,6 @@ function WriteFormContainer() {
         subtitle: writeReducer.subtitle,
         titleStyle: writeReducer.titleStyle
     }));
-    // const [ titleStyle, setTitleStyle ] = useState({
-    //     isCenter: false,
-    //     isFullSize: true,
-    //     thumbnail: '',
-    //     color: '',
-    //     fontColor: 'black',
-    //     font: '',
-    // });
-
     const dispatch = useDispatch();
     const onChangeText = useCallback(payload => dispatch(changeText(payload)), [dispatch]);
     const onChangeStyle = useCallback(payload => dispatch(changeStyle(payload)), [dispatch]);

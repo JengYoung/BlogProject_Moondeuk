@@ -381,13 +381,13 @@ const QuillWrapper = styled.div`
         }
     }
 `;
-const Editor = ({title, subtitle, body, onChangeText, titleStyle, setTitleStyle}) => {
+const Editor = ({title, subtitle, body, onChangeText, titleStyle, onChangeStyle}) => {
 
-    const onTitleStyle = (name, value) => {
-        return setTitleStyle(titleStyle => ({
-            ...titleStyle,
-            [name]: value,
-    }))}
+    // const onTitleStyle = (name, value) => {
+    //     return setTitleStyle(titleStyle => ({
+    //         ...titleStyle,
+    //         [name]: value,
+    // }))}
 
     const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
@@ -465,48 +465,48 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, setTitleStyle}
                 thumbnailColorBox.style.display = 'none';
                 thumbnailColorBtn.classList.remove('active');
             }
-            setTitleStyle({
-                ...titleStyle,
-                thumbnail: e.target.result,
-                color: ''
-            });
+            // setTitleStyle({
+            //     ...titleStyle,
+            //     thumbnail: e.target.result,
+            //     color: ''
+            // });
+            onChangeStyle({ name: 'thumbnail', value: e.target.result });
+            onChangeStyle({ name: 'color', value: '' });
         };
     };
 
     const onSize = () => {
-        setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
+        // setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
+        onChangeStyle({ name: 'isFullSize', value: !titleStyle.isFullSize })
         thumbnailBox.current.classList.toggle('half')
     }
     const onColor = () => {
         if (titleStyle.thumbnail) {
             thumbnailBox.current.style.backgroundImage = '';
-            onTitleStyle('thumbnail', '');
+            onChangeStyle({ name: 'thumbnail', value: '' });
         }
         const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
         const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
         if (thumbnailColorBtn.classList.contains('active')) {
             thumbnailColorBox.style.display = 'flex';
             // 1. initialize titleStyle.color (red; first-order color)
-            onTitleStyle('color', 'red');
+            onChangeStyle({ name: 'color', value: 'red'});
         } else {
             thumbnailColorBox.style.display = 'none';
             // 1. remove value from titleStyle.color
             thumbnailBox.current.classList.remove(titleStyle.color);
-            onTitleStyle('color', '');
+            onChangeStyle({ name: 'color', value: '' });
             // 2. fontColor -> black, btn active cancel
             titleStyle.fontColor = 'black';
         }
     }
 
     const onTitleColor = () => {
-        if (titleStyle.fontColor === 'black') onTitleStyle('fontColor', 'white');
-        else onTitleStyle('fontColor', 'black');
+        if (titleStyle.fontColor === 'black') onChangeStyle({ name: 'fontColor', value: 'white' });
+        else onChangeStyle({ name: 'fontColor', value: 'black' });
     }
     const onTitleCenter = () => {
-        setTitleStyle(titleStyle => ({
-            ...titleStyle,
-            isCenter: !(titleStyle.isCenter)
-        }))
+        onChangeStyle({ name: 'isCenter',  value: !(titleStyle.isCenter) })
     }
     useEffect(() => {
         if (titleStyle.isCenter) {
@@ -530,11 +530,11 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, setTitleStyle}
             } else {
                 if (item.classList.contains('active')) {
                     item.classList.remove('active');
-                    setTitleStyle(() => ({...titleStyle, font: ''}))
+                    onChangeStyle({ name: 'font', value: '' })
                     mainTitle.current.classList.remove(item.classList[1])
                 } else {
                     item.classList.toggle('active');
-                    setTitleStyle(() => ({...titleStyle, font: item.classList[1]}))
+                    onChangeStyle({ name: 'font', value: item.classList[1] })
                     mainTitle.current.classList.toggle(item.classList[1])
                 }
             }
@@ -586,7 +586,7 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, setTitleStyle}
                 // 현재 포함 중일 때 그냥 리턴.
                 if (thumbnailBox.current.classList.contains(color.classList[1])) return;
                 else {
-                    setTitleStyle(() => ({ ...titleStyle, color: color.classList[1]}))
+                    onChangeStyle({ name: 'color', value: color.classList[1] })
                 }
             }
         })
