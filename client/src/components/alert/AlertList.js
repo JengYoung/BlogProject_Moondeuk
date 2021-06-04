@@ -70,7 +70,7 @@ const AlertList = ({ alerts, onConform }) => {
         return () => {
             onConform()
         }
-    },[alerts]);
+    },[alerts, onConform]);
 
     return (
         <StyledAlertList>

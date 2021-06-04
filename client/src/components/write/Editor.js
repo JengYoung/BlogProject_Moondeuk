@@ -61,6 +61,10 @@ const TitleThumbnailBox = styled.div`
     height: 84vh;
     border-bottom: 1px solid lightgray;
     transition: all 0.5s;
+    
+    &.thumbnail {
+        background-size: cover;
+    }
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -153,7 +157,7 @@ const TitleBox = styled.div`
         `
     }
     ${props => 
-        props.isFontColor === 'white' && css`
+        (props.isFontColor === 'white') && css`
             input, textarea {
                 &::-webkit-input-placeholder {
                     color: white;
@@ -161,7 +165,7 @@ const TitleBox = styled.div`
                 color: white;
             }
         `
-    }
+    };
 `
 
 const TitleToolbar = styled.div`
@@ -180,6 +184,10 @@ const TitleToolbar = styled.div`
     .active {
             color: #f5e83a;
         }
+    input {
+        display: none;
+    }
+    label,
     div {
         position: relative;
         left: 0;
@@ -224,6 +232,7 @@ const TitleToolbar = styled.div`
         width: 2rem !important;
         height: 280px;
         right: 8vw;
+        justify-content: flex-start;
     }
     @media screen and (min-width: 769px) {
         flex-direction: column;
@@ -446,6 +455,21 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
         e.currentTarget.classList.toggle('active');
     }
+
+    const onTitleImageUpload = e => {
+        if (!e.target.files[0]) return;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(e.target.files[0]);
+        fileReader.onload = function (e) {
+            setTitleStyle({
+                ...titleStyle,
+                thumbnail: e.target.result,
+                color: ''
+            });
+            thumbnailBox.current.style.backgroundImage += `linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${e.target.result})`;
+        };
+    };
+
     const onSize = () => {
         setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
         thumbnailBox.current.classList.toggle('half')
@@ -514,6 +538,20 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
         console.log(titleStyle.color)
     },[titleStyle])
 
+    // if thumbnail in TitleThumbnailBox -> set gradient & background-size
+    useEffect(() => {
+        const titleThumbnailBtn = document.querySelector('#title-thumbnail-btn');
+        if (titleStyle.thumbnail) {
+            thumbnailBox.current.classList.toggle('thumbnail')
+            titleThumbnailBtn.classList.add('active');
+        } else {
+            if (!titleStyle.thumbnail) {
+                if (titleThumbnailBtn.classList.contains('active')) titleThumbnailBtn.classList.remove('active');;
+                thumbnailBox.current.classList.toggle('thumbnail')
+            }
+        }
+    }, [titleStyle.thumbnail])
+
     const changeColor = e => {
         const colors = document.querySelectorAll(".color");
         if (e.target.nodeName !== 'LI') return;
@@ -558,7 +596,8 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
                 </TitleBox>
                 <TitleToolbar onClick={onChangeFont}>
-                    <div><IoImage /></div>
+                    <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
+                    <input onChange={onTitleImageUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
                     <div onClick={onSize}>
                         <CgArrowsShrinkV onClick={onActive}/>
                     </div>
@@ -570,6 +609,7 @@ const Editor = ({title, subtitle, body, onChangeText}) => {
                     <div className="font-btn gamja-flower">가</div>
                     <div className="font-btn dancing-script">abc</div>
                     <TitlePositionModifier
+                        className="test"
                         isCenter={titleStyle.isCenter} 
                         onClick={onTitleCenter}
                     >
