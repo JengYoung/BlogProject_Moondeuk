@@ -39,13 +39,13 @@ export const postValidationCheck = async (req, res, next) => {
 }
 
 const writeController = async (req, res) => {
-    const { title, body, tags } = req.body;
-    const {_id, userId} = req.user;
-    console.log('body: ', body)
+    const { title, body, tags, titleStyle } = req.body;
+    const { _id, userId } = req.user;
     const post = new Post({
         title,
         body: sanitizeHtml(body),
         tags,
+        titleStyle,
         author: {
             _id,
             authorId: userId
