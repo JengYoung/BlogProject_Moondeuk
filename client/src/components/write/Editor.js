@@ -151,7 +151,9 @@ const SubtitleInput = styled.input`
 const TitleBox = styled.div`
     ${props =>
         props.isCenter && css`
-            text-align: center;
+            input, textarea {
+                text-align: center;
+            }
         `
     }
     ${props => 
@@ -631,7 +633,11 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, onChangeStyle}
     return (
         <StyledEditor>
             <TitleThumbnailBox ref={thumbnailBox} isCenter={titleStyle.isCenter} className="half">
-                <TitleBox isFontColor={titleStyle.fontColor} ref={titleBox}>
+                <TitleBox 
+                    isCenter={titleStyle.isCenter} 
+                    isFontColor={titleStyle.fontColor} 
+                    ref={titleBox}
+                >
                     <TitleInput 
                         ref={mainTitle}
                         onInput={onResizeTitle(mainTitle)}
