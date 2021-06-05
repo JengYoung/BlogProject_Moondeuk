@@ -581,14 +581,17 @@ const Editor = ({title, subtitle, body, onChangeText, titleStyle, onChangeStyle}
 
     useEffect(() => {
         const fontColorBtn = document.querySelector('.font-color-btn');
+        const fontColorIcon = document.querySelector('.font-color-btn > svg')
         if (document.querySelector('#title-thumbnail-btn').classList.contains('active') || 
             (document.querySelector('.thumbnail-color-btn')).classList.contains('active')
             ) {
             fontColorBtn.style.display = 'block';
         } else {
             fontColorBtn.style.display = 'none';
+            if (fontColorIcon.classList.contains('active')) fontColorIcon.classList.remove('active');
+            onChangeStyle({ name: 'fontColor', value: 'black' });
         }
-    },[titleStyle.thumbnail, titleStyle.color])
+    },[titleStyle.thumbnail, titleStyle.color, onChangeStyle])
 
     // toggle thumbnail-color-btn titleStyle color
     const changeColor = e => {
