@@ -5,7 +5,7 @@ import User from '../../models/user.js';
 const subscribedInfoController = async (req, res) => {
     const { authorId } = req.params;
     const checkId = await User.checkUserId(authorId);
-    const subscribeList = await Subscribe.find({ subscribeTo: checkId }).exec();
+    const subscribeList = await Subscribe.find({ subscribeTo: checkId }).lean();
     try {
         const result = await User.getUserIdAndNickname(subscribeList, 'subscribedFrom');
         return res.send({ subscribedFromList: result, count: subscribeList.length });

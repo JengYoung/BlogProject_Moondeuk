@@ -88,7 +88,7 @@ function SubscribeInfoContainer({ match }) {
 
     return (
         <>
-            { authorId && <UserInfo propId={authorId}></UserInfo> }
+            {/* { authorId && <UserInfo propId={authorId}></UserInfo> } */}
             { authorId && <SubscribeInfo 
                 authorId={authorId}
                 subscribe={subscribe} 

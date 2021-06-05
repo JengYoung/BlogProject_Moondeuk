@@ -107,9 +107,13 @@ const SubscribeInfo = (
             }
             <div>
                 <SubscribeListBtn onClick={onGetSubscribeList}>
-                    <div>{subscribeList.count}</div> Following
+                    <div>{subscribeList.count}</div> 
+                    <span>팔로잉</span>
                 </SubscribeListBtn>
-                <SubscribeListBtn onClick={onGetSubscribedList}><div>{subscribedList.count}</div> Followed</SubscribeListBtn>
+                <SubscribeListBtn onClick={onGetSubscribedList}>
+                    <div>{subscribedList.count}</div>
+                    <span>팔로우</span>
+                </SubscribeListBtn>
             </div>
         </StyledSubscribeInfo>
     );

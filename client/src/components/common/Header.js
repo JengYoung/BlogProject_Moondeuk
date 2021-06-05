@@ -205,7 +205,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
                                     checkUser={checkUser}
                                 />
                                 <UserInfo>
-                                    {!openLogout && <HeaderUserName>{user.userId}</HeaderUserName>}
+                                    {/* {!openLogout && <HeaderUserName>{user.userId}</HeaderUserName>} */}
                                     {openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
                                     <HeaderOptionBtn openLogout={openLogout} onClick={onOpenLogout}>
                                         <AiOutlineEllipsis/>

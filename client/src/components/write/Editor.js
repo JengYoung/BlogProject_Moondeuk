@@ -301,6 +301,7 @@ const QuillWrapper = styled.div`
         position: relative;
         right: 0;
         width: 100%;
+        padding: 0 1rem;
         margin-top: 2rem;
         z-index: 9;
         .ql-formats {
