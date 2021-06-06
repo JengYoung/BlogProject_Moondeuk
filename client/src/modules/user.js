@@ -30,7 +30,8 @@ const initialState = {
 };
 
 export const getUserInfo = createAction(GET_USERINFO, userId => userId);
-const getUserInfoSaga = (GET_USERINFO, getUserInfoAPI)
+
+const getUserInfoSaga = createSaga(GET_USERINFO, getUserInfoAPI)
 const checkSaga = createSaga(CHECK, checkAPI);
 const checkFailureSaga = () => {
     try {   

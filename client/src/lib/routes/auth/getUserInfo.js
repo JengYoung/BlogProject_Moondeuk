@@ -1,6 +1,6 @@
 import client from '../client'
 
-const getUserInfoAPI = (userId) => {
+const getUserInfoAPI = ({ userId }) => {
     return client.post('/routes/auth/getUserInfo', { userId });
 }
 

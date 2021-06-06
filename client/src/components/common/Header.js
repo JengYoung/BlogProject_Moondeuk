@@ -156,14 +156,14 @@ const LoginLink = styled(Link)`
         `
     }
 `;
-const HeaderUserName = styled.div`
-    margin-right: 0.5vw;
-    font-weight: 700;
-    padding: 0 0.5rem;
-    @media screen and (min-width: 481px) {
-        margin-right: 1vw;
-    }
-`;
+// const HeaderUserName = styled.div`
+//     margin-right: 0.5vw;
+//     font-weight: 700;
+//     padding: 0 0.5rem;
+//     @media screen and (min-width: 481px) {
+//         margin-right: 1vw;
+//     }
+// `;
 
 const AlertBox = styled.div`
     display: block;

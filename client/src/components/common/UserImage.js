@@ -17,12 +17,20 @@ const StyledUserImage = styled.div`
             background-size: cover;
         `
     }
+    ${ props => 
+        props.isSubscribePage && css`
+            margin-top: 3rem;
+            width: 200px;
+            height: 200px;
+            border-radius: 200px;
+        `
+    }
 `;
 
-const UserImage = ({ userImage }) => {
+const UserImage = ({ isSubscribePage, userImage }) => {
     const imgUrl = userImage ? '/img/' + userImage.replace('\\', '/') : null;
     return (
-        <StyledUserImage imgUrl={imgUrl}>
+        <StyledUserImage isSubscribePage={isSubscribePage} imgUrl={imgUrl}>
             
         </StyledUserImage>
     );

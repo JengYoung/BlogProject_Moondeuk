@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
-import UserInfo from '../../../components/common/UserInfo';
 import SubscribeInfo from '../../../components/list/SubscribeInfo';
 import { alertUser } from '../../../modules/alert';
 import { checkSubscribe, initializeSubscribe, subscribeUser, unSubscribeUser } from '../../../modules/subscribe';
 import { getSubscribeList, getSubscribedList } from '../../../modules/subscribeList';
+import { getUserInfo } from '../../../modules/user';
 
 function SubscribeInfoContainer({ match }) {
     const { authorId } = match.params ? match.params : null;
@@ -13,11 +13,12 @@ function SubscribeInfoContainer({ match }) {
     const [ modal, setModal ] = useState(false);
     const [ isSubscribeList, setIsSubscribeList ] = useState(true);
     const dispatch = useDispatch();
-    const { user, 
+    const { user, otherUserInfo,
             subscribe, subscribeError, 
             subscribeList, subscribedList, 
             subscribeListError } = useSelector(({ userReducer, subscribeReducer, subscribeListReducer }) => ({
             user: userReducer.user,
+            otherUserInfo: userReducer.otherUserInfo,
             subscribe: subscribeReducer.subscribe,
             subscribeError: subscribeReducer.subscribeError,
             subscribeList: subscribeListReducer.subscribeList,
@@ -31,6 +32,11 @@ function SubscribeInfoContainer({ match }) {
     /*
         return true if unSubscribe yet
     */
+    useEffect(() => {
+        if (!authorId) return;
+        dispatch(getUserInfo({ userId: authorId }))
+    }, [dispatch, authorId]);
+
     useEffect(() => {
         dispatch(getSubscribeList({ authorId }));
         dispatch(getSubscribedList({ authorId }));
@@ -101,6 +107,7 @@ function SubscribeInfoContainer({ match }) {
                 subscribeList={subscribeList}
                 subscribedList={subscribedList}
                 isSubscribeList={isSubscribeList}
+                otherUserInfo={otherUserInfo}
                 modal={modal}
                 onConfirm={onConfirm}
             /> }

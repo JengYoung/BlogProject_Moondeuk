@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 import ResponsiveWrapper from '../common/Responsive';
 import SubscribeListModal from '../subscribe/SubscribeListModal';
 import {AiFillStar} from 'react-icons/ai';
+import UserImage from '../common/UserImage';
+import UserNameBox from '../common/UserNameBox';
 /*
 */
 
@@ -83,11 +85,14 @@ const SubscribeInfo = (
         onGetSubscribedList, 
         onConfirm, 
         subscribeList,
-        subscribedList
+        subscribedList,
+        otherUserInfo
     }) => {
     const { subscribeToList } = subscribeList;
     const { subscribedFromList } = subscribedList;
     // console.log("subscribe: ", subscribe)
+    const otherUserImage = otherUserInfo ? otherUserInfo.userImage : null;
+    const otherUserNickname = otherUserInfo ? otherUserInfo.nickname : null;
     return (
         <StyledSubscribeInfo>
             <SubscribeListModal 
@@ -97,6 +102,12 @@ const SubscribeInfo = (
                 subscribedFromList={subscribedFromList} 
                 onConfirm={onConfirm}>
             </SubscribeListModal>
+            <UserImage isSubscribePage userImage={otherUserImage}/>
+            <UserNameBox 
+                isSubscribePage
+                user_id={authorId}
+                nickname={otherUserNickname}
+            />
             {
                 (subscribe) ? 
                     <StyledSubscribeBtn isSubscribe={true} onClick={onUnSubscribe}>
@@ -108,11 +119,11 @@ const SubscribeInfo = (
             <div>
                 <SubscribeListBtn onClick={onGetSubscribeList}>
                     <div>{subscribeList.count}</div> 
-                    <span>팔로잉</span>
+                    <span>구독 중</span>
                 </SubscribeListBtn>
                 <SubscribeListBtn onClick={onGetSubscribedList}>
                     <div>{subscribedList.count}</div>
-                    <span>팔로우</span>
+                    <span>구독자</span>
                 </SubscribeListBtn>
             </div>
         </StyledSubscribeInfo>
