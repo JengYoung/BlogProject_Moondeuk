@@ -22,6 +22,12 @@ const StyledAlertBtn = styled.button`
     }
     &:hover {
         cursor: pointer;
+        color: #ffee00;
+        border: 1px solid #ffee00;
+    }
+        &:hover {
+        color: #ffee00;
+        border: 1px solid #ffee00;
     }
     ${props => (props.count > 0) && css`
         color:  #ffe600;
@@ -31,7 +37,7 @@ const StyledAlertBtn = styled.button`
     @media screen and (min-width: 481px) {
         width: 3rem;
         height: 3rem;
-        margin-right: 0.25rem;
+        margin-right: 0.5rem;
     }
 `;
 const StyledCount = styled.div`

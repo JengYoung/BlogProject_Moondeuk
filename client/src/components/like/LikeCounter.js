@@ -27,7 +27,6 @@ const StyledLikeCounter = styled.div`
 `;
 
 const LikeCounter = ({ typeName, modal, onLikeList, likeUsersList }) => {
-    console.log("LikeCounter: ", likeUsersList, typeName)
     return (
         <>
             { modal && 

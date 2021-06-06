@@ -23,6 +23,8 @@ const StyledUserId = styled.h2`
 `
 
 const UserNameBox = (props) => {
+    console.log('hi');
+
     return (
         <StyledNameBox {...props}>
             <StyledUserNickName>{props.nickname}</StyledUserNickName>
@@ -31,4 +33,4 @@ const UserNameBox = (props) => {
     );
 };
 
-export default UserNameBox;
+export default React.memo(UserNameBox);

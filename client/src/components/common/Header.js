@@ -8,6 +8,9 @@ import UserImageBox from './UserImageBox';
 import AlertList from '../alert/AlertList';
 import { useCallback } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai'
+import { GoSearch } from "react-icons/go";
+
+import CircleBtn from './CircleBtn';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -156,14 +159,13 @@ const LoginLink = styled(Link)`
         `
     }
 `;
-// const HeaderUserName = styled.div`
-//     margin-right: 0.5vw;
-//     font-weight: 700;
-//     padding: 0 0.5rem;
-//     @media screen and (min-width: 481px) {
-//         margin-right: 1vw;
-//     }
-// `;
+const HeaderUserName = styled.div`
+    margin-right: 0.5vw;
+    font-weight: 700;
+    @media screen and (min-width: 481px) {
+        margin-right: 1vw;
+    }
+`;
 
 const AlertBox = styled.div`
     display: block;
@@ -171,6 +173,17 @@ const AlertBox = styled.div`
     @media screen and (min-width: 481px) {
         display: flex;
         justify-content: center;
+    }
+`;
+
+const SearchBtn = styled(CircleBtn)`
+    margin-right: 0.25rem;
+    &:hover {
+        color: #ffee00;
+        border: 1px solid #ffee00;
+    }
+    @media screen and (min-width: 481px) {
+        margin-right: 0.5rem;
     }
 `;
 
@@ -194,18 +207,19 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
                     <StyledAlertWrapper>
                         {user ? (
                             <UserInfoBox>
-                                <AlertBox>
+                                {!openLogout && <AlertBox>
                                     <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>
                                     {openAlertList && <AlertList alerts={alerts} onConform={onConform}/>}
-                                </AlertBox>
-                                <UserImageBox 
+                                </AlertBox>}
+                                {!openLogout && <UserImageBox 
                                     user_id={user_id} 
                                     user_image={userImage} 
                                     isHeader 
                                     checkUser={checkUser}
-                                />
+                                />}
+                                {!openLogout && <SearchBtn><GoSearch/></SearchBtn>}
                                 <UserInfo>
-                                    {/* {!openLogout && <HeaderUserName>{user.userId}</HeaderUserName>} */}
+                                    {openLogout && <HeaderUserName>{user.nickname ? `${user.nickname}` : ''}</HeaderUserName>}
                                     {openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
                                     <HeaderOptionBtn openLogout={openLogout} onClick={onOpenLogout}>
                                         <AiOutlineEllipsis/>
