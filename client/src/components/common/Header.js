@@ -316,8 +316,9 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
             {openSearchBar && 
                 <SearchBar>
                     <OptionBox defaultValue="contents">
-                        <option value="userInfo">ID+닉네임</option>
-                        <option value="contents">제목+태그</option>
+                        <option value="user">ID+닉네임</option>
+                        <option value="title">제목</option>
+                        <option value="tag">태그</option>
                     </OptionBox>
                     <SearchForm>
                         <SearchFormInput type="search"/>
