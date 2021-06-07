@@ -29,3 +29,5 @@ const SearchController = async (req, res) => {
         res.status(400).send(e); // 잘못된 요청
     }
 }
+
+export default SearchController;
