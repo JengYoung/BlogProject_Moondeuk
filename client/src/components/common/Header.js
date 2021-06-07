@@ -193,7 +193,7 @@ const SearchBar = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 75;
     width: 100%;
     /* height: 5rem; */
     background: white;
