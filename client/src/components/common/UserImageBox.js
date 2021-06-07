@@ -73,12 +73,8 @@ const StyledSettingImageLabel = styled.label`
     }
 `;
 const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
-    console.log("userImage, userId: ", user_image)
-    console.log("checkUser; ", checkUser);
     const imgUrl = user_image ? '/img/' + user_image.replace('\\', '/') : null;
-    console.log(imgUrl)
     const onChange = (e) => {
-        console.log(user_id)
         const imgFiles = e.target.files
         console.log("onChange", imgFiles);
         userImgUploadAPI(user_id, imgFiles)

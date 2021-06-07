@@ -187,15 +187,88 @@ const SearchBtn = styled(CircleBtn)`
     }
 `;
 
+const SearchBar = styled.div`
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    width: 100%;
+    /* height: 5rem; */
+    background: white;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+`;
+
+const SearchForm = styled.form`
+    padding: 0.5 0rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+`
+
+const OptionBox = styled.select`
+    position: relative;
+    margin: 0.5rem 0;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: 8rem;
+    border: 1px solid #bd98bd;
+    color: #bd98bd;
+    border-radius: 0.8rem;
+    outline: none;
+    text-align-last: center;
+    justify-content: center;
+
+    *:hover {
+        background: pink;
+    }
+`;
+
+const SearchFormInput = styled.input`
+    width: 50%;
+    height: 2.5rem;
+    min-width: 200px;
+    border: none;
+    border-bottom: 3px solid #bd98bd;
+    outline: none;
+    font-weight: 600;
+`;
+
+const SearchFormBtn = styled(CircleBtn)`
+    color: #bd98bd;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;    
+    }
+    &:hover {
+        cursor: pointer;
+        background: #bd98bd;
+        color: white;
+    }
+`;
+
+
+
+
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => {
     const user_id = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);
+    const [ openSearchBar, setOpenSearchBar ] = useState(false);
     const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
     const onOpenLogout = useCallback(() => {
             setopenLogout(!openLogout); 
     }, [openLogout]);
+
     return (
         <>
             <StyledHeader>
@@ -217,7 +290,12 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
                                     isHeader 
                                     checkUser={checkUser}
                                 />}
-                                {!openLogout && <SearchBtn><GoSearch/></SearchBtn>}
+                                {!openLogout && 
+                                    <SearchBtn 
+                                        onClick={() => setOpenSearchBar(() => !openSearchBar)}
+                                    >
+                                        <GoSearch/>
+                                    </SearchBtn>}
                                 <UserInfo>
                                     {openLogout && <HeaderUserName>{user.nickname ? `${user.nickname}` : ''}</HeaderUserName>}
                                     {openLogout && <LoginLink to="/" onClick={onLogout}>로그아웃</LoginLink>}
@@ -235,6 +313,17 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
                 </Wrapper> 
             </StyledHeader>
             <Spacer/>
+            {openSearchBar && 
+                <SearchBar>
+                    <OptionBox defaultValue="contents">
+                        <option value="userInfo">ID+닉네임</option>
+                        <option value="contents">제목+태그</option>
+                    </OptionBox>
+                    <SearchForm>
+                        <SearchFormInput type="search"/>
+                        <SearchFormBtn><GoSearch/></SearchFormBtn>
+                    </SearchForm>    
+                </SearchBar>}
         </>
     )
 };

@@ -12,7 +12,7 @@ body {
   height: 100%;
 }
 
-textarea, input {
+textarea, input, option, select {
   font-family: 'Noto Sans KR', sans-serif;
 }
 img {
