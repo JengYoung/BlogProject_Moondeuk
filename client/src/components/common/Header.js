@@ -11,6 +11,7 @@ import { AiOutlineEllipsis } from 'react-icons/ai'
 import { GoSearch } from "react-icons/go";
 
 import CircleBtn from './CircleBtn';
+import { useRef } from 'react';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -269,6 +270,11 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
             setopenLogout(!openLogout); 
     }, [openLogout]);
 
+    const searchSelectBox = useRef(null);
+    const onSubmit = e => {
+        e.preventDefault();
+        console.log(searchSelectBox.current.value)    
+    };
     return (
         <>
             <StyledHeader>
@@ -315,12 +321,12 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform }) => 
             <Spacer/>
             {openSearchBar && 
                 <SearchBar>
-                    <OptionBox defaultValue="contents">
+                    <OptionBox defaultValue="contents" ref={searchSelectBox}>
                         <option value="user">ID+닉네임</option>
                         <option value="title">제목</option>
                         <option value="tag">태그</option>
                     </OptionBox>
-                    <SearchForm>
+                    <SearchForm onSubmit={onSubmit}>
                         <SearchFormInput type="search"/>
                         <SearchFormBtn><GoSearch/></SearchFormBtn>
                     </SearchForm>    

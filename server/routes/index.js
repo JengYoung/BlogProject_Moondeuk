@@ -8,6 +8,7 @@ import replyComment from './replyComment/index.js';
 import alert from './alert/index.js';
 import upload from './upload/index.js';
 import image from './image/index.js';
+import search from './search/index.js';
 
 const routes = express.Router();
 
@@ -20,4 +21,6 @@ routes.use('/replyComment', replyComment);
 routes.use('/alert', alert);
 routes.use('/upload', upload);
 routes.use('/image', image);
+routes.use('/search', search);
+
 export default routes;
