@@ -3,9 +3,9 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import SearchWrapper from '../../components/search/SearchWrapper';
-import { searchKeyword } from '../../modules/search';
+import { changeKeyword, searchKeyword } from '../../modules/search';
 
-function SearchContianer() {
+function SearchWrapperContianer() {
     const dispatch = useDispatch();
     const { keywordType, keyword, isOpenSearchBar } = useSelector(({ searchReducer }) => ({
         keywordType: searchReducer.keywordType,
@@ -13,7 +13,10 @@ function SearchContianer() {
         isOpenSearchBar: searchReducer.isOpenSearchBar,
     }));
 
-    const changeKeyword =  useCallback(({ name, value }) => dispatch(changeKeyword({ name, value })), [dispatch])
+    const onChangeKeyword =  useCallback(payload => {
+        dispatch(changeKeyword(payload))
+    }, [dispatch])
+    
     const onSearch = () => {
         dispatch(searchKeyword({ keywordType, keyword }))
     };
@@ -21,11 +24,11 @@ function SearchContianer() {
         <SearchWrapper
             keywordType={keywordType}
             keyword={keyword}
-            changeKeyword={changeKeyword}
+            onChangeKeyword={onChangeKeyword}
             onSearch={onSearch}
             isOpenSearchBar={isOpenSearchBar}
         />
     )
 }
 
-export default SearchContianer;
+export default SearchWrapperContianer;

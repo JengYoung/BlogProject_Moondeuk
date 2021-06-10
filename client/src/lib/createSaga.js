@@ -3,7 +3,6 @@ import { loadingFinish, loadingStart } from '../modules/loading';
 import createActionTypes from './createActionTypes';
 
 function createSaga(type, request) {
-    console.log("type", type)
     const [SUCCESS, FAILURE] = createActionTypes(type);
     return function*(action) {
         yield put(loadingStart(type));

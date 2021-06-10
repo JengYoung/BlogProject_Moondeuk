@@ -11,7 +11,7 @@ const [ SEARCH_KEYWORD_SUCCESS, SEARCH_KEYWORD_FAILURE ] = createActionTypes(SEA
 
 export const openSearchBar = createAction(OPEN_SEARCHBAR, isOpenSearchBar => isOpenSearchBar);
 export const changeKeyword = createAction(CHANGE_KEYWORD, ({ name, value }) => ({
-    name, // keywordType & keyword
+    name, // keywordType or keyword
     value // name's value
 }))
 export const searchKeyword = createAction(SEARCH_KEYWORD, search => search)
@@ -24,7 +24,7 @@ export function* searchSaga() {
 
 const initialState = {
     isOpenSearchBar: false,
-    keywordType: '',
+    keywordType: 'title',
     keyword: '',
     searchResult: null,
     searchError: null,

@@ -3,23 +3,46 @@ import { useRef } from 'react';
 import styled from 'styled-components';
 import CircleBtn from '../common/CircleBtn';
 import { GoSearch } from 'react-icons/go'
+import { useEffect } from 'react';
 /**
 **/
 
-const SearchBar = styled.div`
+const StyledSearchWrapper = styled.div`
     position: fixed;
+    z-index: 75;
+    width: 100%;
+    height: 92vh;
+    @media screen and (min-width: 481px) {
+        height: 90vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 88vh;
+    }
+`;
+
+const SearchBar = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 75;
     width: 100%;
-    /* height: 5rem; */
+    height: 16vh;
     background: white;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
 `;
 
+const SearchResultBox = styled.section`
+    height: 76vh;
+    background: white;
+    @media screen and (min-width: 481px) {
+        height: 74vh;
+    }
+    @media screen and (min-width: 769px) {
+        height: 72vh;
+    }
+`
 const SearchForm = styled.form`
     padding: 0.5 0rem;
     width: 100%;
@@ -29,7 +52,7 @@ const SearchForm = styled.form`
     margin-bottom: 1rem;
 `
 
-const OptionBox = styled.select`
+const KeywordTypeBox = styled.select`
     position: relative;
     margin: 0.5rem 0;
     display: flex;
@@ -74,30 +97,36 @@ const SearchFormBtn = styled(CircleBtn)`
     }
 `;
 
-const StyledSearchWrapper = styled.div`
-    width: 100%;
-    height: 100%;
-`;
 
-const SearchWrapper = ({ keywordType, keyword, changeKeyword, onSearch, isOpenSearchBar }) => {
-    
-    const searchSelectBox = useRef(null);
+
+const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpenSearchBar }) => {
+    useEffect(() => {
+        if (!isOpenSearchBar) return searchWrapper.current.style.display = 'none';
+        else return searchWrapper.current.style.display = 'block';
+    })
+    const searchWrapper = useRef(null);
+    const keywordTypeBox = useRef(null);
+    const onChange = e => {
+        const { name, value } = e.target;
+        onChangeKeyword({ name, value })
+    }
+
     return (
-        <StyledSearchWrapper>
-            {isOpenSearchBar && 
-                <SearchBar>
-                    <OptionBox defaultValue="contents" ref={searchSelectBox}>
-                        <option value="user">ID+닉네임</option>
-                        <option value="title">제목</option>
-                        <option value="tag">태그</option>
-                    </OptionBox>
-                    <SearchForm>
-                        <SearchFormInput type="search"/>
-                        <SearchFormBtn><GoSearch/></SearchFormBtn>
-                    </SearchForm>    
-                </SearchBar>}
+        <StyledSearchWrapper ref={searchWrapper}>
+            <SearchBar>
+                <KeywordTypeBox name="keywordType" onChange={onChange} ref={keywordTypeBox}>
+                    <option value="user">ID+닉네임</option>
+                    <option value="title">제목</option>
+                    <option value="tag">태그</option>
+                </KeywordTypeBox>
+                <SearchForm>
+                    <SearchFormInput name="keyword" type="search" onChange={onChange}/>
+                    <SearchFormBtn><GoSearch/></SearchFormBtn>
+                </SearchForm>    
+            </SearchBar>
+            <SearchResultBox/>
         </StyledSearchWrapper>
     );
 };
 
-export default SearchWrapper;
+export default React.memo(SearchWrapper);
