@@ -33,16 +33,16 @@ const SearchController = async (req, res) => {
                         userImage,
                     }
                 })
-                return res.send({ idData: idResult, nicknameData: nicknameResult })
+                return res.send({ keywordType, idData: idResult, nicknameData: nicknameResult })
             case 'title': 
                 const titleRegex = new RegExp(`${keyword}+`);
                 const titleData = await Post.find({ title: { $regex: titleRegex, $options: 'x' } }).lean();
-                return res.send({ titleData });
+                return res.send({ keywordType, titleData });
             case 'tag':
                 // 만약 해시태그를 앞에 붙여도, 띄어쓰기를 해도 없어지도록 정규표현식 작성
                 const tagRegex = new RegExp(`${keyword}`);
                 const tagData = await Post.find({ tag: { $regex: keyword, $options: 'x', $in: [tagRefinedKeyword] }}).lean();
-                return res.send({ tagData });
+                return res.send({ keywordType, tagData });
             default:
                 return res.status(400).send(e);
         }

@@ -5,11 +5,13 @@ import searchKeywordAPI from '../lib/routes/search/search'
 import { takeLatest } from 'redux-saga/effects'
 
 const OPEN_SEARCHBAR = 'search/OPEN_SEARCHBAR';
+const INITIALIZE_SEARCHBAR = 'search/INITIALIZE_SEARCHBAR';
 const CHANGE_KEYWORD = 'search/CHANGE_KEYWORD';
 const SEARCH_KEYWORD = 'search/SEARCH';
 const [ SEARCH_KEYWORD_SUCCESS, SEARCH_KEYWORD_FAILURE ] = createActionTypes(SEARCH_KEYWORD);
 
 export const openSearchBar = createAction(OPEN_SEARCHBAR, isOpenSearchBar => isOpenSearchBar);
+export const initializeSearchBar = createAction(INITIALIZE_SEARCHBAR, search => search);
 export const changeKeyword = createAction(CHANGE_KEYWORD, ({ name, value }) => ({
     name, // keywordType or keyword
     value // name's value
@@ -24,7 +26,7 @@ export function* searchSaga() {
 
 const initialState = {
     isOpenSearchBar: false,
-    keywordType: 'title',
+    keywordType: 'user',
     keyword: '',
     searchResult: null,
     searchError: null,
@@ -35,6 +37,7 @@ const searchReducer = handleActions({
         ...state,
         isOpenSearchBar,
     }),
+    [INITIALIZE_SEARCHBAR]: state => initialState,
     [CHANGE_KEYWORD]: (state, { payload: { name, value }}) => ({
         ...state,
         [name]: value,

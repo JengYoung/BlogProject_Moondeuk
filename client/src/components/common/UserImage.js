@@ -30,9 +30,7 @@ const StyledUserImage = styled.div`
 const UserImage = ({ isSubscribePage, userImage }) => {
     const imgUrl = userImage ? '/img/' + userImage.replace('\\', '/') : null;
     return (
-        <StyledUserImage isSubscribePage={isSubscribePage} imgUrl={imgUrl}>
-            
-        </StyledUserImage>
+        <StyledUserImage isSubscribePage={isSubscribePage} imgUrl={imgUrl}/>
     );
 };
 

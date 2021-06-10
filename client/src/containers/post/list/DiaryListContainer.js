@@ -13,7 +13,6 @@ function DiaryListContainer({ match, location }) {
     }));
     
     useEffect(() => {
-        console.log(match.params);
         const { authorId } = match.params;
         const { tag } = qs.parse(location.search, {
             ignoreQueryPrefix: true,

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CircleBtn from '../common/CircleBtn';
 import { GoSearch } from 'react-icons/go'
 import { useEffect } from 'react';
+import SearchResultBox from './SearchResultBox';
 /**
 **/
 
@@ -33,16 +34,6 @@ const SearchBar = styled.div`
     border-bottom: 1px solid lightgray;
 `;
 
-const SearchResultBox = styled.section`
-    height: 76vh;
-    background: white;
-    @media screen and (min-width: 481px) {
-        height: 74vh;
-    }
-    @media screen and (min-width: 769px) {
-        height: 72vh;
-    }
-`
 const SearchForm = styled.form`
     padding: 0.5 0rem;
     width: 100%;
@@ -72,7 +63,7 @@ const KeywordTypeBox = styled.select`
 `;
 
 const SearchFormInput = styled.input`
-    width: 50%;
+    width: 300px;
     height: 2.5rem;
     min-width: 200px;
     border: none;
@@ -99,7 +90,7 @@ const SearchFormBtn = styled(CircleBtn)`
 
 
 
-const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpenSearchBar }) => {
+const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpenSearchBar, initializeBar, searchResult }) => {
     useEffect(() => {
         if (!isOpenSearchBar) return searchWrapper.current.style.display = 'none';
         else return searchWrapper.current.style.display = 'block';
@@ -110,21 +101,32 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
         const { name, value } = e.target;
         onChangeKeyword({ name, value })
     }
+    const onSubmit = e => {
+        e.preventDefault();
+        onSearch();
+    }
+
+    useEffect(() => {
+        initializeBar()
+        return () => {
+            initializeBar()
+        }
+    }, [])
 
     return (
         <StyledSearchWrapper ref={searchWrapper}>
             <SearchBar>
-                <KeywordTypeBox name="keywordType" onChange={onChange} ref={keywordTypeBox}>
+                <KeywordTypeBox name="keywordType" onChange={onChange} ref={keywordTypeBox} value={keyword}>
                     <option value="user">ID+닉네임</option>
                     <option value="title">제목</option>
                     <option value="tag">태그</option>
                 </KeywordTypeBox>
-                <SearchForm>
-                    <SearchFormInput name="keyword" type="search" onChange={onChange}/>
+                <SearchForm onSubmit={onSubmit}>
+                    <SearchFormInput name="keyword" type="search" onChange={onChange} value={keyword}/>
                     <SearchFormBtn><GoSearch/></SearchFormBtn>
                 </SearchForm>    
             </SearchBar>
-            <SearchResultBox/>
+            <SearchResultBox keywordType={keywordType} keyword={keyword} searchResult={searchResult} />
         </StyledSearchWrapper>
     );
 };
