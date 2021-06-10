@@ -5,14 +5,16 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Header from '../components/common/Header'
 import { conformAlertUser } from '../modules/alert';
+import { openSearchBar } from '../modules/search';
 import { check, logout } from '../modules/user';
 import SideBarContainer from './SideBarContainer';
 
 const HeaderContainer = (props) => {
     const [ isSideBar, setIsSideBar ] = useState(false);
-    const { user, alerts } = useSelector(({ userReducer, alertReducer }) => ({ 
+    const { user, alerts, isOpenSearchBar } = useSelector(({ userReducer, alertReducer, searchReducer }) => ({ 
         user: userReducer.user,
         alerts: alertReducer.alerts, 
+        isOpenSearchBar: searchReducer.isOpenSearchBar,
     }));
     const user_id = user ? user._id : null;
     const dispatch = useDispatch();
@@ -30,6 +32,9 @@ const HeaderContainer = (props) => {
         dispatch(conformAlertUser(user_id))
     }, [dispatch,user_id]);
 
+    const onOpenSearchBar = useCallback(() => {
+        dispatch(openSearchBar(!isOpenSearchBar))
+    }, [dispatch, isOpenSearchBar]);
     return (
         <>
             <Header 
@@ -40,6 +45,7 @@ const HeaderContainer = (props) => {
                 onSideBar={onSideBar}
                 alerts={alerts}
                 onConform={onConform}
+                onOpenSearchBar={onOpenSearchBar}
             />
             <SideBarContainer isSideBar={isSideBar} onSideBar={onSideBar} />
         </>

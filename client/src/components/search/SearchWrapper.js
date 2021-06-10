@@ -1,0 +1,103 @@
+import React from 'react'
+import { useRef } from 'react';
+import styled from 'styled-components';
+import CircleBtn from '../common/CircleBtn';
+import { GoSearch } from 'react-icons/go'
+/**
+**/
+
+const SearchBar = styled.div`
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 75;
+    width: 100%;
+    /* height: 5rem; */
+    background: white;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+`;
+
+const SearchForm = styled.form`
+    padding: 0.5 0rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+`
+
+const OptionBox = styled.select`
+    position: relative;
+    margin: 0.5rem 0;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: 8rem;
+    border: 1px solid #bd98bd;
+    color: #bd98bd;
+    border-radius: 0.8rem;
+    outline: none;
+    text-align-last: center;
+    justify-content: center;
+
+    *:hover {
+        background: pink;
+    }
+`;
+
+const SearchFormInput = styled.input`
+    width: 50%;
+    height: 2.5rem;
+    min-width: 200px;
+    border: none;
+    border-bottom: 3px solid #bd98bd;
+    outline: none;
+    font-weight: 600;
+`;
+
+const SearchFormBtn = styled(CircleBtn)`
+    color: #bd98bd;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;    
+    }
+    &:hover {
+        cursor: pointer;
+        background: #bd98bd;
+        color: white;
+    }
+`;
+
+const StyledSearchWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+`;
+
+const SearchWrapper = ({ keywordType, keyword, changeKeyword, onSearch, isOpenSearchBar }) => {
+    
+    const searchSelectBox = useRef(null);
+    return (
+        <StyledSearchWrapper>
+            {isOpenSearchBar && 
+                <SearchBar>
+                    <OptionBox defaultValue="contents" ref={searchSelectBox}>
+                        <option value="user">ID+닉네임</option>
+                        <option value="title">제목</option>
+                        <option value="tag">태그</option>
+                    </OptionBox>
+                    <SearchForm>
+                        <SearchFormInput type="search"/>
+                        <SearchFormBtn><GoSearch/></SearchFormBtn>
+                    </SearchForm>    
+                </SearchBar>}
+        </StyledSearchWrapper>
+    );
+};
+
+export default SearchWrapper;

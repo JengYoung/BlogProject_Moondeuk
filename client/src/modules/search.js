@@ -1,13 +1,15 @@
 import { createAction, handleActions } from 'redux-actions';
 import createActionTypes from '../lib/createActionTypes';
 import createSaga from '../lib/createSaga';
-import searchKeywordAPI from '../lib/routes/search'
+import searchKeywordAPI from '../lib/routes/search/search'
 import { takeLatest } from 'redux-saga/effects'
 
-const [ CHANGE_KEYWORD ] = 'search/CHANGE_KEYWORD';
-const [ SEARCH_KEYWORD ] = 'search/SEARCH_KEYWORD';
+const OPEN_SEARCHBAR = 'search/OPEN_SEARCHBAR';
+const CHANGE_KEYWORD = 'search/CHANGE_KEYWORD';
+const SEARCH_KEYWORD = 'search/SEARCH';
 const [ SEARCH_KEYWORD_SUCCESS, SEARCH_KEYWORD_FAILURE ] = createActionTypes(SEARCH_KEYWORD);
 
+export const openSearchBar = createAction(OPEN_SEARCHBAR, isOpenSearchBar => isOpenSearchBar);
 export const changeKeyword = createAction(CHANGE_KEYWORD, ({ name, value }) => ({
     name, // keywordType & keyword
     value // name's value
@@ -17,16 +19,22 @@ export const searchKeyword = createAction(SEARCH_KEYWORD, search => search)
 const searchKeywordSaga = createSaga(SEARCH_KEYWORD, searchKeywordAPI)
 
 export function* searchSaga() {
-    yield takeLatest(searchKeywordSaga)
-}
+    yield takeLatest(SEARCH_KEYWORD, searchKeywordSaga)
+};
 
 const initialState = {
+    isOpenSearchBar: false,
     keywordType: '',
     keyword: '',
-    searchResult: null
+    searchResult: null,
+    searchError: null,
 };
 
 const searchReducer = handleActions({
+    [OPEN_SEARCHBAR]: (state, { payload: isOpenSearchBar }) => ({
+        ...state,
+        isOpenSearchBar,
+    }),
     [CHANGE_KEYWORD]: (state, { payload: { name, value }}) => ({
         ...state,
         [name]: value,
@@ -36,9 +44,10 @@ const searchReducer = handleActions({
         searchResult: result,
         searchError: null,
     }),
-    [SEARCH_KEYWORD_FAILURE]: (state, { payload: error }) => ({
+    [SEARCH_KEYWORD_FAILURE]: (state, { payload: searchError }) => ({
         ...state,
-        searchError: error,
+        searchError: searchError,
     })
-}, initialState)
+}, initialState);
+
 export default searchReducer;
