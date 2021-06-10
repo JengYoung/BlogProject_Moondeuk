@@ -40,8 +40,8 @@ const SearchController = async (req, res) => {
                 return res.send({ titleData });
             case 'tag':
                 // 만약 해시태그를 앞에 붙여도, 띄어쓰기를 해도 없어지도록 정규표현식 작성
-                const tagRegex = keyword.replace(/\+|\#| /g,''); 
-                const tagData = await Post.find({ tag: { $regex: tagRegex, $options: 'x', $in: [tagRefinedKeyword] }}).lean();
+                const tagRegex = new RegExp(`${keyword}`);
+                const tagData = await Post.find({ tag: { $regex: keyword, $options: 'x', $in: [tagRefinedKeyword] }}).lean();
                 return res.send({ tagData });
             default:
                 return res.status(400).send(e);
