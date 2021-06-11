@@ -1,5 +1,13 @@
 import User from '../../models/user.js';
 import Post from '../../models/post.js';
+import sanitizeHtml from 'sanitize-html';
+
+const extractOmittedBodyText = body => {
+    const BodyRemovedTags = sanitizeHtml(body, {
+        allowedTags: [],
+    });
+    return BodyRemovedTags.length > 100 ? `${BodyRemovedTags.slice(0, 100)}...` : BodyRemovedTags;
+}
 
 const SearchController = async (req, res) => {
     /*
@@ -37,7 +45,12 @@ const SearchController = async (req, res) => {
             case 'title': 
                 const titleRegex = new RegExp(`${keyword}+`);
                 const titleData = await Post.find({ title: { $regex: titleRegex, $options: 'x' } }).lean();
-                return res.send({ keywordType, titleData });
+                const refinedData = titleData.map(data => ({
+                                            ...data,
+                                            body: extractOmittedBodyText(data.body),
+                                        }))
+                console.log(refinedData)
+                return res.send({ keywordType, titleData: refinedData });
             case 'tag':
                 // 만약 해시태그를 앞에 붙여도, 띄어쓰기를 해도 없어지도록 정규표현식 작성
                 const tagRegex = new RegExp(`${keyword}`);

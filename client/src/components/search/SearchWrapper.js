@@ -12,13 +12,13 @@ const StyledSearchWrapper = styled.div`
     position: fixed;
     z-index: 75;
     width: 100%;
-    height: 92vh;
+    /* height: 92vh;
     @media screen and (min-width: 481px) {
         height: 90vh;
     }
     @media screen and (min-width: 769px) {
         height: 88vh;
-    }
+    } */
 `;
 
 const SearchBar = styled.div`
@@ -104,8 +104,8 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
     }
     const onSubmit = e => {
         e.preventDefault();
-        searchValue.current = keyword;
         onSearch();
+        searchValue.current = keyword;
     }
 
     useEffect(() => {
@@ -118,7 +118,7 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
     return (
         <StyledSearchWrapper ref={searchWrapper}>
             <SearchBar>
-                <KeywordTypeBox name="keywordType" onChange={onChange} ref={keywordTypeBox} value={keyword}>
+                <KeywordTypeBox name="keywordType" onChange={onChange} ref={keywordTypeBox}>
                     <option value="user">ID+닉네임</option>
                     <option value="title">제목</option>
                     <option value="tag">태그</option>

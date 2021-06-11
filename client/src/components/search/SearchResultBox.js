@@ -2,39 +2,15 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import UserImage from '../common/UserImage';
+import SearchDataItem from './SearchDataItem';
 
 /**
 **/
 
-const StyledIdDataItem = styled(Link)`
-    display: flex;
-    padding: 0 1rem;
-    align-items: center;
-    width: 100%;
-    height: 5rem;
-    margin-top: 0.5rem;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    background: white;
-    transition: all 0.3s ease-in;
-    font-size: 0.9rem;
-    &:hover {
-        cursor: pointer;
-        background: #e9d4e9;
-        box-shadow: 0 4px 3px rgba(0,0,0,0.2);
-    }
-    @media screen and (min-width: 481px) {
-        padding: 0 2rem;
-        font-size: 1rem;
-        width: 400px;
-    }
-`;
 
-
-const SytledIdDataList = styled.section`
+const StyledDataList = styled.section`
     padding: 20px 0;
     display: flex;
     flex-direction: column;
@@ -101,8 +77,17 @@ const SearchResult = styled.div`
     color: #f1f1f1;
     strong {
         color: #ffee00;
+        font-size: 1.2rem;
+        padding-right: 0.125rem;
     }
 `
+
+const DataItemBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`
+
 const SearchResultBox = ({ keywordType, keyword, searchResult, searchValue }) => {
     const searchResultBox = useRef(null);
     const keywordTypeBox = useRef(null);
@@ -127,9 +112,6 @@ const SearchResultBox = ({ keywordType, keyword, searchResult, searchValue }) =>
             }  
         })
     }
-    useEffect(() => {
-        console.log(userKeywordType);
-    }, [userKeywordType])
 
     useEffect(() => {
         if (searchResult) searchResultBox.current.style.display = "block";
@@ -137,25 +119,46 @@ const SearchResultBox = ({ keywordType, keyword, searchResult, searchValue }) =>
     }, [searchResult])
     return (
         <StyledSearchResultBox ref={searchResultBox}>
-            <SearchResult> <strong>{searchValue.current}</strong>을 검색한 결과에요. </SearchResult>
+            <SearchResult> <strong>{searchValue.current}</strong>을/를 검색한 결과에요. </SearchResult>
             { keywordType === "user" && searchResult && (
-                <SytledIdDataList  searchResult={searchResult}>
+                <StyledDataList keywordType={keywordType} searchResult={searchResult}>
                     <KeywordTypeBox onClick={onCategory} ref={keywordTypeBox}>
                         <div className="category id active">ID</div>
                         <div className="category nickname">닉네임</div>
                     </KeywordTypeBox>
                     {searchResult[userKeywordType].map(data => {
                         return (
-                            <>
-                                <StyledIdDataItem key={data.userId} to={`/@${data.userId}`}>
+                            <React.Fragment key={data.userId}>
+                                <SearchDataItem keywordType={keywordType} to={`/@${data.userId}`}>
                                     <UserImage userImage={data.userImage}/>
                                     <Nickname>{data.nickname}</Nickname>
                                     <Username>{`(${data.userId})`}</Username>
-                                </StyledIdDataItem>
-                            </>
+                                </SearchDataItem>
+                            </React.Fragment>
                         )
                     })}
-                </SytledIdDataList>
+                </StyledDataList>
+            )}
+            { keywordType === "title" && searchResult && (
+                <StyledDataList searchResult={searchResult}>
+                    {searchResult.titleData.map(data => {
+                        const { author, title, tags, body, postedDate } = data;
+                        return (
+                            <React.Fragment key={data.userId}>
+                                <SearchDataItem keywordType={keywordType} to={`/${data.diaryId}`}>
+                                    <h1>{title}</h1>
+                                    <h2>{author.authorId}</h2>
+                                    <h3>{postedDate}</h3>
+                                    <h4>{tags}</h4>
+                                    <DataItemBody>{body}</DataItemBody>
+                                    <UserImage userImage={data.userImage}/>
+                                    <Nickname>{data.nickname}</Nickname>
+                                    <Username>{`(${data.userId})`}</Username>
+                                </SearchDataItem>
+                            </React.Fragment>
+                        )
+                    })}                    
+                </StyledDataList>
             )}
         </StyledSearchResultBox>
     );
