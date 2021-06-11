@@ -40,13 +40,29 @@ const StyledSearchResultBox = styled.section`
         `
     }
 `
+const StyledUserImage = styled(UserImage)`
+    width: 1.5rem;
+    height: 1.5rem;
+`;
+
+const DataInfo = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
 const Nickname = styled.span`
+    font-size: 0.875rem;
     font-weight: 700;
     margin-left: 1rem;
+    ${props =>
+        props.$keywordType === 'title' && css`
+            margin-left: 0.25rem;
+        `
+    }
 `;
 const Username = styled.span`
     font-weight: 300;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
 `;
 const KeywordTypeBox = styled.div`
     display: flex;
@@ -82,10 +98,25 @@ const SearchResult = styled.div`
     }
 `
 
+const DataTitle = styled.h1`
+    padding: 0.5rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+`
 const DataItemBody = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+`
+const DataPostedDate = styled.time`
+    font-size: 0.8rem;
+    padding-left: 0.3rem;
+    &::before {
+        content: "|";   
+        color: gray;
+        font-weight: 300;
+        padding-right: 0.3rem;
+    }
 `
 
 const SearchResultBox = ({ keywordType, keyword, searchResult, searchValue }) => {
@@ -146,14 +177,15 @@ const SearchResultBox = ({ keywordType, keyword, searchResult, searchValue }) =>
                         return (
                             <React.Fragment key={data.userId}>
                                 <SearchDataItem keywordType={keywordType} to={`/${data.diaryId}`}>
-                                    <h1>{title}</h1>
-                                    <h2>{author.authorId}</h2>
-                                    <h3>{postedDate}</h3>
+                                    <DataTitle>{title}</DataTitle>
+                                    <DataInfo>
+                                        <StyledUserImage $keywordType={keywordType} userImage={author.userImage}/>
+                                        <Nickname $keywordType={keywordType}>{author.nickname}</Nickname>
+                                        <Username $keywordType={keywordType}>{`(${author.userId})`}</Username>
+                                        <DataPostedDate>{postedDate}</DataPostedDate>   
+                                    </DataInfo>
                                     <h4>{tags}</h4>
                                     <DataItemBody>{body}</DataItemBody>
-                                    <UserImage userImage={data.userImage}/>
-                                    <Nickname>{data.nickname}</Nickname>
-                                    <Username>{`(${data.userId})`}</Username>
                                 </SearchDataItem>
                             </React.Fragment>
                         )

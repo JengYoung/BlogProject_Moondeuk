@@ -32,6 +32,16 @@ const StyledSearchDataItem = styled(Link)`
                 `
             case 'title':
                 return css`
+                    h2 {
+                        font-size: 0.8rem;
+                        font-weight: 500;
+                    }
+                    h3 {
+                        font-size: 0.8rem;
+                        font-weight: 300;
+                        padding-bottom: 0.5rem;
+                    }
+
                     display: flex;
                     flex-direction: column;
                     width: 100%;
@@ -41,7 +51,7 @@ const StyledSearchDataItem = styled(Link)`
                     transition: all 0.3s ease-in;
                     font-size: 0.9rem;
                     overflow: hidden;
-                    
+                    padding: 0 20px;
                     &:hover {
                         cursor: pointer;
                         background: #e9d4e9;

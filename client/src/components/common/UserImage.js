@@ -10,7 +10,6 @@ const StyledUserImage = styled.div`
     border-radius: 3rem;
     border: 1px solid lightgray;
     background: white;
-    min-width: 50px;
     ${props => 
         props.imgUrl && css`
             background-image: url(${props.imgUrl});
@@ -27,10 +26,10 @@ const StyledUserImage = styled.div`
     }
 `;
 
-const UserImage = ({ isSubscribePage, userImage }) => {
+const UserImage = ({ isSubscribePage, userImage, ...rest }) => {
     const imgUrl = userImage ? '/img/' + userImage.replace('\\', '/') : null;
     return (
-        <StyledUserImage isSubscribePage={isSubscribePage} imgUrl={imgUrl}/>
+        <StyledUserImage isSubscribePage={isSubscribePage} imgUrl={imgUrl} {...rest}/>
     );
 };
 
