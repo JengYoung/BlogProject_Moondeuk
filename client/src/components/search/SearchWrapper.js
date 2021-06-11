@@ -95,6 +95,7 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
         if (!isOpenSearchBar) return searchWrapper.current.style.display = 'none';
         else return searchWrapper.current.style.display = 'block';
     })
+    const searchValue = useRef('');
     const searchWrapper = useRef(null);
     const keywordTypeBox = useRef(null);
     const onChange = e => {
@@ -103,6 +104,7 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
     }
     const onSubmit = e => {
         e.preventDefault();
+        searchValue.current = keyword;
         onSearch();
     }
 
@@ -126,7 +128,7 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
                     <SearchFormBtn><GoSearch/></SearchFormBtn>
                 </SearchForm>    
             </SearchBar>
-            <SearchResultBox keywordType={keywordType} keyword={keyword} searchResult={searchResult} />
+            <SearchResultBox keywordType={keywordType} keyword={keyword} searchResult={searchResult} searchValue={searchValue}/>
         </StyledSearchWrapper>
     );
 };
