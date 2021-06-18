@@ -12,7 +12,6 @@ const readController = async (req, res) => {
         const { author, _id } = result;
         const [ beforeDiary ] = await Post.find({ author, '_id': {'$lt': _id} }).lean().sort({ postedDate: -1 }).limit(1)
         const [ afterDiary ] = await Post.find({ author, '_id': {'$gt': _id} }).lean().sort({ postedDate: 1 }).limit(1)
-        
         result.beforeDiary = beforeDiary ? {
             ...beforeDiary,
             body: extractOmittedBodyText(beforeDiary.body)

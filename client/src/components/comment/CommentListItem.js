@@ -94,7 +94,6 @@ const CommentListItem = (
     const isWriter = user_id === loginUserId;
     const replyCommentCount = replyComments.length;
     const imgUrl = '/img/' + userImage.replace('\\', '/');
-    console.log(imgUrl);
     return (
         <StyledCommentListItem>
             { isWriter && !isUpdateMode &&
