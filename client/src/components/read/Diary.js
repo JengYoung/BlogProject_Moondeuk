@@ -69,6 +69,7 @@ const StyledDiaryBody = styled.div`
     padding-top: 3rem;
 `;
 
+
 const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     if (diaryError) {
         if (diaryError.response && diaryError.response.status === 404) {

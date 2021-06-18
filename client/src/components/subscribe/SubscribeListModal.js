@@ -8,25 +8,18 @@ import ModalListItem from '../common/ModalListItem';
 
 const SubscribeListModal = ({ modal, isSubscribeList, subscribeToList, subscribedFromList, onConfirm, onCancel }) => {
     const body = isSubscribeList ? subscribeToList : subscribedFromList
-    // console.log("body: ", body)
     if (!modal) return null;
     return (
         <Modal>
-            {body.map(user => <ModalListItem>{user.nickname}{`(${user.userId})`}</ModalListItem>)}
+            {body.map(user => {
+                const { userInfo } = user;
+                return <ModalListItem>{userInfo.nickname}{`(${userInfo.username})`}</ModalListItem>
+            })}
             <div className="buttonWrapper">
                 <Button onClick={onConfirm}>확인</Button>
                 {onCancel ? <Button>취소</Button> : null}
             </div>
         </Modal>
-        // <StyledModalBackground>
-        //     <StyledModal>
-        //         {body.map(user => <StyledSubscribeListItem>{user.nickname}{`(${user.userId})`}</StyledSubscribeListItem>)}
-        //         <div className="buttonWrapper">
-        //             <Button onClick={onConfirm}>확인</Button>
-        //             {onCancel ? <Button>취소</Button> : null}
-        //         </div>
-        //     </StyledModal>
-        // </StyledModalBackground>
     );
 };
 
