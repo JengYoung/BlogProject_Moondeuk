@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-const StyledSearchDataItem = styled(Link)`
+const StyledSearchListItem = styled(Link)`
     ${props => {
         switch(props.$keywordType) {
             case 'user':
@@ -32,18 +32,10 @@ const StyledSearchDataItem = styled(Link)`
                 `
             case 'title':
                 return css`
-                    h2 {
-                        font-size: 0.8rem;
-                        font-weight: 500;
-                    }
-                    h3 {
-                        font-size: 0.8rem;
-                        font-weight: 300;
-                        padding-bottom: 0.5rem;
-                    }
-
+                    margin: 1rem 0;
                     display: flex;
                     flex-direction: column;
+                    justify-content: center;
                     width: 100%;
                     height: 10rem;
                     border: 1px solid lightgray;
@@ -67,12 +59,12 @@ const StyledSearchDataItem = styled(Link)`
         }
     }}
 `;
-const SearchDataItem = ({ children, keywordType, ...rest }) => {
+const SearchListItem = ({ children, keywordType, ...rest }) => {
     return (
-        <StyledSearchDataItem $keywordType={keywordType} {...rest}>
+        <StyledSearchListItem $keywordType={keywordType} {...rest}>
             { children }
-        </StyledSearchDataItem>
+        </StyledSearchListItem>
     )
 }
 
-export default SearchDataItem
+export default SearchListItem
