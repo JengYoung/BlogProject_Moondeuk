@@ -1,13 +1,28 @@
+import extractOmittedBodyText from '../../lib/extractOmittedBodyText.js';
 import Post from '../../models/post.js';
 
 const readController = async (req, res) => {
     const { id } = req.params;
     try {
-        await Post.findById(id).exec((err, result) => {
+        const result = await Post.findById(id).lean((err, result) => {
             // not exists post.
             if (err) return res.status(404).send('NOT FOUND POST DATA');
-            res.send(result);
+            return result
         });
+        const { author, _id } = result;
+        const [ beforeDiary ] = await Post.find({ author, '_id': {'$lt': _id} }).lean().sort({ postedDate: -1 }).limit(1)
+        const [ afterDiary ] = await Post.find({ author, '_id': {'$gt': _id} }).lean().sort({ postedDate: 1 }).limit(1)
+        
+        result.beforeDiary = beforeDiary ? {
+            ...beforeDiary,
+            body: extractOmittedBodyText(beforeDiary.body)
+        } : null;
+        result.afterDiary = afterDiary ? {
+            ...afterDiary,
+            body: extractOmittedBodyText(afterDiary.body)
+        } : null;
+        console.log(result)
+        res.send(result);
     } catch(e) {
         res.status(500).send(e);
     }

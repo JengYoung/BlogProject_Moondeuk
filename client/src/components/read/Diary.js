@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
+import LinkedDiaryWrapper from './LinkedDiaryWrapper';
+import LinkedDiaryCard from './LinkedDiaryCard';
 
 /*
 */
@@ -69,6 +71,7 @@ const StyledDiaryBody = styled.div`
     padding-top: 3rem;
 `;
 
+
 const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     if (diaryError) {
         if (diaryError.response && diaryError.response.status === 404) {
@@ -76,27 +79,33 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
         } else return <StyledDiary>글을 불러올 수 없습니다.</StyledDiary>
     }
     if (!diary) return null;
-    const { title, body, tags, author, postedDate } = diary;
+    const { title, body, tags, author, postedDate, beforeDiary, afterDiary } = diary;
     return (
-        <StyledDiary>
-            <StyledDiaryTitle>
-                {userId === author.authorId ? 
-                    <DiaryModifyAndDeleteBtns 
-                        onPatch={onPatch} 
-                        onDelete={onDelete}
-                    /> 
-                    : null
-                }
-                <h2>{postedDate.slice(0,10).split('-').join('. ')}</h2>
-                <h1>{title}</h1>
-                <h3>by {author.authorId}</h3>
-                <StyledDiaryTag>{tags}</StyledDiaryTag>
-            </StyledDiaryTitle>
-            <StyledDiaryBody 
-                dangerouslySetInnerHTML={{ __html: body }}
-            >
-            </StyledDiaryBody>
-        </StyledDiary>
+        <>
+            <StyledDiary>
+                <StyledDiaryTitle>
+                    {userId === author.authorId ? 
+                        <DiaryModifyAndDeleteBtns 
+                            onPatch={onPatch} 
+                            onDelete={onDelete}
+                        /> 
+                        : null
+                    }
+                    <h2>{postedDate.slice(0,10).split('-').join('. ')}</h2>
+                    <h1>{title}</h1>
+                    <h3>by {author.authorId}</h3>
+                    <StyledDiaryTag>{tags}</StyledDiaryTag>
+                </StyledDiaryTitle>
+                <StyledDiaryBody 
+                    dangerouslySetInnerHTML={{ __html: body }}
+                >
+                </StyledDiaryBody>
+            </StyledDiary>
+            <LinkedDiaryWrapper userId={userId}>
+                { beforeDiary && <LinkedDiaryCard linkedDiary={beforeDiary} isPostedBefore/> }
+                { afterDiary && <LinkedDiaryCard linkedDiary={afterDiary} isPostedBefore={false}/> }
+            </LinkedDiaryWrapper>
+        </>
     );
 };
 

@@ -1,13 +1,6 @@
 import User from '../../models/user.js';
 import Post from '../../models/post.js';
-import sanitizeHtml from 'sanitize-html';
-
-const extractOmittedBodyText = body => {
-    const BodyRemovedTags = sanitizeHtml(body, {
-        allowedTags: [],
-    });
-    return BodyRemovedTags.length > 50 ? `${BodyRemovedTags.slice(0, 50)}...` : BodyRemovedTags;
-}
+import extractOmittedBodyText from '../../lib/extractOmittedBodyText.js';
 
 const SearchController = async (req, res) => {
     /*

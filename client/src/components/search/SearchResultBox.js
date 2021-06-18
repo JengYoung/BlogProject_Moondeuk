@@ -175,10 +175,10 @@ const SearchResultBox = ({ keywordType, keyword, searchResult, searchedValue, se
             { searchedKeywordType.current === "title" && searchResult && (
                 <StyledDataList searchResult={searchResult}>
                     {searchResult.titleData.map(data => {
-                        const { author, title, tags, body, postedDate } = data;
+                        const { author, title, tags, body, postedDate, _id } = data;
                         return (
                             <React.Fragment key={data.userId}>
-                                <SearchListItem keywordType={searchedKeywordType.current} to={`/${data.diaryId}`}>
+                                <SearchListItem keywordType={searchedKeywordType.current} to={`/@${author.userId}/${_id}`}>
                                     <DataTitle>{title}</DataTitle>
                                     <DataInfo>
                                         <StyledUserImage $keywordType={searchedKeywordType.current} userImage={author.userImage}/>

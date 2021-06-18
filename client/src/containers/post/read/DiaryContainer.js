@@ -42,7 +42,13 @@ const DiaryContainer = ({ match, history }) => {
     }
 
     return (
-        <Diary diary={diary} dairyError={diaryError} userId={userId} onPatch={onPatch} onDelete={onDelete}/>
+        <Diary 
+            diary={diary} 
+            dairyError={diaryError} 
+            userId={userId} 
+            onPatch={onPatch} 
+            onDelete={onDelete}
+        />
     )
 }
 

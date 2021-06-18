@@ -6,8 +6,7 @@ const PostSchema = new Schema({
     title: String,
     author: {
         _id: mongoose.Types.ObjectId,
-        authorId: String,
-        default: '',
+        authorId: String
     },
     body: String,
     tags: [String],
