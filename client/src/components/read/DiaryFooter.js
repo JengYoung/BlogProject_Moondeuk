@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledDiaryFooter = styled.div`
+const StyledDiaryFooter = styled.footer`
 display: flex;
 position: fixed;
 align-items: center;
@@ -19,6 +19,7 @@ height: 8vh;
 
 const Spacer = styled.div`
     height: 8vh;
+    bottom: 0;
     @media screen and (min-width: 481px) {
         height: 10vh;
     }
