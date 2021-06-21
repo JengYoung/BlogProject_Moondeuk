@@ -5,6 +5,7 @@
   "main": "app.js",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.931.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",

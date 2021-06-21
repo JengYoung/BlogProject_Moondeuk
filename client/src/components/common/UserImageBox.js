@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { AiFillCamera } from "react-icons/ai";
+import AWS from 'aws-sdk';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
+
 /** 
 **/
 
@@ -72,13 +74,74 @@ const StyledSettingImageLabel = styled.label`
         `
     }
 `;
+
+// const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
+//     const imgUrl = user_image ? '/img/' + user_image.replace('\\', '/') : null;
+//     const onChange = (e) => {
+//         const imgFiles = e.target.files
+//         console.log("onChange", imgFiles);
+//         userImgUploadAPI(user_id, imgFiles)
+//         checkUser();
+//     }
+    
+//     useEffect(() => {
+//         checkUser();
+//     }, [user_image, checkUser])
+
+//     return (
+//         <StyledUserImageBox isHeader={isHeader} imgUrl={imgUrl}>
+//             <StyledUserImageInput 
+//                 id="sideUserImage"
+//                 type="file" 
+//                 accept="image/jpeg, image/jpg, image/png" 
+//                 enctype="multipart/form-data"
+//                 onChange={onChange}
+//             />
+//             <StyledSettingImageLabel isHeader={isHeader} htmlFor="sideUserImage">
+//                 <AiFillCamera></AiFillCamera>
+//             </StyledSettingImageLabel>
+//         </StyledUserImageBox>
+//     );
+// };
+
 const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
-    const imgUrl = user_image ? '/img/' + user_image.replace('\\', '/') : null;
-    const onChange = (e) => {
-        const imgFiles = e.target.files
-        console.log("onChange", imgFiles);
-        userImgUploadAPI(user_id, imgFiles)
-        checkUser();
+    const { REACT_APP_ALBUMBUCKETNAME, REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
+    AWS.config.update({
+        region: REACT_APP_BUCKETREGION,
+        credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: REACT_APP_IDENTITY_POOL_ID,
+        }),
+    })
+    
+    const fileName = useRef(null);
+    console.log(user_image)
+    const imgUrl = user_image ? 
+                    user_image : 
+                    `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/userProfile.jpg`;
+    
+    const handleImgUpload = e => {
+        const file = e.target.files[0];
+        fileName.current = file.name;
+        const upload = new AWS.S3.ManagedUpload({
+            params: {
+                Bucket: "moondeuk-images",
+                Key: "profile/" + file.name,
+                Body: file,
+            }
+        })
+        console.log(upload);
+        const promise =  upload.promise();
+
+        promise.then(
+            function (data) {
+                alert("프로필 사진이 성공적으로 수정 되었어요! ")
+                userImgUploadAPI(user_id, data.Location)
+            },
+            function (err) {
+                alert("업로드 중 오류가 발생했어요! 😂")
+            }
+        )
+        console.log(fileName.current)
     }
     
     useEffect(() => {
@@ -92,7 +155,7 @@ const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
                 type="file" 
                 accept="image/jpeg, image/jpg, image/png" 
                 enctype="multipart/form-data"
-                onChange={onChange}
+                onChange={handleImgUpload}
             />
             <StyledSettingImageLabel isHeader={isHeader} htmlFor="sideUserImage">
                 <AiFillCamera></AiFillCamera>

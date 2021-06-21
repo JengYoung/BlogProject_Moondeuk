@@ -1,10 +1,8 @@
 import client from '../client';
 
-const userImgUploadAPI = (user_id, file) => {
-    console.log(file[0])
-    const formData = new FormData();
-    formData.append("file", file[0])
-    return client.post(`/routes/upload/${user_id}`, formData).then(response => console.log(response.data));
+const userImgUploadAPI = (user_id, imgUrl) => {
+    console.log(imgUrl);
+    return client.post(`/routes/upload/${user_id}`, { imgUrl });
 };
 
 export default userImgUploadAPI;
