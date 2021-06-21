@@ -16,6 +16,7 @@ const StyledUserImageBox = styled.div`
     border: 1px solid lightgray;
     background-color: white;
     background-size: cover;
+    background-position: center;
     img {
         width: 150px;
         height: 150px;
@@ -75,35 +76,6 @@ const StyledSettingImageLabel = styled.label`
     }
 `;
 
-// const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
-//     const imgUrl = user_image ? '/img/' + user_image.replace('\\', '/') : null;
-//     const onChange = (e) => {
-//         const imgFiles = e.target.files
-//         console.log("onChange", imgFiles);
-//         userImgUploadAPI(user_id, imgFiles)
-//         checkUser();
-//     }
-    
-//     useEffect(() => {
-//         checkUser();
-//     }, [user_image, checkUser])
-
-//     return (
-//         <StyledUserImageBox isHeader={isHeader} imgUrl={imgUrl}>
-//             <StyledUserImageInput 
-//                 id="sideUserImage"
-//                 type="file" 
-//                 accept="image/jpeg, image/jpg, image/png" 
-//                 enctype="multipart/form-data"
-//                 onChange={onChange}
-//             />
-//             <StyledSettingImageLabel isHeader={isHeader} htmlFor="sideUserImage">
-//                 <AiFillCamera></AiFillCamera>
-//             </StyledSettingImageLabel>
-//         </StyledUserImageBox>
-//     );
-// };
-
 const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
     const { REACT_APP_ALBUMBUCKETNAME, REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
     AWS.config.update({
@@ -114,7 +86,6 @@ const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
     })
     
     const fileName = useRef(null);
-    console.log(user_image)
     const imgUrl = user_image ? 
                     user_image : 
                     `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/userProfile.jpg`;
@@ -129,7 +100,6 @@ const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
                 Body: file,
             }
         })
-        console.log(upload);
         const promise =  upload.promise();
 
         promise.then(
@@ -141,7 +111,6 @@ const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
                 alert("업로드 중 오류가 발생했어요! 😂")
             }
         )
-        console.log(fileName.current)
     }
     
     useEffect(() => {

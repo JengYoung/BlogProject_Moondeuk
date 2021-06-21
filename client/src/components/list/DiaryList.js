@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ResponsiveWrapper from '../common/Responsive';
 import LoginBg from '../../images/LoginBg.jpg';
 import { Link } from 'react-router-dom';
@@ -95,6 +95,13 @@ const StyledAuthorImage = styled.div`
     height: 1rem;
     border-radius: 1rem;
     border: 1px solid lightgray;
+    background-position: center;
+    background-size: cover;
+    ${props => 
+        props.userImage && css`
+            background-image: url(${props.userImage});
+        `
+    }
 `;
 
 const StyledDiaryDetailBox = styled.div`
@@ -121,7 +128,7 @@ const StyledDiaryDetailBox = styled.div`
 
 const DiaryWrapper = ({ diary }) => {
     const { title, tags, author, _id } = diary;
-    const { authorId } = author;
+    const { authorId, userImage } = author;
     return (
         <StyledDiaryWrapper to={`/@${authorId}/${_id}`}>
             <StyledDiaryThumbnail />
@@ -129,7 +136,7 @@ const DiaryWrapper = ({ diary }) => {
             <StyledDiaryData>
                 <StyledDiaryTitle>{title.length < 30 ? title : title.slice(0,30)+'...'}</StyledDiaryTitle>
                 <StyledAuthorInfoBox>
-                    <StyledAuthorImage></StyledAuthorImage>
+                    <StyledAuthorImage userImage={userImage}></StyledAuthorImage>
                     <StyledAuthorName>{authorId}</StyledAuthorName>
                 </StyledAuthorInfoBox>
             </StyledDiaryData>
