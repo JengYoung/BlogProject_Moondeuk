@@ -33,11 +33,13 @@ export const writeDiary = createAction(WRITE_DIARY, ({ title, subtitle, body, ta
 }));
 
 export const settingUpdate = createAction(SETTING_UPDATE, diary => diary);
-export const updateDiary = createAction(UPDATE_DIARY, ({ diaryId, title, body, tags }) => ({
+export const updateDiary = createAction(UPDATE_DIARY, ({ diaryId, title, subtitle, body, tags, titleStyle }) => ({
     diaryId, //
     title, // diary title
+    subtitle,
     body, // diary content
     tags, // diary tags
+    titleStyle,
 }));
 
 const writeDiarySaga =  createSaga(WRITE_DIARY, writeAPI);
@@ -93,8 +95,10 @@ const writeReducer = handleActions({
     [SETTING_UPDATE]: (state, { payload: diary }) => ({
         ...state,
         title: diary.title,
+        subtitle: diary.subtitle,
         tags: diary.tags,
         body: diary.body,
+        titleStyle: diary.titleStyle,
     }),
     [UPDATE_DIARY_SUCCESS]: (state, { payload: diary }) => ({
         ...state,
