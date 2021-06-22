@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
 */
@@ -7,61 +7,88 @@ import styled from 'styled-components';
 const StyledTagBar = styled.div`
     display: flex;
     position: relative;
-    width: 100%;
-    height: 3rem;
-    background: white;
-    border-bottom: 1px solid lightgray;
-    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
     z-index: 10;
 `;
 const StyledTagsForm = styled.form`
     width: auto;
-    height: 100%;
-    background-color: green;
     display: flex;
 `;
 
 const StyledTagsInput = styled.input`
-    width: 10rem;
+    display: inline-flex;
+    /* width: 10rem; */
     height: auto;
-`;
-
-const StyledTagsBtn = styled.button`
-    width: 3rem;
-    height: auto;
+    outline: none;
+    border: none;
+    padding-left: 0.5rem;
+    background: transparent;
+    font-weight: 200;
+    color: gray;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    &::placeholder {
+        color: lightgray;
+    }
+    ${props =>
+        (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
+            color: white;
+            &::placeholder {
+                color: white;
+            }
+        `
+    }
 `;
 
 const StyledTagsWrapper = styled.div`
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    padding-left: 1.5rem;
     width: 100%;
-    height: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    ${props =>
+        (props.titleStyle.isCenter === true) && css`
+            justify-content: center;
+        `
+    }
 `;
 
 const StyledTag = styled.div`
+    display: inline-flex;
     margin-right: 1rem;
-    padding: 0.25rem 1rem;
-    background-color: purple;
-    box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
-    border-radius: 50px;
-    font-weight: 700;
-    color: white;
+    border: 1px solid lightgray;
+    color: #a3a2a2;
+    font-weight: 200;
+    border-radius: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    ${props =>
+        (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
+            color: white;
+            border: 1px solid white;
+        `
+    }
 `;
 
-const Tag = React.memo(({tag, onRemove}) => <StyledTag onClick={() => onRemove(tag)}># {tag}</StyledTag>)
+const Tag = React.memo(({tag, onRemove, titleStyle}) => 
+                <StyledTag onClick={() => onRemove(tag)} titleStyle={titleStyle}>#{tag}</StyledTag>)
 
-const TagsWrapper = React.memo(({ tags, onRemove }) => (
-    <StyledTagsWrapper>
+const TagsWrapper = React.memo(({ tags, onRemove, onChange, value, onSubmit, titleStyle }) => (
+    <StyledTagsWrapper titleStyle={titleStyle}>
         {tags.map(
             tag => (
-                <Tag tag={tag} onRemove={onRemove} />
+                <Tag tag={tag} onRemove={onRemove} titleStyle={titleStyle}/>
             )
         )}
+        <StyledTagsForm onSubmit={onSubmit}>
+            <StyledTagsInput onChange={onChange} value={value} titleStyle={titleStyle} placeholder="태그를 입력하세요."/>
+        </StyledTagsForm>
     </StyledTagsWrapper>
 ))
 
-const TagBar = ({ onChangeTags, tags }) => {
+const TagBar = ({ onChangeTags, tags, titleStyle }) => {
     const [ input, setInput ] = useState('');
     const [ nowTags, setNowTags ] = useState([]);
     
@@ -94,13 +121,21 @@ const TagBar = ({ onChangeTags, tags }) => {
         }, [onChangeTags, nowTags]
     )
 
+    // Redux tags 상태관리에 맞춰서 하도록.
+    useState(() => {
+        setNowTags(tags)
+    }, [tags])
+
     return (
         <StyledTagBar>
-            <StyledTagsForm onSubmit={onSubmit}>
-                <StyledTagsInput onChange={onChange} value={input} />
-                <StyledTagsBtn type="submit">등록</StyledTagsBtn>
-            </StyledTagsForm>
-            <TagsWrapper tags={nowTags} onRemove={onRemove}></TagsWrapper>
+            <TagsWrapper 
+                tags={nowTags} 
+                onRemove={onRemove} 
+                onChange={onChange} 
+                value={input} 
+                onSubmit={onSubmit}
+                titleStyle={titleStyle}
+            />
         </StyledTagBar>
     );
 };

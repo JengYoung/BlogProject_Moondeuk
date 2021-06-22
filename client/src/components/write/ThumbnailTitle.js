@@ -15,18 +15,18 @@ const ThumbnailTitleBox = styled.div`
     flex-direction: column;
     justify-content: flex-end;
     position:relative;
-    width: 100vw;
-    height: 84vh;
+    width: 100%;
+    height: 82vh;
     border-bottom: 1px solid lightgray;
     transition: all 0.5s;
     background-size: cover;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
-        height: 80vh;
+        height: 78vh;
     }
     @media screen and (min-width: 769px) {
         padding: 0 20vw;
-        height: 78vh;
+        height: 76vh;
     }
     &.half {
         height: 42vh;
@@ -282,7 +282,7 @@ const TitlePositionModifier = styled.div`
     }
 `
 
-const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeText }) => {
+const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeText, children }) => {
     const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
     const mainTitle = useRef(null);
@@ -401,14 +401,6 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
             }
         })
     }
-    // check titleStyle state
-    useEffect(() => {
-        console.log(titleStyle)
-    }, [titleStyle])
-    useEffect(() => {
-        // thumbnailBox.current.classList.add(titleStyle.color);
-        console.log(titleStyle.color)
-    },[titleStyle])
 
     // if thumbnail in TitleThumbnailBox -> set gradient & background-size
     useEffect(() => {
@@ -497,6 +489,7 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                         onChange={onChangeTitle}
                         placeholder="소제목을 입력하세요."
                     />
+                    { children }
                     {/* font -> event bubbling (추후 많아질 수도 있으니) */}
                 </TitleBox>
                 <TitleToolbar className="title-toolbar" onClick={onChangeFont}>

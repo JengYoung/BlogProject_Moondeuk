@@ -9,7 +9,7 @@ function WritePage() {
         <>
             <HeaderContainer></HeaderContainer>
             <WriteFormContainer/>
-            <DiaryFooter>
+            <DiaryFooter isWrite>
                 <PostDiaryBtnsWrapperContainer/>
             </DiaryFooter>
         </>
