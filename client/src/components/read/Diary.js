@@ -69,6 +69,8 @@ const StyledDiaryTitle = styled.div`
 const StyledDiaryTag = styled.div``;
 const StyledDiaryBody = styled.div`
     padding-top: 3rem;
+    line-height: 1.75;
+    font-weight: 200;
 `;
 
 

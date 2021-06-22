@@ -1,14 +1,14 @@
 import React from 'react'
 import DiaryFooter from '../components/read/DiaryFooter'
 import HeaderContainer from '../containers/HeaderContainer'
-import EditorContainer from '../containers/post/write/EditorContainer'
+import WriteFormContainer from '../containers/post/write/WriteFormContainer'
 import PostDiaryBtnsWrapperContainer from '../containers/post/write/PostDiaryBtnsWrapperContainer'
 
 function WritePage() {
     return (
         <>
             <HeaderContainer></HeaderContainer>
-            <EditorContainer/>
+            <WriteFormContainer/>
             <DiaryFooter>
                 <PostDiaryBtnsWrapperContainer/>
             </DiaryFooter>

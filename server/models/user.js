@@ -24,7 +24,7 @@ const userSchema = new Schema({
     },
     userImage: {
         type: String,
-        default: "uploads/moondeuk_logo.png"
+        default: ""
     }
 })
 

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import Editor from '../../../components/write/Editor';
+import ThumbnailTitle from '../../../components/write/ThumbnailTitle';
 import { changeStyle, changeText, initializeDiary } from '../../../modules/write';
 
 function WriteFormContainer() {
@@ -21,14 +22,17 @@ function WriteFormContainer() {
 
     return (
         <>
-            <Editor 
-                title={title} 
-                body={body} 
+            <ThumbnailTitle
+                title={title}
                 subtitle={subtitle} 
-                onChangeText={onChangeText}
                 titleStyle={titleStyle}
                 onChangeStyle={onChangeStyle}
-            ></Editor>
+                onChangeText={onChangeText}
+            />
+            <Editor  
+                body={body} 
+                onChangeText={onChangeText}
+            />
         </>
     )
 }

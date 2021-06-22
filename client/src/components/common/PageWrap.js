@@ -9,7 +9,7 @@ const StyledPageWrap = styled.div`
     width: 100vw;
     display: flex;
     /* overflow-x: hidden; */
-    overflow: auto;
+    overflow: hidden;
     margin: 0;
     min-height: 100%;
     ${props => 

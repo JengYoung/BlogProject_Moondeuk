@@ -34,8 +34,8 @@ const StyledUserImage = styled.div`
         cursor: pointer;
     }
     ${props =>
-        props.imgUrl && css`
-            background-image: url(${props.imgUrl});
+        props.userImage && css`
+            background-image: url(${props.userImage});
             background-size: cover;
         `
     }
@@ -93,7 +93,6 @@ const CommentListItem = (
     const loginUserId = user ? user._id : null;
     const isWriter = user_id === loginUserId;
     const replyCommentCount = replyComments.length;
-    const imgUrl = '/img/' + userImage.replace('\\', '/');
     return (
         <StyledCommentListItem>
             { isWriter && !isUpdateMode &&
@@ -104,7 +103,7 @@ const CommentListItem = (
                 />
             }
             <StyledCommentUserInfo>
-                <StyledUserImage imgUrl={imgUrl}/>
+                <StyledUserImage userImage={userImage}/>
                 <b>{userId}({nickname})</b>
             </StyledCommentUserInfo>
             { 
