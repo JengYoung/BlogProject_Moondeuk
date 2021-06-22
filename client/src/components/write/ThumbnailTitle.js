@@ -338,6 +338,9 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
         promise.then(
             function (data) {
                 onChangeStyle({ name: 'thumbnail', value: data.Location})
+                onChangeStyle({ name: 'color', value: "" })
+                const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+                thumbnailColorBtn.classList.remove('active');
             },
             function (err) {
                 alert(`이미지를 가져올 수 없어요! 😂\n 사유: ${err}`)
@@ -480,68 +483,68 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
 
     return (
         <ThumbnailTitleBox ref={thumbnailBox} isCenter={titleStyle.isCenter} className="half">
-                <TitleBox 
+            <TitleBox 
+                isCenter={titleStyle.isCenter} 
+                isFontColor={titleStyle.fontColor} 
+                ref={titleBox}
+            >
+                <TitleInput 
+                    ref={mainTitle}
+                    onInput={onResizeTitle(mainTitle)}
+                    name="title"
+                    placeholder="제목을 입력하세요." 
+                    onChange={onChangeTitle} 
+                    value={title}
+                />
+                <SubtitleInput 
+                    ref={subTitle}
+                    name="subtitle" 
+                    value={subtitle} 
+                    onChange={onChangeTitle}
+                    placeholder="소제목을 입력하세요."
+                />
+                { children }
+                {/* font -> event bubbling (추후 많아질 수도 있으니) */}
+            </TitleBox>
+            <TitleToolbar className="title-toolbar" onClick={onChangeFont}>
+                <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
+                <input onChange={onThumbnailUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
+                <div onClick={onSize}>
+                    <CgArrowsShrinkV onClick={onActive}/>
+                </div>
+                <div onClick={onColor}>
+                    <IoIosColorPalette className="thumbnail-color-btn" onClick={onActive}/>
+                </div>
+                <div className="font-btn nanum-gothic" >가</div>
+                <div className="font-btn nanum-myeongjo">가</div>
+                <div className="font-btn gamja-flower">가</div>
+                <div className="font-btn dancing-script">abc</div>
+                <TitlePositionModifier
                     isCenter={titleStyle.isCenter} 
-                    isFontColor={titleStyle.fontColor} 
-                    ref={titleBox}
+                    onClick={onTitleCenter}
                 >
-                    <TitleInput 
-                        ref={mainTitle}
-                        onInput={onResizeTitle(mainTitle)}
-                        name="title"
-                        placeholder="제목을 입력하세요." 
-                        onChange={onChangeTitle} 
-                        value={title}
-                    />
-                    <SubtitleInput 
-                        ref={subTitle}
-                        name="subtitle" 
-                        value={subtitle} 
-                        onChange={onChangeTitle}
-                        placeholder="소제목을 입력하세요."
-                    />
-                    { children }
-                    {/* font -> event bubbling (추후 많아질 수도 있으니) */}
-                </TitleBox>
-                <TitleToolbar className="title-toolbar" onClick={onChangeFont}>
-                    <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
-                    <input onChange={onThumbnailUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
-                    <div onClick={onSize}>
-                        <CgArrowsShrinkV onClick={onActive}/>
-                    </div>
-                    <div onClick={onColor}>
-                        <IoIosColorPalette className="thumbnail-color-btn" onClick={onActive}/>
-                    </div>
-                    <div className="font-btn nanum-gothic" >가</div>
-                    <div className="font-btn nanum-myeongjo">가</div>
-                    <div className="font-btn gamja-flower">가</div>
-                    <div className="font-btn dancing-script">abc</div>
-                    <TitlePositionModifier
-                        isCenter={titleStyle.isCenter} 
-                        onClick={onTitleCenter}
-                    >
-                        가
-                    </TitlePositionModifier>
-                    <div 
-                        className="font-color-btn" 
-                        onClick={onTitleColor}
-                    >
-                        <IoBrushOutline onClick={onActive}/>
-                    </div>
-                </TitleToolbar>
-                <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
-                    <li className="color red"></li>
-                    <li className="color orange"></li>
-                    <li className="color yellow"></li>
-                    <li className="color green"></li>
-                    <li className="color blue"></li>
-                    <li className="color purple"></li>
-                    <li className="color mint"></li>
-                    <li className="color sky"></li>
-                    <li className="color black"></li>
-                    <li className="color gray"></li>
-                </ThumbnailColorBox>
-            </ThumbnailTitleBox>
+                    가
+                </TitlePositionModifier>
+                <div 
+                    className="font-color-btn" 
+                    onClick={onTitleColor}
+                >
+                    <IoBrushOutline onClick={onActive}/>
+                </div>
+            </TitleToolbar>
+            <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
+                <li className="color red"></li>
+                <li className="color orange"></li>
+                <li className="color yellow"></li>
+                <li className="color green"></li>
+                <li className="color blue"></li>
+                <li className="color purple"></li>
+                <li className="color mint"></li>
+                <li className="color sky"></li>
+                <li className="color black"></li>
+                <li className="color gray"></li>
+            </ThumbnailColorBox>
+        </ThumbnailTitleBox>
     );
 };
 

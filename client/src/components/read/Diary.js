@@ -1,35 +1,34 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
 import LinkedDiaryWrapper from './LinkedDiaryWrapper';
 import LinkedDiaryCard from './LinkedDiaryCard';
+import ThumbnailTitleBox from '../common/ThumbnailTitleBox';
 
 /*
 */
-const StyledDiary = styled(ResponsiveWrapper)`
-    padding: 20px;
-    @media screen and (min-width: 481px) {
-        width: 100%;
-        padding: 0 100px;
-    }
-    @media screen and (min-width: 769px) {
-        width: 100%;
-        padding: 0 300px;
-    }
-`;
+
+
 
 const StyledDiaryTitle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    background: white;
+    /* background: white; */
     margin: 0;
     width: 100%;
     height: 84vh;
-    padding-bottom: 10vh;
+    padding-left: 20px;
+    ${props => 
+        (props.thumbnail !== "") && css`
+            background-image: url(${props.thumbnail});
+            background-size: cover;
+            background-position: center;
+        `
+    }
     &::before {
         content:"";
         position: absolute;
@@ -51,41 +50,108 @@ const StyledDiaryTitle = styled.div`
     @media screen and (min-width: 481px) {
         height: 80vh;
         bottom: 10vh;
+        padding-left: 0;
     }
     @media screen and (min-width: 769px) {
         height: 78vh;
     }
-    h1 {
+`;
+
+const StyledThumbnailTitle = styled.h1`
+    position: relative;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    z-index: 11;
+    @media screen and (min-width: 481px) {
+        font-size: 2.25rem;
+    }
+    @media screen and (min-width: 769px) {
         font-size: 2.5rem;
-        font-family: arial;
-    }
-    h2 {
-        font-size: 1.6rem;
-    }
-    h3 {
-        font-size: 0.8rem;
     }
 `;
-const StyledDiaryTag = styled.div``;
-const StyledDiaryBody = styled.div`
-    padding-top: 3rem;
-    line-height: 1.75;
+const StyledSubtitle = styled.h2`
+    margin-bottom: 2rem;
+    width: 100%;
+    font-size: 1rem;
+`
+const StyledTagBox = styled.ul`
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-inline-start: 0;
+`
+const StyledDiaryTag = styled.li`
+    display: inline-flex;
+    margin-right: 1rem;
+    border: 1px solid lightgray;
+    color: #a3a2a2;
     font-weight: 200;
+    border-radius: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    z-index: 11;
+`;
+
+const StyledDateAndNameBox = styled.div`
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+`
+const StyledAuthorName = styled.h3`
+    font-weight: 500;
+`;
+const StyledPostedDate = styled.h3`
+    margin-left: 1rem;
+    font-weight: 200;
+`;
+
+const StyledDiaryBody = styled.div`
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    padding: 0 0 0 20px;
+    @media screen and (min-width: 481px) {
+        padding: 0 15vw;
+        height: 80vh;
+        /* right: 8vw; */
+    }
+    @media screen and (min-width: 769px) {
+        padding: 0 20vw;
+        height: 78vh;
+        /* right: 15vw; */
+    }
 `;
 
 
 const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     if (diaryError) {
         if (diaryError.response && diaryError.response.status === 404) {
-            return <StyledDiary>존재하지 않는 글입니다.</StyledDiary>
-        } else return <StyledDiary>글을 불러올 수 없습니다.</StyledDiary>
+            return alert('존재하지 않는 글이에요! 😥')
+        } else return alert('글을 불러올 수 없어요! 😥');
     }
     if (!diary) return null;
-    const { title, body, tags, author, postedDate, beforeDiary, afterDiary } = diary;
+    const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
+    const { isCenter, isFullSize, thumbnail, color, fontColor } = titleStyle;
+
     return (
         <>
-            <StyledDiary>
+            <ThumbnailTitleBox hasThumbnail={thumbnail} hasColor={color}>
                 <StyledDiaryTitle>
+                    <StyledThumbnailTitle>{title}</StyledThumbnailTitle>
+                    <StyledSubtitle>{subtitle}</StyledSubtitle>
+                    <StyledTagBox>{tags.map(tag => <StyledDiaryTag key={tag}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
+                    <StyledDateAndNameBox className="dancing-script">
+                        <StyledAuthorName>by {author.authorId}</StyledAuthorName>
+                        <StyledPostedDate>{postedDate.slice(0,10).split('-').join('. ')}</StyledPostedDate>
+                    </StyledDateAndNameBox>
                     {userId === author.authorId ? 
                         <DiaryModifyAndDeleteBtns 
                             onPatch={onPatch} 
@@ -93,16 +159,12 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
                         /> 
                         : null
                     }
-                    <h2>{postedDate.slice(0,10).split('-').join('. ')}</h2>
-                    <h1>{title}</h1>
-                    <h3>by {author.authorId}</h3>
-                    <StyledDiaryTag>{tags}</StyledDiaryTag>
                 </StyledDiaryTitle>
-                <StyledDiaryBody 
-                    dangerouslySetInnerHTML={{ __html: body }}
-                >
-                </StyledDiaryBody>
-            </StyledDiary>
+            </ThumbnailTitleBox>
+            <StyledDiaryBody 
+                dangerouslySetInnerHTML={{ __html: body }}
+            >
+            </StyledDiaryBody>
             <LinkedDiaryWrapper userId={userId}>
                 { beforeDiary && <LinkedDiaryCard linkedDiary={beforeDiary} isPostedBefore/> }
                 { afterDiary && <LinkedDiaryCard linkedDiary={afterDiary} isPostedBefore={false}/> }

@@ -15,6 +15,7 @@ const StyledDiaryFooter = styled.footer`
     @media screen and (min-width: 481px) {
         height: 10vh;
     }
+    
     ${props =>
         props.isWrite && css`
             display: flex;
@@ -32,9 +33,9 @@ const Spacer = styled.div`
     @media screen and (min-width: 481px) {
         height: 10vh;
     }
-    /* @media screen and (min-width: 769px) {
+    @media screen and (min-width: 769px) {
         height: 12vh;
-    } */
+    }
 `;
 
 const DiaryFooter = (props) => {
