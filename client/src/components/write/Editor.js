@@ -20,8 +20,7 @@ const StyledEditor = styled.div`
 const QuillWrapper = styled.div`
     position: relative;
     height: auto;
-    padding-bottom: 12vh;
-    width: 100vw;
+    width: 100%;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -37,7 +36,7 @@ const QuillWrapper = styled.div`
         position: relative;
         right: 0;
         width: 100%;
-        padding: 0 1rem;
+        padding: 1rem 1rem;
         margin-top: 2rem;
         z-index: 9;
         .ql-formats {
@@ -166,6 +165,7 @@ const Editor = ({ body, onChangeText }) => {
             if (source === 'user') {
                 onChangeText({ name: 'body', value: quill.root.innerHTML });
             }
+            
         });
     }, [onChangeText]);
 
@@ -175,7 +175,11 @@ const Editor = ({ body, onChangeText }) => {
         mounted.current = true;
         quillInstance.current.root.innerHTML = body;
     }, [body]);
-    
+
+    // useEffect(() => {
+    //     const quill = quillInstance.current; 
+    //     quill.focus();
+    // }, [quillInstance])
     return (
         <StyledEditor>
             <QuillWrapper>

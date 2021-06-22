@@ -7,6 +7,7 @@ import { CgArrowsShrinkV } from 'react-icons/cg'
 import { IoBrushOutline } from 'react-icons/io5'
 import { IoIosColorPalette } from 'react-icons/io'
 import { IoImage } from 'react-icons/io5'
+import AWS from 'aws-sdk';
 
 /**
 **/
@@ -20,6 +21,7 @@ const ThumbnailTitleBox = styled.div`
     border-bottom: 1px solid lightgray;
     transition: all 0.5s;
     background-size: cover;
+    background-position: center;
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 78vh;
@@ -312,27 +314,58 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
         e.currentTarget.classList.toggle('active');
     }
 
-    const onTitleImageUpload = e => {
-        if (!e.target.files[0]) return;
-        // 만약 color가 추가되어 있었다면 제거하기.
-        let fileReader = new FileReader();
-        fileReader.readAsDataURL(e.target.files[0]);
-        fileReader.onload = function (e) {
-            if (titleStyle.color) {
-                const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
-                const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
-                thumbnailColorBox.style.display = 'none';
-                thumbnailColorBtn.classList.remove('active');
+    // const onTitleImageUpload = e => {
+    //     if (!e.target.files[0]) return;
+    //     // 만약 color가 추가되어 있었다면 제거하기.
+    //     let fileReader = new FileReader();
+    //     fileReader.readAsDataURL(e.target.files[0]);
+    //     fileReader.onload = function (e) {
+    //         if (titleStyle.color) {
+    //             const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
+    //             const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+    //             thumbnailColorBox.style.display = 'none';
+    //             thumbnailColorBtn.classList.remove('active');
+    //         }
+    //         // setTitleStyle({
+    //         //     ...titleStyle,
+    //         //     thumbnail: e.target.result,
+    //         //     color: ''
+    //         // });
+    //         onChangeStyle({ name: 'thumbnail', value: e.target.result });
+    //         onChangeStyle({ name: 'color', value: '' });
+    //     };
+    // };
+    
+    const fileName = useRef(null);
+    
+    const onThumbnailUpload = e => {
+        const { REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
+        AWS.config.update({
+            region: REACT_APP_BUCKETREGION,
+            credentials: new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: REACT_APP_IDENTITY_POOL_ID,
+            }),
+        })
+        const file = e.target.files[0];
+        fileName.current = file.name;
+        const upload = new AWS.S3.ManagedUpload({
+            params: {
+                Bucket: "moondeuk-images",
+                Key: "diary/thumbnail/" + file.name,
+                Body: file,
             }
-            // setTitleStyle({
-            //     ...titleStyle,
-            //     thumbnail: e.target.result,
-            //     color: ''
-            // });
-            onChangeStyle({ name: 'thumbnail', value: e.target.result });
-            onChangeStyle({ name: 'color', value: '' });
-        };
-    };
+        })
+        const promise =  upload.promise();
+
+        promise.then(
+            function (data) {
+                onChangeStyle({ name: 'thumbnail', value: data.Location})
+            },
+            function (err) {
+                alert(`이미지를 가져올 수 없어요! 😂\n 사유: ${err}`)
+            }
+        )
+    }
 
     const onSize = () => {
         // setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
@@ -494,7 +527,7 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                 </TitleBox>
                 <TitleToolbar className="title-toolbar" onClick={onChangeFont}>
                     <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
-                    <input onChange={onTitleImageUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
+                    <input onChange={onThumbnailUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
                     <div onClick={onSize}>
                         <CgArrowsShrinkV onClick={onActive}/>
                     </div>

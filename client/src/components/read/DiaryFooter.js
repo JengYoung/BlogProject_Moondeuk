@@ -40,9 +40,8 @@ const Spacer = styled.div`
 const DiaryFooter = (props) => {
     return (
         <>
-            <StyledDiaryFooter {...props}>
-            </StyledDiaryFooter>
-            <Spacer/>
+            <StyledDiaryFooter {...props}/>
+            <Spacer className="Joker"/>
         </>
 
     )
