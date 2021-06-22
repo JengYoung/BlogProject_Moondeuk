@@ -24,8 +24,9 @@ export const changeStyle = createAction(CHANGE_STYLE, ({ name, value }) => ({
     value,
 }))
 export const initializeDiary = createAction(INITIALIZE_DIARY, diary => diary)
-export const writeDiary = createAction(WRITE_DIARY, ({ title, body, tags, titleStyle }) => ({
+export const writeDiary = createAction(WRITE_DIARY, ({ title, subtitle, body, tags, titleStyle }) => ({
     title, // diary title
+    subtitle,
     body, // diary content
     tags, // diary tags
     titleStyle,

@@ -314,28 +314,6 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
         e.currentTarget.classList.toggle('active');
     }
 
-    // const onTitleImageUpload = e => {
-    //     if (!e.target.files[0]) return;
-    //     // 만약 color가 추가되어 있었다면 제거하기.
-    //     let fileReader = new FileReader();
-    //     fileReader.readAsDataURL(e.target.files[0]);
-    //     fileReader.onload = function (e) {
-    //         if (titleStyle.color) {
-    //             const thumbnailColorBox = document.querySelector('.thumbnail-color-box');
-    //             const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
-    //             thumbnailColorBox.style.display = 'none';
-    //             thumbnailColorBtn.classList.remove('active');
-    //         }
-    //         // setTitleStyle({
-    //         //     ...titleStyle,
-    //         //     thumbnail: e.target.result,
-    //         //     color: ''
-    //         // });
-    //         onChangeStyle({ name: 'thumbnail', value: e.target.result });
-    //         onChangeStyle({ name: 'color', value: '' });
-    //     };
-    // };
-    
     const fileName = useRef(null);
     
     const onThumbnailUpload = e => {
