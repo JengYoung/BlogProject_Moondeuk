@@ -48,7 +48,12 @@ const StyledDiaryTitle = styled.div`
         z-index: 1;
         width: 100%;
         height: 84vh;
-        background: rgba(0,0,0,0.15);
+        background: transparent;
+        ${props => 
+            (props.hasThumbnail !== "" || props.hasColor !== "") && css`
+                background: rgba(0,0,0,0.2);
+            `
+        }
         border-bottom: 1px solid lightgray;
         @media screen and (min-width: 481px) {
             height: 80vh;
@@ -149,13 +154,13 @@ const StyledDiaryTag = styled.li`
     z-index: 11;
     ${props => 
         props.fontColor === 'white' && css`
-            color: white;
+            color: #e0e0e0;
             border: 1px solid white;
         `
     }
     ${props => 
         (props.thumbnail !== "" || props.color !== "") && css`
-            color: white;
+            color: #e0e0e0;
             border: 1px solid white;
         `
     }    
@@ -203,11 +208,10 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
     const { isCenter, isFullSize, thumbnail, color, fontColor } = titleStyle;
-
     return (
         <>
             <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
-                <StyledDiaryTitle isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor}>
+                <StyledDiaryTitle isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
                     <StyledThumbnailTitle isCenter={isCenter} fontColor={fontColor}>{title}</StyledThumbnailTitle>
                     <StyledSubtitle isCenter={isCenter} fontColor={fontColor}>{subtitle}</StyledSubtitle>
                     <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
