@@ -88,6 +88,9 @@ const ThumbnailTitleBox = props => {
         if (props.hasColor !== "") thumbnailTitleBox.current.classList.add(props.hasColor);
     }, [props.hasColor])
 
+    useEffect(() => {
+        if (!props.isFullSize) thumbnailTitleBox.current.classList.add('half');
+    }, [props.isFullSize])
     return (
         <StyledThumbnailTitleBox
             {...props}

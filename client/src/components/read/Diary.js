@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import ResponsiveWrapper from '../common/Responsive';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
 import LinkedDiaryWrapper from './LinkedDiaryWrapper';
@@ -29,6 +28,17 @@ const StyledDiaryTitle = styled.div`
             background-position: center;
         `
     }
+    ${props => 
+        props.isCenter && css`
+            justify-content: center;
+            align-items: center;
+        `
+    }
+    ${props => 
+        props.fontColor === 'white' && css`
+            color: white;
+        `
+    }    
     &::before {
         content:"";
         position: absolute;
@@ -45,6 +55,19 @@ const StyledDiaryTitle = styled.div`
         }
         @media screen and (min-width: 769px) {
             height: 78vh;
+        }
+        ${props =>
+            (!props.isFullSize) && css`
+                height: 42vh;
+                @media screen and (min-width: 481px) {
+                    padding: 0 15vw;
+                    height: 40vh;
+                }
+                @media screen and (min-width: 769px) {
+                    padding: 0 20vw;
+                    height: 39vh;
+                }
+            ` 
         }
     }
     @media screen and (min-width: 481px) {
@@ -64,17 +87,39 @@ const StyledThumbnailTitle = styled.h1`
     margin-bottom: 0.5rem;
     width: 100%;
     z-index: 11;
+    ${props => 
+        props.isCenter && css`
+            display: flex;
+            justify-content: center;
+        `
+    }
     @media screen and (min-width: 481px) {
         font-size: 2.25rem;
     }
     @media screen and (min-width: 769px) {
         font-size: 2.5rem;
     }
+    /* ${props => 
+        props.isCenter && css`
+            text-align: center;
+        `
+    } */
 `;
 const StyledSubtitle = styled.h2`
     margin-bottom: 2rem;
     width: 100%;
     font-size: 1rem;
+    ${props => 
+        props.isCenter && css`
+            display: flex;
+            justify-content: center;
+        `
+    }
+    ${props => 
+        props.fontColor === 'white' && css`
+            color: white;
+        `
+    }    
 `
 const StyledTagBox = styled.ul`
     display: inline-flex;
@@ -83,6 +128,12 @@ const StyledTagBox = styled.ul`
     flex-wrap: wrap;
     margin-bottom: 1rem;
     padding-inline-start: 0;
+    ${props => 
+        props.isCenter && css`
+            display: flex;
+            justify-content: center;
+        `
+    } 
 `
 const StyledDiaryTag = styled.li`
     display: inline-flex;
@@ -96,6 +147,11 @@ const StyledDiaryTag = styled.li`
     padding: 0 1rem;
     font-size: 0.9rem;
     z-index: 11;
+    ${props => 
+        props.fontColor === 'white' && css`
+            color: white;
+        `
+    }    
 `;
 
 const StyledDateAndNameBox = styled.div`
@@ -143,11 +199,11 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
 
     return (
         <>
-            <ThumbnailTitleBox hasThumbnail={thumbnail} hasColor={color}>
-                <StyledDiaryTitle>
-                    <StyledThumbnailTitle>{title}</StyledThumbnailTitle>
-                    <StyledSubtitle>{subtitle}</StyledSubtitle>
-                    <StyledTagBox>{tags.map(tag => <StyledDiaryTag key={tag}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
+            <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
+                <StyledDiaryTitle isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor}>
+                    <StyledThumbnailTitle isCenter={isCenter} fontColor={fontColor}>{title}</StyledThumbnailTitle>
+                    <StyledSubtitle isCenter={isCenter} fontColor={fontColor}>{subtitle}</StyledSubtitle>
+                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">
                         <StyledAuthorName>by {author.authorId}</StyledAuthorName>
                         <StyledPostedDate>{postedDate.slice(0,10).split('-').join('. ')}</StyledPostedDate>
@@ -156,6 +212,7 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
                         <DiaryModifyAndDeleteBtns 
                             onPatch={onPatch} 
                             onDelete={onDelete}
+                            isFullSize={isFullSize}
                         /> 
                         : null
                     }

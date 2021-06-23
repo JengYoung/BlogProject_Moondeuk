@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { RiEraserLine, RiDeleteBinLine } from 'react-icons/ri';
 import { AiTwotoneSetting } from 'react-icons/ai'
 import { useState } from 'react';
@@ -29,6 +29,17 @@ const StyledDiaryModifyAndDeleteBtns = styled.ul`
     @media screen and (min-width: 769px) {
         top: 80vh;
     }
+    ${props =>
+        (!props.isFullSize) && css`
+            top: 44vh;
+            @media screen and (min-width: 481px) {
+                top: 42vh;
+            }
+            @media screen and (min-width: 769px) {
+                top: 41vh;
+            }
+        ` 
+    }
 `;
 
 const StyledDiaryModifyAndDeleteBtn = styled.li`
@@ -50,13 +61,13 @@ const StyledDiaryModifyAndDeleteBtn = styled.li`
     }
 `;
 
-const DiaryModifyAndDeleteBtns = ({onPatch, onDelete}) => {
+const DiaryModifyAndDeleteBtns = ({onPatch, onDelete, isFullSize}) => {
     const [openBtns, setOpenBtns] = useState(false);
     const onClick = () => {
         setOpenBtns(!openBtns);
     }
     return (
-        <StyledDiaryModifyAndDeleteBtns onClick={onClick}>
+        <StyledDiaryModifyAndDeleteBtns isFullSize={isFullSize} onClick={onClick}>
             <AiTwotoneSetting></AiTwotoneSetting>
             {
                 openBtns ? 
