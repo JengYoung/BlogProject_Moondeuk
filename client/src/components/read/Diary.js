@@ -138,8 +138,8 @@ const StyledTagBox = styled.ul`
 const StyledDiaryTag = styled.li`
     display: inline-flex;
     margin-right: 1rem;
-    border: 1px solid lightgray;
-    color: #a3a2a2;
+    border: 1px solid #5e5e5e;
+    color: #5e5e5e;
     font-weight: 200;
     border-radius: 1.5rem;
     height: 1.5rem;
@@ -150,6 +150,13 @@ const StyledDiaryTag = styled.li`
     ${props => 
         props.fontColor === 'white' && css`
             color: white;
+            border: 1px solid white;
+        `
+    }
+    ${props => 
+        (props.thumbnail !== "" || props.color !== "") && css`
+            color: white;
+            border: 1px solid white;
         `
     }    
 `;
