@@ -13,7 +13,7 @@ const SubscribeListModal = ({ modal, isSubscribeList, subscribeToList, subscribe
         <Modal>
             {body.map(user => {
                 const { userInfo } = user;
-                return <ModalListItem>{userInfo.nickname}{`(${userInfo.username})`}</ModalListItem>
+                return <ModalListItem key={userInfo.username}>{userInfo.nickname}{`(${userInfo.username})`}</ModalListItem>
             })}
             <div className="buttonWrapper">
                 <Button onClick={onConfirm}>확인</Button>

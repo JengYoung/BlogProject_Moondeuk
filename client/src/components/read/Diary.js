@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
 import LinkedDiaryWrapper from './LinkedDiaryWrapper';
 import LinkedDiaryCard from './LinkedDiaryCard';
 import ThumbnailTitleBox from '../common/ThumbnailTitleBox';
-
 /*
 */
 
@@ -207,12 +206,12 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     }
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
-    const { isCenter, isFullSize, thumbnail, color, fontColor } = titleStyle;
+    const { isCenter, isFullSize, thumbnail, color, fontColor, font } = titleStyle;
     return (
         <>
             <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
                 <StyledDiaryTitle isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
-                    <StyledThumbnailTitle isCenter={isCenter} fontColor={fontColor}>{title}</StyledThumbnailTitle>
+                    <StyledThumbnailTitle className={font} isCenter={isCenter} fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
                     <StyledSubtitle isCenter={isCenter} fontColor={fontColor}>{subtitle}</StyledSubtitle>
                     <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">

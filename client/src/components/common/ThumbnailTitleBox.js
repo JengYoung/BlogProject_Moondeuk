@@ -46,7 +46,7 @@ const StyledThumbnailTitleBox = styled.div`
     }
     .yellow,
     &.yellow {
-        background: #ffd900;
+        background: #ffee00;
     }
     .green,
     &.green {

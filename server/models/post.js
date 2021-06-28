@@ -36,6 +36,10 @@ const PostSchema = new Schema({
             type: String,
             default: 'black',
         },
+        font: {
+            type: String,
+            default: '',
+        }
     }
 });
 
