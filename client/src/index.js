@@ -19,10 +19,8 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaM
 sagaMiddleware.run(rootSaga);
 /* user check for maintaining Login status */
 const userCheck = () => {
-  console.log('유저 체크 중입니다.')
   const user = getItemFromLocalStorage('user');
   if (!user) return;
-  console.log('리턴되지 않았습니다.');
   try {
     store.dispatch(tempSetUser());
     store.dispatch(check());

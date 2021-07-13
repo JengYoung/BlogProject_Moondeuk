@@ -1,5 +1,6 @@
+import React from 'react';
 import { Route } from 'react-router';
-import './App.css';
+import GlobalStyles from './styles/GlobalStyles';
 import DiaryPage from './pages/DiaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -9,15 +10,15 @@ import WritePage from './pages/WritePage';
 
 function App() {
   return (
-    <>
-      {/* path={['/@:authorId', '/']} */}
+    <React.Fragment>
+      <GlobalStyles/>
       <Route component={MainPage} path='/' exact/>
       <Route component={UserPage} path='/@:authorId' />
       <Route component={RegisterPage} path='/register' />
       <Route component={LoginPage} path='/login' />
       <Route component={WritePage} path={['/write/@:authorId/:diaryId', '/write']} />
       <Route component={DiaryPage} path='/@:authorId/:diaryId' />
-    </>
+    </React.Fragment>
   );
 }
 
