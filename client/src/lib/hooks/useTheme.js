@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 */ 
 export const checkTheme = () => {
     let theme = localStorage.getItem('theme');
+    console.log("여기", theme)
     if (!theme) {
         const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
         theme = matches ? 'dark' : 'light';
@@ -22,7 +23,9 @@ const useTheme = () => {
     }));
 
     const toggleTheme = () => {
-        dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'));
+        const nextTheme = theme === 'dark' ? 'light' : 'dark'
+        dispatch(setTheme(nextTheme));
+        localStorage.setItem('theme', nextTheme);
     }
 
     // 처음 렌더링 될 때는 체크하고, 스토어, 로컬스토리지에 넣어주기만 한다.
@@ -31,11 +34,6 @@ const useTheme = () => {
         dispatch(setTheme(nowTheme));
         localStorage.setItem('theme', nowTheme);
     }, [dispatch])
-
-    // 이후에는 theme이 바뀔때마다 로컬스토리지만 변경해주면 된다.
-    useEffect(() => {
-        localStorage.setItem('theme', theme);
-    }, [theme, dispatch]);
 
     return { theme, toggleTheme };
 }

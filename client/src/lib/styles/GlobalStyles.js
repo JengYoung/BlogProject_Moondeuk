@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import myColors from './_color';
 
 const GlobalStyles = createGlobalStyle`
     html {
@@ -8,7 +7,7 @@ const GlobalStyles = createGlobalStyle`
     #root {
         height: 100%;
     }
-    body {  
+    body {
         margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -16,11 +15,6 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         min-height: 100%;
         height: 100%;
-        &.dark {
-            background-color: ${myColors.purple[myColors.purple.length - 1]};
-            color: white;
-        }
-        transition: all 5s;
     }
     textarea, input, option, select {
         font-family: 'Noto Sans KR', sans-serif;

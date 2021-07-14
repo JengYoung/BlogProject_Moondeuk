@@ -11,10 +11,13 @@ const StyledSideWrap = styled.main`
     min-width: 320px;
     max-width: 480px;
     width: 100%;
-    background-color: ${({ theme }) => theme.bgColor};
     height: auto;
     min-height: 100%;
     
+    // dark-mode 여부에 따른 CSS 효과
+    background-color: ${({ theme }) => theme.bgColor};
+    transition: background-color 0.5s;
+
     @media screen and (min-width: 481px) {
         display: flex;
         flex-direction: column;

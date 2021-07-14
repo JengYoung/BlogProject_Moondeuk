@@ -2,7 +2,7 @@ import React from 'react'
 import SideWrap from '../components/common/SideWrap'
 import AuthWrap from '../components/common/auth/AuthWrap'
 import LoginContainer from '../containers/auth/login/LoginContainer'
-import LoginImageWrap from '../components/login/LoginImageWrap'
+import LoginBackground from '../components/login/LoginBackground';
 import PageWrap from '../components/common/PageWrap'
 import LogoWrap from '../components/common/LogoWrap'
 import DarkModeBtn from '../components/common/DarkModeBtn'
@@ -16,12 +16,8 @@ function LoginPage() {
                     <LoginContainer />
                 </AuthWrap>
             </SideWrap>
-            <LoginImageWrap/>
+            <LoginBackground/>
         </PageWrap>
-        
-        // <LoginBackground>
-        //     <LoginContainer />
-        // </LoginBackground>  
     )
 }
 

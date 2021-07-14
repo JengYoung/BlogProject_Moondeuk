@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
 import myColors from 'lib/styles/_color';
-import { useEffect } from 'react';
 import myVars from 'lib/styles/_variable';
 import useTheme from 'lib/hooks/useTheme';
 /**
@@ -66,37 +65,15 @@ const DarkModeBtn = () => {
 	*/ 
 	const { theme, toggleTheme } = useTheme();
 	const onClick = (e) => {
-		$switchBtn.current.classList.toggle('move');
-		$darkModeBtn.current.classList.toggle('dark');
-		document.body.classList.toggle('dark');
+		// $switchBtn.current.classList.toggle('move');
+		// $darkModeBtn.current.classList.toggle('dark');
 		toggleTheme();
 	}
+	useEffect(() => {
+		$switchBtn.current.classList.toggle('move', theme === 'light');
+		$darkModeBtn.current.classList.toggle('dark', theme === 'dark');
+	}, [theme])
 
-	/*
-		1. 다크모드 여부를 체크한다.
-		2. 기존 테마 설정이 다크모드라면, 
-			2-1) 먼저 root에 class dark 추가
-			2-2) 만약 checkTheme이 false라면 버튼 옮기기 (button은 light mode일 시 움직임)
-			2-3) 색상 변경
-	*/
-	// useEffect(() => {
-	// 	const theme = localStorage.getItem('theme'); // 1.체크
-	// 	if (!theme) {
-	// 		const checkTheme = window.matchMedia('(prefers-color-scheme: Dark)').matches; // 2. 모드 여부
-	// 		if (checkTheme) {
-	// 			document.body.classList.add('dark'); // 2-1
-	// 			$darkModeBtn.current.classList.add('dark');
-	// 		} else $switchBtn.current.classList.toggle('move'); // 2-2
-	// 		localStorage.setItem('theme', checkTheme ? 'dark' : 'light');
-	// 	}
-	// 	else {
-	// 		if (theme === 'dark') {
-	// 			document.body.classList.add('dark')
-	// 			$darkModeBtn.current.classList.toggle('dark');
-	// 		}
-	// 		else $switchBtn.current.classList.toggle('move');
-	// 	}
-	// }, [])
 	return (
 		<StyledDarkModeBtn ref={$darkModeBtn} onClick={onClick}>
 			<StyledSwitchBtn ref={$switchBtn}/>
