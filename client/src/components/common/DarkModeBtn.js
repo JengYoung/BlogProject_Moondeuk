@@ -3,17 +3,22 @@ import styled from "styled-components";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
 import myColors from 'lib/styles/_color';
 import { useEffect } from 'react';
+import myVars from 'lib/styles/_variable';
+import useTheme from 'lib/hooks/useTheme';
 /**
  **/
 const StyledDarkModeBtn = styled.section`
 	display: flex;
-	align-items: center;
 	position: absolute;
+	align-items: center;
 	top: 2rem;
 	right: 0;
 	width: 5rem;
 	height: 2.25rem;
 	background: #7fdbff;
+	border: 1px solid ${myColors.gray[0]};
+	box-shadow: ${myVars.defaultShadow};
+	/* overflow: hidden; */
 	border-radius: 2.25rem;
 	transition: background-color 0.5s;
 	&.dark {
@@ -33,7 +38,7 @@ const StyledSwitchBtn = styled.button`
 	width: 2.375rem;
 	height: 2.375rem;
 	background: white;
-	border: 1px solid ${myColors.gray[5]};
+	border: 3px solid ${myColors.gray[0]};
 	border-radius: 2rem;
 	transition: transform 0.5s;
 	&.move {
@@ -52,20 +57,19 @@ const StyledTheme = styled.div`
 
 
 const DarkModeBtn = () => {
-	const switchBtn = useRef(null);
-	const darkModeBtn = useRef(null);
+	const $switchBtn = useRef(null);
+	const $darkModeBtn = useRef(null);
 	/*
 		클릭할 시:
 		1. switchBtn 움직임
 		2. DarkModeBtn 색상 바뀜
 	*/ 
+	const { theme, toggleTheme } = useTheme();
 	const onClick = (e) => {
-		switchBtn.current.classList.toggle('move');
-		darkModeBtn.current.classList.toggle('dark');
-		const theme = localStorage.getItem('theme');
-		const nextTheme = theme === 'dark' ? 'light' : 'dark'
-		localStorage.setItem('theme', nextTheme);
-		document.querySelector('#root').classList.toggle('dark');
+		$switchBtn.current.classList.toggle('move');
+		$darkModeBtn.current.classList.toggle('dark');
+		document.body.classList.toggle('dark');
+		toggleTheme();
 	}
 
 	/*
@@ -75,27 +79,27 @@ const DarkModeBtn = () => {
 			2-2) 만약 checkTheme이 false라면 버튼 옮기기 (button은 light mode일 시 움직임)
 			2-3) 색상 변경
 	*/
-	useEffect(() => {
-		const theme = localStorage.getItem('theme'); // 1.체크
-		if (!theme) {
-			const checkTheme = window.matchMedia('(prefers-color-scheme: Dark)').matches; // 2. 모드 여부
-			if (checkTheme) {
-				document.querySelector('#root').classList.add('dark'); // 2-1
-				darkModeBtn.current.classList.add('dark');
-			} else switchBtn.current.classList.toggle('move'); // 2-2
-			localStorage.setItem('theme', checkTheme ? 'dark' : 'light');
-		}
-		else {
-			if (theme === 'dark') {
-				document.querySelector('#root').classList.add('dark')
-				darkModeBtn.current.classList.toggle('dark');
-			}
-			else switchBtn.current.classList.toggle('move');
-		}
-	}, [])
+	// useEffect(() => {
+	// 	const theme = localStorage.getItem('theme'); // 1.체크
+	// 	if (!theme) {
+	// 		const checkTheme = window.matchMedia('(prefers-color-scheme: Dark)').matches; // 2. 모드 여부
+	// 		if (checkTheme) {
+	// 			document.body.classList.add('dark'); // 2-1
+	// 			$darkModeBtn.current.classList.add('dark');
+	// 		} else $switchBtn.current.classList.toggle('move'); // 2-2
+	// 		localStorage.setItem('theme', checkTheme ? 'dark' : 'light');
+	// 	}
+	// 	else {
+	// 		if (theme === 'dark') {
+	// 			document.body.classList.add('dark')
+	// 			$darkModeBtn.current.classList.toggle('dark');
+	// 		}
+	// 		else $switchBtn.current.classList.toggle('move');
+	// 	}
+	// }, [])
 	return (
-		<StyledDarkModeBtn ref={darkModeBtn} onClick={onClick}>
-			<StyledSwitchBtn ref={switchBtn}/>
+		<StyledDarkModeBtn ref={$darkModeBtn} onClick={onClick}>
+			<StyledSwitchBtn ref={$switchBtn}/>
 			<StyledTheme><IoMdSunny/></StyledTheme>
 			<StyledTheme><IoIosMoon/></StyledTheme>		
 		</StyledDarkModeBtn>

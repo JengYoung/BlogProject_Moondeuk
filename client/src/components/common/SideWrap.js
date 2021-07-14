@@ -11,7 +11,7 @@ const StyledSideWrap = styled.main`
     min-width: 320px;
     max-width: 480px;
     width: 100%;
-    background: white;
+    background-color: ${({ theme }) => theme.bgColor};
     height: auto;
     min-height: 100%;
     
