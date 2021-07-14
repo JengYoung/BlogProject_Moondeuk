@@ -5,11 +5,13 @@ import LoginContainer from '../containers/auth/login/LoginContainer'
 import LoginImageWrap from '../components/login/LoginImageWrap'
 import PageWrap from '../components/common/PageWrap'
 import LogoWrap from '../components/common/LogoWrap'
+import DarkModeBtn from '../components/common/DarkModeBtn'
 function LoginPage() {
     return (
         <PageWrap>
             <SideWrap>
                 <AuthWrap>
+                    <DarkModeBtn/>
                     <LogoWrap></LogoWrap>
                     <LoginContainer />
                 </AuthWrap>

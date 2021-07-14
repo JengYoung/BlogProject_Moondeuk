@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router';
-import GlobalStyles from './styles/GlobalStyles';
+import GlobalStyles from './lib/styles/GlobalStyles';
 import DiaryPage from './pages/DiaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
