@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import {Link} from 'react-router-dom';
-import HeadName from '../common/HeadName';
 import ErrorMessage from '../common/ErrorMessage';
 import LogoWrap from 'components/common/LogoWrap';
 /*

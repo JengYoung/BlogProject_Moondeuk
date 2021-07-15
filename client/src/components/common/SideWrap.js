@@ -20,7 +20,7 @@ const StyledSideWrap = styled.main`
 
     // dark-mode 여부에 따른 CSS 효과
     background-color: ${({ theme }) => theme.loginBg};
-    transition: background-color 0.5s;
+    transition: background-color 0.3s;
     ${props =>
         props.isMain && css`
             display: flex;

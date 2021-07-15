@@ -84,4 +84,4 @@ const DarkModeBtn = () => {
 	);
 };
 
-export default DarkModeBtn;
+export default React.memo(DarkModeBtn);

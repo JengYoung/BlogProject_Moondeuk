@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 */ 
 export const checkTheme = () => {
     let theme = localStorage.getItem('theme');
-    console.log("여기", theme)
     if (!theme) {
         const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
         theme = matches ? 'dark' : 'light';

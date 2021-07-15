@@ -4,10 +4,9 @@ import React from 'react'
 
 function LoginBackgroundContainer() {
     const { theme } = useTheme();
-    console.log(theme);
     return (
         <LoginBackground theme={theme}/>
     )
 }
 
-export default LoginBackgroundContainer
+export default React.memo(LoginBackgroundContainer)

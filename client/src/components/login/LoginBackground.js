@@ -14,12 +14,16 @@ const StyledLoginBackground = styled.article`
     width: 100%;
     height: 100%;
     overflow: hidden;
-
 `;
 const LightThemeWrapper = styled.img`
     width: 100%;
     height: 100%;
-    ${({ theme }) => (theme === 'dark') && 'display: none;'}
+    opacity: 1;
+    ${({ theme }) => (theme === 'dark') && `
+        // display: none;
+        opacity: 0;
+    `}
+    transition: all 0.3s;
 `
 const DarkThemeWrapper = styled.div`
     position: relative;
@@ -274,4 +278,4 @@ const LoginBackground = ({ theme }) => {
     );
 };
 
-export default LoginBackground;
+export default React.memo(LoginBackground);
