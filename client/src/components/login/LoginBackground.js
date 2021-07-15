@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 /**
  * * login's right side -> basic animations
@@ -20,10 +20,10 @@ const LightThemeWrapper = styled.img`
     height: 100%;
     opacity: 1;
     ${({ theme }) => (theme === 'dark') && `
-        // display: none;
+        display: none;
         opacity: 0;
     `}
-    transition: all 0.3s;
+    transition: opacity 0.5s;
 `
 const DarkThemeWrapper = styled.div`
     position: relative;

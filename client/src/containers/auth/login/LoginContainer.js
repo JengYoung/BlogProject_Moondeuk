@@ -1,6 +1,7 @@
 import LoginBackground from 'components/login/LoginBackground';
 import useError from 'lib/hooks/useError';
 import useTheme from 'lib/hooks/useTheme';
+import setItemToLocalStorage from 'lib/setItemToLocalStorage';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -9,15 +10,15 @@ import { initializeForm, login, onChangeInput } from '../../../modules/login';
 import { check } from '../../../modules/user';
 
 function Logincontainer({ history }) {
-    // const [ error, setError ] = useState(null);
-    const dispatch = useDispatch();
     const { theme } = useTheme();
+    const dispatch = useDispatch();
     const { inputs, loginSuccess, loginError, user } = useSelector(({ loginReducer, userReducer }) => ({
         inputs: loginReducer.inputs,
         loginSuccess: loginReducer.loginSuccess,
         loginError: loginReducer.loginError,
         user: userReducer.user,
     }));
+    
     const error = useError(loginError);
 
     /* Initialize form - if exists user data => return alert message */ 
@@ -25,12 +26,7 @@ function Logincontainer({ history }) {
         if (!user) dispatch(initializeForm()); 
         else {
             history.push('/');
-            try {
-                localStorage.setItem('user', JSON.stringify(user));
-            } catch(e) {
-                alert('로컬스토리지에서 오류가 발생했어요!');
-                console.error('LocalStorage ERROR occured');
-            }
+            setItemToLocalStorage('user', user);
         }
     }, [dispatch, user, history])
 
