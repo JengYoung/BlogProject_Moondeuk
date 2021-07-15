@@ -8,22 +8,19 @@ import styled, { css } from 'styled-components';
 const StyledSideWrap = styled.main`
     display: flex;
     flex-direction: column;
-    min-width: 320px;
-    max-width: 480px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 30;
+    opacity: 0.9;
+    flex-direction: column;
     width: 100%;
-    height: auto;
-    min-height: 100%;
-    
-    // dark-mode 여부에 따른 CSS 효과
-    background-color: ${({ theme }) => theme.bgColor};
-    transition: background-color 0.5s;
+    height: 100%;
+    padding: 0 1rem;
 
-    @media screen and (min-width: 481px) {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+    // dark-mode 여부에 따른 CSS 효과
+    background-color: ${({ theme }) => theme.loginBg};
+    transition: background-color 0.5s;
     ${props =>
         props.isMain && css`
             display: flex;

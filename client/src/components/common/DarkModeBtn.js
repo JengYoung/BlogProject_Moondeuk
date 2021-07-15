@@ -9,9 +9,10 @@ import useTheme from 'lib/hooks/useTheme';
 const StyledDarkModeBtn = styled.section`
 	display: flex;
 	position: absolute;
+	z-index: 50;
 	align-items: center;
 	top: 2rem;
-	right: 0;
+	right: 2rem;
 	width: 5rem;
 	height: 2.25rem;
 	background: #7fdbff;

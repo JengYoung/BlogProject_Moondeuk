@@ -1,3 +1,5 @@
+import LoginBackground from 'components/login/LoginBackground';
+import useTheme from 'lib/hooks/useTheme';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -8,6 +10,7 @@ import { check } from '../../../modules/user';
 function Logincontainer({ history }) {
     const [ error, setError ] = useState(null);
     const dispatch = useDispatch();
+    const { theme } = useTheme();
     const { inputs, loginSuccess, loginError, user } = useSelector(({ loginReducer, userReducer }) => ({
         inputs: loginReducer.inputs,
         loginSuccess: loginReducer.loginSuccess,
@@ -59,6 +62,7 @@ function Logincontainer({ history }) {
             onSubmit={onSubmit}
             error={error}
             inputs={inputs}
+            theme={theme}
         />
     )
 }
