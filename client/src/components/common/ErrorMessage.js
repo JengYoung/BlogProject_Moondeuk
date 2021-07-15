@@ -1,14 +1,17 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
 */
 
 const StyledErrorMessage = styled.div`
     text-align: center;
-    color: red;
-    font-weight: 700;
+    font-weight: 400;
+    font-size: 0.9rem;
     padding-top: 1.5rem;
+    ${({ theme }) => css`
+        color: ${theme.errorColor};
+    `}
 `;
 
 const ErrorMessage = (props) => {

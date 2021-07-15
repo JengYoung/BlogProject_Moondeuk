@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from '../common/Button';
 import Input from '../common/Input';
 import {Link} from 'react-router-dom';
@@ -35,12 +35,20 @@ const StyledLink = styled(Link)`
         transform: scale(1.03);
     }
 `;
-const LoginWrapper = ({onChange, onSubmit, error, inputs}) => {
+const LoginInput = styled(Input)`
+    ${({ idError }) => idError && css`
+        background: #ffbbbb;
+    `}
+    ${({ passwordError }) => passwordError && css`
+        background: #ffbbbb;
+    `}
+`;
+const LoginWrapper = ({onChange, onSubmit, error, idError, passwordError}) => {
     return (
         <StyledLoginForm onSubmit={onSubmit}>
             <StyledLogo/>
-            <Input autoComplete="new-password" onChange={onChange} name="userId" value={inputs.userId}/>
-            <Input onChange={onChange} type="password" name="password" value={inputs.password} />
+            <LoginInput autoComplete="new-password" onChange={onChange} name="userId" idError={idError}/>
+            <LoginInput onChange={onChange} type="password" name="password" passwordError={passwordError}/>
             {error && <ErrorMessage>{error}</ErrorMessage>}
             <Button fullWidth topMargin>로그인</Button>
             <StyledLink to='/register'>회원가입</StyledLink>

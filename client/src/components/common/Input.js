@@ -12,18 +12,20 @@ export const StyledInput = styled.input`
     background-color: transparent;
     font-size: 0.9rem;
     border: none;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 2px solid lightgray;
     padding-bottom: 0.5rem;
     padding-left: 0.5rem;
     outline: none;
     width: 100%;
     box-sizing: border-box;
-    
     &:focus {
-        border-bottom: 1px solid #ffbfff; 
+        border-bottom: 2px solid #ffbfff;
     }
     &::placeholder {
-        color: gray;
+        ${({ theme }) => css`
+            color: ${theme.inputColor};
+            `
+        }
         font-size: 0.9rem;
     }
     & + & {
@@ -37,12 +39,19 @@ export const StyledInput = styled.input`
     props.BottomMargin && css`
         margin-bottom:1rem;
     `}
+    
+    ${({ theme }) => css`
+        color: ${theme.inputColor};
+        &:focus {
+            border-bottom: 2px solid ${theme.inputBorderColor}; 
+        }
+    `};
 `
 
 const Input = (props) => {
     const placeholder = `${names[props.name]}`;
     return (
-        <StyledInput {...props} autoComplete="off" placeholder={placeholder}/>
+        <StyledInput {...props} autoComplete="off" placeholder={placeholder} spellCheck={false}/>
     );
 };
 

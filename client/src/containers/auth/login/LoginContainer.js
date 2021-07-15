@@ -1,13 +1,12 @@
-import LoginBackground from 'components/login/LoginBackground';
-import useError from 'lib/hooks/useError';
-import useTheme from 'lib/hooks/useTheme';
-import setItemToLocalStorage from 'lib/setItemToLocalStorage';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import LoginWrapper from '../../../components/login/LoginWrapper'
 import { initializeForm, login, onChangeInput } from '../../../modules/login';
 import { check } from '../../../modules/user';
+import useError from 'lib/hooks/useError';
+import useTheme from 'lib/hooks/useTheme';
+import setItemToLocalStorage from 'lib/setItemToLocalStorage';
 
 function Logincontainer({ history }) {
     const { theme } = useTheme();
@@ -19,7 +18,7 @@ function Logincontainer({ history }) {
         user: userReducer.user,
     }));
     
-    const error = useError(loginError);
+    const { error, setError, isErrorEvent, setIsErrorEvent } = useError(loginError);
 
     /* Initialize form - if exists user data => return alert message */ 
     useEffect(() => {
@@ -35,27 +34,33 @@ function Logincontainer({ history }) {
         if (loginSuccess) dispatch(check());
     },[loginSuccess, dispatch])
 
-    // /* if exists user data, put this on localStorage, go to main page */
-    // useEffect(() => {
-    //     if (user) {
-    //         history.push('/');
-    //         try {
-    //             localStorage.setItem('user', JSON.stringify(user));
-    //         } catch(e) {
-    //             alert('로컬스토리지에서 오류가 발생했어요!');
-    //             console.error('LocalStorage ERROR occured');
-    //         }
-    //     }
-    // },[history, user]);
-
     const onChange = (e) => {
         const { name, value } = e.target;
         dispatch(onChangeInput({ inputs, name, value }))
+        setIsErrorEvent(state => ({
+            ...state,
+            [name]: null
+        }))
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
         const { userId, password } = inputs;
+        if (!userId || !password) {
+            setIsErrorEvent(state => ({ 
+                ...state, 
+                userId: userId ? null : true, 
+                password: password ? null : true
+            }))
+            /* 메시지를 배열을 통해 생성합니다. */ 
+            const messageArr = [];
+            if (!userId) messageArr.push('아이디');
+            if (!userId && !password) messageArr.push(', ');
+            if (!password) messageArr.push('비밀번호');
+            messageArr.push('를 입력해주세요! 😅');
+            setError(`${messageArr.join('')}`)
+            return;
+        }
         dispatch(login({ userId, password }));
     };
 
@@ -66,6 +71,8 @@ function Logincontainer({ history }) {
             error={error}
             inputs={inputs}
             theme={theme}
+            idError={isErrorEvent.userId}
+            passwordError={isErrorEvent.password}
         />
     )
 }
