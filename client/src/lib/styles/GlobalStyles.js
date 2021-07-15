@@ -16,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
         min-height: 100%;
         height: 100%;
     }
-    textarea, input, option, select {
+    button, textarea, input, option, select {
         font-family: 'Noto Sans KR', sans-serif;
     }
     img {

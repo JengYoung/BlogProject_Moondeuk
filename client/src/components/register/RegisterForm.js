@@ -1,3 +1,5 @@
+import ErrorMessage from 'components/common/ErrorMessage';
+import { checkRegisterInputError } from 'lib/hooks/useError';
 import React from 'react'
 import styled from 'styled-components';
 import InputBox from '../common/auth/InputBox';
@@ -20,33 +22,25 @@ const StyledRegisterFormWrapper = styled.form`
     margin-bottom: 3rem;
 `;
 
-const StyledErrorMessage = styled.div`
-    text-align: center;
-    color: red;
-    font-weight: 700;
-`;
 
 const StyledRegisterBtn = styled(Button)`
     margin-top: 2rem;
 `;
 
-const RegisterForm = ({ onChange, onSubmit, error, inputs }) => {
-    const QuestionNames = ['userId', 'password', 'nickname']
+const RegisterForm = ({ inputs, onChange, onSubmit, error, isErrorEvent, setIsErrorEvent }) => {
+    const HandleChange = (e) => {
+        const { name, value } = e.target;
+        onChange(e);
+        checkRegisterInputError(inputs, name, value, setIsErrorEvent)
+    }
     return (
         <StyledRegisterFormWrapper onSubmit={onSubmit}>
             <HeadName>회원가입</HeadName>
-            {QuestionNames.map(QuestionName => {
-                return (
-                    <InputBox 
-                        name={QuestionName}
-                        type={QuestionName === "password" ? "password" : "null"}
-                        value={inputs[QuestionName]}
-                        onChange={onChange}
-                    >
-                    </InputBox>
-                )
-            })}
-            {error && <StyledErrorMessage error={error}>{error}</StyledErrorMessage>}
+            <InputBox autoComplete={false} name="userId" onChange={HandleChange} />
+            <InputBox type="password" name="password" onChange={HandleChange} />
+            <InputBox type="password" name="passwordConform" onChange={HandleChange} />
+            <InputBox name="nickname" onChange={HandleChange} />
+            {error && <ErrorMessage error={error}>{error}</ErrorMessage>}
             <StyledRegisterBtn fullWidth>회원가입</StyledRegisterBtn>
         </StyledRegisterFormWrapper>
     );

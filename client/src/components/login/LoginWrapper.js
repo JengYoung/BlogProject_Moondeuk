@@ -28,10 +28,11 @@ const StyledLoginForm = styled.form`
 
 const StyledLink = styled(Link)`
     padding-top: 1rem;
-    color: black;
+    ${({ theme }) => css`color: ${theme.linkColor};`}
+    text-decoration: none;
     transition: all 0.7s;
     &:hover {
-        color: #a52ca5;
+        ${({ theme }) => css`color: ${theme.event.hoverColor};`}
         transform: scale(1.03);
     }
 `;

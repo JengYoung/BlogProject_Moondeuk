@@ -27,10 +27,9 @@ const InputBox = (props) => {
     return (
         <StyledInputBox {...props}>
             <StyledInputTitle>{names[props.name]}</StyledInputTitle>
-            <Input type={props.type} names={names} name={props.name}></Input>
-            {props.name === 'password' && <Input type={props.name} names={names} name="passwordConform"></Input>}
+            <Input type={props.type} names={names} name={props.name} spellCheck={false}></Input>
         </StyledInputBox>
     );
 };
 
-export default InputBox;
+export default React.memo(InputBox);

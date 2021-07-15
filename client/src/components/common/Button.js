@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 /*
@@ -11,22 +11,29 @@ const ButtonCSS = css`
     align-items: center;
     padding: 0.5rem 0.75rem;
     box-sizing: border-box;
-    border: 1px solid rgb(173, 122, 173);
+    ${({ theme }) => css`
+        color: ${theme.buttonBg};
+        border: 1px solid ${theme.borderColor};
+        &:hover {
+            border: ${theme.event.hoverBg};
+            background-color: ${theme.event.hoverBg};
+            color: ${theme.event.buttonHoverColor};
+        }
+    `};
     border-radius: 1rem;
     transition: all 0.7s;
-    color: rgb(173, 122, 173);
-    font-weight: 800;
+    font-weight: 700;
     outline: none;
     &:hover {
         cursor: pointer;
-        background-color: rgb(134, 70, 134);
         transform: scale(1.05);
-        color: #fbff00;
     }
     ${props => 
         props.fullWidth && css`
         width: 100%;
         height: 3rem;
+        font-size: 1.0625rem;
+        border-radius: 3rem;
     `}
     ${props => 
         props.topMargin && css`

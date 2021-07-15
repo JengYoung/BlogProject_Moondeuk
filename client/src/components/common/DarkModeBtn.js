@@ -25,7 +25,7 @@ const StyledDarkModeBtn = styled.section`
 		background: ${myColors.purple[6]};
 	}
 	&:hover {
-		background: ${myColors.purple[0]};
+		background: #08b7fc;
 		&.dark {
 			background: ${myColors.purple[4]};
 		}

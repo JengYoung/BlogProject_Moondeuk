@@ -12,7 +12,7 @@ const StyledSideWrap = styled.main`
     align-items: center;
     position: absolute;
     z-index: 30;
-    opacity: 0.9;
+    opacity: 0.91;
     flex-direction: column;
     width: 100%;
     height: 100%;
