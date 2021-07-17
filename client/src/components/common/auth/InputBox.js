@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import names from '../../../lib/inputNames';
 import ErrorMessage from '../ErrorMessage';
 import Input from '../Input';
@@ -29,7 +29,6 @@ const StyledInputBoxHeader = styled.div`
     position: relative;
 `;
 const InputBox = ({ name, isError, ...rest }) => {
-    console.log(isError)
     const errMessage = {
         userId: `아이디는 <strong>한글은 최대 2~8</strong>자,<br/><strong>영어 및 숫자는 최대 4~16자</strong>로 구성되어야 해요!`,
         password: `비밀번호는 <strong>4~24자</strong>로 입력되어야 해요!`,
@@ -40,7 +39,7 @@ const InputBox = ({ name, isError, ...rest }) => {
         <StyledInputBox {...rest}>
             <StyledInputBoxHeader>
                 <StyledInputTitle>{names[name]}</StyledInputTitle>
-                {isError && <ErrorMessage dangerouslySetInnerHTML={{__html: `${errMessage[isError]}`}}></ErrorMessage>}
+                {isError && <ErrorMessage dangerouslySetInnerHTML={{__html: `${errMessage[isError]}`}} isError={isError}></ErrorMessage>}
             </StyledInputBoxHeader>
             <Input type={rest.type} names={names} name={name} spellCheck={false} isError={isError}/>
         </StyledInputBox>

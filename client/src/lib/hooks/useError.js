@@ -6,7 +6,6 @@ export const checkRegisterInputError = (name, value, password = null) => {
     const checkRegex = (value) => {
         const regex = /^[가-힣|a-z|A-Z|0-9|]+$/;
         const result = regex.test(value);
-        console.log("여기문제?", result)
         return result ? true : false;
     }
     /*
@@ -19,7 +18,6 @@ export const checkRegisterInputError = (name, value, password = null) => {
         let c;
         if (value !== undefined && value !== "") {
             for (b = i = 0; c = value.charCodeAt(i++); b += c >> 7 ? alphaCnt * 2 : alphaCnt);
-            console.log(b)
             if (b > maxLangth || b < minLength) return false;
             else return true;
         } 
@@ -102,20 +100,22 @@ const useError = (storeError) => {
     useEffect(() => {
         if (storeError) {
             const { type, message } = storeError.response.data;
+            setIsErrorEvent(state => ({
+                ...state,
+                userId: (type === 'username') ? true : null,
+                password: (type === 'password') ? true: null
+            }))
             // 서버가 열리지 않거나, 준비 중일 경우 브라우저에서 500 상태 코드 에러 반환됨.
             if (storeError.request.status === 500) {
                 setError('서버 측에서 오류가 발생했어요! 😂');
                 return;
             }
             setError(message);
-            setIsErrorEvent(state => ({
-                ...state,
-                userId: (type === 'username') ? true : null,
-                password: (type === 'password') ? true: null
-            }))
+            if (storeError.request.status === 409) return setError(`이미 사용중인 ID에요! 😥`);
+            if (!error) setError('다시 한 번 시도해주세요! 🥺');
             return; 
         }
-    },[storeError])
+    },[storeError, error])
 
     return { error, setError, isErrorEvent, setIsErrorEvent };
 }

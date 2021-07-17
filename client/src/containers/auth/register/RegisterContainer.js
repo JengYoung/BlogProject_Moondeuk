@@ -37,12 +37,6 @@ const RegisterContainer = ({ history }) => {
     }, [dispatch])
 
     useEffect(() => {
-        if (registerError) {
-            if (registerError.request.status === 409) return setError('이미 사용중인 ID에요! 😥');
-            if (registerError.request.status === 500) return setError('앗! 서버 측 오류가 발생했어요 😂');
-            setError('다시 한 번 시도해주세요! 🥺');
-            return;
-        } 
         if (registerSuccess) {
             if (registerSuccess.errors) {
                 setError(registerSuccess['errors']['0']['msg']);
@@ -51,7 +45,7 @@ const RegisterContainer = ({ history }) => {
             alert('회원가입이 성공적으로 완료되었어요! 👏🌈');
             history.push('/login');
         };
-    }, [ registerSuccess, registerError, dispatch, history, setError ])
+    }, [registerSuccess, dispatch, history, setError ])
 
     return (
         <RegisterForm 

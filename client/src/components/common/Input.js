@@ -54,7 +54,6 @@ export const StyledInput = styled.input`
 `
 
 const Input = (props) => {
-    console.log(props)
     const placeholder = `${names[props.name]}`;
     return (
         <StyledInput {...props} autoComplete="off" placeholder={placeholder} spellCheck={false}/>
