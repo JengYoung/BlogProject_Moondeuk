@@ -1,5 +1,5 @@
 import ErrorMessage from 'components/common/ErrorMessage';
-import { checkRegisterInputError } from 'lib/hooks/useError';
+import { useCheckRegisterError } from 'lib/hooks/useError';
 import React from 'react'
 import styled from 'styled-components';
 import InputBox from '../common/auth/InputBox';
@@ -28,18 +28,14 @@ const StyledRegisterBtn = styled(Button)`
 `;
 
 const RegisterForm = ({ inputs, onChange, onSubmit, error, isErrorEvent, setIsErrorEvent }) => {
-    const HandleChange = (e) => {
-        const { name, value } = e.target;
-        onChange(e);
-        checkRegisterInputError(inputs, name, value, setIsErrorEvent)
-    }
+    useCheckRegisterError(inputs, setIsErrorEvent)
     return (
         <StyledRegisterFormWrapper onSubmit={onSubmit}>
             <HeadName>회원가입</HeadName>
-            <InputBox autoComplete={false} name="userId" onChange={HandleChange} />
-            <InputBox type="password" name="password" onChange={HandleChange} />
-            <InputBox type="password" name="passwordConform" onChange={HandleChange} />
-            <InputBox name="nickname" onChange={HandleChange} />
+            <InputBox autoComplete="off" name="userId" onChange={onChange} isError={isErrorEvent.userId ? "userId" : null}/>
+            <InputBox autoComplete="off" type="password" name="password" onChange={onChange} isError={isErrorEvent.password ? "password" : null}/>
+            <InputBox autoComplete="off" type="password" name="passwordConform" onChange={onChange} isError={isErrorEvent.passwordConform ? "passwordConform" : null}/>
+            <InputBox autoComplete="off" name="nickname" onChange={onChange} isError={isErrorEvent.nickname ? "nickname" : null}/>
             {error && <ErrorMessage error={error}>{error}</ErrorMessage>}
             <StyledRegisterBtn fullWidth>회원가입</StyledRegisterBtn>
         </StyledRegisterFormWrapper>

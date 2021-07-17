@@ -2,44 +2,80 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 
-export const checkRegisterInputError = (inputs, name, value, setIsErrorEvent) => {
-    const { password, passwordConform } = inputs;
-    const getByteLength = (value, minLength, maxLangth, alphaCnt = 1) => {
+export const checkRegisterInputError = (name, value, password = null) => {
+    const checkRegex = (value) => {
+        const regex = /^[가-힣|a-z|A-Z|0-9|]+$/;
+        const result = regex.test(value);
+        console.log("여기문제?", result)
+        return result ? true : false;
+    }
+    /*
+        현재 value 길이가 범위에 유효한지 체크하는 함수.
+        반환값: true / null;
+    */
+    const checkLength = (value, minLength, maxLangth, alphaCnt = 1) => {
         let i;
         let b;
         let c;
         if (value !== undefined && value !== "") {
             for (b = i = 0; c = value.charCodeAt(i++); b += c >> 7 ? alphaCnt * 2 : alphaCnt);
-            console.log(b);
-            if (b > maxLangth || b < minLength) return true;
-            else return null;
+            console.log(b)
+            if (b > maxLangth || b < minLength) return false;
+            else return true;
         } 
-        else return null;
+        else return true;
     }
     const checkIfError = (name, value) => {
         switch(name) {
             case "userId":
-                return getByteLength(value, 4, 16, 1);
+                if (value.length === 0) return null;
+                if (checkLength(value, 4, 16, 1) === false) return true;
+                if (checkRegex(value) === false) return true;
+                return null;
             case "password":
-                if (value.length > 24 || value.length < 6) return true;
+                if (value.length === 0) return null;
+                if (value.length < 6 || value.length > 24) return true;
                 else return null;
             case "passwordConform":
-                if (password !== passwordConform) return true;
+                if (value.length === 0) return null;
+                if (value.length < 6 || value.length > 24) return true;
+                if (password !== value) return true;
                 else return null;
             case "nickname":
-                return getByteLength(value, 2, 8, 0.5);
+                if (value.length === 0) return null;
+                if (checkLength(value, 2, 8, 0.5) === false) return true;
+                if (checkRegex(value) === false) return true;
+                return null;
             default: return null;
         }
     }
-    setIsErrorEvent(state => name === 'password' ? ({
-        ...state,
-        [name]: checkIfError(name, inputs[name]),
-        passwordConform: value === passwordConform ? null : true,
-    }) : ({
-        ...state,
-        [name]: checkIfError(name, inputs[name])
-    }))
+    return checkIfError(name, value);
 } 
+
+export const useCheckRegisterError = (inputs, setIsErrorEvent) => {
+    const { userId, password, passwordConform, nickname } = inputs;
+    useEffect(() => {
+        setIsErrorEvent(state => ({
+            ...state,
+            userId: checkRegisterInputError('userId', userId)
+        }))
+    }, [userId, setIsErrorEvent])
+    useEffect(() => {
+        setIsErrorEvent(state => ({
+            ...state,
+            password: checkRegisterInputError('password', password),
+            passwordConform: checkRegisterInputError('passwordConform', passwordConform, password)
+        }))
+    }, [password, passwordConform, setIsErrorEvent])
+    useEffect(() => {
+        setIsErrorEvent(state => ({
+            ...state,
+            nickname: checkRegisterInputError('nickname', nickname)
+        }))
+    }, [nickname, setIsErrorEvent])
+    return {}; 
+}
+
 /**
  * storeError: useSelector을 통해 store에서 갖고 온 error
  */ 

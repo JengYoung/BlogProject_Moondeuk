@@ -46,9 +46,15 @@ export const StyledInput = styled.input`
             border-bottom: 2px solid ${theme.inputBorderColor}; 
         }
     `};
+    ${({ isError }) => 
+        isError && css`
+            background: pink;
+        `
+    }
 `
 
 const Input = (props) => {
+    console.log(props)
     const placeholder = `${names[props.name]}`;
     return (
         <StyledInput {...props} autoComplete="off" placeholder={placeholder} spellCheck={false}/>

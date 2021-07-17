@@ -1,6 +1,7 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import names from '../../../lib/inputNames';
+import ErrorMessage from '../ErrorMessage';
 import Input from '../Input';
 
 /**
@@ -23,11 +24,25 @@ const StyledInputTitle = styled.h2`
     font-weight: 700;
 `;
 
-const InputBox = (props) => {
+const StyledInputBoxHeader = styled.div`
+    display: flex;
+    position: relative;
+`;
+const InputBox = ({ name, isError, ...rest }) => {
+    console.log(isError)
+    const errMessage = {
+        userId: `아이디는 <strong>한글은 최대 2~8</strong>자,<br/><strong>영어 및 숫자는 최대 4~16자</strong>로 구성되어야 해요!`,
+        password: `비밀번호는 <strong>4~24자</strong>로 입력되어야 해요!`,
+        passwordConform: `<strong>입력하셨던 비밀번호와 다르거나</strong>,<br/> 비밀번호 길이가 <strong>4~24</strong>자가 아니네요!`,
+        nickname: `아이디는 <strong>한글은 최대 1~4</strong>자,<br/>영어, <strong>숫자는 최대 2~8자</strong>로 구성되어야 해요!`
+    }
     return (
-        <StyledInputBox {...props}>
-            <StyledInputTitle>{names[props.name]}</StyledInputTitle>
-            <Input type={props.type} names={names} name={props.name} spellCheck={false}></Input>
+        <StyledInputBox {...rest}>
+            <StyledInputBoxHeader>
+                <StyledInputTitle>{names[name]}</StyledInputTitle>
+                {isError && <ErrorMessage dangerouslySetInnerHTML={{__html: `${errMessage[isError]}`}}></ErrorMessage>}
+            </StyledInputBoxHeader>
+            <Input type={rest.type} names={names} name={name} spellCheck={false} isError={isError}/>
         </StyledInputBox>
     );
 };

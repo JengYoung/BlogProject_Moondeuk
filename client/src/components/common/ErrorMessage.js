@@ -12,6 +12,16 @@ const StyledErrorMessage = styled.div`
     ${({ theme }) => css`
         color: ${theme.errorColor};
     `}
+    // 클라이언트에서 처리한 에러의 경우
+    ${({ isClientError }) => css`
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: right;
+        font-size: 0.5rem;
+        padding-top: 0;
+    `}
 `;
 
 const ErrorMessage = (props) => {

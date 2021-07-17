@@ -31,23 +31,9 @@ const RegisterContainer = ({ history }) => {
         dispatch(register({ userId, password, passwordConform, nickname }))
     }
 
-    // useEffect(() => {
-    //     const { userId, password, passwordConform, nickname } = inputs;
-    //     setIsErrorEvent(state => ({
-    //         ...state,
-    //         userId: userId.length === 0 ? true : null,
-    //         password: password.length === 0 ? true : null,
-    //         passwordConform: passwordConform.length === 0 ? true : null,
-    //         nickname: nickname.length === 0 ? true : null,
-    //     }))
-    // }, [inputs, setIsErrorEvent])
-    useEffect(() => {
-        console.log(isErrorEvent)
-    },[isErrorEvent])
-
     useEffect(() => {
         dispatch(initializeForm());
-        return () => initializeForm();
+        return () => dispatch(initializeForm());
     }, [dispatch])
 
     useEffect(() => {
