@@ -6,23 +6,22 @@ import styled, { css } from 'styled-components';
 **/
 
 const StyledAuthWrap = styled.div`
-    position: relative;
-    width: 300px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    align-items: center;
+    position: absolute;
+    z-index: 30;
+    opacity: 0.91;
+    flex-direction: column;
+    width: 100%;
     min-height: 100%;
-    ${props =>
-        props.register && css`
-            justify-content: flex-start;
-        `
-    }
-    @media (max-width: 500px) {
-    };
-    @media (min-width: 501px) {
-    };
+    padding: 0 1rem;
+    overflow: hidden;
+
+    // dark-mode 여부에 따른 CSS 효과
+    background-color: ${({ theme }) => theme.loginBg};
+    transition: background-color 0.3s;
 `;
 
 const AuthWrap = (props) => {

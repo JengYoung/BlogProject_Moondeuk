@@ -2,10 +2,10 @@ import LoginBackground from 'components/login/LoginBackground'
 import useTheme from 'lib/hooks/useTheme'
 import React from 'react'
 
-function LoginBackgroundContainer() {
+function LoginBackgroundContainer({ register }) {
     const { theme } = useTheme();
     return (
-        <LoginBackground theme={theme}/>
+        <LoginBackground theme={theme} register={register}/>
     )
 }
 

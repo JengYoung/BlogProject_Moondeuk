@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /**
  * * login's right side -> basic animations
@@ -14,6 +14,11 @@ const StyledLoginBackground = styled.article`
     width: 100%;
     height: 100%;
     overflow: hidden;
+    ${({ register }) => register && css`
+        position: absolute;
+        z-index: -1;
+        min-height: 100%;
+    `}
 `;
 const LightThemeWrapper = styled.img`
     width: 100%;
@@ -260,12 +265,12 @@ const Star = styled.div`
 //     ${({ $idx, $top, $left, $delay }) =>  _setStars({ $idx, $top, $left, $delay})}
 // `;
 
-const LoginBackground = ({ theme }) => {
+const LoginBackground = ({ theme, register }) => {
     const arr = new Array(10).fill(0).map((val, idx) => idx + 1);
     console.log(theme);
     return (
         <>    
-            <StyledLoginBackground>
+            <StyledLoginBackground register={register}>
                 <LightThemeWrapper src="https://images.velog.io/images/young_pallete/post/0930ffad-697a-45b7-8ded-f0e25f5fc90b/df.gif" alt="moondeuk login light" theme={theme}></LightThemeWrapper>    
                 <DarkThemeWrapper theme={theme}>
                     {   

@@ -1,24 +1,24 @@
-import React from 'react'
-import SideWrap from '../components/common/SideWrap';
+import React from 'react';
 import AuthWrap from '../components/common/auth/AuthWrap'
 import RegisterContainer from '../containers/auth/register/RegisterContainer'
-import PageWrap from '../components/common/PageWrap';
 import LogoWrap from '../components/common/LogoWrap';
 import LoginBackgroundContainer from 'containers/auth/login/LoginBackgroundContainer';
 import DarkModeBtn from 'components/common/DarkModeBtn';
+import QuestionBox from 'components/register/QuestionBox';
+
 
 function RegisterPage() {
     return (
-        <PageWrap register="register">
-            <SideWrap>
+        <>
+            <AuthWrap>
                 <DarkModeBtn/>
-                <AuthWrap register="register">
+                <QuestionBox>
                     <LogoWrap register="register"></LogoWrap>
                     <RegisterContainer />
-                </AuthWrap>
-            </SideWrap>
-            <LoginBackgroundContainer/>
-        </PageWrap>
+                </QuestionBox>
+                <LoginBackgroundContainer register/>
+            </AuthWrap>
+        </>
     )
 }
 
