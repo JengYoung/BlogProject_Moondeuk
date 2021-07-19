@@ -12,14 +12,13 @@ const StyledSideWrap = styled.main`
     align-items: center;
     position: absolute;
     z-index: 30;
-    opacity: 0.91;
     flex-direction: column;
-    width: 100%;
+    width: 480px;
     height: 100%;
     padding: 0 1rem;
 
     // dark-mode 여부에 따른 CSS 효과
-    background-color: ${({ theme }) => theme.loginBg};
+    background: ${({ theme }) => theme.sideBarBg};
     transition: background-color 0.3s;
     ${props =>
         props.isMain && css`
@@ -31,7 +30,7 @@ const StyledSideWrap = styled.main`
             top: 0;
             z-index: 100;
             border: 1px solid black;
-            background-color: #312330;
+            /* background-color: #312330; */
         `
     }
     ${props => 
@@ -52,4 +51,4 @@ const SideWrap = (props) => {
     );
 };
 
-export default SideWrap;
+export default SideWrap; 

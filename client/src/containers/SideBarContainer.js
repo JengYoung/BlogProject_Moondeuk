@@ -1,3 +1,5 @@
+import LinkBtn from 'components/common/LinkBtn'
+import LoginMessage from 'components/common/LoginMessage'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SideMenuBtn from '../components/common/SideMenuBtn'
@@ -18,11 +20,15 @@ const SideBarContainer = ({ isSideBar, onSideBar }) => {
     return (
         <SideWrap isMain isSideBar={isSideBar}>
             <SideMenuBtn isSideBar={isSideBar} onSideBar={onSideBar}></SideMenuBtn>
-            <UserImageBox 
-                user_id={user_id} 
-                user_image={user_image} 
-                checkUser={checkUser}
-            />
+            {
+                user_id ? <UserImageBox 
+                            user_id={user_id} 
+                            user_image={user_image} 
+                            checkUser={checkUser}
+                        /> : <>
+                            <LoginMessage></LoginMessage>
+                        </>
+                }
             <UserName user_id={user_id} nickname={nickname}></UserName>
         </SideWrap>
     )

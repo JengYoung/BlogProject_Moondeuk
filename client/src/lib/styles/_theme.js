@@ -10,14 +10,15 @@ const themeStyles = {
         errorColor: '#ff8e8e',
         inputColor: 'white',
         inputBorderColor: myColors.yellow[4],
-        buttonBg: 'white',
+        buttonBg: 'transparent',
+        buttonColor: myColors.purple[myColors.purple.length-1],
         linkColor: myColors.yellow[3],
         event: {
             hoverBg: myColors.yellow[5],
             linkHoverColor: myColors.yellow[5],
             buttonHoverColor: myColors.purple[5],
-            
-        }
+        },
+        sideBarBg: myColors.purple[myColors.purple.length -1]
     },
     light: {
         now: 'light',
@@ -30,11 +31,13 @@ const themeStyles = {
         inputBorderColor: myColors.purple[1],
         linkColor: myColors.purple[1],
         buttonBg: myColors.purple[1],
+        buttonColor: 'white',
         event: {
             hoverBg: myColors.purple[6],
             linkHoverColor: myColors.purple[6],
             buttonHoverColor: 'white',
-        }
+        },
+        sideBarBg: myColors.yellow[6]
     }
 };
 
