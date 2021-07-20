@@ -17,6 +17,7 @@ export const myFont = {
     }
 }
 const myVars = {
+    defaultThumbnail: `https://media4.giphy.com/media/Eqz8ZFUScPHH2/giphy.gif?cid=ecf05e47fwc1ul6po0bi1etdbf2508gy954dw8clnm18tpir&rid=giphy.gif&ct=g`,
     defaultShadow: `2px 10px 3px rgba(0, 0, 0, 0.3)`,
     blockShadow: `0px 10px 4px rgba(0, 0, 0, 0.2)`,
     event: {

@@ -43,7 +43,7 @@ const StyledDiaryThumbnail = styled.div`
     border-radius: inherit;
     width: 100%;
     height: 100%;
-    background-image: url(${LoginBg});
+    background-image: url(${({thumbnailUrl, defaultThumbnailUrl}) => thumbnailUrl ? thumbnailUrl : defaultThumbnailUrl});
     background-size: cover;
     background-position: center center;
 `;
@@ -103,7 +103,7 @@ const StyledAuthorImage = styled.div`
     background-size: cover;
     ${props => 
         props.userImage && css`
-            background-image: url(${props.userImage});
+            background-image: ${({userImage}) => `url(${userImage})`};
         `
     }
 `;
@@ -132,10 +132,14 @@ const StyledDiaryDetailBox = styled.div`
 
 const DiaryWrapper = ({ diary }) => {
     const { title, tags, author, _id } = diary;
+    console.log(Object.keys(diary))
+    const thumbnailUrl = diary.titleStyle?.thumbnail;
+    console.log(thumbnailUrl)
+    const defaultThumbnailUrl = myVars.defaultThumbnail;
     const { authorId, userImage } = author;
     return (
         <StyledDiaryWrapper to={`/@${authorId}/${_id}`}>
-            <StyledDiaryThumbnail />
+            <StyledDiaryThumbnail thumbnailUrl={thumbnailUrl} defaultThumbnailUrl={defaultThumbnailUrl}/>
             <StyledDiaryDetailBox>{tags.map(tag => <div key={tag}>#{tag}</div>)}</StyledDiaryDetailBox>
             <StyledDiaryData>
                 <StyledDiaryTitle>{title.length < 30 ? title : title.slice(0,30)+'...'}</StyledDiaryTitle>
@@ -147,6 +151,7 @@ const DiaryWrapper = ({ diary }) => {
         </StyledDiaryWrapper>
     )
 }
+
 const DiaryList = ({ diaries, diariesError }) => {
     if (diariesError) return <StyledDiaryList>Error is occurred...</StyledDiaryList>
     return (
