@@ -87,23 +87,17 @@ const Spacer = styled.div`
     }
 `;
 
-const StyledAlertWrapper = styled.div`
+const StyledHeaderUserInfoWrapper = styled.div`
     position: relative;
     display: flex;
     align-items: center;
-    @media screen and (min-width: 481px) {
-        height: 10vh;
-    }
-    @media screen and (min-width: 769px) {
-        height: 12vh;
-    }
+    right: 3vw;
 `;
 
 const UserInfoBox = styled.div`
     display: flex;
     position: relative;
     align-items: center;
-    right: 1rem;
     button + label {
         margin-left: 0.5vw;
     }
@@ -115,14 +109,6 @@ const UserInfo = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
-    @media screen and (min-width: 481px) {
-        display: flex;
-        font-size: 1rem;
-    }
-    @media screen and (min-width: 769px) {
-        height: 12vh;
-    }
 `;
 
 const HeaderOptionBtn = styled.button`
@@ -213,7 +199,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                         <SideWrapBtn onClick={onSideBar}><GrMenu/></SideWrapBtn>
                         <LogoWrap isHeader></LogoWrap>
                     </MenuWrap>
-                    <StyledAlertWrapper>
+                    <StyledHeaderUserInfoWrapper>
                         {user ? (
                             <UserInfoBox>
                                 {!openLogout && <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>}
@@ -245,7 +231,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                                 <LoginLink to="/login" login='true'>로그인</LoginLink>
                             </>
                         )}
-                    </StyledAlertWrapper>
+                    </StyledHeaderUserInfoWrapper>
                 </Wrapper> 
             </StyledHeader>
             <Spacer/>

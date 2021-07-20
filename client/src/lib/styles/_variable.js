@@ -5,15 +5,21 @@
 
 export const myFont = {
     size: {
-        headXXlarge: '3rem',
-        headLarge: '2.5rem',
-        headMedium: '2rem',
-        xxl: '1.75rem',
-        xl: '1.5rem',
+        headXXlarge: '2.25rem',
+        headLarge: '2rem',
+        headMedium: '1.75rem',
+        xxl: '1.5rem',
+        xl: '1.375rem',
         l: '1.25rem',
         s: '0.9rem',
         ms: '0.8rem',
         mms: '0.7rem',
+    },
+    style: {
+        nanumGothic: `'Nanum Gothic', sans-serif`,
+        nanumMyeongjo: `'Nanum Myeongjo', sans-serif`,
+        dancingScript: `'Dancing Script', sans-serif`,
+        gamjaFlower: `'Gamja Flower', cursive`
     }
 }
 const myVars = {

@@ -13,6 +13,8 @@ const themeStyles = {
         buttonBg: 'transparent',
         buttonColor: myColors.yellow[4],
         linkColor: myColors.yellow[3],
+        tagColor: 'white',
+        tagBg: myColors.purple[5],
         SideBarBg: 'white',
         HeaderBg: myColors.purple[7],
         event: {
@@ -35,11 +37,13 @@ const themeStyles = {
         linkColor: myColors.purple[1],
         buttonBg: myColors.purple[1],
         buttonColor: 'white',
+        tagColor: 'white',
+        tagBg: myColors.purple[1],
         SideBarBg: 'white',
         HeaderBg: 'white',
         event: {
             hoverBg: myColors.purple[6],
-            SideBarHoverBg:myColors.purple[1],
+            SideBarHoverBg:myColors.purple[6],
             hoverColor: 'white',
             buttonHoverColor: 'white', // 버튼을 hover했을 때 폰트 색
         },
