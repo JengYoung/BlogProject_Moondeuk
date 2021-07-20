@@ -17,7 +17,7 @@ const StyledSideBtnLinks = styled.section`
 const SideBtnLinks = ({user_id}) => {
     return (
         <StyledSideBtnLinks>
-            <LinkBtn>정보 수정</LinkBtn>
+            <LinkBtn to={`/`}>정보 수정</LinkBtn>
             <LinkBtn to={`/@${user_id}`}>내 일기장</LinkBtn>
         </StyledSideBtnLinks>
     );

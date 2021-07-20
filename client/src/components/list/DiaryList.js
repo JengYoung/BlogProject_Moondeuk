@@ -209,9 +209,9 @@ const StyledDiaryPostedDate = styled.time`
 
 const DiaryCard = ({ diary }) => {
     const { title, tags, author, _id, subtitle, body, postedDate } = diary;
-    const date = new Date(postedDate).toLocaleDateString("en-US", {
-        weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'
-    }).replaceAll('/', '. ');
+    // const date = new Date(postedDate).toLocaleDateString("en-US", {
+    //     weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'
+    // }).replaceAll('/', '. ');
     const thumbnailUrl = diary.titleStyle?.thumbnail;
     const defaultThumbnailUrl = myVars.defaultThumbnail;
     const { authorId, userImage } = author;
@@ -230,7 +230,7 @@ const DiaryCard = ({ diary }) => {
                 {/* <StyledDiaryBody dangerouslySetInnerHTML={{__html: body.length > 100 ? `${body.slice(0,100)}...` : body}}></StyledDiaryBody> */}
             </StyledDiaryData>
             <StyledAdditionalInfoBox>
-                <StyledDiaryPostedDate>{date}</StyledDiaryPostedDate>
+                <StyledDiaryPostedDate>{postedDate}</StyledDiaryPostedDate>
                 <StyledAdditionalInfo>
                     <StyledAuthorImage userImage={userImage}></StyledAuthorImage>
                     <StyledAuthorName>{authorId}</StyledAuthorName>
