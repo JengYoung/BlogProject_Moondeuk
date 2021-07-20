@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import ResponsiveWrapper from '../common/Responsive';
+import ResponsiveWrapper from '../common/ResponsiveWrapper';
 import SubscribeListModal from '../subscribe/SubscribeListModal';
 import {AiFillStar} from 'react-icons/ai';
 import UserImage from '../common/UserImage';

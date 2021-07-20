@@ -1,10 +1,11 @@
-const myMediaQuery = (size) => {
+const media = (size) => {
     return `@media (max-width: ${size}px)`
 }
 
-export const device = {
-    mobile: myMediaQuery(480),
-    tablet: myMediaQuery(991),
+export const myMediaQuery = {
+    mobile: media(480),
+    mobileAndTablet: media(768),
+    tablet: media(1000),
 }
 
 export default myMediaQuery;

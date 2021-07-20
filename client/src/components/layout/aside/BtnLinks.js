@@ -5,7 +5,7 @@ import styled from 'styled-components';
 /**
 **/
 
-const StyledSideBtnLinks = styled.div`
+const StyledSideBtnLinks = styled.section`
     display: flex;
     margin-top: 1rem; 
     a {

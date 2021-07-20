@@ -1,47 +1,51 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
-import ResponsiveWrapper from '../common/Responsive';
+import ResponsiveWrapper from '../common/ResponsiveWrapper';
 import LoginBg from '../../images/LoginBg.jpg';
 import { Link } from 'react-router-dom';
+import myMediaQuery from 'lib/styles/_mediaQuery';
+import myVars from 'lib/styles/_variable';
 /*
 */
 
-
+// 전체를 감쌈
 const StyledDiaryList = styled(ResponsiveWrapper)`
     display: flex;
-    justify-content: center;
-    /* flex-direction: row; */
-    /* background-color: black; */
+    justify-content: flex-start;
     margin-top: 3rem;
     flex-flow: wrap;
 `;
 
-const StyledDiaryThumbnail = styled.div`
-    border-radius: inherit;
-    width: 100%;
-    height: 300px;
-    background-image: url(${LoginBg});
-    background-size: cover;
-`;
+
 const StyledDiaryWrapper = styled(Link)`
     display: flex;
     position: relative;
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    min-width: 200px;
-    width: 200px;
-    height: 300px;
-    padding: 2px;
-    margin: 3vh 1vw;
-    background-color: white;
-    border-radius: 4px;
-    border: 1px solid lightgray;
-    box-shadow: 2px 5px 4px rgba(0,0,0,0.2);
-    &:nth-child(3n + 2) {
-        position: relative;
-        top: 5vh;
+    width: 300px;
+    height: 400px;
+    margin: 2rem auto;
+    border-radius: 0.25rem;
+    box-shadow: ${myVars.defaultShadow};
+    ${myMediaQuery.mobile} {
+        width: 100%;
+        max-width: 300px;
     }
+    &:hover {
+        transition: all 0.3s;
+        transform: translate(-3px, -5px);
+        box-shadow: ${myVars.event.hoverShadow};
+    }
+`;
+
+const StyledDiaryThumbnail = styled.div`
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background-image: url(${LoginBg});
+    background-size: cover;
+    background-position: center center;
 `;
 
 const StyledDiaryData = styled.div`

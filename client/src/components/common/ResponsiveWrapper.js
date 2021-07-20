@@ -1,3 +1,4 @@
+import myMediaQuery from 'lib/styles/_mediaQuery';
 import React from 'react'
 import styled from 'styled-components';
 
@@ -8,15 +9,16 @@ import styled from 'styled-components';
 export const StyledResponsive = styled.div`
     position: relative;
     margin: 0 auto;
-    /* text-align: center; */
-    @media screen and (min-width: 481px) {
+    max-width: 1100px;
+    ${myMediaQuery.tablet} {
+        max-width: 768px;
+    }
+    ${myMediaQuery.mobileAndTablet} {
+        max-width: 500px;
+    }
+    ${myMediaQuery.tablet} {
         width: 100%;
     }
-    @media screen and (min-width: 769px) {
-        width: 768px;
-    }
-    /* border: 1px solid lightgray; */
-
 `;
 
 const ResponsiveWrapper = ({children, ...rest}) => {

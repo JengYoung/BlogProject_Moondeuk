@@ -17,8 +17,11 @@ export const myFont = {
     }
 }
 const myVars = {
-    defaultShadow: `0px 4px 2px rgba(0, 0, 0, 0.2)`,
+    defaultShadow: `2px 10px 3px rgba(0, 0, 0, 0.3)`,
     blockShadow: `0px 10px 4px rgba(0, 0, 0, 0.2)`,
+    event: {
+        hoverShadow: `5px 15px 3px rgba(0, 0, 0, 0.15)`,
+    }
 }
 
 export default myVars;

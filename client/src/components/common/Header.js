@@ -43,7 +43,7 @@ const SideWrapBtn = styled.button`
     }
 `;
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
     position: fixed;
     z-index: 99;
     width: 100%;

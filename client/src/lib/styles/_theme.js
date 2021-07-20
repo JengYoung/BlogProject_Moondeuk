@@ -20,7 +20,7 @@ const themeStyles = {
             hoverColor: myColors.purple[5],
             buttonHoverColor: myColors.purple[5], // 버튼을 hover했을 때 폰트 색
         },
-        sideBarBg: myColors.purple[myColors.purple.length -1]
+        sideBarBg: myColors.purple[0]
     },
     light: {
         now: 'light',
