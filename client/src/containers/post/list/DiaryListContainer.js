@@ -11,15 +11,16 @@ function DiaryListContainer({ match, location, isUserPage }) {
         diaries: diaryListReducer.diaries,
         diariesError: diaryListReducer.diariesError
     }));
-    
     useEffect(() => {
-        if (!isUserPage) return;
+        if (!isUserPage) {
+            dispatch(diaryList({authorId: null, tag: null}));
+        }
         const { authorId } = match.params;
         const { tag } = qs.parse(location.search, {
             ignoreQueryPrefix: true,
         });
         dispatch(diaryList({authorId, tag}))
-    }, [isUserPage, dispatch, match.params, location.search])
+    }, [])
 
     return (
         <div>

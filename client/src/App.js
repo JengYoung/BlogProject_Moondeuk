@@ -19,7 +19,7 @@ function App() {
       <ThemeProvider theme={themeStyles[theme]}>
         <GlobalStyles/>
         <Route component={MainPage} path='/' exact/>
-        <Route component={UserPage} path='/@:authorId' />
+        <Route component={UserPage} path='/@:authorId' exact/>
         <Route component={RegisterPage} path='/register' />
         <Route component={LoginPage} path='/login' />
         <Route component={WritePage} path={['/write/@:authorId/:diaryId', '/write']} />

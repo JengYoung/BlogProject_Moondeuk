@@ -32,7 +32,7 @@ const SideBarContainer = ({ isSideBar, onSideBar }) => {
                             checkUser={checkUser}
                         />
                         <UserName user_id={user_id} nickname={nickname}></UserName>
-                        <SideBtnLinks/>
+                        <SideBtnLinks user_id={user_id}/>
                         <SideQuickMenus/>
                     </>
             }

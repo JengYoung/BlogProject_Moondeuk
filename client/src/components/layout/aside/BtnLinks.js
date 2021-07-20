@@ -14,11 +14,11 @@ const StyledSideBtnLinks = styled.div`
     }
 `;
 
-const SideBtnLinks = () => {
+const SideBtnLinks = ({user_id}) => {
     return (
         <StyledSideBtnLinks>
             <LinkBtn>정보 수정</LinkBtn>
-            <LinkBtn>내 일기장</LinkBtn>
+            <LinkBtn to={`/@${user_id}`}>내 일기장</LinkBtn>
         </StyledSideBtnLinks>
     );
 };

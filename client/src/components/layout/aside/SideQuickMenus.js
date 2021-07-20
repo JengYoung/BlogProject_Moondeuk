@@ -2,30 +2,32 @@ import React from 'react'
 import styled from 'styled-components';
 import { IoHome } from "react-icons/io5";
 import { myFont } from 'lib/styles/_variable';
-import { BsPeopleFill, BsPencilSquare } from "react-icons/bs";
+import { BsPeopleFill } from "react-icons/bs";
 import { GoPencil } from 'react-icons/go'
+import { Link } from 'react-router-dom';
 /**
 **/
 
-const StyledSideQuickMenus = styled.ul`
+const StyledSideQuickMenus = styled.section`
     display: flex;
     position: absolute;
     justify-content: space-around;
     bottom: 2rem;
     padding: 0;
 `;
-const StyledQuickMenu = styled.li`
+const StyledQuickMenu = styled(Link)`
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 1rem;
     margin: 0 1rem;
     color: ${({ theme }) => theme.SideBarBg};
+    text-decoration: none;
     svg {
         font-size: ${myFont.size.headLarge};
     }
     span {
-        padding-top: 0.25rem;
+        padding-top: 0.375rem;
         font-size: ${myFont.size.ms};
     }
     &:hover {
@@ -44,7 +46,7 @@ const Separator = styled.div`
 const SideQuickMenus = () => {
     return (
         <StyledSideQuickMenus>
-            <StyledQuickMenu>
+            <StyledQuickMenu to="/">
                 <IoHome/>
                 <span>홈</span>
             </StyledQuickMenu>
@@ -54,7 +56,7 @@ const SideQuickMenus = () => {
                 <span>이웃</span>
             </StyledQuickMenu>
             <Separator/>
-            <StyledQuickMenu>
+            <StyledQuickMenu to="/write">
                 <GoPencil/>
                 <span>글쓰기</span>
             </StyledQuickMenu>

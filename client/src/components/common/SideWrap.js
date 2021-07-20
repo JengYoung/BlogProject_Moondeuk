@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 * * SideWrap: wrap that contains overall side layout
 **/
 
-const StyledSideWrap = styled.main`
+const StyledSideWrap = styled.aside`
     display: flex;
     flex-direction: column;
     justify-content: center;

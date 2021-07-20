@@ -30,7 +30,6 @@ const StyledLink = styled(Link)`
 `;
 
 const LinkBtn = ({ children, ...props }) => {
-    console.log(children)
     return (
         <StyledLink { ...props }>
             { children }
