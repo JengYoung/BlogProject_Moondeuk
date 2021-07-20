@@ -13,7 +13,7 @@ const StyledUserImage = styled.div`
     border: 1px solid lightgray;
     background: white;
     ${props => 
-        props.userImage && css`
+        props.$userImage && css`
             background-image: url(${props.$userImage});
             background-size: cover;
         `

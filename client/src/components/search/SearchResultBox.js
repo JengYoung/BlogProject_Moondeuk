@@ -160,6 +160,7 @@ const SearchResultBox = ({ keywordType, keyword, searchResult, searchedValue, se
                         <div className="category nickname">닉네임</div>
                     </KeywordTypeBox>
                     {searchResult[userKeywordType].map(data => {
+                        console.log("hi", data.userImage)
                         return (
                             <React.Fragment key={data.userId}>
                                 <SearchListItem keywordType={searchedKeywordType.current} to={`/@${data.userId}`}>

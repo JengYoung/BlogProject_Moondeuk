@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import LogoWrap from './LogoWrap';
 import { GrMenu } from 'react-icons/gr';
-import UserImageBox from './UserImageBox';
 import AlertList from '../alert/AlertList';
 import { useCallback } from 'react';
 import { AiOutlineEllipsis } from 'react-icons/ai'
@@ -181,7 +179,6 @@ const SearchBtn = styled(CircleBtn)`
 `;
 
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
-    const user_id = user ? user._id : null;
     const userId = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);

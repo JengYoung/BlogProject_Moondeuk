@@ -56,10 +56,7 @@ const KeywordTypeBox = styled.select`
     outline: none;
     text-align-last: center;
     justify-content: center;
-
-    *:hover {
-        background: pink;
-    }
+    appearance: none;
 `;
 
 const SearchFormInput = styled.input`
