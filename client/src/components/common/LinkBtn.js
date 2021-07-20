@@ -19,7 +19,7 @@ const StyledLink = styled(Link)`
     border-radius: 2rem;
     border: ${({ theme }) => `1px solid ${theme.borderColor}`};
     background: ${({ theme }) => theme.buttonBg};
-    color: ${({ theme }) => theme.buttonColor};
+    color: ${({ theme }) => theme.borderColor};
     text-decoration: none;
     transition: all 0.3s;
     &:hover {

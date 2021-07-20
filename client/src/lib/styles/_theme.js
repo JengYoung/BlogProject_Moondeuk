@@ -6,7 +6,7 @@ const themeStyles = {
         bgColor: myColors.purple[myColors.purple.length - 1],
         loginBg: 'transparent',
         fontColor: 'white',
-        borderColor: myColors.yellow[4],
+        borderColor: 'white', // border의 경우 다크모드 - 흰색, 라이트모드 - 연보라
         errorColor: '#ff8e8e',
         inputColor: 'white',
         inputBorderColor: myColors.yellow[4],
@@ -14,13 +14,14 @@ const themeStyles = {
         buttonColor: myColors.yellow[4],
         linkColor: myColors.yellow[3],
         SideBarBg: 'white',
+        HeaderBg: myColors.purple[7],
         event: {
             hoverBg: myColors.yellow[5],
             SideBarHoverBg: myColors.yellow[5],
             hoverColor: myColors.purple[5],
             buttonHoverColor: myColors.purple[5], // 버튼을 hover했을 때 폰트 색
         },
-        sideBarBg: myColors.purple[0]
+        sideBarBg: myColors.purple[7]
     },
     light: {
         now: 'light',
@@ -35,13 +36,14 @@ const themeStyles = {
         buttonBg: myColors.purple[1],
         buttonColor: 'white',
         SideBarBg: 'white',
+        HeaderBg: 'white',
         event: {
             hoverBg: myColors.purple[6],
             SideBarHoverBg:myColors.purple[1],
             hoverColor: 'white',
             buttonHoverColor: 'white', // 버튼을 hover했을 때 폰트 색
         },
-        sideBarBg: myColors.yellow[6]
+        sideBarBg: myColors.purple[0]
     }
 };
 

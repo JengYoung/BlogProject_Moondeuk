@@ -14,6 +14,9 @@ const StyledDiaryList = styled(ResponsiveWrapper)`
     justify-content: flex-start;
     margin-top: 3rem;
     flex-flow: wrap;
+    ${({ theme }) => css`
+        background: ${theme.bgColor};
+    `}
 `;
 
 
@@ -132,9 +135,7 @@ const StyledDiaryDetailBox = styled.div`
 
 const DiaryWrapper = ({ diary }) => {
     const { title, tags, author, _id } = diary;
-    console.log(Object.keys(diary))
     const thumbnailUrl = diary.titleStyle?.thumbnail;
-    console.log(thumbnailUrl)
     const defaultThumbnailUrl = myVars.defaultThumbnail;
     const { authorId, userImage } = author;
     return (

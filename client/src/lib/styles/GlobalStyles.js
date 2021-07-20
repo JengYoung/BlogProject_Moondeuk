@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
     html {
@@ -15,6 +15,9 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         min-height: 100%;
         height: 100%;
+        ${({ theme }) => css`
+            background: ${theme.bgColor};
+        `}
     }
     button, textarea, input, option, select {
         font-family: 'Noto Sans KR', sans-serif;

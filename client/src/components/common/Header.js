@@ -11,13 +11,15 @@ import { AiOutlineEllipsis } from 'react-icons/ai'
 import { GoSearch } from "react-icons/go";
 
 import CircleBtn from './CircleBtn';
+import UserImage from './UserImage';
+import myMediaQuery from 'lib/styles/_mediaQuery';
+import LinkBtn from './LinkBtn';
 
 const MenuWrap = styled.div`
     display: flex;
     position: relative;
     left: 1rem;
     align-items: center;
-    width: 80%;
 `;
 
 const SideWrapBtn = styled.button`
@@ -32,6 +34,12 @@ const SideWrapBtn = styled.button`
     width: 2rem;
     margin-right: 2vw;
     font-size: 1rem;
+    ${({ theme }) => css`
+        svg > path {
+            fill: ${theme.fontColor};
+            stroke: ${theme.fontColor};
+        }
+    `}
     &:hover {
         cursor: pointer;
     }
@@ -47,7 +55,10 @@ const StyledHeader = styled.header`
     position: fixed;
     z-index: 99;
     width: 100%;
-    background: white;
+    ${({ theme }) => css`
+        background: ${theme.bgColor};
+        border-bottom: 1px solid ${theme.HeaderBg};
+    `}
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);
 `;
 
@@ -92,15 +103,12 @@ const UserInfoBox = styled.div`
     display: flex;
     position: relative;
     align-items: center;
-    right: 4vw;
-    @media screen and (min-width: 481px) {
-        height: 10vh;
-    }
-    @media screen and (min-width: 769px) {
-        height: 12vh;
-    }
+    right: 1rem;
     button + label {
         margin-left: 0.5vw;
+    }
+    ${myMediaQuery.mobile} {
+        right: 0.75rem;
     }
 `;
 const UserInfo = styled.div`
@@ -117,7 +125,8 @@ const UserInfo = styled.div`
     }
 `;
 
-const HeaderOptionBtn = styled.div`
+const HeaderOptionBtn = styled.button`
+    padding: 0;
     display: block;
     position: relative;
     transition: all 0.3s ease;
@@ -138,20 +147,20 @@ const HeaderOptionBtn = styled.div`
         font-size: 2rem;
     }
 `;
-const LoginLink = styled(Link)`
-    display: flex;
-    justify-content: center;
-    padding: 0.5vh 0.5rem;
-    border-radius: 7px;
-    width: 4rem;
-    &:hover {
-        background-color: #946894;
-        color: #fcff62;
-        transition: all 0.7s;
+const LoginLink = styled(LinkBtn)`
+    margin-top: 0;
+    margin-right: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    line-height: 2;
+    max-height: 2rem;
+    min-width: 4rem;
+    white-space: nowrap;
+
+    ${myMediaQuery.mobile} {
+        margin-right: 0.75rem;
     }
-    @media screen and (min-width: 481px) {
-        width: 5rem;
-    }
+
     ${props =>
         props.login ==='true' && css`
             position: relative;
@@ -159,11 +168,17 @@ const LoginLink = styled(Link)`
         `
     }
 `;
-const HeaderUserName = styled.div`
+const HeaderUserName = styled.h2`
     margin-right: 0.5vw;
-    font-weight: 700;
-    @media screen and (min-width: 481px) {
-        margin-right: 1vw;
+    font-size: 1rem;
+    margin-right: 1rem;
+    padding-bottom: 0.25rem;
+    white-space: nowrap;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+    `}
+    ${myMediaQuery.mobile} {
+        margin-right: 0.75rem;
     }
 `;
 
@@ -177,18 +192,11 @@ const AlertBox = styled.div`
 `;
 
 const SearchBtn = styled(CircleBtn)`
-    margin-right: 0.25rem;
-    &:hover {
-        color: #ffee00;
-        border: 1px solid #ffee00;
-    }
-    @media screen and (min-width: 481px) {
-        margin-right: 0.5rem;
-    }
 `;
 
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
     const user_id = user ? user._id : null;
+    const userId = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);
@@ -208,13 +216,14 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     <StyledAlertWrapper>
                         {user ? (
                             <UserInfoBox>
-                                    <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>
+                                {!openLogout && <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>}
                                 {!openLogout && <AlertBox>
                                     {openAlertList && <AlertList alerts={alerts} onConform={onConform}/>}
                                 </AlertBox>}
-                                {!openLogout && <UserImageBox 
-                                    user_id={user_id} 
-                                    user_image={userImage} 
+                                {!openLogout && <UserImage
+                                    isLink
+                                    userId={userId} 
+                                    userImage={userImage} 
                                     isHeader 
                                     checkUser={checkUser}
                                 />}

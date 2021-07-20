@@ -23,9 +23,10 @@ const setTheme = css`
         `
     }}
 `
+
 const StyledImglogo = styled.img`
-    width: 25px;
-    height: 25px;
+    width: 34px;
+    height: 34px;
     @media screen and (min-width: 481px) {
         width: 50px;
         height: 50px;
@@ -80,7 +81,6 @@ const StyledLogoWrap = styled.div`
         `
     }
     @media screen and (min-width: 469px) {
-        margin-top: 0.5rem;
         flex-direction: column;
         align-items: center;
         padding-top: 1rem;
