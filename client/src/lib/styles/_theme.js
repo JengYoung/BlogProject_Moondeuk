@@ -6,17 +6,19 @@ const themeStyles = {
         bgColor: myColors.purple[myColors.purple.length - 1],
         loginBg: 'transparent',
         fontColor: 'white',
-        borderColor: 'white',
+        borderColor: myColors.yellow[4],
         errorColor: '#ff8e8e',
         inputColor: 'white',
         inputBorderColor: myColors.yellow[4],
         buttonBg: 'transparent',
-        buttonColor: myColors.purple[myColors.purple.length-1],
+        buttonColor: myColors.yellow[4],
         linkColor: myColors.yellow[3],
+        SideBarBg: 'white',
         event: {
             hoverBg: myColors.yellow[5],
-            linkHoverColor: myColors.yellow[5],
-            buttonHoverColor: myColors.purple[5],
+            SideBarHoverBg: myColors.yellow[5],
+            hoverColor: myColors.purple[5],
+            buttonHoverColor: myColors.purple[5], // 버튼을 hover했을 때 폰트 색
         },
         sideBarBg: myColors.purple[myColors.purple.length -1]
     },
@@ -32,10 +34,12 @@ const themeStyles = {
         linkColor: myColors.purple[1],
         buttonBg: myColors.purple[1],
         buttonColor: 'white',
+        SideBarBg: 'white',
         event: {
             hoverBg: myColors.purple[6],
-            linkHoverColor: myColors.purple[6],
-            buttonHoverColor: 'white',
+            SideBarHoverBg:myColors.purple[1],
+            hoverColor: 'white',
+            buttonHoverColor: 'white', // 버튼을 hover했을 때 폰트 색
         },
         sideBarBg: myColors.yellow[6]
     }

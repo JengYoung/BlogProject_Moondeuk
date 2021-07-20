@@ -32,7 +32,7 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     transition: all 0.7s;
     &:hover {
-        ${({ theme }) => css`color: ${theme.event.hoverColor};`}
+        ${({ theme }) => css`color: ${theme.event.hoverBg};`}
         transform: scale(1.03);
     }
 `;

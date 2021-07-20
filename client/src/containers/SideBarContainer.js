@@ -1,5 +1,7 @@
-import LinkBtn from 'components/common/LinkBtn'
+import DarkModeBtn from 'components/common/DarkModeBtn'
 import LoginMessage from 'components/common/LoginMessage'
+import SideBtnLinks from 'components/layout/aside/BtnLinks'
+import SideQuickMenus from 'components/layout/aside/SideQuickMenus'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SideMenuBtn from '../components/common/SideMenuBtn'
@@ -18,18 +20,27 @@ const SideBarContainer = ({ isSideBar, onSideBar }) => {
         dispatch(check())
     }, [dispatch])
     return (
-        <SideWrap isMain isSideBar={isSideBar}>
+        <SideWrap isSideBar={isSideBar}>
             <SideMenuBtn isSideBar={isSideBar} onSideBar={onSideBar}></SideMenuBtn>
+            <DarkModeBtn isSideBar/>
             {
-                user_id ? <UserImageBox 
+                user_id &&
+                    <>
+                        <UserImageBox 
                             user_id={user_id} 
                             user_image={user_image} 
                             checkUser={checkUser}
-                        /> : <>
-                            <LoginMessage></LoginMessage>
-                        </>
-                }
-            <UserName user_id={user_id} nickname={nickname}></UserName>
+                        />
+                        <UserName user_id={user_id} nickname={nickname}></UserName>
+                        <SideBtnLinks/>
+                        <SideQuickMenus/>
+                    </>
+            }
+            {!user_id && 
+                <>
+                    <LoginMessage></LoginMessage>
+                </>
+            }
         </SideWrap>
     )
 }

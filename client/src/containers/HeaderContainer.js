@@ -37,7 +37,7 @@ const HeaderContainer = (props) => {
     }, [dispatch, isOpenSearchBar]);
     return (
         <>
-            <Header 
+            <Header
                 user={user} 
                 onLogout={onLogout} 
                 write={props.write} 

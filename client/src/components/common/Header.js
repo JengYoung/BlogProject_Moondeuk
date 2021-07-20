@@ -208,8 +208,8 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     <StyledAlertWrapper>
                         {user ? (
                             <UserInfoBox>
-                                {!openLogout && <AlertBox>
                                     <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>
+                                {!openLogout && <AlertBox>
                                     {openAlertList && <AlertList alerts={alerts} onConform={onConform}/>}
                                 </AlertBox>}
                                 {!openLogout && <UserImageBox 

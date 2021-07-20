@@ -12,7 +12,7 @@ const ButtonCSS = css`
     padding: 0.5rem 0.75rem;
     box-sizing: border-box;
     ${({ theme }) => css`
-        color: ${theme.buttonBg};
+        color: ${theme.buttonColor};
         border: 1px solid ${theme.borderColor};
         &:hover {
             border: ${theme.event.hoverBg};

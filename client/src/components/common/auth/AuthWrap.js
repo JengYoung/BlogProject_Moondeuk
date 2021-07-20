@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 /**
  * * AuthWrap : wrap that contains auth(login / register)'s logo and form

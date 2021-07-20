@@ -17,14 +17,19 @@ const StyledLoginMessage = styled.div`
     width: 100%;
     height: 100%;
     color: white;
-    font-size: ${myFont.size.xl};
+    font-size: ${myFont.size.l};
 `;
 
+const StyledLoginAnimation = styled.img`
+    max-width: 60%;
+    margin-bottom: 3rem;
+`;
 const LoginMessage = (props) => {
     return (
         <StyledLoginMessage {...props}>
+            <StyledLoginAnimation src="https://3.bp.blogspot.com/-95lngfeZfYs/WuuTY199EOI/AAAAAAAAAzY/axaQ3eGzc1ciiK-aWcJEAyHdfHMnhYLkwCLcBGAs/s1600/original.gif" alt="animation gif" />
             <span>로그인 후 이용해주세요! 😉🤟🏻</span>
-            <LinkBtn>로그인 화면으로 이동</LinkBtn>
+            <LinkBtn to="/login">로그인 화면으로 이동</LinkBtn>
         </StyledLoginMessage>
     );
 };

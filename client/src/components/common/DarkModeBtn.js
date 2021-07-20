@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { IoIosMoon, IoMdSunny } from "react-icons/io";
 import myColors from 'lib/styles/_color';
 import myVars from 'lib/styles/_variable';
@@ -31,6 +31,10 @@ const StyledDarkModeBtn = styled.section`
 		}
 		cursor: pointer;
 	}
+	${({ isSideBar }) => isSideBar && css`
+		top: 1.5rem;
+		right: 1.5rem;
+	`}
 `;
 const StyledSwitchBtn = styled.button`
 	--move: '30px';
@@ -56,7 +60,7 @@ const StyledTheme = styled.div`
 `;
 
 
-const DarkModeBtn = () => {
+const DarkModeBtn = (props) => {
 	const $switchBtn = useRef(null);
 	const $darkModeBtn = useRef(null);
 	/*
@@ -66,8 +70,6 @@ const DarkModeBtn = () => {
 	*/ 
 	const { theme, toggleTheme } = useTheme();
 	const onClick = (e) => {
-		// $switchBtn.current.classList.toggle('move');
-		// $darkModeBtn.current.classList.toggle('dark');
 		toggleTheme();
 	}
 	useEffect(() => {
@@ -76,7 +78,7 @@ const DarkModeBtn = () => {
 	}, [theme])
 
 	return (
-		<StyledDarkModeBtn ref={$darkModeBtn} onClick={onClick}>
+		<StyledDarkModeBtn { ...props } ref={$darkModeBtn} onClick={onClick}>
 			<StyledSwitchBtn ref={$switchBtn}/>
 			<StyledTheme><IoMdSunny/></StyledTheme>
 			<StyledTheme><IoIosMoon/></StyledTheme>		

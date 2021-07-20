@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';

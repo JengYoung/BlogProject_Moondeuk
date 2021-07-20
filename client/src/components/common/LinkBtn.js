@@ -12,14 +12,14 @@ const StyledLink = styled(Link)`
     align-items: center;
     padding: 0 2rem;
     /* height: 2rem; */
-    line-height: 2;
+    line-height: 2.25;
     margin-top: 1rem;
     font-size: ${myFont.size.s};
     font-weight: 700;
     border-radius: 2rem;
     border: ${({ theme }) => `1px solid ${theme.borderColor}`};
     background: ${({ theme }) => theme.buttonBg};
-    color: ${({ theme }) => theme.fontColor};   
+    color: ${({ theme }) => theme.buttonColor};
     text-decoration: none;
     transition: all 0.3s;
     &:hover {

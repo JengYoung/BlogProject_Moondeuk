@@ -10,16 +10,18 @@ const StyledSideWrap = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    z-index: 30;
+    position: fixed;
+    top: 0;
+    z-index: 100;
     flex-direction: column;
     width: 480px;
-    height: 100%;
+    min-height: 100%;
     padding: 0 1rem;
 
     // dark-mode 여부에 따른 CSS 효과
-    background: ${({ theme }) => theme.sideBarBg};
-    transition: background-color 0.3s;
+    background-color: ${({ theme }) => theme.sideBarBg};
+    border: ${({ theme }) => theme.borderColor};
+    transition: all 0.3s;
     ${props =>
         props.isMain && css`
             display: flex;
@@ -29,7 +31,7 @@ const StyledSideWrap = styled.main`
             position: fixed;
             top: 0;
             z-index: 100;
-            border: 1px solid black;
+            /* border: 1px solid black; */
             /* background-color: #312330; */
         `
     }
