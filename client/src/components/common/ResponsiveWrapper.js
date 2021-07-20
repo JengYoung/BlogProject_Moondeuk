@@ -7,14 +7,16 @@ import styled from 'styled-components';
 */
 
 export const StyledResponsive = styled.div`
+    display: flex;
+    justify-content: center;
     position: relative;
     margin: 0 auto;
     max-width: 1100px;
     ${myMediaQuery.tablet} {
-        max-width: 768px;
+        max-width: 769px;
     }
     ${myMediaQuery.mobileAndTablet} {
-        max-width: 500px;
+        max-width: 700px;
     }
     ${myMediaQuery.tablet} {
         width: 100%;

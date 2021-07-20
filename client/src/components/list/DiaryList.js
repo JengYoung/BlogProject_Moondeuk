@@ -10,7 +10,7 @@ import myVars, { myFont } from 'lib/styles/_variable';
 // 전체를 감쌈
 const StyledDiaryCards = styled(ResponsiveWrapper)`
     display: flex;
-    /* justify-content: center; */
+    /* justify-content: flex-start; */
     margin-top: 3rem;
     flex-flow: wrap;
     ${({ theme }) => css`
@@ -18,8 +18,19 @@ const StyledDiaryCards = styled(ResponsiveWrapper)`
     `}
 `;
 
-
-const StyledDiaryCard = styled.article`
+const StyledDiaryCardContainer = styled.article`
+    display: flex;
+    justify-content: center;
+    width: 33%;
+    min-width: 300px;
+    ${myMediaQuery.tablet} {
+        width: 50%;
+    }
+    ${myMediaQuery.mobile} {
+        width: 100%;
+    }
+`;
+const StyledDiaryCard = styled.div`
     display: flex;
     position: relative;
     flex-direction: column;
@@ -37,6 +48,12 @@ const StyledDiaryCard = styled.article`
         transition: all 0.3s;
         transform: translateY(-5px);
         box-shadow: ${myVars.event.hoverShadow};
+    }
+    ${myMediaQuery.tablet} {
+        margin: 1.75rem auto;
+    }
+    ${myMediaQuery.mobileAndTablet} {
+        margin: 1.5rem auto;
     }
 `;
 
@@ -243,7 +260,7 @@ const DiaryCards = ({ diaries, diariesError }) => {
     return (
         <StyledDiaryCards>
             {diaries && diaries.map(diary => {
-                return <DiaryCard key={diary._id} diary={diary}/>
+                return <StyledDiaryCardContainer><DiaryCard key={diary._id} diary={diary}/></StyledDiaryCardContainer>
             })}
         </StyledDiaryCards>
     );
