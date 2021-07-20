@@ -14,7 +14,7 @@ const StyledUserImage = styled.div`
     background: white;
     ${props => 
         props.userImage && css`
-            background-image: url(${props.userImage});
+            background-image: url(${props.$userImage});
             background-size: cover;
         `
     }
@@ -45,17 +45,16 @@ const StyledUserImageLink = styled(Link)`
         height: 34px;
         margin-right: 0.75rem;
     }    
-    background-image: url(${({userImage}) => userImage});
+    background-image: url(${({$userImage}) => $userImage});
 `;
 
 const UserImage = ({ isLink, isSubscribePage, userImage, userId, ...rest }) => {
-    console.log(rest)
     return (
         <>
-            { isLink && <StyledUserImageLink userImage={userImage} to={`@${userId}`}/> }
-            { !isLink && <StyledUserImage isSubscribePage={isSubscribePage} userImage={userImage} {...rest}/> }
+            { isLink && <StyledUserImageLink $userImage={userImage} to={`@${userId}`}/> }
+            { !isLink && <StyledUserImage isSubscribePage={isSubscribePage} $userImage={userImage} {...rest}/> }
         </>
     );
 };
 
-export default UserImage;
+export default React.memo(UserImage);

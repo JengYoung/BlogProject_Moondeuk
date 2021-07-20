@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components';
 import ResponsiveWrapper from '../common/ResponsiveWrapper';
-import LoginBg from '../../images/LoginBg.jpg';
 import { Link } from 'react-router-dom';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import myVars, { myFont } from 'lib/styles/_variable';
@@ -11,7 +10,7 @@ import myVars, { myFont } from 'lib/styles/_variable';
 // 전체를 감쌈
 const StyledDiaryCards = styled(ResponsiveWrapper)`
     display: flex;
-    justify-content: flex-start;
+    /* justify-content: center; */
     margin-top: 3rem;
     flex-flow: wrap;
     ${({ theme }) => css`
@@ -24,8 +23,6 @@ const StyledDiaryCard = styled.article`
     display: flex;
     position: relative;
     flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
     width: 300px;
     height: 400px;
     margin: 2rem auto;
@@ -38,7 +35,7 @@ const StyledDiaryCard = styled.article`
     }
     &:hover {
         transition: all 0.3s;
-        transform: translate(-3px, -5px);
+        transform: translateY(-5px);
         box-shadow: ${myVars.event.hoverShadow};
     }
 `;
@@ -60,7 +57,6 @@ const StyledDiaryData = styled.div`
     bottom: 0;
     word-break:break-all;
     height: 160px;
-    /* height: 100%; */
     overflow: hidden;
     top: 240px;
     &:hover {
@@ -69,11 +65,8 @@ const StyledDiaryData = styled.div`
         top: 0;
     }
     ${({ theme }) => css`
-        /* background: ${theme.bgColor}; */
         color: ${theme.fontColor};
     `}
-    /* background: white; */
-    /* color: white; */
 `;
 
 const StyledDiaryDataBackground = styled.div`
@@ -151,15 +144,13 @@ const StyledAuthorImage = styled.div`
 const StyledDiaryBody = styled.div`
     position: relative;
     overflow: hidden;
-    /* white-space: nowrap;
-    text-overflow: ellipsis; */
+    text-overflow: ellipsis;
     width: 100%;
-    /* height: 2rem; */
     padding: 0 1rem;
     padding-top: 0.5rem;
-    * {
-        font-size: ${myFont.size.ms};
-        
+    display: none;
+    &.active {
+        display: block;
     }
 `;
 const StyledDiaryCardTags = styled.ul`
@@ -178,7 +169,7 @@ const StyledDiaryCardTags = styled.ul`
     ${({ theme }) => css`
         color: ${theme.fontColor};
     `}
-    &:hover {
+    &.active {
         transition: height 0.5s;
         height: auto;
     }
@@ -215,19 +206,26 @@ const DiaryCard = ({ diary }) => {
     const thumbnailUrl = diary.titleStyle?.thumbnail;
     const defaultThumbnailUrl = myVars.defaultThumbnail;
     const { authorId, userImage } = author;
+    const diaryData = useRef(null);
+    const diaryBody = useRef(null);
+    const diaryTags = useRef(null);
 
-    // useEffect(() => {
-
-    // })
+    useEffect(() => {
+        diaryData.current.addEventListener('click', () => console.log('hi'))
+    },[])
+    const onHoverData = () => {
+        diaryBody.current.classList.toggle('active');
+        diaryTags.current.classList.toggle('active');
+    }   
     return (
         <StyledDiaryCard>
             <StyledDiaryThumbnail $thumbnailUrl={thumbnailUrl} $defaultThumbnailUrl={defaultThumbnailUrl} to={`/@${authorId}/${_id}`}/>
-            <StyledDiaryData>
+            <StyledDiaryData ref={diaryData} onMouseOver={onHoverData}  onMouseOut={onHoverData}>
                 <StyledDiaryDataBackground/>
                 <StyledDiaryTitle>{title}</StyledDiaryTitle>
                 <StyledDiarySubTitle>{subtitle}</StyledDiarySubTitle>
-                <StyledDiaryCardTags>{tags.map(tag => <StyledDiaryCardTag key={tag}>{tag}</StyledDiaryCardTag>)}</StyledDiaryCardTags>
-                {/* <StyledDiaryBody dangerouslySetInnerHTML={{__html: body.length > 100 ? `${body.slice(0,100)}...` : body}}></StyledDiaryBody> */}
+                <StyledDiaryCardTags ref={diaryTags}>{tags.map(tag => <StyledDiaryCardTag key={tag}>{tag}</StyledDiaryCardTag>)}</StyledDiaryCardTags>
+                <StyledDiaryBody ref={diaryBody} dangerouslySetInnerHTML={{__html: body.length > 100 ? `${body.slice(0,100)}...` : body}}></StyledDiaryBody>
             </StyledDiaryData>
             <StyledAdditionalInfoBox>
                 <StyledDiaryPostedDate>{postedDate}</StyledDiaryPostedDate>

@@ -51,7 +51,7 @@ const SideQuickMenus = () => {
                 <span>홈</span>
             </StyledQuickMenu>
             <Separator/>
-            <StyledQuickMenu>
+            <StyledQuickMenu to="/">
                 <BsPeopleFill/>
                 <span>이웃</span>
             </StyledQuickMenu>
