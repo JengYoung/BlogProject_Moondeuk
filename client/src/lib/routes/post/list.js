@@ -1,11 +1,12 @@
 import client from '../client';
 import qs from 'qs';
-const diaryListAPI = ({ authorId, tag, last_id = null }) => {
+const diaryListAPI = ({ authorId, tag, last_id }) => {
     const query = qs.stringify({
         userId: authorId,
-        tag
+        tag,
+        last_id
     });
-    return client.get(`/routes/post?${query}`, { last_id });
+    return client.get(`/routes/post?${query}`);
 }
 
 export default diaryListAPI;

@@ -4,8 +4,7 @@ import Post from '../../models/post.js';
 import User from '../../models/user.js';
 
 const listController = async (req, res) => {
-    const { tag, userId } = req.query;
-    const { last_id } = req.body;
+    const { tag, userId, last_id } = req.query;
     const query = {
         ...(userId ? { 'author.authorId': userId } : {}),
         ...(tag ? { tags: tag } : {}),

@@ -21,7 +21,7 @@ export const diaryList = createAction(DIARY_LIST, ({ authorId, tag, last_id }) =
 */ 
 const getDiaryListSaga = createSaga(DIARY_LIST, diaryListAPI)
 export function* diaryListSaga() {
-    yield takeLatest(DIARY_LIST, getDiaryListSaga)
+    yield takeLatest(DIARY_LIST, getDiaryListSaga);
 }
 
 /*
