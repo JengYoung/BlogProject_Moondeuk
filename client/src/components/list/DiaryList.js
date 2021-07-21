@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import myVars, { myFont } from 'lib/styles/_variable';
 import { StyledResponsive } from 'components/common/ResponsiveWrapper';
@@ -18,7 +18,7 @@ const StyledDiaryCards = styled(StyledResponsive)`
     `}
 `;
 
-const StyledDiaryCardContainer = styled.article`
+const StyledDiaryCardWrapper = styled.article`
     display: flex;
     justify-content: center;
     width: 33%;
@@ -30,7 +30,7 @@ const StyledDiaryCardContainer = styled.article`
         width: 100%;
     }
 `;
-const StyledDiaryCard = styled.div`
+const StyledDiaryCard = styled(Link)`
     display: flex;
     position: relative;
     flex-direction: column;
@@ -57,11 +57,17 @@ const StyledDiaryCard = styled.div`
     }
 `;
 
-const StyledDiaryThumbnail = styled(Link)`
+const StyledDiaryThumbnail = styled.img`
+    display: block;
     border-radius: inherit;
     width: 100%;
     height: 100%;
-    background-image: url(${({$thumbnailUrl, $defaultThumbnailUrl}) => $thumbnailUrl ? $thumbnailUrl : $defaultThumbnailUrl});
+    ${({$thumbnailUrl, $defaultThumbnailUrl}) => ($thumbnailUrl || $defaultThumbnailUrl) && css`
+        background-image: url(${$thumbnailUrl ? $thumbnailUrl : $defaultThumbnailUrl});
+    `}
+    ${({ $bgColor }) => $bgColor && css`
+        background: ${$bgColor};
+    `}
     background-size: cover;
     background-position: center center;
 `;
@@ -216,26 +222,27 @@ const StyledDiaryPostedDate = styled.time`
 const ObserverTarget = styled.div`
 `;
 
-const DiaryCard = ({ diary }) => {
+const DiaryCard = ({ diary, history }) => {
     const { title, tags, author, _id, subtitle, body, postedDate } = diary;
     // const date = new Date(postedDate).toLocaleDateString("en-US", {
     //     weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'
     // }).replaceAll('/', '. ');
     const thumbnailUrl = diary.titleStyle?.thumbnail;
-    const defaultThumbnailUrl = myVars.defaultThumbnail;
+    const bgColor = diary.titleStyle?.color;
+    const defaultThumbnailUrl = !bgColor ? myVars.defaultThumbnail : null;
     const { authorId, userImage } = author;
     const diaryData = useRef(null);
     const diaryBody = useRef(null);
     const diaryTags = useRef(null);
 
-    const onHoverData = () => {
+    const onHoverDiaryData = () => {
         diaryBody.current.classList.toggle('active');
         diaryTags.current.classList.toggle('active');
-    }   
+    } 
     return (
-        <StyledDiaryCard>
-            <StyledDiaryThumbnail $thumbnailUrl={thumbnailUrl} $defaultThumbnailUrl={defaultThumbnailUrl} to={`/@${authorId}/${_id}`}/>
-            <StyledDiaryData ref={diaryData} onMouseOver={onHoverData}  onMouseOut={onHoverData}>
+        <StyledDiaryCard to={`/@${authorId}/${_id}`}>
+            <StyledDiaryThumbnail $thumbnailUrl={thumbnailUrl} $defaultThumbnailUrl={defaultThumbnailUrl} $bgColor={bgColor}/>
+            <StyledDiaryData ref={diaryData} onMouseOver={onHoverDiaryData} onMouseOut={onHoverDiaryData}>
                 <StyledDiaryDataBackground/>
                 <StyledDiaryTitle>{title}</StyledDiaryTitle>
                 <StyledDiarySubTitle>{subtitle}</StyledDiarySubTitle>
@@ -288,9 +295,9 @@ const DiaryCards = ({ diaries, diariesError, lastId, fetchDiaryList }) => {
                     const { _id, postedDate } = diary;
                     const createdIndex = _id + postedDate;
                     return (
-                        <StyledDiaryCardContainer key={idx}>
+                        <StyledDiaryCardWrapper key={idx}>
                             <DiaryCard diary={diary} key={createdIndex}/>
-                        </StyledDiaryCardContainer>
+                        </StyledDiaryCardWrapper>
                     )
                 })}
             </StyledDiaryCards>
