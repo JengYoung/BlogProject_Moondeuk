@@ -253,7 +253,7 @@ const DiaryCard = ({ diary }) => {
     )
 }
 
-const DiaryCards = ({ diaries, diariesError, setLastId }) => {
+const DiaryCards = ({ diaries, diariesError, lastId, fetchDiaryList }) => {
     const diaryCards = useRef(null);
     const observerTarget = useRef(null);
 
@@ -263,8 +263,10 @@ const DiaryCards = ({ diaries, diariesError, setLastId }) => {
         const callback = (entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const lastId = diaries[diaries.length-1]?._id;
-                    setLastId(() => lastId);
+                    const _id = diaries[diaries.length-1]?._id;
+                    lastId.current = _id
+                    fetchDiaryList(lastId)
+                    console.log(lastId.current)
                 }
             })
         };
@@ -276,7 +278,7 @@ const DiaryCards = ({ diaries, diariesError, setLastId }) => {
         const observer = new IntersectionObserver(callback, options);
         observer.observe(observerTarget.current);
         return () => observer.unobserve(observerRef);
-    }, [observerTarget, setLastId, diaries])
+    }, [observerTarget, lastId, diaries])
 
     if (diariesError) return <StyledDiaryCards> 일기를 불러오는 데 에러가 발생했어요! 😓</StyledDiaryCards>
     return (

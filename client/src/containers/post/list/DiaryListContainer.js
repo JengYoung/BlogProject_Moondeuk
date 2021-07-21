@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 import DiaryCards from '../../../components/list/DiaryList';
@@ -11,9 +11,7 @@ function DiaryListContainer({ match, location, isUserPage }) {
         diaries: diaryListReducer.diaries,
         diariesError: diaryListReducer.diariesError
     }));
-    const [ lastId, setLastId ] = useState(null);
-
-    useEffect(() => {
+    const fetchDiaryList = useCallback((lastId) => {
         if (!isUserPage) {
             dispatch(diaryList({authorId: null, tag: null}));
         }
@@ -21,11 +19,12 @@ function DiaryListContainer({ match, location, isUserPage }) {
         const { tag } = qs.parse(location.search, {
             ignoreQueryPrefix: true,
         });
-        dispatch(diaryList({ authorId, tag, last_id: lastId }))
-    }, [lastId, dispatch])
+        dispatch(diaryList({ authorId, tag, last_id: lastId.current }))
+    },[location, match, dispatch, isUserPage]);
 
+    const lastId = useRef(null);
     return (
-        <DiaryCards diaries={diaries} diariesError={diariesError} setLastId={setLastId}/>
+        <DiaryCards diaries={diaries} diariesError={diariesError} lastId={lastId} fetchDiaryList={fetchDiaryList}/>
     )
 }
 
