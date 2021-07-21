@@ -1,6 +1,6 @@
 import client from '../client';
 import qs from 'qs';
-const diaryListAPI = ({ authorId, tag, last_id }) => {
+const diaryListAPI = ({ authorId, tag, last_id = null }) => {
     const query = qs.stringify({
         userId: authorId,
         tag

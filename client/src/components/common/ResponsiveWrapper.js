@@ -23,10 +23,10 @@ export const StyledResponsive = styled.div`
     }
 `;
 
-const ResponsiveWrapper = ({children, ...rest}) => {
+const ResponsiveWrapper = ({ children, ...rest }) => {
     return (
-        <StyledResponsive {...rest}>
-            {children}
+        <StyledResponsive { ...rest }>
+            { children }
         </StyledResponsive>
     );
 };

@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components';
-import ResponsiveWrapper from '../common/ResponsiveWrapper';
 import { Link } from 'react-router-dom';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import myVars, { myFont } from 'lib/styles/_variable';
+import { StyledResponsive } from 'components/common/ResponsiveWrapper';
 /*
 */
 
 // 전체를 감쌈
-const StyledDiaryCards = styled(ResponsiveWrapper)`
+const StyledDiaryCards = styled(StyledResponsive)`
     display: flex;
     /* justify-content: flex-start; */
     margin-top: 3rem;
@@ -213,7 +213,8 @@ const StyledDiaryPostedDate = styled.time`
     font-family: ${myFont.style.dancingScript};
     font-size: ${myFont.size.ms};
 `;
-
+const ObserverTarget = styled.div`
+`;
 
 const DiaryCard = ({ diary }) => {
     const { title, tags, author, _id, subtitle, body, postedDate } = diary;
@@ -227,9 +228,6 @@ const DiaryCard = ({ diary }) => {
     const diaryBody = useRef(null);
     const diaryTags = useRef(null);
 
-    useEffect(() => {
-        diaryData.current.addEventListener('click', () => console.log('hi'))
-    },[])
     const onHoverData = () => {
         diaryBody.current.classList.toggle('active');
         diaryTags.current.classList.toggle('active');
@@ -255,15 +253,48 @@ const DiaryCard = ({ diary }) => {
     )
 }
 
-const DiaryCards = ({ diaries, diariesError }) => {
+const DiaryCards = ({ diaries, diariesError, setLastId }) => {
+    const diaryCards = useRef(null);
+    const observerTarget = useRef(null);
+
+    useEffect(() => {
+        let observerRef = null;
+        if (observerTarget.current) observerRef = observerTarget.current;
+        const callback = (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const lastId = diaries[diaries.length-1]?._id;
+                    setLastId(() => lastId);
+                }
+            })
+        };
+        const options = {
+            root: null,
+            rootMargin: '0px 0px 400px 0px',
+            threshold: 1.0,
+        };
+        const observer = new IntersectionObserver(callback, options);
+        observer.observe(observerTarget.current);
+        return () => observer.unobserve(observerRef);
+    }, [observerTarget, setLastId, diaries])
+
     if (diariesError) return <StyledDiaryCards> 일기를 불러오는 데 에러가 발생했어요! 😓</StyledDiaryCards>
     return (
-        <StyledDiaryCards>
-            {diaries && diaries.map(diary => {
-                return <StyledDiaryCardContainer><DiaryCard key={diary._id} diary={diary}/></StyledDiaryCardContainer>
-            })}
-        </StyledDiaryCards>
+        <>
+            <StyledDiaryCards ref={diaryCards}>
+                {diaries && diaries.map((diary, idx) => {
+                    const { _id, postedDate } = diary;
+                    const createdIndex = _id + postedDate;
+                    return (
+                        <StyledDiaryCardContainer key={idx}>
+                            <DiaryCard diary={diary} key={createdIndex}/>
+                        </StyledDiaryCardContainer>
+                    )
+                })}
+            </StyledDiaryCards>
+            <ObserverTarget ref={observerTarget}></ObserverTarget>
+        </>
     );
 };
 
-export default DiaryCards;
+export default React.memo(DiaryCards);

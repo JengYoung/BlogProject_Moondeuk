@@ -29,16 +29,16 @@ export function* diaryListSaga() {
 */ 
 
 const initialState = {
-    diaries: null,
+    diaries: [],
     diariesError: null,
 }
 
 
 const diaryListReducer = handleActions(
     {
-        [DIARY_LIST_SUCCESS]: (state, { payload: diaries }) => ({
+        [DIARY_LIST_SUCCESS]: (state, { payload: fetchedDiaries }) => ({
             ...state,
-            diaries,
+            diaries: state.diaries.concat(fetchedDiaries),
         }),
         [DIARY_LIST_FAILURE] : (state, { payload: diaryListError }) => ({
             ...state,
