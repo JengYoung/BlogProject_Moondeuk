@@ -5,16 +5,17 @@ import User from '../../models/user.js';
 
 const listController = async (req, res) => {
     const { tag, userId } = req.query;
-    console.log(tag, userId)
+    const { last_id } = req.body;
     const query = {
         ...(userId ? { 'author.authorId': userId } : {}),
-        ...(tag ? { tags: tag } : {})
+        ...(tag ? { tags: tag } : {}),
+        ...(last_id ? { _id: { $lt: last_id }} : {})
     }
-    console.log(query);
     try {
         const posts = await Post.find(query)
                                 .lean()
-                                .sort({postedDate: -1});
+                                .sort({postedDate: -1})
+                                .limit(15);
         await Promise.all(
             posts.map(async post => {
                 const { author, body, postedDate } = post;
