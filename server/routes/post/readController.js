@@ -9,6 +9,29 @@ const readController = async (req, res) => {
             if (err) return res.status(404).send('NOT FOUND POST DATA');
             return result
         });
+
+        // mongoose는 기본값을 find 시에는 적용 X. 따라서 업데이트 함수를 만들어준다.
+        if (!result.titleStyle) {
+            await Post.findByIdAndUpdate(id, { 
+                ...result, 
+                titleStyle: {
+                    "isCenter": true,
+                    "isFullSize": false,
+                    "thumbnail": "",
+                    "color": "",
+                    "fontColor": "black",
+                    "font": ""
+                }
+            });
+            result.titleStyle = {
+                "isCenter": true,
+                "isFullSize": false,
+                "thumbnail": "",
+                "color": "",
+                "fontColor": "black",
+                "font": ""
+            }
+        }
         const { author, _id } = result;
         const [ beforeDiary ] = await Post.find({ author, '_id': {'$lt': _id} }).lean().sort({ postedDate: -1 }).limit(1)
         const [ afterDiary ] = await Post.find({ author, '_id': {'$gt': _id} }).lean().sort({ postedDate: 1 }).limit(1)
@@ -20,7 +43,6 @@ const readController = async (req, res) => {
             ...afterDiary,
             body: extractOmittedBodyText(afterDiary.body)
         } : null;
-        console.log(result)
         res.send(result);
     } catch(e) {
         res.status(500).send(e);

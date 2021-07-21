@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const PostSchema = new Schema({
+const postSchema = new Schema({
     title: String,
     subtitle: String,
     author: {
@@ -43,5 +43,25 @@ const PostSchema = new Schema({
     }
 });
 
-const Post = mongoose.model('Post', PostSchema);
+const Post = mongoose.model('Post', postSchema);
+postSchema.methods.postSetTitleStyle = async function(data, id) {
+    // if (!data.titleStyle) {
+    //     try {
+    //         await Post.findByIdAndUpdate(id, { 
+    //             ...data, 
+    //             titleStyle: {
+    //                 "isCenter": true,
+    //                 "isFullSize": false,
+    //                 "thumbnail": "",
+    //                 "color": "",
+    //                 "fontColor": "black",
+    //                 "font": ""
+    //             }
+    //         });
+    //     } catch(e) {
+    //         throw new Error(e);
+    //     }
+    // }
+    return await data;
+}
 export default Post;
