@@ -14,7 +14,7 @@ const [ DIARY_LIST_SUCCESS, DIARY_LIST_FAILURE ] = createActionTypes(DIARY_LIST)
     DiaryList action creator func
 */ 
 
-export const diaryList = createAction(DIARY_LIST, ({ authorId, tag }) => ({ authorId, tag }));
+export const diaryList = createAction(DIARY_LIST, ({ authorId, tag, last_id }) => ({ authorId, tag, last_id }));
 
 /*
     create Action Saga
