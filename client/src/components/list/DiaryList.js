@@ -272,8 +272,7 @@ const DiaryCards = ({ diaries, diariesError, lastId, fetchDiaryList }) => {
                 if (entry.isIntersecting) {
                     const _id = diaries[diaries.length-1]?._id;
                     lastId.current = _id
-                    fetchDiaryList(lastId)
-                    console.log(lastId.current)
+                    fetchDiaryList(lastId);
                 }
             })
         };
@@ -285,9 +284,9 @@ const DiaryCards = ({ diaries, diariesError, lastId, fetchDiaryList }) => {
         const observer = new IntersectionObserver(callback, options);
         observer.observe(observerTarget.current);
         return () => observer.unobserve(observerRef);
-    }, [observerTarget, lastId, diaries])
+    }, [observerTarget, diaries, fetchDiaryList, lastId])
 
-    if (diariesError) return <StyledDiaryCards> 일기를 불러오는 데 에러가 발생했어요! 😓</StyledDiaryCards>
+    if (diariesError) return <StyledDiaryCards ref={lastId}> 일기를 불러오는 데 에러가 발생했어요! 😓</StyledDiaryCards>
     return (
         <>
             <StyledDiaryCards ref={diaryCards}>

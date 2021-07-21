@@ -11,18 +11,16 @@ function DiaryListContainer({ match, location, isUserPage }) {
         diaries: diaryListReducer.diaries,
         diariesError: diaryListReducer.diariesError
     }));
+    const { authorId } = match.params;
+    const { tag } = qs.parse(location.search, {
+        ignoreQueryPrefix: true,
+    });
     const fetchDiaryList = useCallback((lastId) => {
-        if (!isUserPage) {
-            dispatch(diaryList({authorId: null, tag: null}));
-        }
-        const { authorId } = match.params;
-        const { tag } = qs.parse(location.search, {
-            ignoreQueryPrefix: true,
-        });
         dispatch(diaryList({ authorId, tag, last_id: lastId.current }))
-    },[location, match, dispatch, isUserPage]);
+    },[authorId, tag, dispatch]);
 
     const lastId = useRef(null);
+
     return (
         <DiaryCards diaries={diaries} diariesError={diariesError} lastId={lastId} fetchDiaryList={fetchDiaryList}/>
     )
