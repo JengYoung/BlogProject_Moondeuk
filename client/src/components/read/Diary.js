@@ -110,6 +110,7 @@ const StyledThumbnailTitle = styled.h1`
     }
 `;
 const StyledSubtitle = styled.h2`
+    position: relative;
     margin-bottom: 2rem;
     width: 100%;
     font-size: 1rem;

@@ -8,11 +8,11 @@ const StyledNameBox = styled.div`
     flex-direction: row;
     align-items: baseline;
     color: white;
-    ${props =>
-        props.isSubscribePage && css`
-            color: black;
-        `
-    }
+
+    ${({ theme, isSubscribePage }) => css`
+        ${isSubscribePage && css`padding-top: 1rem;`}
+        color: ${theme.fontColor};
+    `}
 `;
 const StyledUserNickName = styled.h1`
     font-size: 1.5rem;

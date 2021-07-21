@@ -16,53 +16,55 @@ const StyledSubscribeInfo = styled(ResponsiveWrapper)`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid lightgray;
-    button {
-        margin: 0.5rem;
-    }
 `;
 const SubscribeListBtn = styled.button`
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1.125rem 1rem;
+    padding: 0 1rem 0.5rem 1rem;
     div {
         font-size: 2rem;
         font-weight: 600;
     }
-    &:hover {
-        cursor: pointer;
-        color: #ffe600;
-    }
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &:hover {
+            cursor: pointer;
+            color: ${theme.event.hoverBg};
+        }
+    `}
 `;
 const StyledSubscribeBtn = styled.button`
     display: flex;
+    margin-top: 1rem;
+    padding: 0.125rem 1rem;
     /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     outline: none;
     border: none;
+    border-radius: 1rem;
     background: transparent;
     font-weight: 700;
-    color: #2d1c31;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &:hover {
+            cursor: pointer;
+            transition: all 0.3s;
+            background: ${theme.event.hoverBg};
+            color: ${theme.event.buttonHoverColor};
+        }
+    `}
     svg {
         font-size: 2rem; 
-    }
-    &:hover {
-        cursor: pointer;
-        background-color: #e5bdf5;
-        border-radius: 5px;
-        color: #fffb00;
-        transition: all 0.5s;
-        /* ${
-            props =>
-                !props.isSubscribe && css`
-                    background-color: #e5bdf5;
-                    border-radius: 5px;
-                    color: #fffb00;
-                    transition: all 0.5s;
-                `
-        } */
     }
     ${props =>
         props.isSubscribe && css`
             color: #ffe600;
             &:hover {
+                transition: all 0.3s;
                 background: transparent;
                 color: #2d1c31;
                 &::after {

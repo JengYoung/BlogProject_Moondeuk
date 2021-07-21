@@ -1,4 +1,3 @@
-import myColors from 'lib/styles/_color';
 import { myFont } from 'lib/styles/_variable';
 import React from 'react'
 import { Link } from 'react-router-dom';
@@ -50,7 +49,11 @@ const StyledLinkedDiaryWrapperHead = styled.h1`
 const LinkedDiaryWrapper = ({ userId, children, ...rest }) => {
     return (
         <StyledLinkedDiaryWrapper {...rest}>
-            <StyledLinkedDiaryWrapperHead><Link to={`/@${userId}`}>{ userId } 님의 다른 글</Link></StyledLinkedDiaryWrapperHead>
+            <StyledLinkedDiaryWrapperHead>
+                <Link to={`/@${userId}`}>
+                    { userId } 님의 다른 글
+                </Link>
+            </StyledLinkedDiaryWrapperHead>
             { children }
         </StyledLinkedDiaryWrapper>
     );
