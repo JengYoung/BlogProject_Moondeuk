@@ -5,13 +5,20 @@ import 'quill/dist/quill.bubble.css';
 import LinkedDiaryWrapper from './LinkedDiaryWrapper';
 import LinkedDiaryCard from './LinkedDiaryCard';
 import ThumbnailTitleBox from '../common/ThumbnailTitleBox';
+import { StyledUserImage } from 'components/common/UserImage';
+import { myFont } from 'lib/styles/_variable';
+import { Link } from 'react-router-dom';
+import myColors from 'lib/styles/_color';
 /*
 */
 
 
 
-const StyledDiaryTitle = styled.div`
+const StyledDiaryHeader = styled.header`
     display: flex;
+    position: absolute;
+    left: 0; 
+    top: 0;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
@@ -44,13 +51,12 @@ const StyledDiaryTitle = styled.div`
         left: 0;
         right: 0;
         top: 0;
-        z-index: 1;
         width: 100%;
         height: 84vh;
         background: transparent;
         ${props => 
             (props.hasThumbnail !== "" || props.hasColor !== "") && css`
-                background: rgba(0,0,0,0.2);
+                background: rgba(0,0,0,0.1);
             `
         }
         border-bottom: 1px solid lightgray;
@@ -103,11 +109,6 @@ const StyledThumbnailTitle = styled.h1`
     @media screen and (min-width: 769px) {
         font-size: 2.5rem;
     }
-    /* ${props => 
-        props.isCenter && css`
-            text-align: center;
-        `
-    } */
 `;
 const StyledSubtitle = styled.h2`
     margin-bottom: 2rem;
@@ -125,7 +126,8 @@ const StyledSubtitle = styled.h2`
         `
     }    
 `
-const StyledTagBox = styled.ul`
+const StyledTagBox = styled.nav`
+    position: relative;
     display: inline-flex;
     align-items: center;
     width: 100%;
@@ -139,37 +141,45 @@ const StyledTagBox = styled.ul`
         `
     } 
 `
-const StyledDiaryTag = styled.li`
+const StyledDiaryTag = styled(Link)`
     display: inline-flex;
-    margin-right: 1rem;
-    border: 1px solid #5e5e5e;
-    color: #5e5e5e;
-    font-weight: 200;
-    border-radius: 1.5rem;
-    height: 1.5rem;
-    margin-bottom: 0.5rem;
     padding: 0 1rem;
-    font-size: 0.9rem;
-    z-index: 11;
-    ${props => 
-        props.fontColor === 'white' && css`
-            color: #e0e0e0;
-            border: 1px solid white;
-        `
+    line-height: 1.5;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid white;
+    color: white;
+    font-weight: 400;
+    border-radius: 1.5rem;
+    font-size: ${myFont.size.ms};
+    text-decoration: none;
+    &::before {
+        content: "# ";
     }
-    ${props => 
-        (props.thumbnail !== "" || props.color !== "") && css`
-            color: #e0e0e0;
-            border: 1px solid white;
-        `
-    }    
+    ${({ fontColor }) => (fontColor === 'black') && css`
+        color: black;
+        border: 1px solid black;
+    `}
+    &:hover {
+        transition: all 0.3s;
+        border: 1px solid ${myColors.purple[1]};
+        background: ${myColors.purple[1]};
+        color: white;
+    }
 `;
 
 const StyledDateAndNameBox = styled.div`
     display: flex;
+    position: relative;
+    align-items: center;
     font-size: 0.8rem;
     margin-bottom: 1rem;
 `
+const StyledAuthorImage = styled(StyledUserImage)`
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+`;
 const StyledAuthorName = styled.h3`
     font-weight: 500;
 `;
@@ -185,6 +195,9 @@ const StyledDiaryBody = styled.div`
     margin-top: 4rem;
     margin-bottom: 4rem;
     padding: 0 0 0 20px;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+    `}
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -206,19 +219,22 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
     }
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
+    const { userImage, authorId } = author;
+    console.log(userImage)
     const { isCenter, isFullSize, thumbnail, color, fontColor, font } = titleStyle;
     return (
         <>
             <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
-                <StyledDiaryTitle isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
+                <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
                     <StyledThumbnailTitle className={font} isCenter={isCenter} fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
                     <StyledSubtitle isCenter={isCenter} fontColor={fontColor}>{subtitle}</StyledSubtitle>
-                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>#{tag} </StyledDiaryTag>)}</StyledTagBox>
+                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">
-                        <StyledAuthorName>by {author.authorId}</StyledAuthorName>
+                        <StyledAuthorImage $userImage={userImage}/>
+                        <StyledAuthorName>by { authorId }</StyledAuthorName>
                         <StyledPostedDate>{postedDate.slice(0,10).split('-').join('. ')}</StyledPostedDate>
                     </StyledDateAndNameBox>
-                    {userId === author.authorId ? 
+                    {userId === authorId ? 
                         <DiaryModifyAndDeleteBtns 
                             onPatch={onPatch} 
                             onDelete={onDelete}
@@ -226,7 +242,7 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
                         /> 
                         : null
                     }
-                </StyledDiaryTitle>
+                </StyledDiaryHeader>
             </ThumbnailTitleBox>
             <StyledDiaryBody 
                 dangerouslySetInnerHTML={{ __html: body }}

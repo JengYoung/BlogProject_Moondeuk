@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 /**
 **/
 
-const StyledUserImage = styled.div`
+export const StyledUserImage = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 3rem;
@@ -28,7 +28,7 @@ const StyledUserImage = styled.div`
     }
 `;
 
-const StyledUserImageLink = styled(Link)`
+export const StyledUserImageLink = styled(Link)`
     position: relative;
     display: inline-block;
     border-radius: 150px;

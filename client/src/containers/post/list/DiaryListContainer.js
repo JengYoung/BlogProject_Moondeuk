@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 import DiaryCards from '../../../components/list/DiaryList';
 import { diaryList } from '../../../modules/diaryList';
 import { withRouter } from 'react-router';
 
-function DiaryListContainer({ match, location, isUserPage }) {
+function DiaryListContainer({ match, location }) {
     const dispatch = useDispatch();
     const { diaries, diariesError } = useSelector(({ diaryListReducer }) => ({
         diaries: diaryListReducer.diaries,

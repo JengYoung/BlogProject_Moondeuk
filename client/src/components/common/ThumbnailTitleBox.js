@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledThumbnailTitleBox = styled.div`
     display: flex;
@@ -10,6 +10,9 @@ const StyledThumbnailTitleBox = styled.div`
     width: 100%;
     height: 84vh;
     border-bottom: 1px solid lightgray;
+    ${({ hasThumbnail, hasColor }) => (hasThumbnail || hasColor) && css`
+        border: none;
+    `}
     transition: all 0.5s;
     background-size: cover;
     background-position: center;
@@ -82,15 +85,9 @@ const ThumbnailTitleBox = props => {
     const thumbnailTitleBox = useRef(null);
     useEffect(() => {
         if (props.hasThumbnail !== "") thumbnailTitleBox.current.style.backgroundImage = `url(${props.hasThumbnail})`;
-    }, [props.hasThumbnail])
-
-    useEffect(() => {
-        if (props.hasColor !== "") thumbnailTitleBox.current.classList.add(props.hasColor);
-    }, [props.hasColor])
-
-    useEffect(() => {
         if (!props.isFullSize) thumbnailTitleBox.current.classList.add('half');
-    }, [props.isFullSize])
+        if (props.hasColor !== "") thumbnailTitleBox.current.classList.add(props.hasColor);
+    }, [props])
     return (
         <StyledThumbnailTitleBox
             {...props}

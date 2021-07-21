@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import myVars, { myFont } from 'lib/styles/_variable';
 import { StyledResponsive } from 'components/common/ResponsiveWrapper';
@@ -38,6 +38,7 @@ const StyledDiaryCard = styled(Link)`
     height: 400px;
     margin: 2rem auto;
     border-radius: 0.25rem;
+    border: none;
     box-shadow: ${myVars.defaultShadow};
     overflow: hidden;
     ${myMediaQuery.mobile} {
@@ -62,6 +63,7 @@ const StyledDiaryThumbnail = styled.img`
     border-radius: inherit;
     width: 100%;
     height: 100%;
+    // 일기니까, background-image로 하는 게 나을 듯하다. 괜히 일기가 검색에서 나와서 불편한 것보다는...
     ${({$thumbnailUrl, $defaultThumbnailUrl}) => ($thumbnailUrl || $defaultThumbnailUrl) && css`
         background-image: url(${$thumbnailUrl ? $thumbnailUrl : $defaultThumbnailUrl});
     `}
@@ -82,6 +84,7 @@ const StyledDiaryData = styled.div`
     height: 160px;
     overflow: hidden;
     top: 240px;
+    border: none;
     &:hover {
         transition: all 0.5s;
         height: 100%;

@@ -1,5 +1,6 @@
 import extractOmittedBodyText from '../../lib/extractOmittedBodyText.js';
 import Post from '../../models/post.js';
+import User from '../../models/user.js';
 
 const readController = async (req, res) => {
     const { id } = req.params;
@@ -9,7 +10,11 @@ const readController = async (req, res) => {
             if (err) return res.status(404).send('NOT FOUND POST DATA');
             return result
         });
-
+        const { userImage } = await User.findById(result.author._id).lean();
+        result.author = {
+            ...result.author,
+            userImage,
+        }
         // mongoose는 기본값을 find 시에는 적용 X. 따라서 업데이트 함수를 만들어준다.
         if (!result.titleStyle) {
             await Post.findByIdAndUpdate(id, { 
