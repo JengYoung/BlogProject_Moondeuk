@@ -1,6 +1,7 @@
 import extractOmittedBodyText from '../../lib/extractOmittedBodyText.js';
 import Post from '../../models/post.js';
 import User from '../../models/user.js';
+import getDate from '../../lib/getDate.js';
 
 const readController = async (req, res) => {
     const { id } = req.params;
@@ -10,6 +11,21 @@ const readController = async (req, res) => {
             if (err) return res.status(404).send('NOT FOUND POST DATA');
             return result
         });
+
+        const { author, _id } = result;
+        const [ beforeDiary ] = await Post.find({ author, '_id': {'$lt': _id} }).lean().sort({ postedDate: -1 }).limit(1)
+        const [ afterDiary ] = await Post.find({ author, '_id': {'$gt': _id} }).lean().sort({ postedDate: 1 }).limit(1)
+        result.beforeDiary = beforeDiary ? {
+            ...beforeDiary,
+            body: extractOmittedBodyText(beforeDiary.body),
+            postedDate: getDate(beforeDiary.postedDate)
+
+        } : null;
+        result.afterDiary = afterDiary ? {
+            ...afterDiary,
+            body: extractOmittedBodyText(afterDiary.body),
+            postedDate: getDate(afterDiary.postedDate)
+        } : null;
         const { userImage } = await User.findById(result.author._id).lean();
         result.author = {
             ...result.author,
@@ -35,19 +51,8 @@ const readController = async (req, res) => {
                 "color": "",
                 "fontColor": "black",
                 "font": ""
-            }
+            }        
         }
-        const { author, _id } = result;
-        const [ beforeDiary ] = await Post.find({ author, '_id': {'$lt': _id} }).lean().sort({ postedDate: -1 }).limit(1)
-        const [ afterDiary ] = await Post.find({ author, '_id': {'$gt': _id} }).lean().sort({ postedDate: 1 }).limit(1)
-        result.beforeDiary = beforeDiary ? {
-            ...beforeDiary,
-            body: extractOmittedBodyText(beforeDiary.body)
-        } : null;
-        result.afterDiary = afterDiary ? {
-            ...afterDiary,
-            body: extractOmittedBodyText(afterDiary.body)
-        } : null;
         res.send(result);
     } catch(e) {
         res.status(500).send(e);

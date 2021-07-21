@@ -54,7 +54,7 @@ const StyledHeader = styled.header`
     z-index: 99;
     width: 100%;
     ${({ theme }) => css`
-        background: ${theme.bgColor};
+        background: ${theme.HeaderBg};
         border-bottom: 1px solid ${theme.HeaderBg};
     `}
     box-shadow: 0px 1px 10px rgba(0,0,0,0.1);

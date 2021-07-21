@@ -16,7 +16,6 @@ import myColors from 'lib/styles/_color';
 
 const StyledDiaryHeader = styled.header`
     display: flex;
-    position: absolute;
     left: 0; 
     top: 0;
     flex-direction: column;

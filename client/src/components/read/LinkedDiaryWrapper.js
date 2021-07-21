@@ -1,6 +1,8 @@
+import myColors from 'lib/styles/_color';
+import { myFont } from 'lib/styles/_variable';
 import React from 'react'
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 /**
 **/
 
@@ -8,7 +10,12 @@ const StyledLinkedDiaryWrapper = styled.section`
     position: relative;
     /* width: 100%; */
     padding: 2rem 0;
-    background: #f6f4f7;
+    ${({ theme }) => css`
+        background: ${theme.ArticleBg};
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        border-color: ${theme.ArticleBorderColor};
+    `}
     @media screen and (min-width: 481px) {
         padding: 3rem 15vw;
     }
@@ -21,19 +28,28 @@ const StyledLinkedDiaryWrapperHead = styled.h1`
     font-weight: 500;
     position: relative;
     padding-left: 20px;
-    font-size: 0.9rem;
-    * {
+    a {
+        padding: 0.25rem 1rem;
+        border-radius: 1rem;
+        line-height: 2;
+        text-decoration: none;
+        font-size: ${myFont.size.ml};
         font-weight: 700;
-        :hover {
-            color: #cf9de5;
-        }
+        ${({ theme }) => css`
+            color: white;
+            :hover {
+                transition: all 0.3s;
+                background: ${theme.event.hoverBg};
+                color: ${theme.event.hoverColor};
+            }
+        `}
     }
 `;
 
 
-const LinkedDiaryWrapper = ({ userId, children, ...props }) => {
+const LinkedDiaryWrapper = ({ userId, children, ...rest }) => {
     return (
-        <StyledLinkedDiaryWrapper {...props}>
+        <StyledLinkedDiaryWrapper {...rest}>
             <StyledLinkedDiaryWrapperHead><Link to={`/@${userId}`}>{ userId } 님의 다른 글</Link></StyledLinkedDiaryWrapperHead>
             { children }
         </StyledLinkedDiaryWrapper>

@@ -11,6 +11,8 @@ export const myFont = {
         xxl: '1.5rem',
         xl: '1.375rem',
         l: '1.25rem',
+        ml: '1.125rem',
+        m: '1rem',
         s: '0.9rem',
         ms: '0.8rem',
         mms: '0.7rem',

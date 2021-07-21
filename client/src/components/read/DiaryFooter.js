@@ -8,7 +8,6 @@ const StyledDiaryFooter = styled.footer`
     z-index: 99;
     bottom: 0;
     border-top: 1px solid lightgray;
-    background: white;
     box-shadow: 0px -5px 5px 0px rgba(0,0,0,0.1);
     width: 100%;
     height: 8vh;
@@ -25,6 +24,10 @@ const StyledDiaryFooter = styled.footer`
             }
         `
     }
+    ${({ theme }) => css`
+        background: ${theme.FooterBg};
+        border-top: ${theme.FooterBg};
+    `}
 `;
 
 const Spacer = styled.div`
