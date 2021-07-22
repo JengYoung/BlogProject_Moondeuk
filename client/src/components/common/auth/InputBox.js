@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import names from '../../../lib/inputNames';
 import ErrorMessage from '../ErrorMessage';
 import Input from '../Input';
@@ -22,9 +22,12 @@ const StyledInputTitle = styled.h2`
     display: inline-block;
     font-size: 1rem;
     font-weight: 700;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+    `}
 `;
 
-const StyledInputBoxHeader = styled.div`
+const StyledInputTitleBox = styled.section`
     display: flex;
     position: relative;
 `;
@@ -37,10 +40,10 @@ const InputBox = ({ name, isError, ...rest }) => {
     }
     return (
         <StyledInputBox {...rest}>
-            <StyledInputBoxHeader>
+            <StyledInputTitleBox>
                 <StyledInputTitle>{names[name]}</StyledInputTitle>
                 {isError && <ErrorMessage dangerouslySetInnerHTML={{__html: `${errMessage[isError]}`}} isError={isError}></ErrorMessage>}
-            </StyledInputBoxHeader>
+            </StyledInputTitleBox>
             <Input type={rest.type} names={names} name={name} spellCheck={false} isError={isError}/>
         </StyledInputBox>
     );

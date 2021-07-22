@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 /*
 */
 
-const StyledHeadName = styled.h1`
+const StyledHeadName = styled.header`
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -15,6 +15,9 @@ const StyledHeadName = styled.h1`
     props.colorWhite && css`
         color: white;
         border-bottom: transparent;
+    `}
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
     `}
 `;
 
