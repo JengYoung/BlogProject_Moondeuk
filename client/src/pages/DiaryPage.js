@@ -8,7 +8,7 @@ import SearchWrapperContainer from '../containers/search/SearchWrapperContianer'
 function DiaryPage() {
     return (
         <>
-            <HeaderContainer />
+            <HeaderContainer isDiary />
             <SearchWrapperContainer />
             <DiaryContainer/>
             <DiaryFooterContainer/>

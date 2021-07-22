@@ -85,6 +85,23 @@ const Spacer = styled.div`
     }
 `;
 
+const ProgressBar = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 3px;
+    z-index: 100;
+    top: 12vh;
+    ${({ theme, isDiary }) => isDiary && css`
+        background: ${theme.progressBarColor};
+    `}
+    ${myMediaQuery.tablet} {
+        top: 10vh;
+    }
+    ${myMediaQuery.mobile} {
+        top: 8vh;
+    }
+`
+
 const StyledHeaderUserInfoWrapper = styled.div`
     position: relative;
     display: flex;
@@ -178,7 +195,7 @@ const AlertBox = styled.div`
 const SearchBtn = styled(CircleBtn)`
 `;
 
-const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
+const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, isDiary }) => {
     const userId = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
@@ -231,6 +248,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     </StyledHeaderUserInfoWrapper>
                 </Wrapper> 
             </StyledHeader>
+            <ProgressBar isDiary={isDiary} className = "사람살려주떼염"/>
             <Spacer/>
         </>
     )

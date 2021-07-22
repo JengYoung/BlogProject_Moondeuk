@@ -19,7 +19,7 @@ const StyledSideWrap = styled.aside`
     padding: 0 1rem;
 
     // dark-mode 여부에 따른 CSS 효과
-    background-color: ${({ theme }) => theme.sideBarBg};
+    background-color: ${({ theme }) => theme.SideBarBg};
     border: ${({ theme }) => theme.borderColor};
     transition: all 0.3s;
     ${props =>

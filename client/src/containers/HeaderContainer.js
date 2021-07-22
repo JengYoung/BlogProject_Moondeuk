@@ -38,6 +38,7 @@ const HeaderContainer = (props) => {
     return (
         <>
             <Header
+                isDiary={props.isDiary}
                 user={user} 
                 onLogout={onLogout} 
                 write={props.write} 

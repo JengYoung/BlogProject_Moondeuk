@@ -21,7 +21,7 @@ const StyledQuickMenu = styled(Link)`
     align-items: center;
     padding: 0 1rem;
     margin: 0 1rem;
-    color: ${({ theme }) => theme.SideBarBg};
+    color: ${({ theme }) => theme.SideBarComponentBg};
     text-decoration: none;
     svg {
         font-size: ${myFont.size.headLarge};
@@ -41,7 +41,7 @@ const StyledQuickMenu = styled(Link)`
 const Separator = styled.div`
     width: 1px;
     height: 4rem;
-    background: ${ ({ theme }) => theme.SideBarBg };
+    background: ${ ({ theme }) => theme.SideBarComponentBg };
 `;
 const SideQuickMenus = () => {
     return (
