@@ -54,4 +54,4 @@ const HeaderContainer = (props) => {
     )
 }
 
-export default React.memo(HeaderContainer)
+export default HeaderContainer;

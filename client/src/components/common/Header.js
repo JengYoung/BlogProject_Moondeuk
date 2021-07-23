@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import LogoWrap from './LogoWrap';
@@ -12,7 +12,6 @@ import CircleBtn from './CircleBtn';
 import UserImage from './UserImage';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import LinkBtn from './LinkBtn';
-import { useEffect } from 'react';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -186,10 +185,11 @@ const ProgressBar = styled.div`
     height: 3px;
     z-index: 100;
     top: 12vh;
-    ${({ theme, $progressBarWidth }) =>  css`
+    ${({ theme, $progressBarWidth }) => css`
+        will-change: width;
         background: ${theme.progressBarColor};
         width: ${$progressBarWidth}%;
-        transition: all 0.3s;
+        transition: all 0.3s ease-in-out; 
     `}
     ${myMediaQuery.tablet} {
         top: 10vh;
@@ -200,17 +200,14 @@ const ProgressBar = styled.div`
 `
 
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, progressBarWidth }) => {
-    const userId = user ? user._id : null;
-    const userImage = user ? user.userImage : null;
+    const userId = React.useMemo(() => user ? user._id : null, [user]);
+    const userImage = React.useMemo(() => user ? user.userImage : null, [user]);
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);
     const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
     const onOpenLogout = useCallback(() => {
         setopenLogout(!openLogout);
     }, [openLogout]);
-    useEffect(() => {
-        console.log(progressBarWidth)
-    }, [progressBarWidth])
     return (
         <>
             <StyledHeader>

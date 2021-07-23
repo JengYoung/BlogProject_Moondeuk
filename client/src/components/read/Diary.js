@@ -9,6 +9,8 @@ import { StyledUserImage } from 'components/common/UserImage';
 import { myFont } from 'lib/styles/_variable';
 import { Link } from 'react-router-dom';
 import myColors from 'lib/styles/_color';
+import { useCallback } from 'react';
+import throttle from 'lib/util/throttle';
 /*
 */
 
@@ -211,6 +213,8 @@ const StyledDiaryBody = styled.div`
 
 
 const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWidth }) => {
+    console.log("scrollHeight: ", document.documentElement.scrollHeight);
+    console.log("clientHeight: ", document.documentElement.clientHeight);
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {
@@ -218,18 +222,20 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWid
             } else return alert('글을 불러올 수 없어요! 😥');
         }
     }, [diaryError])
-    
+    const getProgressRate = useCallback(() => {
+            /*
+                scrolledTop: 현재 맨 위에서 스크롤 된 top 값 = (max: 문서 전체 Height - scrolledHeight)
+                scrolledHeight: 현재 Viewport의 height를 제외한 문서의 Height 높이
+            */ 
+        const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
+        const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        setProgressBarWidth((scrolledTop / scrolledHeight) * 100)
+    }, [setProgressBarWidth])
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            /*
-                scrolledTop: 현재 맨 위에서 스크롤 된 top 값
-
-            */ 
-            const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
-            const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            setProgressBarWidth((scrolledTop / scrolledHeight) * 100)
+            throttle(getProgressRate, 300)();
         })
-    }, [setProgressBarWidth])
+    }, [getProgressRate])
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
     const { userImage, authorId } = author;

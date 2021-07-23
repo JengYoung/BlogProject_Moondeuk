@@ -50,7 +50,7 @@ const themeStyles = {
         inputBorderColor: myColors.purple[1],
         tagColor: 'white',
         tagBg: myColors.purple[1],
-        progressBarColor: 'white',
+        progressBarColor: myColors.purple[0],
         /* page Specific color */
         loginBg: 'white',
         SideBarComponentBg: 'white',
