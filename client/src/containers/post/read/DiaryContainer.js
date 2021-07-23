@@ -7,7 +7,7 @@ import deleteAPI from '../../../lib/routes/post/delete';
 import { initializeDiary, readDiary } from '../../../modules/diary';
 import { settingUpdate } from '../../../modules/write';
 
-const DiaryContainer = ({ match, history }) => {
+const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }) => {
     const dispatch = useDispatch();
     const { diary, diaryError, user } = useSelector(({ diaryReducer, userReducer }) => ({
         diary: diaryReducer.diary,
@@ -48,6 +48,9 @@ const DiaryContainer = ({ match, history }) => {
             userId={userId} 
             onPatch={onPatch} 
             onDelete={onDelete}
+            width={width}
+            setWidth={setWidth}
+            setProgressBarWidth={setProgressBarWidth}
         />
     )
 }

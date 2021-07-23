@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
@@ -40,7 +40,7 @@ const StyledDiaryHeader = styled.header`
         `
     }
     ${props => 
-        props.fontColor === 'white' && css`
+        props.$fontColor === 'white' && css`
             color: white;
         `
     }    
@@ -121,7 +121,7 @@ const StyledSubtitle = styled.h2`
         `
     }
     ${props => 
-        props.fontColor === 'white' && css`
+        props.$fontColor === 'white' && css`
             color: white;
         `
     }    
@@ -156,7 +156,7 @@ const StyledDiaryTag = styled(Link)`
     &::before {
         content: "# ";
     }
-    ${({ fontColor }) => (fontColor === 'black') && css`
+    ${({ $fontColor }) => ($fontColor === 'black') && css`
         color: black;
         border: 1px solid black;
     `}
@@ -190,7 +190,6 @@ const StyledPostedDate = styled.h3`
 
 const StyledDiaryBody = styled.div`
     position: relative;
-    height: auto;
     width: 100%;
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -200,39 +199,52 @@ const StyledDiaryBody = styled.div`
     `}
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
-        height: 80vh;
+        /* height: 80vh; */
         /* right: 8vw; */
     }
     @media screen and (min-width: 769px) {
         padding: 0 20vw;
-        height: 78vh;
+        /* height: 78vh; */
         /* right: 15vw; */
     }
 `;
 
 
-const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
-    if (diaryError) {
-        if (diaryError.response && diaryError.response.status === 404) {
-            return alert('존재하지 않는 글이에요! 😥')
-        } else return alert('글을 불러올 수 없어요! 😥');
-    }
+const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWidth }) => {
+    useEffect(() => {
+        if (diaryError) {
+            if (diaryError.response && diaryError.response.status === 404) {
+                return alert('존재하지 않는 글이에요! 😥')
+            } else return alert('글을 불러올 수 없어요! 😥');
+        }
+    }, [diaryError])
+    
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            /*
+                scrolledTop: 현재 맨 위에서 스크롤 된 top 값
+
+            */ 
+            const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
+            const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            setProgressBarWidth((scrolledTop / scrolledHeight) * 100)
+        })
+    }, [setProgressBarWidth])
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
     const { userImage, authorId } = author;
-    console.log(userImage)
     const { isCenter, isFullSize, thumbnail, color, fontColor, font } = titleStyle;
     return (
         <>
             <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
-                <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
-                    <StyledThumbnailTitle className={font} isCenter={isCenter} fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
-                    <StyledSubtitle isCenter={isCenter} fontColor={fontColor}>{subtitle}</StyledSubtitle>
-                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
+                <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} $fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
+                    <StyledThumbnailTitle className={font} isCenter={isCenter} $fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
+                    <StyledSubtitle isCenter={isCenter} $fontColor={fontColor}>{subtitle}</StyledSubtitle>
+                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} $fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">
                         <StyledAuthorImage $userImage={userImage}/>
                         <StyledAuthorName>by { authorId }</StyledAuthorName>
-                        <StyledPostedDate>{postedDate.slice(0,10).split('-').join('. ')}</StyledPostedDate>
+                        <StyledPostedDate>{ postedDate.slice(0,10).split('-').join('. ') }</StyledPostedDate>
                     </StyledDateAndNameBox>
                     {userId === authorId ? 
                         <DiaryModifyAndDeleteBtns 
@@ -244,10 +256,7 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete }) => {
                     }
                 </StyledDiaryHeader>
             </ThumbnailTitleBox>
-            <StyledDiaryBody 
-                dangerouslySetInnerHTML={{ __html: body }}
-            >
-            </StyledDiaryBody>
+            <StyledDiaryBody dangerouslySetInnerHTML={{ __html: body }}/>
             <LinkedDiaryWrapper userId={userId}>
                 { beforeDiary && <LinkedDiaryCard linkedDiary={beforeDiary} isPostedBefore/> }
                 { afterDiary && <LinkedDiaryCard linkedDiary={afterDiary} isPostedBefore={false}/> }

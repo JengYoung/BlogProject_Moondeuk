@@ -12,6 +12,7 @@ import CircleBtn from './CircleBtn';
 import UserImage from './UserImage';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import LinkBtn from './LinkBtn';
+import { useEffect } from 'react';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -84,23 +85,6 @@ const Spacer = styled.div`
         height: 12vh;
     }
 `;
-
-const ProgressBar = styled.div`
-    position: fixed;
-    width: 100%;
-    height: 3px;
-    z-index: 100;
-    top: 12vh;
-    ${({ theme, isDiary }) => isDiary && css`
-        background: ${theme.progressBarColor};
-    `}
-    ${myMediaQuery.tablet} {
-        top: 10vh;
-    }
-    ${myMediaQuery.mobile} {
-        top: 8vh;
-    }
-`
 
 const StyledHeaderUserInfoWrapper = styled.div`
     position: relative;
@@ -195,16 +179,38 @@ const AlertBox = styled.div`
 const SearchBtn = styled(CircleBtn)`
 `;
 
-const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, isDiary }) => {
+
+const ProgressBar = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 3px;
+    z-index: 100;
+    top: 12vh;
+    ${({ theme, $progressBarWidth }) =>  css`
+        background: ${theme.progressBarColor};
+        width: ${$progressBarWidth}%;
+        transition: all 0.3s;
+    `}
+    ${myMediaQuery.tablet} {
+        top: 10vh;
+    }
+    ${myMediaQuery.mobile} {
+        top: 8vh;
+    }
+`
+
+const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, progressBarWidth }) => {
     const userId = user ? user._id : null;
     const userImage = user ? user.userImage : null;
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);
     const onOpenAlertList = useCallback(() => setOpenAlertList(!openAlertList), [openAlertList]);
     const onOpenLogout = useCallback(() => {
-            setopenLogout(!openLogout); 
+        setopenLogout(!openLogout);
     }, [openLogout]);
-
+    useEffect(() => {
+        console.log(progressBarWidth)
+    }, [progressBarWidth])
     return (
         <>
             <StyledHeader>
@@ -248,10 +254,10 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     </StyledHeaderUserInfoWrapper>
                 </Wrapper> 
             </StyledHeader>
-            <ProgressBar isDiary={isDiary} className = "사람살려주떼염"/>
+            <ProgressBar $progressBarWidth={progressBarWidth}/>
             <Spacer/>
         </>
     )
 };
 
-export default Header;
+export default React.memo(Header);

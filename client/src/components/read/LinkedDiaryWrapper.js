@@ -59,4 +59,4 @@ const LinkedDiaryWrapper = ({ userId, children, ...rest }) => {
     );
 };
 
-export default LinkedDiaryWrapper;
+export default React.forwardRef(LinkedDiaryWrapper);
