@@ -12,6 +12,7 @@ import CircleBtn from './CircleBtn';
 import UserImage from './UserImage';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import LinkBtn from './LinkBtn';
+import ProgressBar from 'components/layout/header/ProgressBar';
 
 const MenuWrap = styled.div`
     display: flex;
@@ -178,27 +179,6 @@ const AlertBox = styled.div`
 const SearchBtn = styled(CircleBtn)`
 `;
 
-
-const ProgressBar = styled.div`
-    position: fixed;
-    width: 100%;
-    height: 3px;
-    z-index: 100;
-    top: 12vh;
-    ${({ theme, $progressBarWidth }) => css`
-        will-change: width;
-        background: ${theme.progressBarColor};
-        width: ${$progressBarWidth}%;
-        transition: all 0.3s ease-in-out; 
-    `}
-    ${myMediaQuery.tablet} {
-        top: 10vh;
-    }
-    ${myMediaQuery.mobile} {
-        top: 8vh;
-    }
-`
-
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, progressBarWidth }) => {
     const userId = React.useMemo(() => user ? user._id : null, [user]);
     const userImage = React.useMemo(() => user ? user.userImage : null, [user]);
@@ -251,7 +231,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     </StyledHeaderUserInfoWrapper>
                 </Wrapper> 
             </StyledHeader>
-            <ProgressBar $progressBarWidth={progressBarWidth}/>
+            {/* <ProgressBar $progressBarWidth={progressBarWidth}/> */}
             <Spacer/>
         </>
     )

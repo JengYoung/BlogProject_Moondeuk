@@ -1,3 +1,4 @@
+import ProgressBar from 'components/layout/header/ProgressBar';
 import React from 'react';
 import { useState } from 'react';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -9,6 +10,7 @@ function DiaryPage() {
     return (
         <>
             <HeaderContainer isDiary progressBarWidth={progressBarWidth} />
+            <ProgressBar $progressBarWidth={progressBarWidth}/>
             <SearchWrapperContainer />
             <DiaryContainer setProgressBarWidth={setProgressBarWidth} />
             <DiaryFooterContainer typeName="Diary" />
