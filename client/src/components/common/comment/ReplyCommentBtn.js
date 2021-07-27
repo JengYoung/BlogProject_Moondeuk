@@ -12,7 +12,6 @@ const StyledReplyCommentBtn = styled.div`
     width: calc(100% + 1px);
     background-color: #e4d2e4;
     bottom: -1px;
-    font-size: 0.8rem;
     font-weight: 600;
     padding-top: 0.5rem;
     padding-left: 0.5rem;

@@ -11,8 +11,8 @@ const StyledLikeBtn = styled(FooterBtn)`
     ${props =>
         props.typeName !== 'Diary' && css`
             position: none;
-            font-size: 0.8rem;
-            margin: 0;
+            font-size: 18px;
+            margin-right: 0.25rem;
         `
     }
 `;

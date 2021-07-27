@@ -1,11 +1,21 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
 */
 
 const StyledInputBtn = styled.button`
-    width: 15%;
+    height: 7rem;
+    width: 7rem;
+    border-radius: 0 10px 10px 0;
+    ${({theme}) => css`
+        background: ${theme.buttonBg};
+        color: ${theme.buttonColor};
+        :hover {
+            transition: all 0.3s;
+            background: ${theme.event.hoverBg};
+        }
+    `}
 `;
 
 const InputBtn = props => {

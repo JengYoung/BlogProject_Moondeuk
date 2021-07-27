@@ -1,62 +1,53 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TiPencil } from "react-icons/ti";
 import FooterBtn from '../common/FooterBtn';
+import { myFont } from 'lib/styles/_variable';
 /*
 */
 
 const StyledCommentInputWrapper = styled.form`
-    position: fixed;
-    display: none;
-    width: 400px;
-    z-index: 99;
-    bottom: 8vh;
-    right: 0;
-    @media screen and (min-width: 481px) {
-        bottom: 10vh;
-    }
-    &.open {
-        display: flex;
-    }
-    margin-bottom: 2vh;
-`;
-const CommentInputWrapperSpacer = styled.div`
+    display: flex;
+    position: relative;
     width: 100%;
-    height: 3rem;
+    border-radius: 5px;
+    /* overflow: hidden; */
 `;
 
 const StyledCommentInput = styled.textarea`
     resize: none;
-    height: 3rem;
-    max-height: 5rem;
+    width: calc(100% - 7rem);
+    height: 7rem;
     padding: 0.5rem 0.5rem;
-    width: 85%;
     border: none;
-    background-color: transparent;
-    border-bottom: 2px solid #4e4e4e;
     outline: none;
-    border-left: 5px solid #5f3b5f;
-    &:focus {
-        border-top: 1px solid #4e4e4e;
-        border-right: 1px solid #4e4e4e;
-        background-color: #ffffff;
-    }
+    font-size: 1rem;
+    border-radius: 10px 0px 0px 10px;
+    border: 1px solid lightgray;
+    border-right: none;
 `;
 const StyledInputBtn = styled(FooterBtn)`
-    height: 3rem;
-    width: 3rem;
-    border-bottom: 2px solid #4e4e4e;
-    &:hover {
-        border-right: 1px solid #4e4e4e;
-        border-top: 1px solid #4e4e4e;
-        flex-direction: column;
-        background-color: #aa78aa;
-        color: #ffee00;
-        &::after {
-            content:"작성";
-            font-size: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 7rem;
+    width: 7rem;
+    ${({ theme }) => css`
+        background: ${theme.buttonBg};
+        color: ${theme.buttonColor};
+        :hover {
+            transition: all 0.3s;
+            background: ${theme.event.hoverBg};
         }
+    `}
+    border-radius: 0px 10px 10px 0px;
+    svg {
+        display: block;
+        font-size: ${myFont.size.headlarge};
     }
+    div {
+        font-size: ${myFont.size.l};
+    }
+
     /* width: 15%; */
 `;
 
@@ -77,10 +68,9 @@ const CommentInputWrapper = ({ content, diary_id, onComment, onChangeText }) => 
                 <StyledCommentInput onChange={onChange} placeholder="댓글을 작성해주세요😊" name="content" value={content[diary_id]}/>
                 <StyledInputBtn>
                     <TiPencil/>
-                    {/* <span>작성</span> */}
+                    <div>작성</div>
                 </StyledInputBtn>
             </StyledCommentInputWrapper>
-            <CommentInputWrapperSpacer/>
         </>
 
     );

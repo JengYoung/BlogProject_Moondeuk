@@ -213,8 +213,6 @@ const StyledDiaryBody = styled.div`
 
 
 const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWidth }) => {
-    console.log("scrollHeight: ", document.documentElement.scrollHeight);
-    console.log("clientHeight: ", document.documentElement.clientHeight);
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {
@@ -230,10 +228,10 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWid
         const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
         const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         setProgressBarWidth((scrolledTop / scrolledHeight) * 100)
-    }, [setProgressBarWidth])
+    }, [])
     useEffect(() => {
         window.addEventListener('scroll', () => {
-            throttle(getProgressRate, 300)();
+            throttle(getProgressRate, 250)();
         })
     }, [getProgressRate])
     if (!diary) return null;
@@ -263,12 +261,8 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWid
                 </StyledDiaryHeader>
             </ThumbnailTitleBox>
             <StyledDiaryBody dangerouslySetInnerHTML={{ __html: body }}/>
-            <LinkedDiaryWrapper userId={userId}>
-                { beforeDiary && <LinkedDiaryCard linkedDiary={beforeDiary} isPostedBefore/> }
-                { afterDiary && <LinkedDiaryCard linkedDiary={afterDiary} isPostedBefore={false}/> }
-            </LinkedDiaryWrapper>
         </>
     );
 };
 
-export default Diary;
+export default React.memo(Diary);

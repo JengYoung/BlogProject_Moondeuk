@@ -6,19 +6,14 @@ import styled, { css } from 'styled-components';
 
 const StyledInput = styled.textarea`
     resize: none;
-    height: 3rem;
-    max-height: 5rem;
+    height: 7rem;
     padding: 0.5rem 0.5rem;
-    width: 70%;
+    width: calc(100% - 7rem);
+    border-radius: 10px 0 0 10px;
     word-break: normal;
-    ${props => 
-    props.isReply && css`
-        width: 85%;
-    `};
-    ${props => 
-    props.hasMarginLeft && css`
-        width: 55%;
-    `};
+    outline: none;
+    border-color: lightgray;
+    font-size: 1rem;
 `;
 
 

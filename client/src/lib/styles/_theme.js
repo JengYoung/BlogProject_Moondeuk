@@ -16,7 +16,7 @@ const themeStyles = {
         inputBorderColor: myColors.yellow[4],
         tagColor: 'white',
         tagBg: myColors.purple[5],
-        progressBarColor: myColors.purple[3],
+        progressBarColor: 'white',
         /* page Specific color */
         loginBg: 'transparent',
         SideBarComponentBg: 'white',
@@ -24,8 +24,8 @@ const themeStyles = {
         SideBarBg: myColors.purple[6],
         HeaderBg: myColors.purple[8],
         FooterBg: myColors.purple[8],
-        ArticleBg: myColors.purple[2],
-        ArticleCardBg:  myColors.purple[7],
+        ArticleBg: myColors.purple[6],
+        ArticleCardBg:  myColors.purple[8],
         ArticleBorderColor: myColors.purple[7], // 배너 등의 스크롤 도중에 들어가있는 콘텐츠
         /* event color */ 
         event: {

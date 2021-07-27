@@ -7,12 +7,13 @@ import styled from 'styled-components';
 
 const StyledCommentBtnsWrapper = styled.div`
     position: absolute;
-    right: 0;
+    right: 1rem;
+    top: 1rem;
 `;
 
 const StyledCommentBtn = styled.button`
     background-color: transparent;
-    font-size: 0.5rem;
+    font-size: 0.9rem;
     outline: none;
     border: none;
     &:hover {

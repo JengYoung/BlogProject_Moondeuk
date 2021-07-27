@@ -13,7 +13,6 @@ const StyledOptionBtnsWrapper = styled.div`
     padding-bottom: 0.5rem;
     span {
         padding-left: 2px;
-        font-size: 0.7rem;
         &:hover {
             color: #8d4a8d;
         }
@@ -33,10 +32,14 @@ const StyledOptionBtn = styled.button`
     background: none;
     border: none;
     outline: none;
+    font-size: 1rem;
+    svg {
+        font-size: 1.125rem;
+        margin-right: 0.25rem;
+    }
     &:hover {
         cursor: pointer;
         color: #8d4a8d;
-
     }
 `;
 

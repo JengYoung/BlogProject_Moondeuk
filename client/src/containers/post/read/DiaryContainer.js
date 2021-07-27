@@ -1,4 +1,8 @@
-import React from 'react'
+import LinkedDiaryCard from 'components/read/LinkedDiaryCard';
+import LinkedDiaryWrapper from 'components/read/LinkedDiaryWrapper';
+import CommentInputWrapperContainer from 'containers/comment/CommentInputWrapperContainer';
+import CommentWrapperContainer from 'containers/comment/CommentWrapperContainer';
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -16,7 +20,30 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
     }));
     const userId = user ? user.userId : null; 
     const { diaryId } = match.params;
+    const beforeDiary = diary?.beforeDiary;
+    const afterDiary = diary?.afterDiary;
+    // const [ diaryData, setDiaryData ] = useState({
+    //     title: null,
+    //     subtitle: null,
+    //     author: {
+    //         _id: null,
+    //         authorId: null,
+    //     },
+    //     body: null,
+    //     tags: [],
+    //     postedDate: null,
+    //     titleStyle: {
+    //         isCenter: true,
+    //         isFullSize: false,
+    //         thumbnail: '',
+    //         color: '',
+    //         fontColor: 'black',
+    //         font: ''
+    //     }
+    // })
+    // useEffect(() => {
 
+    // })
     useEffect(() => {
         dispatch(readDiary(diaryId));
         return () => {
@@ -42,16 +69,23 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
     }
 
     return (
-        <Diary 
-            diary={diary} 
-            dairyError={diaryError} 
-            userId={userId} 
-            onPatch={onPatch} 
-            onDelete={onDelete}
-            width={width}
-            setWidth={setWidth}
-            setProgressBarWidth={setProgressBarWidth}
-        />
+        <>
+            <Diary 
+                diary={diary} 
+                dairyError={diaryError} 
+                userId={userId} 
+                onPatch={onPatch} 
+                onDelete={onDelete}
+                width={width}
+                setWidth={setWidth}
+                setProgressBarWidth={setProgressBarWidth}
+            />
+            <CommentWrapperContainer />
+            <LinkedDiaryWrapper userId={userId}>
+                { beforeDiary && <LinkedDiaryCard linkedDiary={beforeDiary} isPostedBefore/> }
+                { afterDiary && <LinkedDiaryCard linkedDiary={afterDiary} isPostedBefore={false}/> }
+            </LinkedDiaryWrapper>
+        </>
     )
 }
 

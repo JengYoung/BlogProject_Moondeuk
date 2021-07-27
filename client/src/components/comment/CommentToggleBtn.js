@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {BsChatDotsFill} from 'react-icons/bs'
 import FooterBtn from '../common/FooterBtn';
 /**
@@ -12,10 +12,23 @@ const StyledCommentBtnBox = styled.div`
     width: 50px;
     position: fixed;
     right: 120px;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &:hover {
+            cursor: pointer;
+            color: ${theme.event.hoverBg};
+        }
+    `}
 `;
 
 const StyledCommentToggleBtn = styled(FooterBtn)`
-
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &:hover {
+            cursor: pointer;
+            color: ${theme.event.hoverBg};
+        }
+    `}
 `;
 
 const CommentCounter = styled.div`

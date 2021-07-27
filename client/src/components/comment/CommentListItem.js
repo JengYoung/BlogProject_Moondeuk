@@ -18,15 +18,14 @@ const StyledCommentUserInfo = styled.div`
     b {
         padding-left: 10px;
         font-weight: 700;
-        font-size: 0.8rem;
     }
 `;
 
 const StyledUserImage = styled.div`
     position: relative;
     display: inline-block;
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     border-radius: 30px;
     border: 1px solid lightgray;
     background-color: white;
@@ -44,22 +43,19 @@ const StyledUserImage = styled.div`
 const StyledCommentContent = styled.div`
     padding: 1rem 0 1rem 0.5rem;
     margin-left: 0.25rem;
-    font-size: 0.9rem;
 `;
 
 const StyledCommentListItem = styled.div`
     display: flex;
     position: relative;
     flex-direction: column;
+    padding: 0.5rem;
+    margin: 2rem 0;
+    width: 100%;
     background-color: white;
-    width: 100vw;
-    margin-bottom: 1rem;
     border: 1px solid lightgray;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-    @media screen and (min-width: 481px) {
-        width: 360px;
-    }
 `;
 
 const CommentListItem = (
@@ -110,7 +106,7 @@ const CommentListItem = (
                 isUpdateMode 
                     ? <UpdateInputWrapper 
                         comment_id={comment_id}
-                        onUpdate={onUpdate} 
+                        onUpdate={onUpdate}
                         onIsUpdateMode={onIsUpdateMode} 
                         updatedContent={updatedContent}
                         onChangeText={onChangeText}

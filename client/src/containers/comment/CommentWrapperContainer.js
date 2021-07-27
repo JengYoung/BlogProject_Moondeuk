@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import CommentList from '../../components/comment/CommentList';
 import CommentWrapper from '../../components/comment/CommentWrapper';
 import { checkComment } from '../../modules/comment';
+import CommentInputWrapperContainer from './CommentInputWrapperContainer';
 import CommentListItemContainer from './CommentListItemContainer';
 
 const CommentWrapperContainer = () => {
@@ -19,6 +20,7 @@ const CommentWrapperContainer = () => {
     const user_id = user ? user._id : null;
     const username = user ? user.userId : null;
     const diary_id = diary ? diary._id : null;
+    const author_id = diary ? diary.author._id : null ;
 
     useEffect(() => {
         console.log("checkComment: ", diary_id)
@@ -27,8 +29,8 @@ const CommentWrapperContainer = () => {
 
     return (
         <CommentWrapper id="contentWrapper">
-            {/* <CommentInputWrapperContainer author_id={author_id} user_id={user_id} diary_id={diary_id} /> */}
             <CommentList>
+                <CommentInputWrapperContainer />
                 { comments.map(comment => {
                     return (
                         <CommentListItemContainer 

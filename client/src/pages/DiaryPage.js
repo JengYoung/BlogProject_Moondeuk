@@ -1,7 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import CommentInputWrapperContainer from '../containers/comment/CommentInputWrapperContainer';
-import CommentWrapperContainer from '../containers/comment/CommentWrapperContainer';
 import HeaderContainer from '../containers/HeaderContainer';
 import DiaryContainer from '../containers/post/read/DiaryContainer';
 import DiaryFooterContainer from '../containers/post/read/DiaryFooterContainer';
@@ -10,12 +8,10 @@ function DiaryPage() {
     const [ progressBarWidth, setProgressBarWidth ] = useState(0);
     return (
         <>
-            <HeaderContainer isDiary progressBarWidth={progressBarWidth}/>
+            <HeaderContainer isDiary progressBarWidth={progressBarWidth} />
             <SearchWrapperContainer />
-            <DiaryContainer setProgressBarWidth={setProgressBarWidth}/>
-            <DiaryFooterContainer/>
-            <CommentWrapperContainer />
-            <CommentInputWrapperContainer/>
+            <DiaryContainer setProgressBarWidth={setProgressBarWidth} />
+            <DiaryFooterContainer typeName="Diary" />
         </>
     )
 }

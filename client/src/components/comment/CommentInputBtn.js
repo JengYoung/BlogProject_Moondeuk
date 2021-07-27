@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FooterBtn from '../common/FooterBtn';
 import { TiEdit } from "react-icons/ti";
 /**
@@ -12,9 +12,19 @@ const StyledCommentInputBtn = styled(FooterBtn)`
     width: 5rem;
     height: 4rem;
     right: 30px;
-    span {
-        font-size:0.8rem;
+    svg {
+        font-size: 2rem;
     }
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &:hover {
+            color: ${theme.event.hoverBg};
+            &::after {
+                content: "comment";
+                font-size: 1rem;
+            }
+        }
+    `}
 `;
 
 const CommentInputBtn = (props) => {
@@ -26,7 +36,6 @@ const CommentInputBtn = (props) => {
     return (
         <StyledCommentInputBtn {...props} onClick={onClick}>
             <TiEdit></TiEdit>
-            <span>comment</span>
         </StyledCommentInputBtn>
     );
 };
