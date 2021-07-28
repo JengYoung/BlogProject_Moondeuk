@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {replyCommentSchema} from './replyComment.js';
+import { replyCommentSchema } from './replyComment.js';
 import ReplyComment from './replyComment.js';
 
 const { Schema } = mongoose;
@@ -28,7 +28,7 @@ const commentSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    replyComments: [replyCommentSchema]
+    // replyComments: [replyCommentSchema]
 });
 
 commentSchema.statics.findReplyComment = async function(comment_id, replyComment_id) {

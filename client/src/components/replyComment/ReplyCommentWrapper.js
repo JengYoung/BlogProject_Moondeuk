@@ -8,7 +8,7 @@ const StyledReplyCommentWrapper = styled.div`
     background-color: #e4d2e4;
     border-bottom: 1px solid #e4d2e4;
     width: calc(100% + 1px);
-    padding: 0.5rem;
+    padding: 1rem;
     margin: 0;
 `;
 

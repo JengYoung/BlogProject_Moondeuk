@@ -12,7 +12,7 @@ const StyledProgressBar = styled.div`
         will-change: width;
         background: ${theme.progressBarColor};
         width: ${$progressBarWidth}%;
-        transition: all 0.25s; 
+        transition: all 0.5s; 
     `}
     ${myMediaQuery.tablet} {
         top: 10vh;

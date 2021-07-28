@@ -20,7 +20,7 @@ const StyledOptionBtnsWrapper = styled.div`
     ${props =>
         props.isReply && css`
             padding-left: 0;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0rem;
         `
     }
 `;

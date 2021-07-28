@@ -38,7 +38,7 @@ const StyledUserImage = styled.div`
     }
 `;
 const StyledListItem = styled.div`
-    padding: 0.5rem 0.5rem;
+    padding: 1rem 1rem;
     display: flex;
     position: relative;
     flex-direction: column;
@@ -55,12 +55,12 @@ const StyledListItem = styled.div`
 
 
 const ListItem = ({ children, isUpdateMode, replierInfo, content }) => {
-    const { userId, nickname } = replierInfo;
+    const { userId, nickname, userImage } = replierInfo;
     const imgUrl = null;
     return (
         <StyledListItem>
             <StyledUserInfoBox>
-                <StyledUserImage imgUrl={imgUrl}></StyledUserImage>
+                <StyledUserImage imgUrl={userImage}></StyledUserImage>
                 <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>                
             </StyledUserInfoBox>
             <StyledContent>{content}</StyledContent>
