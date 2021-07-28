@@ -9,7 +9,7 @@ const replyComment = express.Router();
 
 replyComment.get('/:comment_id', checkReplyCommentController);
 replyComment.post('/:nickname', checkAuthUser, replyCommentController);
-replyComment.patch('/:comment_id/:replyComment_id', checkAuthUser, updateReplyCommentController);
-replyComment.delete('/:comment_id/:replyComment_id', checkAuthUser, deleteReplyCommentController);
+replyComment.patch('/', checkAuthUser, updateReplyCommentController);
+replyComment.delete('/', checkAuthUser, deleteReplyCommentController);
 
 export default replyComment;
