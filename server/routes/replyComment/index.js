@@ -8,7 +8,7 @@ import checkAuthUser from '../../middleware/checkAuthUser.js';
 const replyComment = express.Router();
 
 replyComment.get('/:comment_id', checkReplyCommentController);
-replyComment.post('/:user_id/:comment_id', checkAuthUser, replyCommentController);
+replyComment.post('/:nickname', checkAuthUser, replyCommentController);
 replyComment.patch('/:comment_id/:replyComment_id', checkAuthUser, updateReplyCommentController);
 replyComment.delete('/:comment_id/:replyComment_id', checkAuthUser, deleteReplyCommentController);
 

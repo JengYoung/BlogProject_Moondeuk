@@ -8,22 +8,20 @@ export const replyCommentSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Comment'
     },
-    // replier_id: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'User',
-    // },
     // 대댓글을 다는 사람의 정보
-    replierInfo: {
-        _id: { type: mongoose.Types.ObjectId, ref: 'User' },
-        userId: { type: String },
-        nickname: { type: String },
-        userImage: { type: String },
+    replier: {
+        // 닉네임은 갑자기 바뀌면 혼란을 줄 수 있으므로 댓글 달때의 닉네임은 유지시킨다.
+        nickname: String,
+        _id: {
+            type: mongoose.Types.ObjectId, 
+            ref: 'User' 
+        }
     },
     // 대댓글 달린 사람의 정보
-    repliedInfo: {
+    repliedCommentId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
-        default: null,
+        default: null, // comment_id와 같을 시 null로 보냄.
     },
     content: String,
     replyAt: {
