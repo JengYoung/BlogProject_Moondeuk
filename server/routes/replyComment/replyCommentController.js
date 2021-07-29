@@ -4,19 +4,20 @@ import User from '../../models/user.js';
 
 /* write a reply to user's comment */
 const replyCommentController = async (req, res) => {
-    const { nickname } = req.params;
-    const { repliedCommentId, content, user_id, comment_id } = req.body;
+    const { replyTo, content, nickname, comment_id, user_id } = req.body;
+    console.log(replyTo, content, user_id, comment_id, nickname)
     try {
         const replyComment = new ReplyComment({
             comment_id,
             replier: {
-                user_id,
+                _id: user_id,
                 nickname
             },
-            repliedCommentId,
+            replyTo,
             content,
         });
         await replyComment.save();
+        res.send(replyComment)
     } catch(e) {
         return res.status(500).send(e);
     };

@@ -9,8 +9,8 @@ export const replyCommentSchema = new Schema({
         ref: 'Comment'
     },
     // 대댓글을 다는 사람의 정보
+    // 닉네임은 갑자기 바뀌면 혼란을 줄 수 있으므로 댓글 달때의 닉네임은 유지시킨다.
     replier: {
-        // 닉네임은 갑자기 바뀌면 혼란을 줄 수 있으므로 댓글 달때의 닉네임은 유지시킨다.
         nickname: String,
         _id: {
             type: mongoose.Types.ObjectId, 
@@ -18,10 +18,16 @@ export const replyCommentSchema = new Schema({
         }
     },
     // 대댓글 달린 사람의 정보
-    repliedCommentId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        default: null, // comment_id와 같을 시 null로 보냄.
+    replyTo: {
+        _id: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Comment',
+            default: null, // comment_id와 같을 시 null로 보냄.
+        },
+        nickname: {
+            type: String,
+            default: null
+        }
     },
     content: String,
     replyAt: {
