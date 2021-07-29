@@ -98,7 +98,6 @@ const commentReducer = handleActions({
         comment: null,
     }),
     [CHANGE_TEXT]: (state, { payload: { name, idx, value }}) => {
-        
         return ({
         ...state,
         [name]: {
@@ -150,12 +149,11 @@ const commentReducer = handleActions({
         commentError: error,
     }), 
     //ReplyComment
-    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) => { 
-        return ({
+    [REPLYCOMMENT_SUCCESS]: (state, { payload: replyComment }) =>  ({
         ...state,
         comment: replyComment,
         replyCommentsError: null,
-    })},
+    }),
     [REPLYCOMMENT_FAILURE]: (state, { payload: error }) => ({
         ...state,
         replyCommentsError: error,

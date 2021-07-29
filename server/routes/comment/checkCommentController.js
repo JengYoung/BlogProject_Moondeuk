@@ -4,7 +4,6 @@ import User from '../../models/user.js';
 
 const checkCommentController = async (req, res) => {
     const { diary_id } = req.params;
-    console.log("checkCommentController: ", diary_id)
     try {
         let commentList = await Comment.find({ diary_id })
                                         .lean()
