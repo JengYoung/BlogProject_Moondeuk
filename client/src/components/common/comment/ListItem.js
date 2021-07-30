@@ -54,9 +54,8 @@ const StyledListItem = styled.div`
 `;
 
 
-const ListItem = ({ children, isUpdateMode, replierInfo, content }) => {
-    const { userId, nickname, userImage } = replierInfo;
-    const imgUrl = null;
+const ListItem = ({ replier, content }) => {
+    const { userId, nickname, userImage } = replier;
     return (
         <StyledListItem>
             <StyledUserInfoBox>
@@ -64,7 +63,6 @@ const ListItem = ({ children, isUpdateMode, replierInfo, content }) => {
                 <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>                
             </StyledUserInfoBox>
             <StyledContent>{content}</StyledContent>
-            {children}
         </StyledListItem>
     )
 };

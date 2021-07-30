@@ -13,6 +13,24 @@ const checkCommentController = async (req, res) => {
             const { userImage } = await User.findById(user_id);
             let { replyComments } = comment;
             replyComments = await ReplyComment.find({ comment_id: comment._id }).lean();
+            replyComments = await Promise.all(replyComments.map(async replyComment => {
+                const { replier, replyTo } = replyComment;
+                const replierImage = await User.findById(replier._id, 'userImage')
+                const repliedUserImage = await User.findById(replyTo._id, 'userImage')
+                console.log(replierImage, repliedUserImage);
+                const result = {
+                    ...replyComment,
+                    replier: {
+                        ...replyComment.replier,
+                        userImage: replierImage
+                    },
+                    replyTo: {
+                        ...replyComment.replyTo,
+                        userImage: repliedUserImage
+                    }
+                }
+                return result;
+            }));
             return {
                 ...comment,
                 userInfo: {

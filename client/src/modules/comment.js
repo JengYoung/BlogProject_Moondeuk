@@ -86,7 +86,6 @@ const initialState = {
     commentError: null,
     comments: [],
     commentsError: null,
-    replyComments: null,
     replyCommentsError: null,
 };
 
