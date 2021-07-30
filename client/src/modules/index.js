@@ -14,6 +14,7 @@ import commentReducer, { commentSaga } from './comment';
 import alertReducer, { alertSaga } from './alert';
 import searchReducer, { searchSaga } from './search';
 import settingReducer, { settingSaga } from './setting'
+import utilReducer, { utilSaga } from './util';
 
 const rootReducer = combineReducers({
     loadingReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
     alertReducer,
     searchReducer,
     settingReducer,
+    utilReducer
 });
 
 export function* rootSaga() {
@@ -47,6 +49,7 @@ export function* rootSaga() {
         alertSaga(),
         searchSaga(),
         settingSaga(),
+        utilSaga(),
     ]);
 };
 
