@@ -27,4 +27,4 @@ const ProgressBar = (props) => {
     )
 }
 
-export default ProgressBar;
+export default React.memo(ProgressBar);

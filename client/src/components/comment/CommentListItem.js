@@ -50,7 +50,7 @@ const StyledCommentListItem = styled.div`
     position: relative;
     flex-direction: column;
     padding: 0.5rem;
-    margin: 2rem 0;
+    margin-top: 2rem;
     width: 100%;
     background-color: white;
     border: 1px solid lightgray;
@@ -71,8 +71,8 @@ const CommentListItem = (
         user,
         likeBtn
     }) => {
-    const { user_id, diary_id, userInfo, replyComments, userImage } = comment;
-    const { userId, nickname } = userInfo;
+    const { user_id, diary_id, userInfo, replyComments } = comment;
+    const { userId, nickname, userImage } = userInfo;
 
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);

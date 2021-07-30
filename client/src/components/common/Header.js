@@ -179,7 +179,7 @@ const AlertBox = styled.div`
 const SearchBtn = styled(CircleBtn)`
 `;
 
-const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar, progressBarWidth }) => {
+const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
     const userId = React.useMemo(() => user ? user._id : null, [user]);
     const userImage = React.useMemo(() => user ? user.userImage : null, [user]);
     const [ openAlertList, setOpenAlertList ] = useState(false);

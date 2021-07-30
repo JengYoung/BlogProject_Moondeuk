@@ -3,6 +3,7 @@ import LinkedDiaryWrapper from 'components/read/LinkedDiaryWrapper';
 import CommentInputWrapperContainer from 'containers/comment/CommentInputWrapperContainer';
 import CommentWrapperContainer from 'containers/comment/CommentWrapperContainer';
 import React, { useState } from 'react'
+import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -22,34 +23,16 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
     const { diaryId } = match.params;
     const beforeDiary = diary?.beforeDiary;
     const afterDiary = diary?.afterDiary;
-    // const [ diaryData, setDiaryData ] = useState({
-    //     title: null,
-    //     subtitle: null,
-    //     author: {
-    //         _id: null,
-    //         authorId: null,
-    //     },
-    //     body: null,
-    //     tags: [],
-    //     postedDate: null,
-    //     titleStyle: {
-    //         isCenter: true,
-    //         isFullSize: false,
-    //         thumbnail: '',
-    //         color: '',
-    //         fontColor: 'black',
-    //         font: ''
-    //     }
-    // })
-    // useEffect(() => {
 
-    // })
-    useEffect(() => {
+    const startReadDiary = useCallback((diaryId) => {
         dispatch(readDiary(diaryId));
+    }, [dispatch])
+    useEffect(() => {
+        startReadDiary(diaryId)
         return () => {
             dispatch(initializeDiary());
         }
-    }, [dispatch, diaryId]);
+    }, [dispatch, startReadDiary, diaryId]);
 
     const onPatch = () => {
         dispatch(settingUpdate(diary));
@@ -63,7 +46,7 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
             alert("삭제되었습니다.");
             history.push('/');
         } catch(e) {
-            alert("에러가 발생했습니다.");
+            alert("삭제 도중 에러가 발생했습니다.");
             console.error(e);
         }
     }
@@ -72,7 +55,7 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
         <>
             <Diary 
                 diary={diary} 
-                dairyError={diaryError} 
+                diaryError={diaryError} 
                 userId={userId} 
                 onPatch={onPatch} 
                 onDelete={onDelete}

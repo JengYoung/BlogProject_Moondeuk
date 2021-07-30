@@ -55,12 +55,14 @@ const StyledListItem = styled.div`
 
 
 const ListItem = ({ replier, content }) => {
-    const { userId, nickname, userImage } = replier;
+    console.log("replier", replier)
+    const { nickname, userImage } = replier;
+    console.log(userImage);
     return (
         <StyledListItem>
             <StyledUserInfoBox>
                 <StyledUserImage imgUrl={userImage}></StyledUserImage>
-                <StyledUserInfo>{`${userId}(${nickname})`}</StyledUserInfo>                
+                <StyledUserInfo>{nickname}</StyledUserInfo>                
             </StyledUserInfoBox>
             <StyledContent>{content}</StyledContent>
         </StyledListItem>

@@ -9,7 +9,7 @@ function DiaryPage() {
     const [ progressBarWidth, setProgressBarWidth ] = useState(0);
     return (
         <>
-            <HeaderContainer isDiary progressBarWidth={progressBarWidth} />
+            <HeaderContainer isDiary/>
             <ProgressBar $progressBarWidth={progressBarWidth}/>
             <SearchWrapperContainer />
             <DiaryContainer setProgressBarWidth={setProgressBarWidth} />
