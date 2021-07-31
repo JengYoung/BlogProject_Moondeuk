@@ -1,4 +1,6 @@
+import myColors from 'lib/styles/_color';
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 /*
@@ -10,12 +12,12 @@ const StyledUserInfoBox = styled.div`
 `;
 const StyledUserInfo = styled.span`
     margin-left: 0.5rem;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     font-weight: 700;
 `;
 
 const StyledContent = styled.span`
-    font-size: 0.9rem;
+    font-size: 0.9375rem;
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
 `;
@@ -53,18 +55,28 @@ const StyledListItem = styled.div`
     position: relative;
 `;
 
+const ReplyTag = styled(Link)`
+    color: ${myColors.purple[1]};
+    &:hover {
+        color: ${myColors.purple[3]};
+    }
+    text-decoration: none;
+    &::after {
+        content: " ";
+    }
+`
 
-const ListItem = ({ replier, content }) => {
-    console.log("replier", replier)
-    const { nickname, userImage } = replier;
-    console.log(userImage);
+const ListItem = ({ replier, replyTo, content, children }) => {
+    const { nickname, userImage, userId } = replier;
+    const replyToNickname = replyTo.nickname;
     return (
         <StyledListItem>
             <StyledUserInfoBox>
                 <StyledUserImage imgUrl={userImage}></StyledUserImage>
-                <StyledUserInfo>{nickname}</StyledUserInfo>                
+                <StyledUserInfo>{nickname}({userId.length > 2 ? userId.slice(0,2) + `******` : userId})</StyledUserInfo>                
             </StyledUserInfoBox>
-            <StyledContent>{content}</StyledContent>
+            <StyledContent>{replyToNickname &&<ReplyTag to={replyTo.userId}> @{replyToNickname}</ReplyTag>}{content}</StyledContent>
+            {children}
         </StyledListItem>
     )
 };

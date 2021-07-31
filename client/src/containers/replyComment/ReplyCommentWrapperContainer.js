@@ -7,15 +7,11 @@ function ReplyCommentWrapperContainer({ comment_id, replyComments }) {
         <ReplyCommentWrapper>
             {
                 replyComments.map(replyComment => {
-                    const { _id, replier_id, replier, content } = replyComment;
                     return(
                         <ReplyCommentListItemContainer 
-                            key={_id} 
-                            _id={comment_id} 
-                            comment_id={_id} 
-                            replier={replier} 
-                            replier_id={replier_id}
-                            content={content}
+                            key={replyComment._id} 
+                            replyComment={replyComment}
+                            comment_id={comment_id}
                         />
                     )
                 })

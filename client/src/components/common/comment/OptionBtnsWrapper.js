@@ -45,6 +45,7 @@ const StyledOptionBtn = styled.button`
 
 
 const OptionBtnsWrapper = ({ isReply, onIsReplyCommentMode, likeBtn }) => {
+    console.log(likeBtn)
     return (
         <StyledOptionBtnsWrapper isReply={isReply}>
             {likeBtn}

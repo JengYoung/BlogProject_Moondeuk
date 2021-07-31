@@ -11,13 +11,17 @@ import { changeText, deleteReplyComment, settingUpdate, updateReplyComment } fro
 import LikeWrapperContainer from '../like/LikeWrapperContainer';
 import InputWrapperContainer from './InputWrapperContainer';
 
-function ReplyCommentListItemContainer({ _id, comment_id, replier, replier_id, content }) {
+function ReplyCommentListItemContainer({ replyComment, comment_id }) {
+    const dispatch = useDispatch();
     const { updatedContent, user } = useSelector(({ commentReducer, userReducer }) => ({
         updatedContent: commentReducer.updatedContent,
         user: userReducer.user,
     }))
+
+    const { _id , replier, replyTo, content } = replyComment;
+    console.log(replyComment)
+
     const loginUser_id = user ? user._id : null;
-    const dispatch = useDispatch();
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const [ isReplyCommentMode, setIsReplyCommentMode ] = useState(false);
     const onUpdateMode = () => setisUpdateMode(() => !isUpdateMode);
@@ -35,6 +39,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replier, replier_id, c
         <ListItem 
             isUpdateMode={isUpdateMode} 
             replier={replier} 
+            replyTo={replyTo}
             content={isUpdateMode 
                         ? <UpdateInputWrapper 
                             comment_id={comment_id}
@@ -48,7 +53,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replier, replier_id, c
                     }
         >
             {
-                loginUser_id === replier_id &&
+                (loginUser_id === replier._id) &&
                 <BtnsWrapper 
                     onUpdateMode={onUpdateMode} 
                     onSettingUpdate={onSettingUpdate} 
@@ -61,7 +66,7 @@ function ReplyCommentListItemContainer({ _id, comment_id, replier, replier_id, c
                 likeBtn={<LikeWrapperContainer isComment typeName="ReplyComment" typeId={comment_id}/>}
             />
             {isReplyCommentMode && 
-                <InputWrapperContainer _id={_id} replier_id={replier_id} hasMarginLeft comment_id={comment_id}/>
+                <InputWrapperContainer _id={_id} replier={replier} hasMarginLeft comment_id={comment_id}/>
             }
         </ListItem>
     )
