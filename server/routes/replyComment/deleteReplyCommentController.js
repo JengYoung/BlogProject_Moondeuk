@@ -1,7 +1,7 @@
 import ReplyComment from '../../models/replyComment.js';
 
 const deleteReplyCommentController = async(req, res) => {
-    const { replyComment_id } = req.params;
+    const { replyComment_id } = req.body;
     try {
         await ReplyComment.findByIdAndDelete(replyComment_id, (err, result) => {
             if (err) res.status(404).send(err);

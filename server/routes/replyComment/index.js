@@ -10,7 +10,7 @@ const replyComment = express.Router();
     checkReplyComment의 경우, 댓글마다 api를 부르는 것은 과하므로 
     checkCommentController을 호출할 때 같이 보내준다.
 */
-replyComment.post('/', replyCommentController); // , checkAuthUser
+replyComment.post('/', checkAuthUser, replyCommentController); 
 replyComment.patch('/', checkAuthUser, updateReplyCommentController);
 replyComment.delete('/', checkAuthUser, deleteReplyCommentController);
 
