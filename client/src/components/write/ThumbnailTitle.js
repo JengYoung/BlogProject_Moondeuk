@@ -139,6 +139,9 @@ const TitleInput = styled.textarea`
     @media screen and (min-width: 769px) {
         font-size: 2.5rem;
     }
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+    `}
 `;
 const SubtitleInput = styled.input`
     background: transparent;
@@ -148,6 +151,9 @@ const SubtitleInput = styled.input`
     border: none;
     width: 100%;
     padding-left: 0.5rem;
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+    `}
 `;
 
 const TitleBox = styled.div`

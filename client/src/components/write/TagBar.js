@@ -1,3 +1,4 @@
+import myColors from 'lib/styles/_color';
 import React, { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -24,12 +25,8 @@ const StyledTagsInput = styled.input`
     padding-left: 0.5rem;
     background: transparent;
     font-weight: 200;
-    color: gray;
     height: 1.5rem;
     margin-bottom: 0.5rem;
-    &::placeholder {
-        color: lightgray;
-    }
     ${props =>
         (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
             color: white;
@@ -38,6 +35,12 @@ const StyledTagsInput = styled.input`
             }
         `
     }
+    ${({ theme }) => css`
+        color: ${theme.fontColor};
+        &::placeholder {
+            color: lightgray;
+        }
+    `}
 `;
 
 const StyledTagsWrapper = styled.div`
@@ -56,8 +59,8 @@ const StyledTagsWrapper = styled.div`
 const StyledTag = styled.div`
     display: inline-flex;
     margin-right: 1rem;
-    border: 1px solid lightgray;
-    color: #a3a2a2;
+    border: 1px solid ${myColors.gray[5]};
+    color: ${myColors.gray[5]};
     font-weight: 200;
     border-radius: 1.5rem;
     height: 1.5rem;
@@ -69,6 +72,15 @@ const StyledTag = styled.div`
             color: white;
             border: 1px solid white;
         `
+    }
+    &:hover {
+        cursor: pointer;
+        ${({ theme }) => css`
+            transition: all 0.3s;
+            border: none;
+            background: #bb1818;
+            color: ${theme.tagColor};
+        `}
     }
 `;
 

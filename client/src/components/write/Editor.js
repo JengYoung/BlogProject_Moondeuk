@@ -2,18 +2,24 @@ import React, { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import myMediaQuery from 'lib/styles/_mediaQuery';
 
 /*
     Editor UI 컴포넌트
 */
 
+const TextBox = styled.div`
+    font-size: 1rem;
+`;
 const StyledEditor = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    /* 페이지 위아래 여백 지정 */
-    /* padding-top: 5rem;
-    padding-bottom: 5rem; */
+
+    // 모바일 반응형 레이아웃 설정
+    ${myMediaQuery.mobile} {
+        padding: 0 1rem;
+    }
 `;
 
 
@@ -21,6 +27,8 @@ const QuillWrapper = styled.div`
     position: relative;
     height: auto;
     width: 100%;
+    font-size: 1rem;
+    
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 80vh;
@@ -105,9 +113,17 @@ const QuillWrapper = styled.div`
     .ql-editor {
         position: relative;
         margin-top: 2rem;
-        padding: 0 0.5rem 0 0.5rem;
         line-height: 1.5;
         height: auto;
+        padding: 0;
+        p {
+            color: ${({ theme }) => theme.fontColor};
+        }
+        &.ql-blank {
+            &::before {
+                left: 0;
+            }
+        }
         /* @media screen and (min-width: 481px) {
         right: 8vw;
         }
@@ -194,7 +210,7 @@ const Editor = ({ body, onChangeText }) => {
     return (
         <StyledEditor>
             <QuillWrapper>
-                <div ref={quillElement}/>
+                <TextBox ref={quillElement}/>
             </QuillWrapper>
         </StyledEditor>
     );
