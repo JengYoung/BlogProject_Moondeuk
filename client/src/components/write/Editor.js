@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
@@ -40,6 +40,17 @@ const QuillWrapper = styled.div`
         margin-top: 2rem;
         z-index: 9;
         .ql-formats {
+            ${({ theme }) => css`
+                .ql-picker-label {
+                    color: ${theme.editorColor};
+                }
+                .ql-stroke {
+                    stroke: ${theme.editorColor};
+                }
+                .ql-fill {
+                    fill: ${theme.editorColor};
+                }
+            `}
             button {
                 &:hover,&:focus {
                     * {

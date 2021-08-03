@@ -17,6 +17,7 @@ const themeStyles = {
         tagColor: 'white',
         tagBg: myColors.purple[5],
         progressBarColor: 'white',
+        editorColor: myColors.gray[5],
         /* page Specific color */
         loginBg: 'transparent',
         SideBarComponentBg: 'white',
@@ -51,6 +52,7 @@ const themeStyles = {
         tagColor: 'white',
         tagBg: myColors.purple[1],
         progressBarColor: myColors.purple[0],
+        editorColor: myColors.gray[7],
         /* page Specific color */
         loginBg: 'white',
         SideBarComponentBg: 'white',
