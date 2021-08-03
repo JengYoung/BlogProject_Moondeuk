@@ -12,6 +12,6 @@ const replyComment = express.Router();
 */
 replyComment.post('/', checkAuthUser, replyCommentController); 
 replyComment.patch('/', checkAuthUser, updateReplyCommentController);
-replyComment.delete('/', checkAuthUser, deleteReplyCommentController);
+replyComment.delete('/:replyComment_id', deleteReplyCommentController);
 
 export default replyComment;

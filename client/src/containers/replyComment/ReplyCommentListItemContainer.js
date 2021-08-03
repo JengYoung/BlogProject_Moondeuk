@@ -27,7 +27,7 @@ function ReplyCommentListItemContainer({ replyComment, comment_id }) {
     const onIsReplyCommentMode = () => setIsReplyCommentMode(() => !isReplyCommentMode);
 
     const onUpdate = (value) => dispatch(updateReplyComment({comment_id: _id, replyComment_id: comment_id, content: value}));;
-    const onDelete = () => dispatch(deleteReplyComment({ comment_id: _id, replyComment_id: comment_id }));
+    const onDelete = () => dispatch(deleteReplyComment({ replyComment_id: _id }));
     const onSettingUpdate = () => dispatch(settingUpdate({ idx: comment_id, content: content }))
     const onChangeText = useCallback(payload => {
         dispatch(changeText(payload));
