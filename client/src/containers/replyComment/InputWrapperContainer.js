@@ -8,11 +8,19 @@ import InputWrapper from '../../components/common/comment/InputWrapper';
 import { alertUser } from '../../modules/alert';
 import { changeText, replyComment } from '../../modules/comment';
 
-function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_id, }) {
-    /* 
-        comment_id : if each replyComment target's id (when clicked "답글 달기 " button.)
-        _id: root comment target's id (when clicked "답글 달기 " button.)
-    */ 
+/**
+ * 
+ * *  ! 현재 호출하는 컴포넌트  
+ * * ReplyCommentListItemContainer
+ *
+ * @props { _id } <string> replyComment의 몽고DB 아이디
+ * @props { replier } <number>  대댓글을 단 사람의 정보
+ * @props { isReply } <Boolean> 지금 댓글을 다는지
+ * @props { hasMarginLeft } <Boolean> 왼쪽으로 여백을 줄 지 여부
+ * @props { comment_id } <string> comment달았던 댓글의 몽고DB 아이디
+ * (@props { nickname } <string> 댓글 달 사람의 닉네임)
+ */ 
+function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_id }) { 
     const dispatch = useDispatch();
     const { content, user, diary } = useSelector(({ commentReducer, userReducer, diaryReducer }) => ({
         content: commentReducer.content,
@@ -20,31 +28,35 @@ function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_i
         diary: diaryReducer.diary,
     }));
     const diary_id = diary ? diary._id : null;
-    /*
-        user_id: login user id
-        userId: replier's id
-    */ 
     const user_id = user ? user._id : null;
     const onChangeText = useCallback(payload => {
         console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
+    /**
+     * replyTo, //누구에게 보내는지. (property: 1. _id, 2: nickname)
+     * content, // 내용
+     * nickname, // 보낸 사람의 닉네임
+     * comment_id, // comment_id (말 그대로)
+     * user_id // 보내는 사람의 몽고DB 아이디
+     */
     const onSubmit = e => {
         e.preventDefault()
-        console.log({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: user_id })
-        dispatch(replyComment({ user_id, comment_id: _id, content: content[comment_id], replyTo_id: comment_id }))
+        const replyTo = _id === comment_id ? { _id: null, nickname: null } : { _id: replier._id, nickname: replier.nickname };
+        console.log({ user_id, comment_id, content: content[_id], replyTo });
+        dispatch(replyComment({ user_id, comment_id, content: content[_id], replyTo }));
         dispatch(alertUser({ 
-            sender_id: 
+            sender_id: replier._id, 
             user_id, 
-            receiver_id: replier._id, 
+            receiver_id: replyTo._id,
             type: "ReplyComment", 
             type_detail: { 
                 diary_id, 
                 comment_id, 
-                content: content[comment_id]
+                content: content[replier._id]
             }
         }))
-        content[comment_id] = '';
+        content[_id] = '';
     }
 
     return(
@@ -52,7 +64,7 @@ function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_i
             <Input
                 isReply={isReply}
                 hasMarginLeft={hasMarginLeft}
-                comment_id={comment_id}
+                comment_id={_id}
                 content={content[comment_id]}
                 onChangeText={onChangeText}
                 name="content"
