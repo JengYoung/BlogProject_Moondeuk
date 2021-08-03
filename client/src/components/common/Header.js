@@ -21,6 +21,16 @@ const MenuWrap = styled.div`
     align-items: center;
 `;
 
+const StyleHeaderHeight = css`
+    height: 12vh;
+    ${myMediaQuery.mobileAndTablet} {
+        height: 10vh;
+    }
+    ${myMediaQuery.mobile} {
+        height: 8vh;
+    }
+`;
+
 const SideWrapBtn = styled.button`
     display: flex;
     position: relative;
@@ -62,28 +72,15 @@ const StyledHeader = styled.header`
 `;
 
 const Wrapper = styled.div`
-    width: 100%;
-    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    //* 481px - small device (smartphone ~ Tablet)
-    @media screen and (min-width: 481px) {
-        height: 10vh;
-    }
-    @media screen and (min-width: 769px) {
-        height: 12vh;
-    }
-`;
+    width: 100%;
+    ${StyleHeaderHeight}
+`
 
 const Spacer = styled.div`
-    height: 8vh;
-    @media screen and (min-width: 481px) {
-        height: 10vh;
-    }
-    @media screen and (min-width: 769px) {
-        height: 12vh;
-    }
+    ${StyleHeaderHeight}
 `;
 
 const StyledHeaderUserInfoWrapper = styled.div`
