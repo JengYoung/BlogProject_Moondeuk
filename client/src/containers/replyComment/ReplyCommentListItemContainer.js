@@ -19,7 +19,6 @@ function ReplyCommentListItemContainer({ replyComment, comment_id }) {
     }))
 
     const { _id , replier, replyTo, content } = replyComment;
-    console.log(replyComment)
 
     const loginUser_id = user ? user._id : null;
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
@@ -63,7 +62,7 @@ function ReplyCommentListItemContainer({ replyComment, comment_id }) {
             <OptionBtnsWrapper 
                 isReply 
                 onIsReplyCommentMode={onIsReplyCommentMode}
-                likeBtn={<LikeWrapperContainer isComment typeName="ReplyComment" typeId={comment_id}/>}
+                likeBtn={<LikeWrapperContainer isComment typeName="ReplyComment" typeId={_id}/>} // typeId는 각자의 아이디로 해야 함.
             />
             {isReplyCommentMode && 
                 <InputWrapperContainer _id={_id} replier={replier} hasMarginLeft comment_id={comment_id}/>

@@ -2,6 +2,7 @@ import client from '../client';
 
 const likeAPI = (params) => {
     const { userId, diaryId, typeName, typeId } = params;
+    console.log("typeName, typeId: ",  typeName, typeId)
     console.log("api: ", userId, diaryId)
     /*
         req.param: userId, diaryId
