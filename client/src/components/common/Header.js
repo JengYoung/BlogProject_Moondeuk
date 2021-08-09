@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components';
 import AlertBtnContainer from '../../containers/alert/AlertBtnContainer';
 import LogoWrap from './LogoWrap';
@@ -177,7 +177,8 @@ const SearchBtn = styled(CircleBtn)`
 `;
 
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
-    const userId = React.useMemo(() => user ? user._id : null, [user]);
+    const userId = user ? user.userId : null;
+    const user_id = React.useMemo(() => user ? user._id : null, [user]);
     const userImage = React.useMemo(() => user ? user.userImage : null, [user]);
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);
@@ -198,7 +199,7 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                             <UserInfoBox>
                                 {!openLogout && <AlertBtnContainer onOpenAlertList={onOpenAlertList}></AlertBtnContainer>}
                                 {!openLogout && <AlertBox>
-                                    {openAlertList && <AlertList alerts={alerts} onConform={onConform}/>}
+                                    {openAlertList && <AlertList user_id={user_id} alerts={alerts} onConform={onConform}/>}
                                 </AlertBox>}
                                 {!openLogout && <UserImage
                                     isLink
@@ -228,7 +229,6 @@ const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpe
                     </StyledHeaderUserInfoWrapper>
                 </Wrapper> 
             </StyledHeader>
-            {/* <ProgressBar $progressBarWidth={progressBarWidth}/> */}
             <Spacer/>
         </>
     )

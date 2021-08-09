@@ -71,8 +71,7 @@ const CommentListItem = (
         user,
         likeBtn
     }) => {
-    console.log("COMMENT: ", comment)
-    const { user_id, diary_id, userInfo, replyComments } = comment;
+    const { user_id, userInfo, replyComments } = comment;
     const { userId, nickname, userImage } = userInfo;
     const receiver = { _id: user_id, nickname }
 

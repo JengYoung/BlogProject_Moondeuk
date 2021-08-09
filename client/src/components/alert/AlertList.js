@@ -65,12 +65,12 @@ const StyledAlertContent = styled.div`
     }
 `;
 
-const AlertList = ({ alerts, onConform }) => {
+const AlertList = ({ user_id, alerts, onConform }) => {
     useEffect(() => {
         return () => {
-            onConform()
+            onConform(user_id)
         }
-    },[alerts, onConform]);
+    },[user_id, onConform]);
 
     return (
         <StyledAlertList>

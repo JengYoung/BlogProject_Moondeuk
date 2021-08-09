@@ -16,7 +16,6 @@ const HeaderContainer = (props) => {
         alerts: alertReducer.alerts, 
         isOpenSearchBar: searchReducer.isOpenSearchBar,
     }));
-    const user_id = user ? user._id : null;
     const dispatch = useDispatch();
     const onLogout = () => {
         dispatch(logout());
@@ -28,7 +27,7 @@ const HeaderContainer = (props) => {
         dispatch(check())
     }, [dispatch])
 
-    const onConform = useCallback(() => {
+    const onConform = useCallback(user_id => {
         dispatch(conformAlertUser(user_id))
     }, [dispatch]);
 

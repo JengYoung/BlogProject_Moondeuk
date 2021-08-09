@@ -21,12 +21,12 @@ const alertMessage = async (alert) => {
         const receiver = await User.findById(receiver_id);
         let diary = null;
         if (Object.keys(type_detail).includes("diary_id")) {
-            diary = await Post.findById(type_detail.diary_id)
+            diary = await Post.findById(type_detail.diary_id);
         }
         switch(type) {
             case "Subscribe":
                 return `${sender.nickname}님이 ${receiver.nickname}님을 구독합니다.`
-            case "ReplyComments":
+            case "ReplyComment":
                 return `${sender.nickname}님이 댓글에 답글을 남겼습니다.`
             case "Comment":
                 return `${sender.nickname}님이 ${diary.title} 일기에 댓글을 남겼습니다.`
