@@ -71,8 +71,10 @@ const CommentListItem = (
         user,
         likeBtn
     }) => {
+    console.log("COMMENT: ", comment)
     const { user_id, diary_id, userInfo, replyComments } = comment;
     const { userId, nickname, userImage } = userInfo;
+    const receiver = { _id: user_id, nickname }
 
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const onIsUpdateMode = () => setisUpdateMode(!isUpdateMode);
@@ -118,7 +120,11 @@ const CommentListItem = (
                 likeBtn={likeBtn}
             />
             {isReplyRootCommentMode && 
-                <InputWrapperContainer replier_id={user_id} diary_id={diary_id} _id={comment_id} comment_id={comment_id}/>
+                <InputWrapperContainer  
+                    _id={comment_id}
+                    receiver={receiver} 
+                    comment_id={comment_id}
+                />
             }   
             {replyCommentCount > 0 && 
                 <ReplyCommentBtn 

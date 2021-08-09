@@ -30,7 +30,7 @@ const HeaderContainer = (props) => {
 
     const onConform = useCallback(() => {
         dispatch(conformAlertUser(user_id))
-    }, [dispatch,user_id]);
+    }, [dispatch]);
 
     const onOpenSearchBar = useCallback(() => {
         dispatch(openSearchBar(!isOpenSearchBar))

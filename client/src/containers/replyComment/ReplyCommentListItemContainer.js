@@ -19,7 +19,10 @@ function ReplyCommentListItemContainer({ replyComment, comment_id }) {
     }))
 
     const { _id , replier, replyTo, content } = replyComment;
-
+    // console.log( "_id/ " , _id)
+    // console.log("replier/ ", replier)
+    // console.log("replyTo/ ",replyTo)
+    // console.log("content/ ",content)
     const loginUser_id = user ? user._id : null;
     const [ isUpdateMode, setisUpdateMode ] = useState(false);
     const [ isReplyCommentMode, setIsReplyCommentMode ] = useState(false);
@@ -65,10 +68,10 @@ function ReplyCommentListItemContainer({ replyComment, comment_id }) {
                 likeBtn={<LikeWrapperContainer isComment typeName="ReplyComment" typeId={_id}/>} // typeId는 각자의 아이디로 해야 함.
             />
             {isReplyCommentMode && 
-                <InputWrapperContainer _id={_id} replier={replier} hasMarginLeft comment_id={comment_id}/>
+                <InputWrapperContainer _id={_id} receiver={replier} hasMarginLeft comment_id={comment_id}/>
             }
         </ListItem>
     )
 }
 
-export default ReplyCommentListItemContainer
+export default React.memo(ReplyCommentListItemContainer)

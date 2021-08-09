@@ -6,7 +6,7 @@ const StyledProgressBar = styled.div`
     position: fixed;
     width: 100%;
     height: 3px;
-    z-index: 100;
+    z-index: 60;
     top: 12vh;
     ${({ theme, $progressBarWidth }) => css`
         will-change: width;

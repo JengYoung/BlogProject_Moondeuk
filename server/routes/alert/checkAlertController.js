@@ -10,6 +10,7 @@ const checkAlertController = async (req, res) => {
                                     .sort({alertAt: -1});
         const result = await Promise.all(userAlert.map(async eachAlert => {
             const { _id, sender_id, receiver_id, type, type_detail, alertAt, checkRead } = eachAlert
+            console.log(eachAlert)
             const { userImage } = await User.findById(sender_id);
             const message = await alertMessage(eachAlert);
             if (type_detail.content) {

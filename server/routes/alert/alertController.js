@@ -4,7 +4,7 @@ import User from '../../models/user.js';
 const alertController = async (req, res) => {
     const { sender_id, type, type_detail } = req.body;
     let { receiver_id } = req.body;
-    if (!sender_id || !receiver_id || !type || !type_detail) return res.status(400).send("여기 잘못");
+    if (!sender_id || !receiver_id || !type || !type_detail) return res.status(400).send();
     if (sender_id === receiver_id) return res.status(409).send('Conflict');
     try {
         if (type === "Subscribe") {

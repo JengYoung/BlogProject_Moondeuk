@@ -14,13 +14,14 @@ import { changeText, replyComment } from '../../modules/comment';
  * * ReplyCommentListItemContainer
  *
  * @props { _id } <string> replyComment의 몽고DB 아이디
- * @props { replier } <number>  대댓글을 단 사람의 정보
+ * @props { receiver } <number>  대댓글을 이제 받을 사람에 대한 정보
  * @props { isReply } <Boolean> 지금 댓글을 다는지
  * @props { hasMarginLeft } <Boolean> 왼쪽으로 여백을 줄 지 여부
  * @props { comment_id } <string> comment달았던 댓글의 몽고DB 아이디
  * (@props { nickname } <string> 댓글 달 사람의 닉네임)
  */ 
-function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_id }) { 
+function InputWrapperContainer({ _id, receiver, isReply, hasMarginLeft, comment_id }) { 
+    console.log("RECEIVER", receiver)
     const dispatch = useDispatch();
     const { content, user, diary } = useSelector(({ commentReducer, userReducer, diaryReducer }) => ({
         content: commentReducer.content,
@@ -29,8 +30,8 @@ function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_i
     }));
     const diary_id = diary ? diary._id : null;
     const user_id = user ? user._id : null;
+    const nickname = user.nickname ?? null;
     const onChangeText = useCallback(payload => {
-        console.log(payload)
         dispatch(changeText(payload));
     }, [dispatch]);
     /**
@@ -42,21 +43,20 @@ function InputWrapperContainer({ _id, replier, isReply, hasMarginLeft, comment_i
      */
     const onSubmit = e => {
         e.preventDefault()
-        const replyTo = _id === comment_id ? { _id: null, nickname: null } : { _id: replier._id, nickname: replier.nickname };
-        console.log({ user_id, comment_id, content: content[_id], replyTo });
-        dispatch(replyComment({ user_id, comment_id, content: content[_id], replyTo }));
+        const replyTo = user_id === receiver._id ? { _id: null, nickname: null } : { _id: receiver._id, nickname: receiver.nickname };
+        console.log("replyTo: ", replyTo, "replier: ", receiver);
+        dispatch(replyComment({ user_id, nickname, comment_id, content: content[_id], replyTo }));
         dispatch(alertUser({ 
-            sender_id: replier._id, 
-            user_id, 
+            sender_id: user_id, 
             receiver_id: replyTo._id,
             type: "ReplyComment", 
             type_detail: { 
                 diary_id, 
                 comment_id, 
-                content: content[replier._id]
+                content: content[_id]
             }
         }))
-        content[_id] = '';
+        e.target.value = '';
     }
 
     return(

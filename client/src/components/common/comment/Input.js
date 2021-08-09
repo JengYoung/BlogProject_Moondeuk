@@ -20,7 +20,6 @@ const StyledInput = styled.textarea`
 const Input = ({ isReply, hasMarginLeft, comment_id, children, name, content, onChangeText }) => {
     const onChange = e => {
         const { name, value } = e.target;
-        console.log("여기는 input: ", name, comment_id, value);
         onChangeText({ name, idx: comment_id, value })
     }
     return (

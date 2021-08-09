@@ -1,6 +1,19 @@
 import Post from '../models/post.js';
 import User from '../models/user.js';
-
+/*
+    {
+        _id: 6110b0192ed82a56086c35f3,
+        checkRead: true,
+        sender_id: 61109c9a2ed82a56086c35e0,
+        receiver_id: 609b847f05962468a03a2bb0,
+        type: 'ReplyComment',
+        type_detail: {
+            diary_id: '60f90646b1bbd761786ddba6',
+            comment_id: '6103e5361580695420551bea',
+            content: '저두염:)'
+        }
+    },
+*/
 const alertMessage = async (alert) => {
     const { sender_id, receiver_id, type, type_detail } = alert; 
     try {
@@ -25,7 +38,7 @@ const alertMessage = async (alert) => {
                 return `${sender.nickname}님이 다음 답글을 좋아합니다.`
         }
     } catch(e) {
-        return Error(e) // 잘못된 요청.
+        throw new Error(e) // 잘못된 요청.
     }
 }
 
