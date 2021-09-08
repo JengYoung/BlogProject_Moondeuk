@@ -1,15 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
-import LinkedDiaryWrapper from './LinkedDiaryWrapper';
-import LinkedDiaryCard from './LinkedDiaryCard';
 import ThumbnailTitleBox from '../common/ThumbnailTitleBox';
 import { StyledUserImage } from 'components/common/UserImage';
 import { myFont } from 'lib/styles/_variable';
 import { Link } from 'react-router-dom';
 import myColors from 'lib/styles/_color';
-import { useCallback } from 'react';
 import throttle from 'lib/util/throttle';
 /*
 */
@@ -212,7 +209,7 @@ const StyledDiaryBody = styled.div`
 `;
 
 
-const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWidth }) => {
+const Diary = ({ diary, diaryError, userId, onPatch, onDelete, progressBarWidth, updateProgressBarWidth }) => {
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {
@@ -227,15 +224,15 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, setProgressBarWid
             */ 
         const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
         const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        setProgressBarWidth((scrolledTop / scrolledHeight) * 100)
-    }, [])
+        updateProgressBarWidth((scrolledTop / scrolledHeight) * 100)
+    }, [updateProgressBarWidth])
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            throttle(getProgressRate, 250)();
-        })
+        window.addEventListener('scroll', throttle(() => {
+            getProgressRate();
+        }, 300))
     }, [getProgressRate])
     if (!diary) return null;
-    const { title, subtitle, body, tags, author, postedDate, beforeDiary, afterDiary, titleStyle } = diary;
+    const { title, subtitle, body, tags, author, postedDate, titleStyle } = diary;
     const { userImage, authorId } = author;
     const { isCenter, isFullSize, thumbnail, color, fontColor, font } = titleStyle;
     return (

@@ -1,6 +1,7 @@
 import React from 'react'
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const StyledProgressBar = styled.div`
     position: fixed;
@@ -22,8 +23,12 @@ const StyledProgressBar = styled.div`
     }
 `
 const ProgressBar = (props) => {
+    const { progressBarWidth } = useSelector(({ utilReducer }) => ({
+        progressBarWidth: utilReducer.progressBarWidth,
+    }));
+    console.log(progressBarWidth)
     return (
-        <StyledProgressBar { ...props }/>
+        <StyledProgressBar $progressBarWidth={progressBarWidth}/>
     )
 }
 

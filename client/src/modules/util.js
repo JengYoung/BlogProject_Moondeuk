@@ -1,8 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 
-const GET_PROGRESSBAR_WIDTH = 'util/PROGRESS_WIDTH';
+const SET_PROGRESSBAR_WIDTH = 'util/PROGRESS_WIDTH';
 
-export const getProgressWidth = createAction(progressBarWidth => progressBarWidth);
+export const setProgressBarWidth = createAction(SET_PROGRESSBAR_WIDTH, progressBarWidth => progressBarWidth);
 
 const initialState = {
     progressBarWidth: 0
@@ -14,7 +14,7 @@ export function* utilSaga() {
 
 
 const utilReducer = handleActions({
-    [GET_PROGRESSBAR_WIDTH]: (state, { payload: progressBarWidth }) => ({
+    [SET_PROGRESSBAR_WIDTH]: (state, { payload: progressBarWidth }) => ({
         ...state,
         progressBarWidth
     })

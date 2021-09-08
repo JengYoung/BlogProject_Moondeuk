@@ -46,7 +46,6 @@ const HeaderContainer = (props) => {
                 alerts={alerts}
                 onConform={onConform}
                 onOpenSearchBar={onOpenSearchBar}
-                progressBarWidth={props.progressBarWidth}
             />
             <SideBarContainer isSideBar={isSideBar} onSideBar={onSideBar} />
         </>

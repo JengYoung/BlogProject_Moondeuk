@@ -1,8 +1,7 @@
 import LinkedDiaryCard from 'components/read/LinkedDiaryCard';
 import LinkedDiaryWrapper from 'components/read/LinkedDiaryWrapper';
-import CommentInputWrapperContainer from 'containers/comment/CommentInputWrapperContainer';
 import CommentWrapperContainer from 'containers/comment/CommentWrapperContainer';
-import React, { useState } from 'react'
+import { setProgressBarWidth } from 'modules/util';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,18 +11,20 @@ import deleteAPI from '../../../lib/routes/post/delete';
 import { initializeDiary, readDiary } from '../../../modules/diary';
 import { settingUpdate } from '../../../modules/write';
 
-const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }) => {
+const DiaryContainer = ({ match, history, width, setWidth }) => {
     const dispatch = useDispatch();
-    const { diary, diaryError, user } = useSelector(({ diaryReducer, userReducer }) => ({
+    const { diary, diaryError, user, progressBarWidth } = useSelector(({ diaryReducer, userReducer, utilReducer }) => ({
         diary: diaryReducer.diary,
         diaryError: diaryReducer.diaryError,
-        user: userReducer.user
+        user: userReducer.user,
+        progressBarWidth: utilReducer.progressBarWidth,
     }));
     const userId = user ? user.userId : null; 
     const { diaryId } = match.params;
     const beforeDiary = diary?.beforeDiary;
     const afterDiary = diary?.afterDiary;
 
+    const updateProgressBarWidth = useCallback((progressBarWidth) => dispatch(setProgressBarWidth(progressBarWidth)), [dispatch])
     const startReadDiary = useCallback((diaryId) => {
         dispatch(readDiary(diaryId));
     }, [dispatch])
@@ -36,7 +37,6 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
 
     const onPatch = () => {
         dispatch(settingUpdate(diary));
-        console.log(diary);
         history.push(`/write/@${userId}/${diaryId}`);
     };
 
@@ -61,7 +61,8 @@ const DiaryContainer = ({ match, history, width, setWidth, setProgressBarWidth }
                 onDelete={onDelete}
                 width={width}
                 setWidth={setWidth}
-                setProgressBarWidth={setProgressBarWidth}
+                updateProgressBarWidth={updateProgressBarWidth}
+                progressBarWidth={progressBarWidth}
             />
             <CommentWrapperContainer />
             <LinkedDiaryWrapper userId={userId}>

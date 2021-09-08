@@ -12,7 +12,6 @@ import CircleBtn from './CircleBtn';
 import UserImage from './UserImage';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import LinkBtn from './LinkBtn';
-import ProgressBar from 'components/layout/header/ProgressBar';
 
 const MenuWrap = styled.div`
     display: flex;
