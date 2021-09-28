@@ -37,9 +37,9 @@ const myColors = {
         '#5a318a',
         '#4c2b6b',
         '#341a52',
-        '#261741',
-        '#0e061d',
-    ]
+        '#2e263a',
+        '#201c26',
+    ],
 }
 
 export default myColors;
