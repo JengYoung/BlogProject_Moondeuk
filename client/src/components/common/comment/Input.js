@@ -17,7 +17,14 @@ const StyledInput = styled.textarea`
 `;
 
 
-const Input = ({ isReply, hasMarginLeft, comment_id, children, name, content, onChangeText }) => {
+const Input = ({ 
+    isReply, 
+    hasMarginLeft, 
+    comment_id, 
+    name, 
+    content, 
+    onChangeText
+}) => {
     const onChange = e => {
         const { name, value } = e.target;
         onChangeText({ name, idx: comment_id, value })
@@ -30,7 +37,7 @@ const Input = ({ isReply, hasMarginLeft, comment_id, children, name, content, on
             onChange={onChange}
             value={content}
             placeholder="답글을 입력해주세요!🤣"
-        >{children}</StyledInput>
+        ></StyledInput>
     );
 };
 

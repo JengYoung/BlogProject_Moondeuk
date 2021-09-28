@@ -209,7 +209,7 @@ const StyledDiaryBody = styled.div`
 `;
 
 
-const Diary = ({ diary, diaryError, userId, onPatch, onDelete, progressBarWidth, updateProgressBarWidth }) => {
+const Diary = ({ diary, diaryError, userId, onPatch, onDelete, updateProgressBarWidth }) => {
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {

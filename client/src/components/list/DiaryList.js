@@ -270,8 +270,8 @@ const DiaryCards = ({ diaries, diariesError, lastId, fetchDiaryList }) => {
         if (observerTarget.current) observerRef = observerTarget.current;
         const callback = (entries, observer) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const _id = diaries[diaries.length-1]?._id;
+                const _id = diaries[diaries.length-1]?._id;
+                if (entry.isIntersecting && _id !== lastId.current) {
                     lastId.current = _id
                     fetchDiaryList(lastId);
                 }
