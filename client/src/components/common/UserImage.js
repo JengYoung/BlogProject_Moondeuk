@@ -3,9 +3,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-/**
-**/
-
 export const StyledUserImage = styled.div`
     flex-shrink: 0;
     width: 50px;
@@ -50,10 +47,18 @@ export const StyledUserImageLink = styled(Link)`
 `;
 
 const UserImage = ({ isLink, isSubscribePage, userImage, userId, ...rest }) => {
-    console.log(userImage);
+    const { REACT_APP_ALBUMBUCKETNAME } = process.env;
+    const imgUrl = userImage ? userImage : `
+        https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/moondeuk-default-profile.png
+    `; 
     return (
         <>
-            { isLink && <StyledUserImageLink $userImage={userImage} to={`@${userId}`}/> }
+            { isLink && 
+                <StyledUserImageLink 
+                    $userImage={imgUrl} 
+                    to={`@${userId}`}
+                />
+            }
             { !isLink && <StyledUserImage isSubscribePage={isSubscribePage} $userImage={userImage} {...rest}/> }
         </>
     );

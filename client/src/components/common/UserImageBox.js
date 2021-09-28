@@ -94,17 +94,13 @@ const UserImageBox = ({
         }),
     })
     
-    const imgUrl = userImage ? userImage : `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/userProfile.jpg`;
-    console.log(imgUrl);
+    const imgUrl = userImage ? userImage : `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/moondeuk-default-profile.png`;
     
     const handleImgUpload = e => uploadImage(e, data => {
         alert("프로필 사진이 성공적으로 수정 되었어요! ")
         userImgUploadAPI(user_id, data.Location);
-    });
-    
-    useEffect(() => {
         checkUser();
-    }, [userImage, checkUser])
+    });
 
     return (
         <StyledUserImageBox isHeader={isHeader} imgUrl={imgUrl}>

@@ -23,12 +23,11 @@ const StyledUserId = styled.h2`
 `
 
 const UserNameBox = (props) => {
-    console.log('hi');
-
+    const { nickname, userId } = props;
     return (
         <StyledNameBox {...props}>
-            <StyledUserNickName>{props.nickname}</StyledUserNickName>
-            <StyledUserId>{props.user_id ? `(${props.user_id})` : ''}</StyledUserId>
+            <StyledUserNickName>{nickname}</StyledUserNickName>
+            <StyledUserId>{userId ? `(${userId})` : ''}</StyledUserId>
         </StyledNameBox>
     );
 };
