@@ -1,7 +1,10 @@
 import AWS from 'aws-sdk';
 
 const uploadImage = (e, resolveCallback) => {
-    const { REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
+    const { 
+        REACT_APP_BUCKETREGION, 
+        REACT_APP_IDENTITY_POOL_ID 
+    } = process.env;
     AWS.config.update({
         region: REACT_APP_BUCKETREGION,
         credentials: new AWS.CognitoIdentityCredentials({

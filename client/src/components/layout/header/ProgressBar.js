@@ -26,7 +26,6 @@ const ProgressBar = (props) => {
     const { progressBarWidth } = useSelector(({ utilReducer }) => ({
         progressBarWidth: utilReducer.progressBarWidth,
     }));
-    console.log(progressBarWidth)
     return (
         <StyledProgressBar $progressBarWidth={progressBarWidth}/>
     )

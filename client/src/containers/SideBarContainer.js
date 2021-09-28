@@ -13,9 +13,10 @@ import { check } from '../modules/user'
 const SideBarContainer = ({ isSideBar, onSideBar }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.userReducer.user);
-    const user_id = user ? user.userId : null;
-    const nickname = user ? user.nickname : null;
-    const user_image = user ? user.userImage : null;
+    const userId = user?.userId;
+    const user_id = user?._id;
+    const nickname = user?.nickname;
+    const userImage = user?.userImage;
     const checkUser = useCallback(() => {
         dispatch(check())
     }, [dispatch])
@@ -24,19 +25,19 @@ const SideBarContainer = ({ isSideBar, onSideBar }) => {
             <SideMenuBtn isSideBar={isSideBar} onSideBar={onSideBar}></SideMenuBtn>
             <DarkModeBtn isSideBar/>
             {
-                user_id &&
+                userId &&
                     <>
                         <UserImageBox 
-                            user_id={user_id} 
-                            user_image={user_image} 
+                            user_id={user_id}
+                            userImage={userImage} 
                             checkUser={checkUser}
                         />
-                        <UserName user_id={user_id} nickname={nickname}></UserName>
-                        <SideBtnLinks user_id={user_id}/>
+                        <UserName userId={userId} nickname={nickname}></UserName>
+                        <SideBtnLinks userId={userId}/>
                         <SideQuickMenus/>
                     </>
             }
-            {!user_id && 
+            {!userId && 
                 <>
                     <LoginMessage></LoginMessage>
                 </>

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { AiFillCamera } from "react-icons/ai";
 import AWS from 'aws-sdk';
 import userImgUploadAPI from '../../lib/routes/upload/userImgUpload';
+import uploadImage from 'lib/util/uploadImage';
 
 /** 
 **/
@@ -76,8 +77,16 @@ const StyledSettingImageLabel = styled.label`
     }
 `;
 
-const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
-    const { REACT_APP_ALBUMBUCKETNAME, REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
+const UserImageBox = ({ 
+    isHeader, 
+    user_id, 
+    userImage, 
+    checkUser }) => {
+    const { 
+        REACT_APP_ALBUMBUCKETNAME, 
+        REACT_APP_BUCKETREGION, 
+        REACT_APP_IDENTITY_POOL_ID 
+    } = process.env;
     AWS.config.update({
         region: REACT_APP_BUCKETREGION,
         credentials: new AWS.CognitoIdentityCredentials({
@@ -85,37 +94,17 @@ const UserImageBox = ({ isHeader, user_id, user_image, checkUser }) => {
         }),
     })
     
-    const fileName = useRef(null);
-    const imgUrl = user_image ? 
-                    user_image : 
-                    `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/userProfile.jpg`;
+    const imgUrl = userImage ? userImage : `https://${REACT_APP_ALBUMBUCKETNAME}.s3.ap-northeast-2.amazonaws.com/profile/userProfile.jpg`;
+    console.log(imgUrl);
     
-    const handleImgUpload = e => {
-        const file = e.target.files[0];
-        fileName.current = file.name;
-        const upload = new AWS.S3.ManagedUpload({
-            params: {
-                Bucket: "moondeuk-images",
-                Key: "profile/" + file.name,
-                Body: file,
-            }
-        })
-        const promise =  upload.promise();
-
-        promise.then(
-            function (data) {
-                alert("프로필 사진이 성공적으로 수정 되었어요! ")
-                userImgUploadAPI(user_id, data.Location)
-            },
-            function (err) {
-                alert("업로드 중 오류가 발생했어요! 😂")
-            }
-        )
-    }
+    const handleImgUpload = e => uploadImage(e, data => {
+        alert("프로필 사진이 성공적으로 수정 되었어요! ")
+        userImgUploadAPI(user_id, data.Location);
+    });
     
     useEffect(() => {
         checkUser();
-    }, [user_image, checkUser])
+    }, [userImage, checkUser])
 
     return (
         <StyledUserImageBox isHeader={isHeader} imgUrl={imgUrl}>
