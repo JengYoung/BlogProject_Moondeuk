@@ -39,46 +39,6 @@ const StyledThumbnailTitleBox = styled.div`
         justify-content: center;
         /* align-items: center; */
     }
-    .red,
-    &.red {
-        background: #f38686;
-    }
-    .orange,
-    &.orange {
-        background: #ff9900;
-    }
-    .yellow,
-    &.yellow {
-        background: #ffee00;
-    }
-    .green,
-    &.green {
-        background: #b8e264;
-    }
-    .blue,
-    &.blue {
-        background: #726bd3;
-    }
-    .purple,
-    &.purple {
-        background: #7f51a5;
-    }
-    .mint,
-    &.mint {
-        background: #a7ffd3;
-    }
-    .sky,
-    &.sky {
-        background: #96e1ff;
-    }
-    .black,
-    &.black {
-        background: #2e2d2d;
-    }
-    .gray,
-    &.gray {
-        background: #686565;
-    }
 `;
 
 const ThumbnailTitleBox = props => {

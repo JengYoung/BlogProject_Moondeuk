@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 /*
 */
 
-const StyledTitleText = styled.textarea`
+const StyledTitleText = styled.div`
     display: block;
     padding: 0px;
     padding-left: 1rem;
@@ -46,7 +46,7 @@ const WriteForm = ({ onChangeText, title, body }) => {
     };
     return (
         <>
-            <StyledTitleText onChange={onChange} name="title" value={title} />
+            <StyledTitleText contentEditable onChange={onChange} name="title" value={title} />
             <StyledBodyText onChange={onChange} name="body" value={body} text/>
         </>
     );

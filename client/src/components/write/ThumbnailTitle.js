@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useCallback } from 'react';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { CgArrowsShrinkV } from 'react-icons/cg';
@@ -9,8 +8,6 @@ import { IoIosColorPalette } from 'react-icons/io';
 import { IoImage } from 'react-icons/io5';
 import uploadImage from 'lib/util/uploadImage';
 
-/**
-**/
 const ThumbnailTitleBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -45,46 +42,6 @@ const ThumbnailTitleBox = styled.div`
         justify-content: center;
         /* align-items: center; */
     }
-    .red,
-    &.red {
-        background: #f38686;
-    }
-    .orange,
-    &.orange {
-        background: #ff9900;
-    }
-    .yellow,
-    &.yellow {
-        background: #ffd900;
-    }
-    .green,
-    &.green {
-        background: #b8e264;
-    }
-    .blue,
-    &.blue {
-        background: #726bd3;
-    }
-    .purple,
-    &.purple {
-        background: #7f51a5;
-    }
-    .mint,
-    &.mint {
-        background: #a7ffd3;
-    }
-    .sky,
-    &.sky {
-        background: #96e1ff;
-    }
-    .black,
-    &.black {
-        background: #2e2d2d;
-    }
-    .gray,
-    &.gray {
-        background: #686565;
-    }
 `;
 
 const ThumbnailColorBox = styled.ul`
@@ -118,7 +75,7 @@ const ThumbnailColorBox = styled.ul`
         right: 20vw;
     }
 `;
-const TitleInput = styled.textarea`
+const TitleInput = styled.div`
     background: transparent;
     display: block;
     position: relative;
@@ -143,7 +100,7 @@ const TitleInput = styled.textarea`
         color: ${theme.fontColor};
     `}
 `;
-const SubtitleInput = styled.input`
+const SubtitleInput = styled.textarea`
     background: transparent;
     font-size: 1rem;
     margin-bottom: 2rem;
@@ -187,15 +144,14 @@ const TitleToolbar = styled.div`
     position: absolute;
     Z-index: 9;
     top: 10px;
-    /* flex-direction: row; */
-    /* width: 100%; */
     justify-content: center;
     align-items: center;
     height: 2rem;
     right: 6vw;
+    --activeColor: #f5e83a;
 
     .active {
-        color: #f5e83a;
+        color: var(--activeColor);
     }
     input {
         display: none;
@@ -211,7 +167,7 @@ const TitleToolbar = styled.div`
         margin: 0.25rem;
         &:hover {
             cursor: pointer;
-            color: #f5e83a;
+            color: var(--activeColor);
         }
         svg {
             font-size: 1.25rem;
@@ -225,7 +181,7 @@ const TitleToolbar = styled.div`
                 fill: #a09ca0;
             }
             &.active {
-                color: #f5e83a;
+                color: var(--activeColor);
                 path {
                     fill: white;
                 }
@@ -233,9 +189,9 @@ const TitleToolbar = styled.div`
         }
         &:hover {
             svg {
-                color: #f5e83a;
+                color: var(--activeColor);
                 path {
-                    fill: #f5e83a;
+                    fill: var(--activeColor);
                 }
             }
         }
@@ -244,11 +200,11 @@ const TitleToolbar = styled.div`
         div, div > * {
             color: white;
             &:hover {
-                color: #f5e83a;
+                color: var(--activeColor);
             }
         }
         .active {
-            color: #f5e83a;
+            color: var(--activeColor);
         }
     }
     @media screen and (min-width: 481px) {
@@ -276,16 +232,16 @@ const TitlePositionModifier = styled.div`
     padding: 0;
     border: 1px solid #a09ca0;
     &:hover {
-        border: 1px solid #f5e83a;
-        color: #f5e83a;
+        border: 1px solid var(--activeColor);
+        color: var(--activeColor);
     }
 
     ${props => 
         props.isCenter && css`
             justify-content: center;
             align-items: center;
-            border: 1px solid #f5e83a;
-            color: #f5e83a !important;
+            border: 1px solid var(--activeColor);
+            color: #{var(--activeColor);} !important;
         `
     }
 `
@@ -296,18 +252,16 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
     const mainTitle = useRef(null);
     const subTitle = useRef(null);
 
-    const onResizeTitle = useCallback((ref) => {
-        if (mainTitle === null || mainTitle.current === null) {
+    const onChangeTitle = e => {
+        const { dataset, textContent, value } = e.target;
+        const { name } = dataset;
+        const isTitle = name === "title"
+        if (isTitle && textContent.length > 30) {
+            alert("30자 이상 입력할 수 없습니다.");
+            e.target.textContent = title;
             return;
         }
-        /* 기본 높이 설정 */
-        mainTitle.current.style.height = '1px';
-        /* 기본 길이에서 현재 높이에 따라서 높이 추가 */
-        mainTitle.current.style.height = mainTitle.current.scrollHeight + 'px';
-    }, [])
-
-    const onChangeTitle = e => {
-        onChangeText({ name: e.target.name, value: e.target.value });
+        onChangeText({ name, value: isTitle ? textContent : value });
     };
 
     /*
@@ -326,7 +280,6 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
     })
 
     const onSize = () => {
-        // setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
         onChangeStyle({ name: 'isFullSize', value: !titleStyle.isFullSize })
         thumbnailBox.current.classList.toggle('half')
     }
@@ -466,17 +419,15 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                 ref={titleBox}
             >
                 <TitleInput 
+                    contentEditable
                     ref={mainTitle}
-                    onInput={onResizeTitle(mainTitle)}
-                    name="title"
+                    data-name="title"
                     placeholder="제목을 입력하세요." 
-                    onChange={onChangeTitle} 
-                    value={title}
+                    onInput={onChangeTitle}
                 />
                 <SubtitleInput 
                     ref={subTitle}
-                    name="subtitle" 
-                    value={subtitle} 
+                    data-name="subtitle" 
                     onChange={onChangeTitle}
                     placeholder="소제목을 입력하세요."
                 />
