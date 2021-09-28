@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import DiaryModifyAndDeleteBtns from './DiaryModifyAndDeleteBtns';
 import 'quill/dist/quill.bubble.css';
@@ -209,7 +209,7 @@ const StyledDiaryBody = styled.div`
 `;
 
 
-const Diary = ({ diary, diaryError, userId, onPatch, onDelete, updateProgressBarWidth }) => {
+const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startReadDiary, initialize, updateProgressBarWidth }) => {
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {
@@ -217,20 +217,31 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, updateProgressBar
             } else return alert('글을 불러올 수 없어요! 😥');
         }
     }, [diaryError])
-    const getProgressRate = useCallback(() => {
-            /*
-                scrolledTop: 현재 맨 위에서 스크롤 된 top 값 = (max: 문서 전체 Height - scrolledHeight)
-                scrolledHeight: 현재 Viewport의 height를 제외한 문서의 Height 높이
-            */ 
-        const scrolledTop = document.body.scrollTop || document.documentElement.scrollTop;
-        const scrolledHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const getProgressRate = useCallback(() => throttle(() => {
+        console.log("hi")
+        /*
+            scrolledTop: 현재 맨 위에서 스크롤 된 top 값 = (max: 문서 전체 Height - scrolledHeight)
+            scrolledHeight: 현재 Viewport의 height를 제외한 문서의 Height 높이
+        */ 
+        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+        const scrolledTop = document.body.scrollTop || scrollTop;
+        const scrolledHeight = scrollHeight - clientHeight;
         updateProgressBarWidth((scrolledTop / scrolledHeight) * 100)
-    }, [updateProgressBarWidth])
+    }, 300), [])
+
     useEffect(() => {
-        window.addEventListener('scroll', throttle(() => {
-            getProgressRate();
-        }, 300))
-    }, [getProgressRate])
+        startReadDiary(diaryId)
+        return () => {
+            initialize();
+        }
+    }, []);
+
+    useLayoutEffect(() => {
+        const callback = getProgressRate();
+        window.addEventListener('scroll', callback)
+        return () => window.removeEventListener('scroll', callback);
+    }, [])
+
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, titleStyle } = diary;
     const { userImage, authorId } = author;
@@ -262,4 +273,4 @@ const Diary = ({ diary, diaryError, userId, onPatch, onDelete, updateProgressBar
     );
 };
 
-export default React.memo(Diary);
+export default Diary;

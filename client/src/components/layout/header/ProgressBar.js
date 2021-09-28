@@ -22,7 +22,7 @@ const StyledProgressBar = styled.div`
         top: 8vh;
     }
 `
-const ProgressBar = (props) => {
+const ProgressBar = () => {
     const { progressBarWidth } = useSelector(({ utilReducer }) => ({
         progressBarWidth: utilReducer.progressBarWidth,
     }));

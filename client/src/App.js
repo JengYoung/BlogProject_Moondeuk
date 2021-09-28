@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './lib/styles/GlobalStyles';
 import DiaryPage from './pages/DiaryPage';
@@ -18,12 +18,14 @@ function App() {
     <React.Fragment>
       <ThemeProvider theme={themeStyles[theme]}>
         <GlobalStyles/>
-        <Route component={MainPage} path='/' exact/>
-        <Route component={UserPage} path='/@:authorId' exact/>
-        <Route component={RegisterPage} path='/register' />
-        <Route component={LoginPage} path='/login' />
-        <Route component={WritePage} path={['/write/@:authorId/:diaryId', '/write']} />
-        <Route component={DiaryPage} path='/@:authorId/:diaryId' />
+        <Switch>
+          <Route component={MainPage} path='/' exact/>
+          <Route component={UserPage} path='/@:authorId' exact/>
+          <Route component={RegisterPage} path='/register' />
+          <Route component={LoginPage} path='/login' />
+          <Route component={WritePage} path={['/write/@:authorId/:diaryId', '/write']} />
+          <Route component={DiaryPage} path='/@:authorId/:diaryId' />
+        </Switch>
       </ThemeProvider>
     </React.Fragment>
   );
