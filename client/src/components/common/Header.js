@@ -177,7 +177,7 @@ const SearchBtn = styled(CircleBtn)`
 
 const Header = ({ user, onLogout, checkUser, onSideBar, alerts, onConform, onOpenSearchBar }) => {
     const userId = user ? user.userId : null;
-    const user_id = React.useMemo(() => user ? user._id : null, [user]);
+    const user_id = React.useMemo(() => user?._id ?? null, [user]);
     const userImage = React.useMemo(() => user ? user.userImage : null, [user]);
     const [ openAlertList, setOpenAlertList ] = useState(false);
     const [ openLogout, setopenLogout ] = useState(false);

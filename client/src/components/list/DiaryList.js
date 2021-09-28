@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 import myMediaQuery from 'lib/styles/_mediaQuery';
 import myVars, { myFont } from 'lib/styles/_variable';
 import { StyledResponsive } from 'components/common/ResponsiveWrapper';
-/*
-*/
 
-// 전체를 감쌈
+
 const StyledDiaryCards = styled(StyledResponsive)`
     display: flex;
     /* justify-content: flex-start; */
@@ -86,7 +84,7 @@ const StyledDiaryData = styled.div`
     top: 240px;
     border: none;
     &:hover {
-        transition: all 0.5s;
+        transition: all 0.25s;
         height: 100%;
         top: 0;
     }

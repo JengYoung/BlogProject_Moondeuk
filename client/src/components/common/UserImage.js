@@ -7,6 +7,7 @@ import styled, { css } from 'styled-components';
 **/
 
 export const StyledUserImage = styled.div`
+    flex-shrink: 0;
     width: 50px;
     height: 50px;
     border-radius: 3rem;
@@ -49,6 +50,7 @@ export const StyledUserImageLink = styled(Link)`
 `;
 
 const UserImage = ({ isLink, isSubscribePage, userImage, userId, ...rest }) => {
+    console.log(userImage);
     return (
         <>
             { isLink && <StyledUserImageLink $userImage={userImage} to={`@${userId}`}/> }

@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { CgArrowsShrinkV } from 'react-icons/cg'
-import { IoBrushOutline } from 'react-icons/io5'
-import { IoIosColorPalette } from 'react-icons/io'
-import { IoImage } from 'react-icons/io5'
-import AWS from 'aws-sdk';
+import { CgArrowsShrinkV } from 'react-icons/cg';
+import { IoBrushOutline } from 'react-icons/io5';
+import { IoIosColorPalette } from 'react-icons/io';
+import { IoImage } from 'react-icons/io5';
+import uploadImage from 'lib/util/uploadImage';
 
 /**
 **/
@@ -315,44 +315,15 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
     */
 
     const onActive = e => {
-        console.log(e.currentTarget.classList);
         if(e.currentTarget.classList.contains('active')) return e.currentTarget.classList.remove('active');
         e.currentTarget.classList.toggle('active');
     }
-
-    const fileName = useRef(null);
-    
-    const onThumbnailUpload = e => {
-        const { REACT_APP_BUCKETREGION, REACT_APP_IDENTITY_POOL_ID } = process.env;
-        AWS.config.update({
-            region: REACT_APP_BUCKETREGION,
-            credentials: new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: REACT_APP_IDENTITY_POOL_ID,
-            }),
-        })
-        const file = e.target.files[0];
-        fileName.current = file.name;
-        const upload = new AWS.S3.ManagedUpload({
-            params: {
-                Bucket: "moondeuk-images",
-                Key: "diary/thumbnail/" + file.name,
-                Body: file,
-            }
-        })
-        const promise =  upload.promise();
-
-        promise.then(
-            function (data) {
-                onChangeStyle({ name: 'thumbnail', value: data.Location})
-                onChangeStyle({ name: 'color', value: "" })
-                const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
-                thumbnailColorBtn.classList.remove('active');
-            },
-            function (err) {
-                alert(`이미지를 가져올 수 없어요! 😂\n 사유: ${err}`)
-            }
-        )
-    }
+    const onThumbnailUpload = e => uploadImage(e, data => {
+        onChangeStyle({ name: 'thumbnail', value: data.Location})
+        onChangeStyle({ name: 'color', value: "" })
+        const thumbnailColorBtn = document.querySelector('.thumbnail-color-btn');
+        thumbnailColorBtn.classList.remove('active');
+    })
 
     const onSize = () => {
         // setTitleStyle(() => ({...titleStyle, isFullSize: !titleStyle.isFullSize}))
