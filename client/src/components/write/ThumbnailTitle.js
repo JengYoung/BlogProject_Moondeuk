@@ -18,6 +18,7 @@ const ThumbnailTitleBox = styled.div`
     transition: all 0.5s;
     background-size: cover;
     background-position: center;
+
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         height: 78vh;
@@ -26,6 +27,7 @@ const ThumbnailTitleBox = styled.div`
         padding: 0 20vw;
         height: 76vh;
     }
+
     &.half {
         height: 42vh;
         @media screen and (min-width: 481px) {
@@ -37,6 +39,7 @@ const ThumbnailTitleBox = styled.div`
             height: 39vh;
         }
     }
+
     &.center {
         justify-content: center;
         /* align-items: center; */
@@ -64,9 +67,11 @@ const ThumbnailColorBox = styled.ul`
             transform: translateY(-5px);
         }
     }
+
     .active {
         display: flex;
     }
+
     @media screen and (min-width: 481px) {
         right: 15vw;
     }
@@ -95,8 +100,12 @@ const TitleInput = styled.div`
     @media screen and (min-width: 769px) {
         font-size: 2.5rem;
     }
-    ${({ theme }) => css`
-        color: ${theme.fontColor};
+    &[contenteditable=true]:empty:before {
+      content: "제목을 입력해주세요!";
+      cursor: text;
+    }
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
     `}
 `;
 const SubtitleInput = styled.textarea`
@@ -107,9 +116,14 @@ const SubtitleInput = styled.textarea`
     border: none;
     width: 100%;
     padding-left: 0.5rem;
-    ${({ theme }) => css`
-        color: ${theme.fontColor};
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
     `}
+    &::placeholder {
+      ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+      `}
+    }
 `;
 
 const TitleBox = styled.div`
@@ -398,13 +412,15 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
         }
     },[titleStyle.color])
 
+    const isThumbnail = !!(titleStyle.thumbnail.length || titleStyle.color.length)
     return (
         <ThumbnailTitleBox ref={thumbnailBox} isCenter={titleStyle.isCenter} className="half">
             <TitleBox 
                 isCenter={titleStyle.isCenter}
                 ref={titleBox}
             >
-                <TitleInput 
+                <TitleInput
+                    $isThumbnail={isThumbnail}
                     contentEditable
                     ref={mainTitle}
                     data-name="title"
@@ -413,6 +429,7 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                     outerText={title}
                 />
                 <SubtitleInput 
+                    $isThumbnail={isThumbnail}
                     ref={subTitle}
                     data-name="subtitle" 
                     onChange={onChangeTitle}

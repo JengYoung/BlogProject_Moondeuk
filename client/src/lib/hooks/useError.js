@@ -32,11 +32,11 @@ export const checkRegisterInputError = (name, value, password = null) => {
                 return null;
             case "password":
                 if (value.length === 0) return null;
-                if (value.length < 6 || value.length > 24) return true;
+                if (value.length < 4 || value.length > 24) return true;
                 else return null;
             case "passwordConform":
                 if (value.length === 0) return null;
-                if (value.length < 6 || value.length > 24) return true;
+                if (value.length < 4 || value.length > 24) return true;
                 if (password !== value) return true;
                 else return null;
             case "nickname":

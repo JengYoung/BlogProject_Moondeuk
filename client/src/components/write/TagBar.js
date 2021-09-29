@@ -67,11 +67,14 @@ const StyledTag = styled.div`
     margin-bottom: 0.5rem;
     padding: 0 1rem;
     font-size: 0.9rem;
+    ${({ $isThumbnail, theme }) => css`
+      color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+    `}
     ${props =>
-        (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
-            color: white;
-            border: 1px solid white;
-        `
+      (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
+          color: white;
+          border: 1px solid white;
+      `
     }
     &:hover {
         cursor: pointer;
@@ -84,8 +87,17 @@ const StyledTag = styled.div`
     }
 `;
 
-const Tag = React.memo(({tag, onRemove, titleStyle}) => 
-                <StyledTag onClick={() => onRemove(tag)} titleStyle={titleStyle}>#{tag}</StyledTag>)
+const Tag = React.memo(({tag, onRemove, titleStyle}) => {
+  const isThumbnail = !!(titleStyle.thumbnail.length || titleStyle.color.length)
+  return (
+    <StyledTag 
+      $isThumbnail={isThumbnail}
+      onClick={() => onRemove(tag)} 
+      titleStyle={titleStyle}>#{tag}
+    </StyledTag>
+  )
+})
+  
 
 const TagsWrapper = React.memo(({ tags, onRemove, onChange, value, onSubmit, titleStyle }) => (
     <StyledTagsWrapper titleStyle={titleStyle}>
@@ -140,7 +152,7 @@ const TagBar = ({ onChangeTags, tags, titleStyle }) => {
 
     return (
         <StyledTagBar>
-            <TagsWrapper 
+            <TagsWrapper
                 tags={nowTags} 
                 onRemove={onRemove} 
                 onChange={onChange} 
