@@ -13,7 +13,7 @@ function SearchWrapperContianer() {
         isOpenSearchBar: searchReducer.isOpenSearchBar,
         searchResult: searchReducer.searchResult,
     }));
-    const initializeBar = () => dispatch(initializeSearchBar());
+    const initializeBar = useCallback(() => dispatch(initializeSearchBar()), [dispatch]);
     const onChangeKeyword =  useCallback(payload => {
         dispatch(changeKeyword(payload))
     }, [dispatch])

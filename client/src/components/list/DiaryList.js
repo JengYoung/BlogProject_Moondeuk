@@ -100,6 +100,7 @@ const StyledDiaryDataBackground = styled.div`
     height: 100%;
     ${({ theme }) => css`
         background: ${ theme.bgColor };
+        border: 1px solid ${ theme.diaryCardBorderColor };
     `}
 `;
 
@@ -155,7 +156,9 @@ const StyledAuthorImage = styled.div`
     width: 1rem;
     height: 1rem;
     border-radius: 1rem;
-    border: 1px solid lightgray;
+    ${({theme}) => css`
+        border: 1px solid ${ theme.diaryCardBorderColor };
+    `}
     background-position: center;
     background-size: cover;
     ${props => 
@@ -223,11 +226,8 @@ const StyledDiaryPostedDate = styled.time`
 const ObserverTarget = styled.div`
 `;
 
-const DiaryCard = ({ diary, history }) => {
+const DiaryCard = ({ diary }) => {
     const { title, tags, author, _id, subtitle, body, postedDate } = diary;
-    // const date = new Date(postedDate).toLocaleDateString("en-US", {
-    //     weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric'
-    // }).replaceAll('/', '. ');
     const thumbnailUrl = diary.titleStyle?.thumbnail;
     const bgColor = diary.titleStyle?.color;
     const defaultThumbnailUrl = !bgColor ? myVars.defaultThumbnail : null;

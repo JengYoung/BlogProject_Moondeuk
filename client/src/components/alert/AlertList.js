@@ -15,6 +15,20 @@ const StyledAlertList = styled.div`
     border: 1px solid lightgray;
     border-top: 4px solid #bb7dbb;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: gray;
+    }
+    &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+    }
     @media screen and (max-width: 480px) {
         left: 0;
     } 

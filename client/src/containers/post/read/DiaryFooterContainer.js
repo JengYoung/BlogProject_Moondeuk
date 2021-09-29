@@ -19,4 +19,4 @@ function DiaryFooterContainer({ typeName }) {
     )
 }
 
-export default React.memo(DiaryFooterContainer)
+export default DiaryFooterContainer;

@@ -3,7 +3,6 @@ import LinkedDiaryWrapper from 'components/read/LinkedDiaryWrapper';
 import CommentWrapperContainer from 'containers/comment/CommentWrapperContainer';
 import { setProgressBarWidth } from 'modules/util';
 import { useCallback } from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import Diary from '../../../components/read/Diary'
@@ -13,7 +12,7 @@ import { settingUpdate } from '../../../modules/write';
 
 const DiaryContainer = ({ match, history, width, setWidth }) => {
     const dispatch = useDispatch();
-    const { diary, diaryError, user } = useSelector(({ diaryReducer, userReducer, utilReducer }) => ({
+    const { diary, diaryError, user } = useSelector(({ diaryReducer, userReducer }) => ({
         diary: diaryReducer.diary,
         diaryError: diaryReducer.diaryError,
         user: userReducer.user,

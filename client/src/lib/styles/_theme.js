@@ -6,7 +6,7 @@ const themeStyles = {
         /* default color */ 
         bgColor: myColors.purple[myColors.purple.length - 1],
         fontColor: 'white',
-        borderColor: 'white', // border의 경우 다크모드 - 흰색, 라이트모드 - 연보라
+        borderColor: myColors.gray[5], // border의 경우 다크모드 - 흰색, 라이트모드 - 연보라
         errorColor: '#ff8e8e',
         /* component color */ 
         buttonBg: 'transparent',
@@ -18,6 +18,7 @@ const themeStyles = {
         tagBg: myColors.purple[5],
         progressBarColor: 'white',
         editorColor: myColors.gray[5],
+        diaryCardBorderColor: myColors.gray[7],
         /* page Specific color */
         loginBg: 'transparent',
         SideBarComponentBg: 'white',
@@ -53,6 +54,7 @@ const themeStyles = {
         tagBg: myColors.purple[1],
         progressBarColor: myColors.purple[0],
         editorColor: myColors.gray[7],
+        diaryCardBorderColor: myColors.gray[3],
         /* page Specific color */
         loginBg: 'white',
         SideBarComponentBg: 'white',

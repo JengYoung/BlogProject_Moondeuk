@@ -17,7 +17,7 @@ export const checkRegisterInputError = (name, value, password = null) => {
         let b;
         let c;
         if (value !== undefined && value !== "") {
-            for (b = i = 0; c = value.charCodeAt(i++); b += c >> 7 ? alphaCnt * 2 : alphaCnt);
+            for (b = i = 0; (c = value.charCodeAt(i++)); b += c >> 7 ? alphaCnt * 2 : alphaCnt);
             if (b > maxLangth || b < minLength) return false;
             else return true;
         } 

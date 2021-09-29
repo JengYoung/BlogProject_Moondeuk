@@ -113,7 +113,7 @@ const SearchWrapper = ({ keywordType, keyword, onChangeKeyword, onSearch, isOpen
         return () => {
             initializeBar()
         }
-    }, [])
+    }, [initializeBar])
 
     return (
         <StyledSearchWrapper ref={searchWrapper}>

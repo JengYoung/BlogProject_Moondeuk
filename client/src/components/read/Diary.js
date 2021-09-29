@@ -218,7 +218,6 @@ const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startRea
         }
     }, [diaryError])
     const getProgressRate = useCallback(() => throttle(() => {
-        console.log("hi")
         /*
             scrolledTop: 현재 맨 위에서 스크롤 된 top 값 = (max: 문서 전체 Height - scrolledHeight)
             scrolledHeight: 현재 Viewport의 height를 제외한 문서의 Height 높이
@@ -227,20 +226,20 @@ const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startRea
         const scrolledTop = document.body.scrollTop || scrollTop;
         const scrolledHeight = scrollHeight - clientHeight;
         updateProgressBarWidth((scrolledTop / scrolledHeight) * 100)
-    }, 300), [])
+    }, 300), [updateProgressBarWidth])
 
     useEffect(() => {
         startReadDiary(diaryId)
         return () => {
             initialize();
         }
-    }, []);
+    }, [startReadDiary, diaryId, initialize]);
 
     useLayoutEffect(() => {
         const callback = getProgressRate();
-        window.addEventListener('scroll', callback)
+        window.addEventListener('scroll', callback, { passive: true })
         return () => window.removeEventListener('scroll', callback);
-    }, [])
+    }, [getProgressRate])
 
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, titleStyle } = diary;
@@ -252,7 +251,7 @@ const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startRea
                 <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} $fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
                     <StyledThumbnailTitle className={font} isCenter={isCenter} $fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
                     <StyledSubtitle isCenter={isCenter} $fontColor={fontColor}>{subtitle}</StyledSubtitle>
-                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag key={tag} $fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
+                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag to="" key={tag} $fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">
                         <StyledAuthorImage $userImage={userImage}/>
                         <StyledAuthorName>by { authorId }</StyledAuthorName>
