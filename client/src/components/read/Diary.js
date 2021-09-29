@@ -38,6 +38,9 @@ const StyledDiaryHeader = styled.header`
             align-items: center;
         `
     }
+        ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+    `}
     &::before {
         content:"";
         position: absolute;
@@ -151,9 +154,6 @@ const StyledDiaryTag = styled(Link)`
     &::before {
         content: "# ";
     }
-    ${({ theme, $isThumbnail }) => css`
-        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
-    `}
 
     &:hover {
         transition: all 0.3s;
@@ -169,6 +169,9 @@ const StyledDateAndNameBox = styled.div`
     align-items: center;
     font-size: 0.8rem;
     margin-bottom: 1rem;
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+    `}
 `
 const StyledAuthorImage = styled(StyledUserImage)`
     width: 1.5rem;
