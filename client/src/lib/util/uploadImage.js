@@ -1,6 +1,8 @@
 import AWS from 'aws-sdk';
 
 const uploadImage = (e, resolveCallback) => {
+    const file = e.target.files[0];
+    if (!file) return;
     const { 
         REACT_APP_BUCKETREGION, 
         REACT_APP_IDENTITY_POOL_ID 
@@ -11,7 +13,6 @@ const uploadImage = (e, resolveCallback) => {
             IdentityPoolId: REACT_APP_IDENTITY_POOL_ID,
         }),
     })
-    const file = e.target.files[0];
     const upload = new AWS.S3.ManagedUpload({
         params: {
             Bucket: "moondeuk-images",
