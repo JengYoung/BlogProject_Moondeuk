@@ -5,7 +5,6 @@ import DiaryContainer from '../containers/post/read/DiaryContainer';
 import DiaryFooterContainer from '../containers/post/read/DiaryFooterContainer';
 import SearchWrapperContainer from '../containers/search/SearchWrapperContianer';
 function DiaryPage() {
-    useEffect(() => { console.log("render") })
     return (
         <>
             <HeaderContainer isDiary/>

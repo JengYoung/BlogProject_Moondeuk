@@ -10,7 +10,6 @@ const StyledHeadName = styled.header`
     margin-bottom: 1rem;
     display: inline-block;
     padding: 0.3rem;
-    /* background-color: #f5f5f5; */
     ${props =>
     props.colorWhite && css`
         color: white;

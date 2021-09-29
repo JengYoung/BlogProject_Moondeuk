@@ -23,11 +23,12 @@ function Logincontainer({ history }) {
 
     /* Initialize form - if exists user data => return alert message */ 
     useEffect(() => {
-        const USER_COOKIE_KEY = 'access_token';
+        const COOKIE_KEY = 'access_token';
+        const USER_LOCAL_KEY = 'user';
         if (!user) dispatch(initializeForm()); 
         else {
             history.push('/');
-            setItemToLocalStorage(USER_COOKIE_KEY, getCookie(USER_COOKIE_KEY));
+            setItemToLocalStorage(USER_LOCAL_KEY, getCookie(COOKIE_KEY));
         }
     }, [dispatch, user, history])
 

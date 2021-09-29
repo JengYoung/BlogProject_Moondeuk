@@ -13,7 +13,6 @@ const CommentListItemContainer = ({ comment }) => {
     const dispatch = useDispatch();
     const { _id, content } = comment;
     const onUpdate = () => {
-        console.log(updatedContent, updatedContent[_id])
         dispatch(updateComment({_id, updatedContent: updatedContent[_id]}));
     };
 

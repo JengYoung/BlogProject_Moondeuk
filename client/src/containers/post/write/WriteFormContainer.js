@@ -17,7 +17,6 @@ function WriteFormContainer() {
     }));
     const dispatch = useDispatch();
     const onChangeText = useCallback(payload => {
-        console.log(payload)
         dispatch(changeText(payload))
     }, [dispatch]);
     const onChangeStyle = useCallback(payload => dispatch(changeStyle(payload)), [dispatch]);

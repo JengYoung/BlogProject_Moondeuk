@@ -246,7 +246,6 @@ const TitlePositionModifier = styled.div`
 `
 
 const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeText, children }) => {
-    console.log("subtitle", subtitle)
     const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
     const mainTitle = useRef(null);
@@ -425,7 +424,12 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
             </TitleBox>
             <TitleToolbar className="title-toolbar" onClick={onChangeFont}>
                 <label id="title-thumbnail-btn" htmlFor="title-thumbnail-input"><IoImage/></label>
-                <input onChange={onThumbnailUpload} id="title-thumbnail-input" type="file" accept="image/*"/>
+                <input 
+                    onChange={onThumbnailUpload} 
+                    id="title-thumbnail-input" 
+                    type="file" 
+                    accept="image/*"
+                />
                 <div onClick={onSize}>
                     <CgArrowsShrinkV onClick={onActive}/>
                 </div>
