@@ -21,7 +21,6 @@ import { changeText, replyComment } from '../../modules/comment';
  * (@props { nickname } <string> 댓글 달 사람의 닉네임)
  */ 
 function InputWrapperContainer({ _id, receiver, isReply, hasMarginLeft, comment_id }) { 
-    console.log("RECEIVER", receiver)
     const dispatch = useDispatch();
     const { content, user, diary } = useSelector(({ commentReducer, userReducer, diaryReducer }) => ({
         content: commentReducer.content,
@@ -44,7 +43,6 @@ function InputWrapperContainer({ _id, receiver, isReply, hasMarginLeft, comment_
     const onSubmit = e => {
         e.preventDefault()
         const replyTo = user_id === receiver._id ? { _id: null, nickname: null } : { _id: receiver._id, nickname: receiver.nickname };
-        console.log("replyTo: ", replyTo, "replier: ", receiver);
         dispatch(replyComment({ user_id, nickname, comment_id, content: content[_id], replyTo }));
         dispatch(alertUser({ 
             sender_id: user_id, 
@@ -56,7 +54,7 @@ function InputWrapperContainer({ _id, receiver, isReply, hasMarginLeft, comment_
                 content: content[_id]
             }
         }))
-        e.target.value = '';
+        content[_id] = '';
     }
 
     return(
@@ -65,7 +63,7 @@ function InputWrapperContainer({ _id, receiver, isReply, hasMarginLeft, comment_
                 isReply={isReply}
                 hasMarginLeft={hasMarginLeft}
                 comment_id={_id}
-                content={content[comment_id]}
+                content={content[_id]}
                 onChangeText={onChangeText}
                 name="content"
             />
