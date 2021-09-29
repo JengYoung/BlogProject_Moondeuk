@@ -13,7 +13,10 @@ const StyledAlertList = styled.div`
     height: 12rem;
     background: white;
     border: 1px solid lightgray;
-    border-top: 4px solid #bb7dbb;
+    border-top: 5px solid ${({theme}) => css`
+        ${theme.alertTopBgColor}
+    `};
+    border-radius: 5px;
     overflow-y: scroll;
     &::-webkit-scrollbar {
         width: 6px;

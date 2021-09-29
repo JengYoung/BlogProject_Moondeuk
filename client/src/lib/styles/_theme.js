@@ -21,6 +21,7 @@ const themeStyles = {
         diaryCardBorderColor: myColors.gray[7],
         commentWrapperBgColor: myColors.purple[8],
         commentInputBtnBgColor: myColors.purple[1],
+        alertTopBgColor: myColors.purple[3],
         /* page Specific color */
         loginBg: 'transparent',
         SideBarComponentBg: 'white',
@@ -59,6 +60,7 @@ const themeStyles = {
         diaryCardBorderColor: myColors.gray[3],
         commentWrapperBgColor: myColors.gray[1], 
         commentInputBtnBgColor: myColors.purple[1],
+        alertTopBgColor: myColors.purple[1],
         /* page Specific color */
         loginBg: 'white',
         SideBarComponentBg: 'white',
