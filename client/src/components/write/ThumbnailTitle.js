@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { CgArrowsShrinkV } from 'react-icons/cg';
-import { IoBrushOutline } from 'react-icons/io5';
 import { IoIosColorPalette } from 'react-icons/io';
 import { IoImage } from 'react-icons/io5';
 import uploadImage from 'lib/util/uploadImage';
@@ -247,6 +246,7 @@ const TitlePositionModifier = styled.div`
 `
 
 const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeText, children }) => {
+    console.log("subtitle", subtitle)
     const thumbnailBox = useRef(null);
     const titleBox = useRef(null);
     const mainTitle = useRef(null);
@@ -255,10 +255,18 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
     const onChangeTitle = e => {
         const { dataset, textContent, value } = e.target;
         const { name } = dataset;
-        const isTitle = name === "title"
+        const isTitle = name === "title";
         if (isTitle && textContent.length > 30) {
             alert("30자 이상 입력할 수 없습니다.");
-            e.target.textContent = title;
+            e.target.textContent = e.target.textContent.slice(0,30);
+            onChangeText({ name, value: e.target.textContent });
+            return;
+        }
+        const isSubtitle = name === 'subtitle';
+        if (isSubtitle && textContent.length > 40) {
+            alert("40자 이상 입력할 수 없습니다.");
+            e.target.value = e.target.value.slice(0,40);
+            onChangeText({ name, value: e.target.value });
             return;
         }
         onChangeText({ name, value: isTitle ? textContent : value });
@@ -299,15 +307,9 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
             // 1. remove value from titleStyle.color
             thumbnailBox.current.classList.remove(titleStyle.color);
             onChangeStyle({ name: 'color', value: '' });
-            // 2. fontColor -> black, btn active cancel
-            titleStyle.fontColor = 'black';
         }
     }
 
-    const onTitleColor = () => {
-        if (titleStyle.fontColor === 'black') onChangeStyle({ name: 'fontColor', value: 'white' });
-        else onChangeStyle({ name: 'fontColor', value: 'black' });
-    }
     const onTitleCenter = () => {
         onChangeStyle({ name: 'isCenter',  value: !(titleStyle.isCenter) })
     }
@@ -362,20 +364,6 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
         }
     }, [titleStyle.thumbnail])
 
-    useEffect(() => {
-        const fontColorBtn = document.querySelector('.font-color-btn');
-        const fontColorIcon = document.querySelector('.font-color-btn > svg')
-        if (document.querySelector('#title-thumbnail-btn').classList.contains('active') || 
-            (document.querySelector('.thumbnail-color-btn')).classList.contains('active')
-            ) {
-            fontColorBtn.style.display = 'block';
-        } else {
-            fontColorBtn.style.display = 'none';
-            if (fontColorIcon.classList.contains('active')) fontColorIcon.classList.remove('active');
-            onChangeStyle({ name: 'fontColor', value: 'black' });
-        }
-    },[titleStyle.thumbnail, titleStyle.color, onChangeStyle])
-
     // toggle thumbnail-color-btn titleStyle color
     const changeColor = e => {
         const colors = document.querySelectorAll(".color");
@@ -414,8 +402,7 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
     return (
         <ThumbnailTitleBox ref={thumbnailBox} isCenter={titleStyle.isCenter} className="half">
             <TitleBox 
-                isCenter={titleStyle.isCenter} 
-                isFontColor={titleStyle.fontColor} 
+                isCenter={titleStyle.isCenter}
                 ref={titleBox}
             >
                 <TitleInput 
@@ -424,12 +411,14 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                     data-name="title"
                     placeholder="제목을 입력하세요." 
                     onInput={onChangeTitle}
+                    outerText={title}
                 />
                 <SubtitleInput 
                     ref={subTitle}
                     data-name="subtitle" 
                     onChange={onChangeTitle}
                     placeholder="소제목을 입력하세요."
+                    value={subtitle}
                 />
                 { children }
                 {/* font -> event bubbling (추후 많아질 수도 있으니) */}
@@ -453,12 +442,6 @@ const ThumbnailTitle = ({ title, subtitle, titleStyle, onChangeStyle, onChangeTe
                 >
                     가
                 </TitlePositionModifier>
-                <div 
-                    className="font-color-btn" 
-                    onClick={onTitleColor}
-                >
-                    <IoBrushOutline onClick={onActive}/>
-                </div>
             </TitleToolbar>
             <ThumbnailColorBox className="thumbnail-color-box" onClick={changeColor}>
                 <li className="color red"></li>
