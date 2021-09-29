@@ -38,11 +38,6 @@ const StyledDiaryHeader = styled.header`
             align-items: center;
         `
     }
-    ${props => 
-        props.$fontColor === 'white' && css`
-            color: white;
-        `
-    }    
     &::before {
         content:"";
         position: absolute;
@@ -95,6 +90,9 @@ const StyledThumbnailTitle = styled.h1`
     margin-bottom: 0.5rem;
     width: 100%;
     z-index: 11;
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+    `}
     ${props => 
         props.isCenter && css`
             display: flex;
@@ -119,11 +117,9 @@ const StyledSubtitle = styled.h2`
             justify-content: center;
         `
     }
-    ${props => 
-        props.$fontColor === 'white' && css`
-            color: white;
-        `
-    }    
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+    `}
 `
 const StyledTagBox = styled.nav`
     position: relative;
@@ -138,7 +134,7 @@ const StyledTagBox = styled.nav`
             display: flex;
             justify-content: center;
         `
-    } 
+    }
 `
 const StyledDiaryTag = styled(Link)`
     display: inline-flex;
@@ -155,10 +151,10 @@ const StyledDiaryTag = styled(Link)`
     &::before {
         content: "# ";
     }
-    ${({ $fontColor }) => ($fontColor === 'black') && css`
-        color: black;
-        border: 1px solid black;
+    ${({ theme, $isThumbnail }) => css`
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
     `}
+
     &:hover {
         transition: all 0.3s;
         border: 1px solid ${myColors.purple[1]};
@@ -210,6 +206,7 @@ const StyledDiaryBody = styled.div`
 
 
 const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startReadDiary, initialize, updateProgressBarWidth }) => {
+    
     useEffect(() => {
         if (diaryError) {
             if (diaryError.response && diaryError.response.status === 404) {
@@ -243,15 +240,18 @@ const Diary = ({ diary, diaryId, diaryError, userId, onPatch, onDelete, startRea
 
     if (!diary) return null;
     const { title, subtitle, body, tags, author, postedDate, titleStyle } = diary;
+
     const { userImage, authorId } = author;
-    const { isCenter, isFullSize, thumbnail, color, fontColor, font } = titleStyle;
+    const { isCenter, isFullSize, thumbnail, color, font } = titleStyle;
+    const isThumbnail = !!(titleStyle.thumbnail.length || titleStyle.color.length);
+
     return (
         <>
             <ThumbnailTitleBox isFullSize={isFullSize} hasThumbnail={thumbnail} hasColor={color}>
-                <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} $fontColor={fontColor} hasThumbnail={thumbnail} hasColor={color}>
-                    <StyledThumbnailTitle className={font} isCenter={isCenter} $fontColor={fontColor} hasFont={font}>{title}</StyledThumbnailTitle>
-                    <StyledSubtitle isCenter={isCenter} $fontColor={fontColor}>{subtitle}</StyledSubtitle>
-                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag to="" key={tag} $fontColor={fontColor}>{tag}</StyledDiaryTag>)}</StyledTagBox>
+                <StyledDiaryHeader isFullSize={isFullSize} isCenter={isCenter} $isThumbnail={isThumbnail} hasThumbnail={thumbnail} hasColor={color}>
+                    <StyledThumbnailTitle className={font} isCenter={isCenter} $isThumbnail={isThumbnail} hasFont={font}>{title}</StyledThumbnailTitle>
+                    <StyledSubtitle isCenter={isCenter} $isThumbnail={isThumbnail}>{subtitle}</StyledSubtitle>
+                    <StyledTagBox isCenter={isCenter}>{tags.map(tag => <StyledDiaryTag to="" key={tag} $isThumbnail={isThumbnail}>{tag}</StyledDiaryTag>)}</StyledTagBox>
                     <StyledDateAndNameBox className="dancing-script">
                         <StyledAuthorImage $userImage={userImage}/>
                         <StyledAuthorName>by { authorId }</StyledAuthorName>
