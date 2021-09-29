@@ -22,6 +22,7 @@ const themeStyles = {
         commentWrapperBgColor: myColors.purple[8],
         commentInputBtnBgColor: myColors.purple[1],
         alertTopBgColor: myColors.purple[3],
+        diaryOptionBtnColor: myColors.purple[1],
         /* page Specific color */
         loginBg: 'transparent',
         SideBarComponentBg: 'white',
@@ -44,7 +45,7 @@ const themeStyles = {
         now: 'light',
         /* default color */ 
         bgColor: 'white',
-        fontColor: '#2b2b2b',
+        fontColor: myColors.gray[8],
         borderColor: myColors.purple[1],
         errorColor: '#ff3c3c',
         /* component color */ 
@@ -61,6 +62,7 @@ const themeStyles = {
         commentWrapperBgColor: myColors.gray[1], 
         commentInputBtnBgColor: myColors.purple[1],
         alertTopBgColor: myColors.purple[1],
+        diaryOptionBtnColor: myColors.purple[1],
         /* page Specific color */
         loginBg: 'white',
         SideBarComponentBg: 'white',

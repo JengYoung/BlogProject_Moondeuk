@@ -184,7 +184,7 @@ const StyledDiaryCardTags = styled.ul`
     display: inline-flex;
     position: sticky;
     bottom: 1.75rem;
-    height: 4rem;
+    max-height: 4rem;
     overflow: hidden;
     padding-top: 0.5rem;
     padding-left: 1rem;
@@ -197,6 +197,7 @@ const StyledDiaryCardTags = styled.ul`
         color: ${theme.fontColor};
     `}
     &.active {
+        max-height: 6rem;
         transition: height 0.5s;
         height: auto;
     }

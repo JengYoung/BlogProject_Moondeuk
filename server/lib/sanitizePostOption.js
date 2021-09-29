@@ -38,7 +38,8 @@ const sanitizeOption = {
         ],
         img: ['src'],
         li: ['class'],
-        span: ['class'],
+        span: ['class', 'style'],
+        p: ['class']
     },
     allowedSchemes: ['data', 'http'],
 };

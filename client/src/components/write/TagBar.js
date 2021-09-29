@@ -27,20 +27,13 @@ const StyledTagsInput = styled.input`
     font-weight: 200;
     height: 1.5rem;
     margin-bottom: 0.5rem;
-    ${props =>
-        (props.titleStyle.color !== "" || props.titleStyle.thumbnail !== "") && css`
-            color: white;
-            &::placeholder {
-                color: white;
-            }
-        `
-    }
-    ${({ theme }) => css`
-        color: ${theme.fontColor};
-        &::placeholder {
-            color: lightgray;
-        }
+    ${({ $isThumbnail, theme }) => css`
+      color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' };
+      &::placeholder {
+        color: ${(theme.now !== 'light' || $isThumbnail) ? 'white' : 'black' }
+      }
     `}
+
 `;
 
 const StyledTagsWrapper = styled.div`
@@ -107,7 +100,7 @@ const TagsWrapper = React.memo(({ tags, onRemove, onChange, value, onSubmit, tit
             )
         )}
         <StyledTagsForm onSubmit={onSubmit}>
-            <StyledTagsInput onChange={onChange} value={value} titleStyle={titleStyle} placeholder="태그를 입력하세요."/>
+            <StyledTagsInput $isThumbnail= {titleStyle.thumbnail} onChange={onChange} value={value} titleStyle={titleStyle} placeholder="태그를 입력하세요."/>
         </StyledTagsForm>
     </StyledTagsWrapper>
 ))

@@ -194,7 +194,16 @@ const StyledDiaryBody = styled.div`
     padding: 0 0 0 20px;
     ${({ theme }) => css`
         color: ${theme.fontColor};
+        [style] {
+            color: ${theme.now === 'dark' ? myColors.gray[7] : theme.fontColor};
+        }
     `}
+    .ql-align-center {
+        text-align: center;
+    }
+    .ql-align-right {
+        text-align: right;
+    }
     @media screen and (min-width: 481px) {
         padding: 0 15vw;
         /* height: 80vh; */

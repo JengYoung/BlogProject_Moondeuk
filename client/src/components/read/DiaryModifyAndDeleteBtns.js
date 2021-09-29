@@ -40,6 +40,11 @@ const StyledDiaryModifyAndDeleteBtns = styled.ul`
             }
         ` 
     }
+    ${({ theme }) => css`
+        svg {
+            color: ${ theme.diaryOptionBtnColor };
+        }
+    `}
 `;
 
 const StyledDiaryModifyAndDeleteBtn = styled.li`
