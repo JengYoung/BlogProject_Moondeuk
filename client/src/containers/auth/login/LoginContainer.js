@@ -7,6 +7,7 @@ import { check } from '../../../modules/user';
 import useError from 'lib/hooks/useError';
 import useTheme from 'lib/hooks/useTheme';
 import setItemToLocalStorage from 'lib/setItemToLocalStorage';
+import getCookie from 'lib/util/getCookie';
 
 function Logincontainer({ history }) {
     const { theme } = useTheme();
@@ -22,10 +23,11 @@ function Logincontainer({ history }) {
 
     /* Initialize form - if exists user data => return alert message */ 
     useEffect(() => {
+        const USER_COOKIE_KEY = 'access_token';
         if (!user) dispatch(initializeForm()); 
         else {
             history.push('/');
-            setItemToLocalStorage('user', user);
+            setItemToLocalStorage(USER_COOKIE_KEY, getCookie(USER_COOKIE_KEY));
         }
     }, [dispatch, user, history])
 
@@ -49,16 +51,17 @@ function Logincontainer({ history }) {
         if (!userId || !password) {
             setIsErrorEvent(state => ({ 
                 ...state, 
-                userId: userId ? null : true, 
-                password: password ? null : true
+                userId: null, 
+                password: null
             }))
             /* 메시지를 배열을 통해 생성합니다. */ 
-            const messageArr = [];
-            if (!userId) messageArr.push('아이디');
-            if (!userId && !password) messageArr.push(', ');
-            if (!password) messageArr.push('비밀번호');
-            messageArr.push('를 입력해주세요! 😅');
-            setError(`${messageArr.join('')}`)
+            const errorMessage = [
+                ...(!userId ? ['아이디'] : []),
+                ...(!userId && !password ? [', '] : []),
+                ...(!password ? ['비밀번호'] : []),
+                '를 입력해주세요!'
+            ].join('');
+            setError(errorMessage)
             return;
         }
         dispatch(login({ userId, password }));
