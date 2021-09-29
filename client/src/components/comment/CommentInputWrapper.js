@@ -32,11 +32,12 @@ const StyledInputBtn = styled(FooterBtn)`
     height: 7rem;
     width: 7rem;
     ${({ theme }) => css`
-        background: ${theme.buttonBg};
+        background: ${theme.commentInputBtnBgColor};
         color: ${theme.buttonColor};
         :hover {
             transition: all 0.3s;
             background: ${theme.event.hoverBg};
+            color: ${theme.event.hoverColor};
         }
     `}
     border-radius: 0px 10px 10px 0px;

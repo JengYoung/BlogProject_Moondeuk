@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 /*
 */
@@ -10,7 +10,9 @@ const StyledCommentWrapper = styled.div`
     margin: 0 auto;
     width: 100%;
     padding-top: 1rem;
-    background-color: #FAFAFA;
+    ${({ theme }) => css`
+        background-color: ${theme.commentWrapperBgColor};
+    `};
     box-sizing: border-box;
 `;
 

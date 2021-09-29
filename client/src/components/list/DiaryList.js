@@ -212,7 +212,6 @@ const StyledDiaryCardTag = styled.li`
     ${({ theme }) => css`
         background: ${theme.tagBg};
         color: ${theme.tagColor};
-        /* border: 1px solid ${theme.buttonColor}; */
     `};
     &::before {
         content: "# "

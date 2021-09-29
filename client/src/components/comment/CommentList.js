@@ -10,7 +10,7 @@ const StyledCommentList = styled(StyledResponsive)`
     flex-direction: column;
     padding: 1rem;
     ${({ theme }) => css`
-        background: ${theme.bgColor};
+        background: ${theme.commentWrapperBgColor};
     `}
 `;
 
